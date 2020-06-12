@@ -13,11 +13,11 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { VerifyEmailComponent } from './components/reset-password/verify-email/verify-email.component';
 
 const appRoutes: Routes = [
-  { path: '#/home', component: HomeComponent },
-  { path: '#/sign-in', component: SignInComponent },
-  { path: '#/sign-up', component: SignUpComponent },
-  { path: '#/reset-password', component: ResetPasswordComponent },
-  { path: '#/verify-email', component: VerifyEmailComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'sign-in', component: SignInComponent },
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
 ];
 
 @NgModule({
