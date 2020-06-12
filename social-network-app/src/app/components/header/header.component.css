@@ -1,0 +1,12 @@
+/* @import url("https://fonts.googleapis.com/css?family=Helvetica:300,900&display=swap"); */
+ul {
+  border-bottom: 2px solid #ddd;
+}
+ul li a {
+  margin-top: 15px;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-size: 30px;
+  color: #003e8f;
+  /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
+}

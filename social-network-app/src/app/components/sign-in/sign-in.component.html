@@ -1,0 +1,86 @@
+<div
+  class="container mt-5"
+  style="
+    background-color: lightgray;
+    width: 650px;
+    border-radius: 10px;
+    margin-top: 200px;
+  "
+>
+  <form
+    style="padding: 15px; margin-top: 30px; margin-bottom: 30px;"
+    #f="ngForm"
+    (ngSubmit)="onSubmit(f)"
+  >
+    <div class="form-group">
+      <label>Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="InputEmail1"
+        name="email"
+        ngModel
+        required
+        #email="ngModel"
+      />
+      <small
+        id="emailHelp"
+        class="form-text text-muted"
+        style="color: #cc0000;"
+        *ngIf="incorrectEmail"
+      >
+        insert a valid email
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="InputPassword1"
+        name="password"
+        ngModel
+        required
+        #password="ngModel"
+      />
+      <small
+        id="emailHelp"
+        class="form-text text-muted"
+        style="color: #cc0000;"
+        *ngIf="incorrectPassword"
+      >
+        wrong password !
+      </small>
+    </div>
+    <div class="form-group form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="exampleCheck1"
+        style="margin-right: 4px;"
+      />
+      <label class="form-check-label" for="exampleCheck1">Remember me </label>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      style="background-color: green;"
+      [disabled]="f.invalid"
+    >
+      <i class="fa fa-sign-in" aria-hidden="true"></i>
+      <span style="margin-left: 5px;"> Sign in</span>
+    </button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      style="margin-left: 40px; background-color: #003e8f;"
+    >
+      <i class="fa fa-user-plus" aria-hidden="true"></i>
+      <span style="margin-left: 5px;"
+        ><a routerLink="/sign-up" style="text-decoration: none; color: white;"
+          >Sign up</a
+        ></span
+      >
+    </button>
+  </form>
+</div>

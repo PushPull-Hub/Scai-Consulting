@@ -1,0 +1,39 @@
+<div
+  class="container mt-5"
+  style="
+    background-color: lightgray;
+    width: 650px;
+    height: 250px;
+    border-radius: 10px;
+    margin-top: 200px;
+  "
+>
+  <form style="margin-top: 40px;" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        name="email"
+        ngModel
+        required
+        #email="ngModel"
+      />
+
+      <small
+        id="emailHelp"
+        class="form-text text-muted"
+        style="color: #cc0000;"
+        *ngIf="incorrectEmail"
+      >
+        wrong email
+      </small>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+      <i class="fa fa-envelope-o" aria-hidden="true"></i
+      ><span id="changepass">Verify mail</span>
+    </button>
+  </form>
+</div>

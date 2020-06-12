@@ -1,0 +1,130 @@
+<div
+  class="container mt-5"
+  style="
+    background-color: lightgray;
+    width: 650px;
+    border-radius: 10px;
+    margin-top: 200px;
+  "
+>
+  <form id="form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>User Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputUserName" 
+          name="username"
+          ngModel
+          required
+          #username="ngModel"
+        />
+        <!-- <small
+          id="emailHelp"
+          class="form-text text-muted"
+          style="color: #cc0000;"
+        >
+          Required Filed !
+        </small> -->
+      </div>
+      <div class="form-group col-md-6">
+        <label>Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="inputPassword"
+          name="password"
+          ngModel
+          required
+          #password="ngModel"
+        />
+        <!-- <small
+          id="emailHelp"
+          class="form-text text-muted"
+          style="color: #cc0000;"
+        >
+          Required Filed !
+        </small> -->
+      </div>
+    </div>
+    <div class="form-group" style="margin-left: 15px; margin-right: 15px;">
+      <label>Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="inputEmail"
+        name="email"
+        ngModel
+        required
+        #email="ngModel"
+      />
+      <!-- <small
+        id="emailHelp"
+        class="form-text text-muted"
+        style="color: #cc0000;"
+      >
+        Required Filed !
+      </small> -->
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputFirstName"
+          name="firstname "
+          ngModel
+          required
+          #firstname="ngModel"
+        />
+        <!-- <small
+          id="emailHelp"
+          class="form-text text-muted"
+          style="color: #cc0000;"
+        >
+          Required Filed !
+        </small> -->
+      </div>
+      <div class="form-group col-md-6">
+        <label>Last Name </label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputLastName"
+          name="secondname"
+          ngModel
+          required
+          #secondname="ngModel"
+        />
+        <!-- <small
+          id="emailHelp"
+          class="form-text text-muted"
+          style="color: #cc0000;"
+        >
+          Required Filed !
+        </small> -->
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      style="background-color: green; margin-left: 16px; margin-top: 20px;"
+    
+      [disabled]="f.invalid"
+    >
+      Sign up
+    </button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      style="margin-left: 16px; background-color: #003e8f; margin-top: 20px;"
+    >
+      <a routerLink="/sign-in" style="text-decoration: none; color: white;"
+        >Already have account</a
+      >
+    </button>
+  </form>
+</div>

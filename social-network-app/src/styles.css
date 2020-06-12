@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(
+    to top left,
+    #003e8f 0%,
+    #00acee 50%,
+    #4587f1 100%
+  );
+  /* background: linear-gradient(
+    to bottom left,
+    #66757f 0%,
+    #00acee 35%,
+    #36d8ff 70%,
+    #f5f8fa 100%
+  ); */
+  width: 100vw;
+  height: 65vw;
+}
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42a948; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442; /* red */
+}
