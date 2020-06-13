@@ -18,15 +18,25 @@ export class SignUpComponent implements OnInit {
     const password = f.value.password;
     const secondName = f.value.secondname;
     const userName = f.value.username;
-    localStorage.setItem(
-      'user',
-      JSON.stringify({
-        username: userName,
-        password: password,
-        email: email,
-        firstname: firstName,
-        secondname: secondName,
-      })
-    );
+    const usersList = JSON.parse(localStorage.getItem('user'));
+    const users = [];
+    const user = {
+      username: userName,
+      password: password,
+      email: email,
+      firstname: firstName,
+      secondname: secondName,
+      id: '',
+    };
+
+    if (usersList === null) {
+      user.id = '1';
+      users.push(user);
+      localStorage.setItem('user', JSON.stringify(users));
+    } else {
+      user.id = `${usersList.length + 1}`;
+      usersList.push(user);
+      localStorage.setItem('user', JSON.stringify(usersList));
+    }
   }
 }
