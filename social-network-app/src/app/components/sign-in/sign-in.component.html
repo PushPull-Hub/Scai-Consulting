@@ -23,13 +23,14 @@
         required
         #email="ngModel"
       />
+
       <small
         id="emailHelp"
         class="form-text text-muted"
         style="color: #cc0000;"
-        *ngIf="incorrectEmail"
+        *ngIf="Combination"
       >
-        insert a valid email
+        email and password combination isn't valid
       </small>
     </div>
     <div class="form-group">

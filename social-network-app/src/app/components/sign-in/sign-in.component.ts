@@ -8,9 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-in.component.css'],
 })
 export class SignInComponent implements OnInit {
-  user = JSON.parse(localStorage.getItem('user'));
-  incorrectEmail = false;
   incorrectPassword = false;
+  Combination = false;
 
   constructor(private router: Router) {}
 
@@ -19,18 +18,26 @@ export class SignInComponent implements OnInit {
   onSubmit(f: NgForm) {
     const email = f.value.email;
     const password = f.value.password;
-    if (this.user.email !== email && this.user.password !== password) {
-      this.incorrectEmail = true;
-      this.incorrectPassword = true;
-    } else if (this.user.password !== password && this.user.email == email) {
-      this.incorrectPassword = true;
-      this.incorrectEmail = false;
-    } else if (this.user.email !== email && this.user.password == password) {
-      this.incorrectEmail = true;
+    const usersList = JSON.parse(localStorage.getItem('user'));
+    if (usersList === null) {
+      this.Combination = true;
       this.incorrectPassword = false;
     } else {
-      console.log('Registred ');
-      this.router.navigate(['/home']);
+      usersList.forEach((user) => {
+        if (user.email === email) {
+          if (user.password !== password) {
+            this.incorrectPassword = true;
+          } else if (user.password === password) {
+            console.log('Registred ');
+            this.router.navigate(['/home']);
+          }
+        } else {
+          this.Combination = true;
+
+          this.incorrectPassword = false;
+        }
+        return;
+      });
     }
   }
 }
