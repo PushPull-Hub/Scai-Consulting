@@ -15,11 +15,18 @@ export class VerifyEmailComponent implements OnInit {
   onSubmit(f: NgForm) {
     const email = this.user.email;
     const inputedEmail = f.value.email;
-
-    if (email !== inputedEmail) {
-      this.incorrectEmail = true;
+    const usersList = JSON.parse(localStorage.getItem('user'));
+    if (usersList === null) {
+      console.log('userlist null');
     } else {
-      this.router.navigate(['reset-password']);
+      usersList.forEach((user) => {
+        if (user.email === inputedEmail) {
+          this.router.navigate(['reset-password']);
+        } else {
+          this.incorrectEmail = true;
+        }
+        return user;
+      });
     }
   }
 }
