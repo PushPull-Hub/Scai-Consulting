@@ -16,6 +16,7 @@ export class ResetPasswordComponent implements OnInit {
   onSubmit(f: NgForm) {
     const newPass = f.value.newpass;
     const newPassConfirmation = f.value.newconfirmedpass;
+    const usersList = JSON.parse(localStorage.getItem('user'));
     if (newPass !== newPassConfirmation) {
       this.incorrectConfirmedPass = true;
     } else if (newPass === newPassConfirmation) {
