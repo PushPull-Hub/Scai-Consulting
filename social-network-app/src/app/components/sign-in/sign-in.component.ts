@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
   incorrectPassword = false;
   Combination = false;
-
   constructor(private router: Router) {}
 
   ngOnInit() {}

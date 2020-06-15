@@ -23,7 +23,6 @@
         required
         #email="ngModel"
       />
-
       <small
         id="emailHelp"
         class="form-text text-muted"
@@ -54,13 +53,11 @@
       </small>
     </div>
     <div class="form-group form-check">
-      <input
-        type="checkbox"
-        class="form-check-input"
-        id="exampleCheck1"
-        style="margin-right: 4px;"
-      />
-      <label class="form-check-label" for="exampleCheck1">Remember me </label>
+      <a
+        routerLink="/verify-email"
+        style="text-decoration: none; font-size: 16px;"
+        >forgot password
+      </a>
     </div>
     <button
       type="submit"

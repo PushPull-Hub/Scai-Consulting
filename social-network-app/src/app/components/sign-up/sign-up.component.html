@@ -14,19 +14,12 @@
         <input
           type="text"
           class="form-control"
-          id="inputUserName" 
+          id="inputUserName"
           name="username"
           ngModel
           required
           #username="ngModel"
         />
-        <!-- <small
-          id="emailHelp"
-          class="form-text text-muted"
-          style="color: #cc0000;"
-        >
-          Required Filed !
-        </small> -->
       </div>
       <div class="form-group col-md-6">
         <label>Password</label>
@@ -39,13 +32,6 @@
           required
           #password="ngModel"
         />
-        <!-- <small
-          id="emailHelp"
-          class="form-text text-muted"
-          style="color: #cc0000;"
-        >
-          Required Filed !
-        </small> -->
       </div>
     </div>
     <div class="form-group" style="margin-left: 15px; margin-right: 15px;">
@@ -112,10 +98,10 @@
       type="submit"
       class="btn btn-primary"
       style="background-color: green; margin-left: 16px; margin-top: 20px;"
-    
       [disabled]="f.invalid"
     >
-      Sign up
+      <i class="fa fa-user-plus" aria-hidden="true"></i>
+      <span style="margin-left: 5px;">Sign up</span>
     </button>
     <button
       type="submit"

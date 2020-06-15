@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
   // emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
@@ -33,10 +34,13 @@ export class SignUpComponent implements OnInit {
       user.id = '1';
       users.push(user);
       localStorage.setItem('user', JSON.stringify(users));
+      this.router.navigate(['/sign-in']);
+      alert(`Congratulations ${userName} you've been signed up successfully `);
     } else {
       user.id = `${usersList.length + 1}`;
       usersList.push(user);
       localStorage.setItem('user', JSON.stringify(usersList));
+      this.router.navigate(['/sign-in']);
     }
   }
 }
