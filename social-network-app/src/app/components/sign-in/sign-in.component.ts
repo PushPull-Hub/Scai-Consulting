@@ -7,31 +7,42 @@ import { Router } from '@angular/router';
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css'],
-  providers: [],
 })
 export class SignInComponent implements OnInit {
   Combination = false;
   incorrectPassword = false;
+  usersList: [
+    {
+      username: string;
+      password: string;
+      email: string;
+      firstname: string;
+      secondname: string;
+      id: string;
+    }
+  ];
 
   constructor(private user: UserServices, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.usersList = this.user.usersList;
+  }
 
   signIn(f: NgForm) {
     const email = f.value.email;
     const password = f.value.password;
-    const usersList = JSON.parse(localStorage.getItem('user'));
-    if (usersList === null) {
+    if (this.usersList === null) {
       this.Combination = true;
       this.incorrectPassword = false;
     } else {
-      usersList.forEach((user) => {
+      this.usersList.forEach((user) => {
         if (user.email === email) {
           if (user.password !== password) {
             this.incorrectPassword = true;
             console.log('incorrect password');
           } else if (user.password === password) {
             console.log(` Registred the user : ${user.username}`);
+
             this.router.navigate(['/home']);
           }
         } else {

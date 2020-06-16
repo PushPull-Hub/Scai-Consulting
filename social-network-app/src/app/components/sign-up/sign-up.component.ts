@@ -7,13 +7,24 @@ import { Router } from '@angular/router';
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
-  providers: [],
 })
 export class SignUpComponent implements OnInit {
-  // emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
+  usersList: [
+    {
+      username: string;
+      password: string;
+      email: string;
+      firstname: string;
+      secondname: string;
+      id: string;
+    }
+  ];
+
   constructor(private user: UserServices, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.usersList = this.user.usersList;
+  }
 
   signUp(f: NgForm) {
     const email = f.value.email;
@@ -21,7 +32,7 @@ export class SignUpComponent implements OnInit {
     const password = f.value.password;
     const secondName = f.value.secondname;
     const userName = f.value.username;
-    const usersList = JSON.parse(localStorage.getItem('user'));
+
     const users = [];
     const user = {
       username: userName,
@@ -32,17 +43,19 @@ export class SignUpComponent implements OnInit {
       id: '',
     };
 
-    if (usersList === null) {
+    if (this.usersList === null) {
       user.id = '1';
       users.push(user);
       localStorage.setItem('user', JSON.stringify(users));
+      alert(`Congratulations ${userName} you've  signed up successfully `);
       this.router.navigate(['/sign-in']);
-      alert(`Congratulations ${userName} you've been signed up successfully `);
     } else {
-      user.id = `${usersList.length + 1}`;
-      usersList.push(user);
-      localStorage.setItem('user', JSON.stringify(usersList));
+      user.id = `${this.usersList.length + 1}`;
+      this.usersList.push(user);
+      localStorage.setItem('user', JSON.stringify(this.usersList));
+      this.user.usersList = this.usersList;
       this.router.navigate(['/sign-in']);
+      alert(`Congratulations ${userName} you've  signed up successfully `);
     }
   }
 }

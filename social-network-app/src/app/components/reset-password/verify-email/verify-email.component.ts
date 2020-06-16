@@ -6,26 +6,39 @@ import { Router } from '@angular/router';
   selector: 'app-verify-email',
   templateUrl: './verify-email.component.html',
   styleUrls: ['./verify-email.component.css'],
-  providers: [],
 })
 export class VerifyEmailComponent implements OnInit {
-  // user = JSON.parse(localStorage.getItem('user'));
   unfoundedEmail = false;
+  usersList: [
+    {
+      username: string;
+      password: string;
+      email: string;
+      firstname: string;
+      secondname: string;
+      id: string;
+    }
+  ];
 
   constructor(private user: UserServices, private router: Router) {}
 
-  ngOnInit() {}
-  verifyEmail(f: NgForm) {
-    const inputedEmail = f.value.email;
-    const usersList = JSON.parse(localStorage.getItem('user'));
-
-    usersList.forEach((user) => {
-      if (user.email !== inputedEmail || usersList === null) {
-        this.unfoundedEmail = true;
-      } else if (user.email === inputedEmail) {
-        this.user.updateContent(inputedEmail);
-        this.router.navigate(['/reset-password']);
-      }
-    });
+  ngOnInit() {
+    this.usersList = this.user.usersList;
   }
+  verifyEmail = (f: NgForm) => {
+    const inputedEmail = f.value.email;
+    if (this.usersList === null) {
+      console.log('userlist null');
+      this.unfoundedEmail = true;
+    } else {
+      this.usersList.find((user) => {
+        if (user.email !== inputedEmail) {
+          this.unfoundedEmail = true;
+        } else if (user.email === inputedEmail) {
+          this.user.getEmail(inputedEmail);
+          this.router.navigate(['/reset-password']);
+        }
+      });
+    }
+  };
 }
