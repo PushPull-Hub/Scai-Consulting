@@ -1,32 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { UserServices } from 'src/app/services/user.service';
 @Component({
   selector: 'app-verify-email',
   templateUrl: './verify-email.component.html',
   styleUrls: ['./verify-email.component.css'],
+  providers: [UserServices],
 })
 export class VerifyEmailComponent implements OnInit {
-  user = JSON.parse(localStorage.getItem('user'));
-  incorrectEmail = false;
-  constructor(private router: Router) {}
+  // user = JSON.parse(localStorage.getItem('user'));
+  unfoundedEmail: boolean;
 
-  ngOnInit(): void {}
-  onSubmit(f: NgForm) {
-    const email = this.user.email;
-    const inputedEmail = f.value.email;
-    const usersList = JSON.parse(localStorage.getItem('user'));
-    if (usersList === null) {
-      console.log('userlist null');
-    } else {
-      usersList.forEach((user) => {
-        if (user.email === inputedEmail) {
-          this.router.navigate(['reset-password']);
-        } else {
-          this.incorrectEmail = true;
-        }
-        return user;
-      });
-    }
+  constructor(private user: UserServices) {}
+
+  ngOnInit() {
+    this.unfoundedEmail = this.user.unfoundedEmail;
   }
+  verifyEmail = (f: NgForm) => {
+    this.user.verifyEmail(f);
+  };
 }
