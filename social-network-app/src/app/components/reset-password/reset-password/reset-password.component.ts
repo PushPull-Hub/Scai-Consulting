@@ -9,23 +9,34 @@ import { UserServices } from 'src/app/services/user.service';
   providers: [UserServices],
 })
 export class ResetPasswordComponent implements OnInit {
-  incorrectConfirmedPass: boolean;
-  SelectedUser: {
-    username: string;
-    password: string;
-    email: string;
-    firstname: string;
-    secondname: string;
-    id: string;
-  };
+  incorrectConfirmedPass = false;
+  email = '';
+
   constructor(private user: UserServices) {}
 
   ngOnInit() {
     this.incorrectConfirmedPass = false;
-    this.SelectedUser = this.user.SelectedUser;
+    this.user.shared.subscribe((x) => (this.email = x));
   }
 
-  resetPassword = (f: NgForm) => {
-    this.user.resetPassword(f);
-  };
+  resetPassword(f: NgForm) {
+    const newPass = f.value.newpass;
+    const newPassConfirmation = f.value.newconfirmedpass;
+    const usersList = JSON.parse(localStorage.getItem('user'));
+
+    if (newPass !== newPassConfirmation) {
+      this.incorrectConfirmedPass = true;
+      console.log(`Incorrect Password !!`);
+    } else if (newPass === newPassConfirmation) {
+      usersList.find((user) => {
+        if (user.email === this.email) {
+          const users = usersList ? JSON.parse(usersList) : {};
+          console.log(users);
+          users['password'] = newPass.toString();
+          localStorage.setItem('user', JSON.stringify(user));
+          alert('password has been changed ');
+        }
+      });
+    }
+  }
 }
