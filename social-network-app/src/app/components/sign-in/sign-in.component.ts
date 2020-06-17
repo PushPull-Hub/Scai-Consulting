@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/User.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,16 +12,7 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
   Combination = false;
   incorrectPassword = false;
-  usersList: [
-    {
-      username: string;
-      password: string;
-      email: string;
-      firstname: string;
-      secondname: string;
-      id: string;
-    }
-  ];
+  usersList: User[];
 
   constructor(private user: UserServices, private router: Router) {}
 
@@ -42,7 +34,6 @@ export class SignInComponent implements OnInit {
             console.log('incorrect password');
           } else if (user.password === password) {
             console.log(` Registred the user : ${user.username}`);
-
             this.router.navigate(['/home']);
           }
         } else {

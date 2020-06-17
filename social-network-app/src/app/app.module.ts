@@ -11,8 +11,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ResetPasswordComponent } from './components/reset-password/reset-password/reset-password.component';
 import { VerifyEmailComponent } from './components/reset-password/verify-email/verify-email.component';
+import { AboutComponent } from './components/about/about.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [
+  { path: '', component: AboutComponent },
   { path: 'home', component: HomeComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
@@ -29,12 +32,14 @@ const appRoutes: Routes = [
     HeaderComponent,
     ResetPasswordComponent,
     VerifyEmailComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

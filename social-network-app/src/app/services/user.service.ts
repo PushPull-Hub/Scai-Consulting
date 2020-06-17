@@ -1,27 +1,22 @@
 import { Injectable } from '@angular/core';
+import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserServices {
   SelectedUserEmail = '';
-  usersList: [
-    {
-      username: string;
-      password: string;
-      email: string;
-      firstname: string;
-      secondname: string;
-      id: string;
-    }
-  ] = JSON.parse(localStorage.getItem('user'));
+  usersList: User[] = [];
 
   constructor() {}
 
-  getEmail(email) {
-    this.SelectedUserEmail = email;
-    console.log(
-      `${this.SelectedUserEmail} selectedUserEmail value from  user Service `
-    );
-  }
+  saveUSer = (value: User) => {
+    let users = this.getUSers();
+    users.push(value);
+    localStorage.setItem('user', JSON.stringify(users));
+    this.usersList = this.usersList.concat(value);
+  };
+  getUSers = () => JSON.parse(localStorage.getItem('user')) || [];
+
+  getEmail = (email: string) => (this.SelectedUserEmail = email);
 }
