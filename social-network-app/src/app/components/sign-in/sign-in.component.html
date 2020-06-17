@@ -1,84 +1,86 @@
-<div
-  class="container mt-5"
-  style="
-    background-color: lightgray;
-    width: 650px;
-    border-radius: 10px;
-    margin-top: 200px;
-  "
->
-  <form
-    style="padding: 15px; margin-top: 30px; margin-bottom: 30px;"
-    #f="ngForm"
-    (ngSubmit)="signIn(f)"
-  >
-    <div class="form-group">
-      <label>Email address</label>
-      <input
-        type="email"
-        class="form-control"
-        id="InputEmail1"
-        name="email"
-        ngModel
-        required
-        #email="ngModel"
-      />
-      <small
-        id="emailHelp"
-        class="form-text text-muted"
-        style="color: #cc0000;"
-        *ngIf="Combination"
-      >
-        email and password combination isn't valid
-      </small>
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="InputPassword1"
-        name="password"
-        ngModel
-        required
-        #password="ngModel"
-      />
-      <small
-        id="emailHelp"
-        class="form-text text-muted"
-        style="color: #cc0000;"
-        *ngIf="incorrectPassword"
-      >
-        wrong password !
-      </small>
-    </div>
-    <div class="form-group form-check">
-      <a
-        routerLink="/verify-email"
-        style="text-decoration: none; font-size: 16px;"
-        >forgot password
-      </a>
-    </div>
-    <button
-      type="submit"
-      class="btn btn-primary"
-      style="background-color: green;"
-      [disabled]="f.invalid"
+<app-header></app-header>
+<div class="container mt-5" style="margin-top: 60px;">
+  <div class="jumbotron" style="border-radius: 54px; height: 533px;">
+    <div
+      class="container mt-5"
+      style="background-color: lightgray; width: 650px; border-radius: 10px;"
     >
-      <i class="fa fa-sign-in" aria-hidden="true"></i>
-      <span style="margin-left: 5px;"> Sign in</span>
-    </button>
-    <button
-      type="submit"
-      class="btn btn-primary"
-      style="margin-left: 40px; background-color: #003e8f;"
-    >
-      <i class="fa fa-user-plus" aria-hidden="true"></i>
-      <span style="margin-left: 5px;"
-        ><a routerLink="/sign-up" style="text-decoration: none; color: white;"
-          >Sign up</a
-        ></span
+      <form
+        style="padding: 15px; margin-top: 30px; margin-bottom: 30px;"
+        #f="ngForm"
+        (ngSubmit)="signIn(f)"
       >
-    </button>
-  </form>
+        <div class="form-group">
+          <label>Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="InputEmail1"
+            name="email"
+            ngModel
+            required
+            #email="ngModel"
+          />
+          <small
+            id="emailHelp"
+            class="form-text text-muted"
+            style="color: #cc0000;"
+            *ngIf="Combination"
+          >
+            email and password combination isn't valid
+          </small>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="InputPassword1"
+            name="password"
+            ngModel
+            required
+            #password="ngModel"
+          />
+          <small
+            id="emailHelp"
+            class="form-text text-muted"
+            style="color: #cc0000;"
+            *ngIf="incorrectPassword"
+          >
+            wrong password !
+          </small>
+        </div>
+        <div class="form-group form-check">
+          <a
+            routerLink="/verify-email"
+            style="text-decoration: none; font-size: 16px;"
+            >forgot password
+          </a>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="background-color: green;"
+          [disabled]="f.invalid"
+        >
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+          <span style="margin-left: 5px;"> Sign in</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          style="margin-left: 40px; background-color: #003e8f;"
+        >
+          <i class="fa fa-user-plus" aria-hidden="true"></i>
+          <span style="margin-left: 5px;"
+            ><a
+              routerLink="/sign-up"
+              style="text-decoration: none; color: white;"
+              >Sign up</a
+            ></span
+          >
+        </button>
+      </form>
+    </div>
+  </div>
 </div>

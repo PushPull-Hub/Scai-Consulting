@@ -10,3 +10,6 @@ ul li a {
   color: #003e8f;
   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
 }
+ul.nav.nav-tabs {
+  margin-left: 30px;
+}
