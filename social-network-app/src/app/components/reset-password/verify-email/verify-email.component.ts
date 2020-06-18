@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/User.model';
 @Component({
   selector: 'app-verify-email',
   templateUrl: './verify-email.component.html',
@@ -9,25 +10,18 @@ import { Router } from '@angular/router';
 })
 export class VerifyEmailComponent implements OnInit {
   unfoundedEmail = false;
-  usersList: [
-    {
-      username: string;
-      password: string;
-      email: string;
-      firstname: string;
-      secondname: string;
-      id: string;
-    }
-  ];
+  usersList: User[];
 
   constructor(private user: UserServices, private router: Router) {}
 
   ngOnInit() {
     this.usersList = this.user.usersList;
   }
+
   verifyEmail = (f: NgForm) => {
     const inputedEmail = f.value.email;
-    if (this.usersList === null) {
+
+    if (this.usersList.length === 0) {
       console.log('userlist null');
       this.unfoundedEmail = true;
     } else {

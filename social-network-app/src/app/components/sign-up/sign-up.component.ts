@@ -16,7 +16,6 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     this.usersList = this.user.usersList;
-    console.log(`I'm onInit this.user.userlist is ${this.user.usersList}`);
   }
 
   signUp(f: NgForm) {
