@@ -13,6 +13,9 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { VerifyEmailComponent } from './components/reset-password/verify-email/verify-email.component';
 import { AboutComponent } from './components/about/about.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PostsComponent } from './components/posts/posts.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { PostComponent } from './components/posts/post/post.component';
 
 const appRoutes: Routes = [
   { path: '', component: AboutComponent },
@@ -33,6 +36,9 @@ const appRoutes: Routes = [
     ResetPasswordComponent,
     VerifyEmailComponent,
     AboutComponent,
+    PostsComponent,
+    CreatePostComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
