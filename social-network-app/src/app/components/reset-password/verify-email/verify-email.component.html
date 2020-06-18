@@ -29,16 +29,11 @@
             #email="ngModel"
           />
 
-          <small
-            id="emailHelp"
-            class="form-text text-muted"
-            style="color: #cc0000;"
-            *ngIf="unfoundedEmail"
-          >
+          <small id="emailHelp" class="text-danger" *ngIf="unfoundedEmail">
             this is a nonexistent email
           </small>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+        <button type="submit" class="btn btn-info" [disabled]="f.invalid">
           <i class="fa fa-envelope-o" aria-hidden="true"></i
           ><span id="changepass">Verify mail</span>
         </button>
