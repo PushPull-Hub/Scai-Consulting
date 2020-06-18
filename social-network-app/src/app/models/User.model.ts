@@ -1,3 +1,5 @@
+import { Post } from './Post.model';
+
 export class User {
   username: string;
   password: string;
@@ -5,4 +7,5 @@ export class User {
   firstname: string;
   secondname: string;
   id: string;
+  posts: Post;
 }
