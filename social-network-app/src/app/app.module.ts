@@ -8,7 +8,6 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
-import { Routes, RouterModule } from '@angular/router';
 import { ResetPasswordComponent } from './components/reset-password/reset-password/reset-password.component';
 import { VerifyEmailComponent } from './components/reset-password/verify-email/verify-email.component';
 import { AboutComponent } from './components/about/about.component';
@@ -16,15 +15,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostsComponent } from './components/posts/posts.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { PostComponent } from './components/posts/post/post.component';
-
-const appRoutes: Routes = [
-  { path: '', component: AboutComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'verify-email', component: VerifyEmailComponent },
-];
 
 @NgModule({
   declarations: [
@@ -40,13 +30,7 @@ const appRoutes: Routes = [
     CreatePostComponent,
     PostComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    RouterModule.forRoot(appRoutes),
-    NgbModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],
 })
