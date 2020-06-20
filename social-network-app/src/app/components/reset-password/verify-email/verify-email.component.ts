@@ -29,7 +29,9 @@ export class VerifyEmailComponent implements OnInit {
         if (user.email !== inputedEmail) {
           this.unfoundedEmail = true;
         } else if (user.email === inputedEmail) {
-          this.user.getEmail(inputedEmail);
+          const id = user.id;
+          this.user.getUser(id);
+          console.log(user);
           this.router.navigate(['/reset-password']);
         }
       });

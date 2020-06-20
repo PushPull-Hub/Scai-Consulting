@@ -12,36 +12,46 @@ import { User } from 'src/app/models/User.model';
 export class SignInComponent implements OnInit {
   Combination = false;
   incorrectPassword = false;
-  usersList: User[];
+  Storage;
 
   constructor(private user: UserServices, private router: Router) {}
 
   ngOnInit() {
-    this.usersList = this.user.usersList;
+    this.Storage = localStorage.getItem('Storage');
   }
 
   signIn(f: NgForm) {
     const email = f.value.email;
     const password = f.value.password;
-    if (this.usersList === null) {
+    if (!this.Storage) {
       this.Combination = true;
       this.incorrectPassword = false;
+      console.log('!! this.Storage ');
     } else {
-      this.usersList.forEach((user) => {
-        if (user.email === email) {
-          if (user.password !== password) {
-            this.incorrectPassword = true;
-            console.log('incorrect password');
-          } else if (user.password === password) {
-            console.log(` Registred the user : ${user.username}`);
-            this.router.navigate(['/home']);
-          }
-        } else {
-          this.Combination = true;
-          this.incorrectPassword = false;
-        }
-        return;
-      });
+      const Users = this.Storage[0][0];
+      // const selectedUser = Users.forEach(
+      //   (user) => user.email === email && user.password === password
+      // );
+      // const selectedUser = Users['email'] == email  ? Users['id'] : 1;
+      console.log(this.Storage);
+      console.log(Users);
+      // console.log(selectedUser);
     }
+    //   this.Storage.forEach((user) => {
+    //     if (user.email === email) {
+    //       if (user.password !== password) {
+    //         this.incorrectPassword = true;
+    //         console.log('incorrect password');
+    //       } else if (user.password === password) {
+    //         console.log(` Registred the user : ${user.username}`);
+    //         this.router.navigate(['/home']);
+    //       }
+    //     } else {
+    //       this.Combination = true;
+    //       this.incorrectPassword = false;
+    //     }
+    //     return;
+    //   });
+    // }
   }
 }

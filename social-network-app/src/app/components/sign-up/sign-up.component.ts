@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/User.model';
 import { v4 as uuidv4 } from 'uuid';
+import { User } from 'src/app/models/User.model';
 import { Post } from 'src/app/models/Post.model';
+import { Images } from 'src/app/models/Images.model';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,13 +13,9 @@ import { Post } from 'src/app/models/Post.model';
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent implements OnInit {
-  usersList: User[];
-
   constructor(private user: UserServices, private router: Router) {}
 
-  ngOnInit() {
-    this.usersList = this.user.usersList;
-  }
+  ngOnInit() {}
 
   signUp(f: NgForm) {
     const email = f.value.email;
@@ -27,23 +24,27 @@ export class SignUpComponent implements OnInit {
     const secondName = f.value.secondname;
     const userName = f.value.username;
 
-    // let posts: Post = new Post();
-
     let user: User = new User();
-    user.posts = new Post();
+    let images: Images = new Images();
+    let posts: Post = new Post();
+
     user.username = userName;
     user.email = email;
     user.password = password;
     user.firstname = firstName;
     user.secondname = secondName;
     user.id = uuidv4();
-    user.posts.userId = user.id;
-    user.posts.likes = '';
-    user.posts.description = '';
-    user.posts.comments = [''];
-    user.posts.image = [];
-    console.log(user.posts);
 
-    this.user.saveUSer(user);
+    posts.userId = user.id;
+    posts.likes = '';
+    posts.description = '';
+    posts.comments = [''];
+    posts.image = [];
+
+    images.id = user.id;
+    images.Images = [];
+
+    this.user.createUSer(user, posts, images);
+    this.router.navigate(['/sign-in']);
   }
 }
