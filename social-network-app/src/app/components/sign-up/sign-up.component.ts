@@ -34,6 +34,7 @@ export class SignUpComponent implements OnInit {
     user.firstname = firstName;
     user.secondname = secondName;
     user.id = uuidv4();
+    user.isActive = false;
 
     posts.userId = user.id;
     posts.likes = '';
