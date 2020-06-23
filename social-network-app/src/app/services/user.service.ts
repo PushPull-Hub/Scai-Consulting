@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ export class UserServices implements OnInit {
   Storage;
   LoggedUserId = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {}
 
@@ -23,9 +24,10 @@ export class UserServices implements OnInit {
     localStorage.setItem('Storage', JSON.stringify(this.Storage));
   };
 
-  logUser = (id) => {
+  logUser = (id, username) => {
     this.updateUser(id, 'isActive', true);
-    this.router.navigate(['/home']);
+    console.log('userservice ');
+    this.authService.logIn();
   };
 
   updateUser = (id, key, newValue) => {
