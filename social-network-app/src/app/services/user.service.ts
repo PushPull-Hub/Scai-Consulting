@@ -9,33 +9,41 @@ export class UserServices implements OnInit {
   selectedUserId;
   Storage;
   LoggedUserId = '';
+  Users;
+  Posts;
+  Images;
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {}
 
-  getUsers = () => JSON.parse(localStorage.getItem('Storage'))[0];
+  getUsers = () => JSON.parse(localStorage.getItem('Users'));
+  getPosts = () => JSON.parse(localStorage.getItem('Posts'));
+  getImages = () => JSON.parse(localStorage.getItem('Images'));
 
   createUSer = (user, posts, images) => {
-    this.Storage = JSON.parse(localStorage.getItem('Storage')) || [[], [], []];
-    this.Storage[0].push(user);
-    this.Storage[1].push(posts);
-    this.Storage[2].push(images);
-    localStorage.setItem('Storage', JSON.stringify(this.Storage));
+    this.Users = this.getUsers() || [];
+    this.Posts = this.getPosts() || [];
+    this.Images = this.getImages() || [];
+    this.Users.push(user);
+    this.Posts.push(posts);
+    this.Images.push(images);
+    localStorage.setItem('Users', JSON.stringify(this.Users));
+    localStorage.setItem('Posts', JSON.stringify(this.Posts));
+    localStorage.setItem('Images', JSON.stringify(this.Images));
   };
 
   logUser = (id, username) => {
     this.updateUser(id, 'isActive', true);
-    console.log('userservice ');
     this.authService.logIn();
   };
 
   updateUser = (id, key, newValue) => {
-    const user = this.Storage[0].find((user) => user.id === id);
+    const user = this.Users.find((user) => user.id === id);
     user[`${key}`] = newValue;
-    const indexOfUser = this.Storage[0].map((x) => x.id).indexOf(id);
-    this.Storage[0].splice(indexOfUser, 1, user);
-    localStorage.setItem('Storage', JSON.stringify(this.Storage));
+    const indexOfUser = this.Users.map((x) => x.id).indexOf(id);
+    this.Users.splice(indexOfUser, 1, user);
+    localStorage.setItem('Users', JSON.stringify(this.Users));
   };
 
   getUser = (id: string) => (this.selectedUserId = id);
