@@ -10,18 +10,18 @@ import { Router } from '@angular/router';
 export class VerifyEmailComponent implements OnInit {
   unfoundedEmail = false;
 
-  constructor(private user: UserServices, private router: Router) {}
+  constructor(private userService: UserServices, private router: Router) {}
 
   ngOnInit() {}
 
   verifyEmail = (f: NgForm) => {
     const inputedEmail = f.value.email;
 
-    const users = this.user.getUsers();
-    const testedUser = users.find((user) => user.email === inputedEmail);
-    const existedEmail = testedUser
-      ? (this.user.selectedUserId == testedUser.id,
-        this.router.navigate(['/reset-password']))
-      : (this.unfoundedEmail = true);
+    if (this.userService.verifyEmail(inputedEmail)) {
+      this.unfoundedEmail = false;
+      this.router.navigate(['/reset-password']);
+    } else {
+      this.unfoundedEmail = true;
+    }
   };
 }

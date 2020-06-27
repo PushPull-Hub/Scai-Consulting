@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user.service';
-import { User } from 'src/app/models/User.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,12 +10,14 @@ import { Router } from '@angular/router';
 })
 export class ResetPasswordComponent implements OnInit {
   incorrectConfirmedPass = false;
-  email = '';
-  usersList: User[];
+  selectedUserId: string;
 
   constructor(private user: UserServices, private route: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selectedUserId = this.user.selectedUserId;
+    console.log(this.selectedUserId);
+  }
 
   resetPassword(f: NgForm) {
     const newPass = f.value.newpass;
@@ -27,7 +28,8 @@ export class ResetPasswordComponent implements OnInit {
       console.log(`Incorrect Password !!`);
     } else if (newPass === newPassConfirmation) {
       const newPassword = newPass.toString();
-      this.user.updateUser(this.user.selectedUserId, 'password', newPassword);
+      this.user.updateUser(this.selectedUserId, 'password', newPassword);
+      this.route.navigate(['/sign-in']);
     }
   }
 }

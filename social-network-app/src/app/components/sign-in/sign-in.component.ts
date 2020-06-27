@@ -9,37 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-in.component.css'],
 })
 export class SignInComponent implements OnInit {
-  Combination = false;
-  Users;
-  Posts;
-  Images;
+  combination = false;
 
-  constructor(private user: UserServices, private router: Router) {}
+  constructor(private userService: UserServices, private router: Router) {}
 
-  ngOnInit() {
-    this.Users = this.user.Users.slice();
-    this.Posts = this.user.Posts.slice();
-    this.Images = this.user.Images.slice();
-    this.user.onAddUser.subscribe((users) => (this.Users = users));
-    this.user.onAddPost.subscribe((posts) => (this.Posts = posts));
-    this.user.onAddImage.subscribe((images) => (this.Images = images));
-  }
+  ngOnInit() {}
 
   signIn(f: NgForm) {
     const email = f.value.email;
     const password = f.value.password;
 
-    if (!this.Users) {
-      this.Combination = true;
-    } else {
-      const Users = this.Users;
-      const testedUser = Users.find(
-        (user) => user.email == email && user.password == password
-      );
-      const LogUserCheck = testedUser
-        ? this.user.logUser(testedUser.id, testedUser.username)
-        : (this.Combination = true);
+    if (this.userService.signIn(email, password)) {
+      this.combination = false;
       this.router.navigate(['/home']);
+    } else {
+      this.combination = true;
     }
   }
 }

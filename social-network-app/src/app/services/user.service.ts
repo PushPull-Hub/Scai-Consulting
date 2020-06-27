@@ -1,29 +1,25 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { Subject } from 'rxjs';
 import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserServices implements OnInit {
-  selectedUserId;
-  Storage;
-  LoggedUserId = '';
-  Users = JSON.parse(localStorage.getItem('Users')) || [];
+  usersList: User[] = JSON.parse(localStorage.getItem('Users')) || [];
   Posts = JSON.parse(localStorage.getItem('Posts')) || [];
   Images = JSON.parse(localStorage.getItem('Images')) || [];
-  onAddUser = new Subject<User[]>();
-  onAddPost = new Subject<User[]>();
-  onAddImage = new Subject<User[]>();
+  selectedUserId: string;
+  LoggedUserId = '';
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {}
 
   getUsers = () => JSON.parse(localStorage.getItem('Users'));
-  storeUsers = () => localStorage.setItem('Users', JSON.stringify(this.Users));
+  storeUsers = () =>
+    localStorage.setItem('Users', JSON.stringify(this.usersList));
   getPosts = () => JSON.parse(localStorage.getItem('Posts'));
   storePosts = () => localStorage.setItem('Posts', JSON.stringify(this.Posts));
   getImages = () => JSON.parse(localStorage.getItem('Images'));
@@ -31,12 +27,9 @@ export class UserServices implements OnInit {
     localStorage.setItem('Images', JSON.stringify(this.Images));
 
   createUSer = (user, posts, images) => {
-    this.Users.push(user);
+    this.usersList.push(user);
     this.Posts.push(posts);
     this.Images.push(images);
-    this.onAddUser.next(this.Users.slice());
-    this.onAddPost.next(this.Posts.slice());
-    this.onAddImage.next(this.Images.slice());
     this.storeUsers();
     this.storePosts();
     this.storeImages();
@@ -48,12 +41,31 @@ export class UserServices implements OnInit {
   };
 
   updateUser = (id, key, newValue) => {
-    const user = this.Users.find((user) => user.id === id);
+    const user = this.usersList.find((user) => user.id === id);
     user[`${key}`] = newValue;
-    const indexOfUser = this.Users.map((x) => x.id).indexOf(id);
-    this.Users.splice(indexOfUser, 1, user);
-    localStorage.setItem('Users', JSON.stringify(this.Users));
+    const indexOfUser = this.usersList.map((x) => x.id).indexOf(id);
+    this.usersList.splice(indexOfUser, 1, user);
+    localStorage.setItem('Users', JSON.stringify(this.usersList));
   };
 
-  getUser = (id: string) => (this.selectedUserId = id);
+  signIn(email, password): boolean {
+    if (this.usersList) {
+      const testedUser = this.usersList.find(
+        (user) => user.email == email && user.password == password
+      );
+      if (testedUser) {
+        this.logUser(testedUser.id, testedUser.username);
+        return true;
+      }
+    }
+    return false;
+  }
+  verifyEmail(email): boolean {
+    const testedUser = this.usersList.find((user) => user.email === email);
+    if (testedUser) {
+      this.selectedUserId = testedUser.id;
+      return true;
+    }
+    return false;
+  }
 }

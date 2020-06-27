@@ -6,4 +6,5 @@ export class User extends Object {
   secondname: string;
   id: string;
   friends: [];
+  isActive: boolean;
 }
