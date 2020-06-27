@@ -1,0 +1,35 @@
+// .create-post-div {
+//   border: 1px solid rgba(0, 0, 0, 0.125);
+// }
+#status {
+  box-sizing: border-box;
+  border: none;
+  overflow: visible;
+  margin-top: 20px;
+  width: 474px;
+  height: 64px;
+  margin-left: 70px;
+  padding-left: 12px;
+  background: transparent !important;
+}
+
+#status :focus {
+  background-color: transparent;
+  border: 0px;
+  outline: none;
+  color: transparent;
+  cursor: default;
+}
+
+.picture {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 127px;
+  left: 95px;
+}
+.picture img {
+  width: 40px;
+  height: 40px;
+  border: 0.5px solid grey;
+}

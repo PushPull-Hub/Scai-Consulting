@@ -17,6 +17,11 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
 import { PostComponent } from './components/posts/post/post.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NavbarComponent } from './pages/home/navbar/navbar.component';
+import { TimelineComponent } from './components/profile/timeline/timeline.component';
+import { PhotosComponent } from './components/profile/timeline/photos/photos.component';
+import { IntroComponent } from './components/profile/timeline/intro/intro.component';
+import { TimelinePostsComponent } from './components/profile/timeline/timeline-posts/timeline-posts.component';
+import { TimelineCreatePostComponent } from './components/profile/timeline/timeline-create-post/timeline-create-post.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,11 @@ import { NavbarComponent } from './pages/home/navbar/navbar.component';
     PostComponent,
     ProfileComponent,
     NavbarComponent,
+    TimelineComponent,
+    PhotosComponent,
+    IntroComponent,
+    TimelinePostsComponent,
+    TimelineCreatePostComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, NgbModule],
   providers: [],
