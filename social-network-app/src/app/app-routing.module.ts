@@ -7,6 +7,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password/reset-password.component';
 import { VerifyEmailComponent } from './components/reset-password/verify-email/verify-email.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: AboutComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'profile', component: ProfileComponent },
 ];
 
 @NgModule({

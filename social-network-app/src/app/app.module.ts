@@ -15,6 +15,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostsComponent } from './components/posts/posts.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { PostComponent } from './components/posts/post/post.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { NavbarComponent } from './pages/home/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { PostComponent } from './components/posts/post/post.component';
     PostsComponent,
     CreatePostComponent,
     PostComponent,
+    ProfileComponent,
+    NavbarComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, NgbModule],
   providers: [],
