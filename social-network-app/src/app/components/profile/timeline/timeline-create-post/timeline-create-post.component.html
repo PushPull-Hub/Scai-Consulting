@@ -1,5 +1,5 @@
-<div class="container" style="margin-top: 53px; margin-left: 54px;">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
+<div class="container" style="margin-top: 54px;">
+  <ul class="nav nav-tabs border-bottom-0" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <a
         class="nav-link active bg-secondary"
@@ -40,13 +40,13 @@
       </a>
     </li>
   </ul>
+  <!-- until here -->
   <div
     class="tab-content border-top-0 bg-secondary"
     id="myTabContent"
     style="
-      height: 140px;
+      border-radius: 0 0.25rem 0.25rem 0.25rem;
       border: 1px solid rgba(0, 0, 0, 0.125);
-      border-radius: 0.25rem;
     "
   >
     <div
@@ -55,37 +55,31 @@
       role="tabpanel"
       aria-labelledby="home-tab"
     >
-      <div class="" id="create-post-div">
-        <div class="picture">
-          <img
+      <div class="row" style="margin-left: 0; padding: 23px;">
+        <span id="picture"
+          ><img
             class="rounded-circle"
             src="../../../../../assets/images/Mark.jpg"
           />
-        </div>
+        </span>
         <input id="status" placeholder="What's on your mind ? " />
-        <div>
-          <div class="row">
-            <div class="share-button">
-              <span
-                ><i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp; Add
-              </span>
-              <a href="#"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
-              <a href="#"><i class="fa fa-users" aria-hidden="true"></i></a>
-              <a href="#"><i class="fa fa-smile-o" aria-hidden="true"></i> </a>
-              <a href="#">
-                <i class="fa fa-location-arrow" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-          <div class="form-group">
-            <input
-              type="file"
-              class="form-control-file"
-              id="exampleInputFile"
-              style="width: 98px; margin-left: 451px;"
-            />
-          </div>
+      </div>
+      <div class="row" style="margin-left: 0;">
+        <div class="share-button">
+          <span><i class="fa fa-plus-circle" aria-hidden="true"></i> </span>
+          <a href="#"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+          <a href="#"><i class="fa fa-users" aria-hidden="true"></i></a>
+          <a href="#"><i class="fa fa-smile-o" aria-hidden="true"></i> </a>
+          <a href="#">
+            <i class="fa fa-location-arrow" aria-hidden="true"></i>
+          </a>
         </div>
+        <button
+          class="btn btn-primary"
+          style="margin-left: 90px; margin-bottom: 15px;"
+        >
+          Share
+        </button>
       </div>
     </div>
     <div
@@ -106,111 +100,4 @@
     </div>
   </div>
 </div>
-<!-- until here  -->
-<!-- <div class="container" style="margin-top: 53px; margin-left: 54px;">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <a
-        class="nav-link active bg-secondary"
-        id="home-tab"
-        data-toggle="tab"
-        href="#home"
-        role="tab"
-        aria-controls="home"
-        aria-selected="true"
-        style="border-bottom: 0px;"
-      >
-        <i class="fa fa-pencil" aria-hidden="true"></i> Create post
-      </a>
-    </li>
-    <li class="nav-item" role="presentation">
-      <a
-        class="nav-link"
-        id="profile-tab"
-        data-toggle="tab"
-        href="#profile"
-        role="tab"
-        aria-controls="profile"
-        aria-selected="false"
-      >
-        <i class="fa fa-video-camera" aria-hidden="true"></i> Live video</a
-      >
-    </li>
-    <li class="nav-item" role="presentation">
-      <a
-        class="nav-link"
-        id="contact-tab"
-        data-toggle="tab"
-        href="#contact"
-        role="tab"
-        aria-controls="contact"
-        aria-selected="false"
-        >other
-      </a>
-    </li>
-  </ul>
-  <div
-    class="tab-content border-top-0 bg-secondary"
-    id="myTabContent"
-    style="
-      height: 140px;
-      border: 1px solid rgba(0, 0, 0, 0.125);
-      border-radius: 0.25rem;
-    "
-  >
-    <div
-      class="tab-pane fade show active"
-      id="home"
-      role="tabpanel"
-      aria-labelledby="home-tab"
-    >
-      <div class="row">
-        <div class="picture">
-          <img
-            class="rounded-circle"
-            src="../../../../../assets/images/Mark.jpg"
-          />
-        </div>
-        <input />
-      </div>
-      <div class="row">something else</div> -->
-<!-- <div class="" id="create-post-div">
-        <div class="picture">
-          <img
-            class="rounded-circle"
-            src="../../../../../assets/images/Mark.jpg"
-          />
-        </div>
-        <input id="status" placeholder="What's on your mind ? " />
-        <div>
-          <div class="form-group">
-            <i class="fa fa-picture-o" aria-hidden="true"></i>
-            <input
-              type="file"
-              class="form-control-file"
-              id="exampleInputFile"
-              style="width: 98px;"
-            />
-          </div>
-        </div>
-      </div> -->
-
-<!-- <div
-        class="tab-pane fade"
-        id="profile"
-        role="tabpanel"
-        aria-labelledby="profile-tab"
-      >
-        ...
-      </div>
-      <div
-        class="tab-pane fade"
-        id="contact"
-        role="tabpanel"
-        aria-labelledby="contact-tab"
-      >
-        ...
-      </div>
-    </div>
-  </div>
-</div> -->
+<app-location-finder></app-location-finder>
