@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +23,7 @@ import { PhotosComponent } from './components/profile/timeline/photos/photos.com
 import { IntroComponent } from './components/profile/timeline/intro/intro.component';
 import { TimelinePostsComponent } from './components/profile/timeline/timeline-posts/timeline-posts.component';
 import { TimelineCreatePostComponent } from './components/profile/timeline/timeline-create-post/timeline-create-post.component';
+import { NgbdTypeaheadHttp } from './components/profile/timeline/timeline-create-post/location-finder/location-finder.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +45,15 @@ import { TimelineCreatePostComponent } from './components/profile/timeline/timel
     IntroComponent,
     TimelinePostsComponent,
     TimelineCreatePostComponent,
+    NgbdTypeaheadHttp,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    NgbModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
