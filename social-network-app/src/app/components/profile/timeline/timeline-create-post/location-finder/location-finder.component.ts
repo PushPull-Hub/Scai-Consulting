@@ -64,7 +64,3 @@ export class NgbdTypeaheadHttp {
       tap(() => (this.searching = false))
     );
 }
-
-// selector: 'app-location-finder',
-//   templateUrl: './location-finder.component.html',
-//   styleUrls: ['./location-finder.component.css']
