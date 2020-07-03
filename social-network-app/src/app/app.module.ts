@@ -24,6 +24,9 @@ import { IntroComponent } from './components/profile/timeline/intro/intro.compon
 import { TimelinePostsComponent } from './components/profile/timeline/timeline-posts/timeline-posts.component';
 import { TimelineCreatePostComponent } from './components/profile/timeline/timeline-create-post/timeline-create-post.component';
 import { NgbdTypeaheadHttp } from './components/profile/timeline/timeline-create-post/location-finder/location-finder.component';
+import { FriendshipsSuggestionComponent } from './pages/home/friendships-suggestion/friendships-suggestion.component';
+import { UsernavComponent } from './pages/home/usernav/usernav.component';
+import { ActiveFriendsComponent } from './pages/home/active-friends/active-friends.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { NgbdTypeaheadHttp } from './components/profile/timeline/timeline-create
     TimelinePostsComponent,
     TimelineCreatePostComponent,
     NgbdTypeaheadHttp,
+    FriendshipsSuggestionComponent,
+    UsernavComponent,
+    ActiveFriendsComponent,
   ],
   imports: [
     BrowserModule,
