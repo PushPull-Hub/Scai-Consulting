@@ -3,13 +3,8 @@
 <div class="container-fluid" style="background: #dfe3ee;">
   <div class="row">
     <!-- The UserNav -->
-    <div class="col-sm-3" style="margin-top: 20px;">
-      <div
-        class="jumbotron jumbotron-fluid"
-        style="border-radius: 4px; height: 400px; border: 1px solid #dddfe2;"
-      >
-        <p class="text-center">this is UserNav Component</p>
-      </div>
+    <div class="col-sm-3" style="margin-top: 30px;">
+      <app-usernav></app-usernav>
     </div>
     <!-- the middle component -->
     <div class="col-sm-6">
@@ -19,21 +14,10 @@
       <app-posts></app-posts>
     </div>
     <!-- the Third component -->
-    <div class="col-sm-3" style="margin-top: 10px; padding-left: 0px;">
-      <div
-        class="jumbotron jumbotron-fluid"
-        style="border-radius: 4px; border: 1px solid #dddfe2;"
-      >
-        <p class="text-center">this is the third component</p>
-      </div>
+    <div class="col-sm-3" style="margin-top: 30px; padding-left: 0px;">
+      <app-friendships-suggestion></app-friendships-suggestion>
     </div>
     <!-- 4th Component-->
-    <div class="container">
-      <div class="row justify-content-end">
-        <div class="col-3 fixed-bottom offset-9">
-          Friends section
-        </div>
-      </div>
-    </div>
+    <app-active-friends></app-active-friends>
   </div>
 </div>
