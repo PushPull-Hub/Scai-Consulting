@@ -1,3 +1,16 @@
 .container {
   margin-top: 53px;
 }
+
+table input {
+  background: transparent;
+  border: 0;
+}
+
+table input:focus {
+  outline: none;
+  cursor: default;
+}
+.form-group {
+  margin-bottom: 0px;
+}
