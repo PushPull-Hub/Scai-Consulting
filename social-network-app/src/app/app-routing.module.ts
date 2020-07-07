@@ -16,11 +16,15 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
   {
-    path: 'home',
+    path: 'home/:username/:id',
     component: HomeComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'profile', component: ProfileComponent },
+  {
+    path: 'profile/:username/:id',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
