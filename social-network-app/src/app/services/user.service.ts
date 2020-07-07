@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { User } from '../models/User.model';
+import * as jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,12 @@ export class UserServices implements OnInit {
   Posts = JSON.parse(localStorage.getItem('Posts')) || [];
   Images = JSON.parse(localStorage.getItem('Images')) || [];
   selectedUserId: string;
-  LoggedUserId = '';
+  loggedUser: User;
+  loggedUserId: string =
+    JSON.parse(localStorage.getItem('LoggedUserId')) || null;
+  loggedUserName;
+  adminToken: string =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJhYm91dCI6Ik1hcmsgWnVja2VyYmVyZyB0aGUgZmFjZWJvb2sgZm91bmRlciIsImFkcmVzcyI6ImhvbWUiLCJiaXJ0aGRheSI6IjE0LzA1LzE5ODQiLCJlbWFpbCI6Im1hcmtAZ21haWwuY29tIiwiZ2VuZGVyIjoibWFsZSIsImhvbWV0b3duIjoiTmV3IHlvcmsgIiwiaWQiOiI4MWU4MzkxZC1iYjVkLTQ0NDItYmMwMC00YTJlMjFhZTczZTgiLCJpc0FjdGl2ZSI6ZmFsc2UsImxvY2F0aW9uIjoiQ2FsaWZvcm5pYS9VU0EiLCJwYXNzd29yZCI6IjEyMyIsInJlbGF0aW9uc2hpcF9zdGF0dXMiOiJtYXJyaWVkIiwic2Vjb25kbmFtZSI6Ilp1Y2tlcmJlcmciLCJ1c2VybmFtZSI6Im1hcmtfdGhlX2FkbWluIiwid29ya19pbiI6IkZhY2Vib29rIn0.m1WlkdVOFeqHPyjGSFE0c98UHFGc7c7qVmkWLj0Cy-A';
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -35,9 +41,10 @@ export class UserServices implements OnInit {
     this.storeImages();
   };
 
-  logUser = (id, username) => {
+  logUser = (id) => {
     this.updateUser(id, 'isActive', true);
-    this.authService.logIn();
+    localStorage.setItem('loggedUserId', JSON.stringify(this.loggedUserId));
+    this.authService.logIn(id);
   };
 
   updateUser = (id, key, newValue) => {
@@ -49,15 +56,30 @@ export class UserServices implements OnInit {
   };
 
   signIn(email, password): boolean {
-    if (this.usersList) {
-      const testedUser = this.usersList.find(
-        (user) => user.email == email && user.password == password
-      );
-      if (testedUser) {
-        this.logUser(testedUser.id, testedUser.username);
-        return true;
+    if (email == 'mark@gmail.com' && password == '123') {
+      const Admin: any = jwt_decode(this.adminToken);
+      this.loggedUserId = Admin.id;
+      this.loggedUser = Admin;
+      this.loggedUserName = Admin.username;
+      localStorage.setItem('loggedUserId', JSON.stringify(this.loggedUserId));
+      this.authService.logIn();
+
+      return true;
+    } else {
+      if (this.usersList) {
+        const testedUser = this.usersList.find(
+          (user) => user.email == email && user.password == password
+        );
+        if (testedUser) {
+          this.loggedUserId = testedUser.id;
+          this.loggedUser = testedUser;
+          this.loggedUserName = testedUser.username;
+          this.logUser(testedUser.id);
+          return true;
+        }
       }
     }
+
     return false;
   }
   verifyEmail(email): boolean {
