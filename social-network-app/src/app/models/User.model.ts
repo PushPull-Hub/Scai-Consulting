@@ -1,10 +1,18 @@
 export class User extends Object {
-  username: string;
-  password: string;
+  id: string;
+  username: string; // should deleted
   email: string;
+  password: string;
   firstname: string;
   secondname: string;
-  id: string;
-  friends: [];
   isActive: boolean;
+  about: string;
+  gender: string;
+  birthday: string;
+  hometown: string;
+  adress: string;
+  location: string;
+  work_in: string;
+  relationship_status: string;
+  friends: [];
 }
