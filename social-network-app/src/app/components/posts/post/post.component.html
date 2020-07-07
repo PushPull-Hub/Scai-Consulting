@@ -1,6 +1,93 @@
+<!-- from here  -->
 <div
-  class="container col-10"
-  style="background: #e9ebee; margin-top: 40px; height: 300px;"
+  class="container col-12"
+  style="
+    border: 2px solid rgba(0, 0, 0, 0.125);
+    padding: 0;
+    border-radius: 5px;
+    width: 601px;
+  "
 >
-  <p class="text-center">this is the post component</p>
+  <!-- nav -->
+  <div class="row">
+    <div class="container-fluid post-nav" style="width: 600px; padding: 0;">
+      <ol class="breadcrumb" style="margin-bottom: 0;">
+        <li class="breadcrumb-item">
+          <div>
+            <img
+              src="../../../../../assets/images/Mark.jpg"
+              style="height: 40px; width: 40px;"
+              class="rounded-circle"
+            />
+          </div>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="#">Mark Zuckerburg</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <!-- post row  -->
+  <div class="row">
+    <div
+      class="container-fluid post-photo"
+      style="
+        width: 600px;
+        padding: 0 15px 0 15px;
+        height: 600px;
+        background: white;
+        margin: 0 17px 0 17px;
+      "
+    >
+      hello
+    </div>
+  </div>
+  <!-- likes comments  -->
+  <div class="row">
+    <div class="container" style="width: 600px; padding: 0;">
+      <ol class="breadcrumb" style="margin-bottom: 0;">
+        <li class="breadcrumb-item">
+          <button class="btn btn secondary">
+            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+          </button>
+        </li>
+        <li class="breadcrumb-item">
+          <button class="btn btn secondary">
+            <i class="fa fa-comment" aria-hidden="true"></i>
+          </button>
+        </li>
+        <li class="breadcrumb-item">
+          <button class="btn btn secondary">
+            <i class="fa fa-share" aria-hidden="true"></i>
+          </button>
+        </li>
+      </ol>
+    </div>
+  </div>
+  <!-- post text  -->
+  <div class="row">
+    <div
+      class="container-fluid comment-section"
+      style="width: 600px; padding: 0;"
+    >
+      <div class="input-group fluid">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Add a Comment "
+          aria-label="Recipient's username"
+          aria-describedby="button-addon2"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-primary"
+            type="button"
+            id="button-addon2"
+          >
+            Comment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
