@@ -8,12 +8,13 @@ import { ActiveFriendsComponent } from './active-friends/active-friends.componen
 import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './posts/post/post.component';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { TimelineModule } from '../profile/timeline/timeline.module';
+import { ProfileModule } from '../profile/profile.module';
+import { HomePageComponent } from './home.component';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    HomepageRoutingModule,
+  declarations: [
+    HomePageComponent,
     FriendshipsSuggestionComponent,
     UsernavComponent,
     ActiveFriendsComponent,
@@ -21,5 +22,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
     PostComponent,
     CreatePostComponent,
   ],
+  imports: [CommonModule, HomepageRoutingModule, TimelineModule, ProfileModule],
+  exports: [],
 })
 export class HomepageModule {}

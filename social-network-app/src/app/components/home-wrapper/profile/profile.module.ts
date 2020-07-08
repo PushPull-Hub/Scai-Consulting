@@ -7,5 +7,6 @@ import { TimelineComponent } from './timeline/timeline.component';
 @NgModule({
   declarations: [TimelineComponent],
   imports: [CommonModule, ProfileRoutingModule],
+  exports: [],
 })
 export class ProfileModule {}
