@@ -1,31 +1,42 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AboutComponent } from './components/about/about.component';
-import { HomeComponent } from './pages/home/home.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password/reset-password.component';
-import { VerifyEmailComponent } from './components/reset-password/verify-email/verify-email.component';
-import { AuthGuard } from './auth/auth.guard';
-import { ProfileComponent } from './components/profile/profile.component';
 
-const routes: Routes = [
-  { path: '', component: AboutComponent },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'verify-email', component: VerifyEmailComponent },
-  {
-    path: 'home/:username/:id',
-    component: HomeComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'profile/:username/:id',
-    component: ProfileComponent,
-    canActivate: [AuthGuard],
-  },
-];
+const routes: Routes = [];
+// [
+//   { path: '', component: AboutComponent },
+//   {
+//     path: 'auth',
+//     loadChildren: () =>
+//       import('./shared/modules/authentiction.module').then(
+//         (m) => m.AuthentictionModule
+//       ),
+//   },
+//   {
+//     path: 'home',
+//     loadChildren: () =>
+//       import('./shared/modules/homepage.module').then((m) => m.HomepageModule),
+//   },
+//   {
+//     path: 'profile',
+//     loadChildren: () =>
+//       import('./shared/modules/profile.module').then((m) => m.ProfileModule),
+//     // canActivate: [AuthGuard],
+//   },
+//   {
+//     path: 'auth-wrapper',
+//     loadChildren: () =>
+//       import('./components/auth-wrapper/authentication.module').then(
+//         (m) => m.AuthWrapperModule
+//       ),
+//   },
+//   {
+//     path: 'home-wrapper',
+//     loadChildren: () =>
+//       import('./components/home-wrapper/home-wrapper.module').then(
+//         (m) => m.HomeWrapperModule
+//       ),
+//   },
+// ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

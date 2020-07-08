@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomePageComponent implements OnInit {
   constructor(private auth: AuthService) {}
 
   ngOnInit(): void {}
