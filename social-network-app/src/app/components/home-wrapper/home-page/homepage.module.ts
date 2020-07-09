@@ -8,8 +8,8 @@ import { ActiveFriendsComponent } from './active-friends/active-friends.componen
 import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './posts/post/post.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-import { TimelineModule } from '../profile/second-wrapper/timeline/timeline.module';
-import { ProfileModule } from '../profile/profile.module';
+// import { TimelineModule } from '../profile/second-wrapper/timeline/timeline.module';
+// import { ProfileModule } from '../profile/profile.module';
 import { HomePageComponent } from './home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -23,7 +23,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     PostComponent,
     CreatePostComponent,
   ],
-  imports: [CommonModule, HomepageRoutingModule, SharedModule, ProfileModule],
+  imports: [CommonModule, HomepageRoutingModule, SharedModule],
   exports: [],
 })
 export class HomepageModule {}
