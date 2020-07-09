@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { TimelineRoutingModule } from './timeline-routing.module';
@@ -8,7 +9,9 @@ import { IntroComponent } from './intro/intro.component';
 import { TimelineCreatePostComponent } from './timeline-create-post/timeline-create-post.component';
 import { PhotosComponent } from './photos/photos.component';
 import { TimelinePostsComponent } from './timeline-posts/timeline-posts.component';
-import { NgbdTypeaheadHttp } from './timeline-create-post/location-finder/location-finder.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -17,9 +20,15 @@ import { NgbdTypeaheadHttp } from './timeline-create-post/location-finder/locati
     TimelineCreatePostComponent,
     PhotosComponent,
     TimelinePostsComponent,
-    NgbdTypeaheadHttp,
   ],
-  imports: [CommonModule, TimelineRoutingModule],
-  exports: [],
+  imports: [
+    CommonModule,
+    NgModule,
+    FormsModule,
+    TimelineRoutingModule,
+    HttpClientModule,
+    SharedModule,
+  ],
+  exports: [TimelineComponent],
 })
 export class TimelineModule {}
