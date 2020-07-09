@@ -9,9 +9,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ResetPasswordComponent } from './reset-password/reset-password/reset-password.component';
 import { VerifyEmailComponent } from './reset-password/verify-email/verify-email.component';
 import { HeaderComponent } from './header/header.component';
-import { FormsModule, NgForm } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';
+
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,12 +23,6 @@ import { AboutComponent } from './about/about.component';
     HeaderComponent,
     AboutComponent,
   ],
-  imports: [
-    CommonModule,
-    AuthenticationRoutingModule,
-    NgForm,
-    FormsModule,
-    RouterModule,
-  ],
+  imports: [AuthenticationRoutingModule, CommonModule, SharedModule],
 })
 export class AuthentictionModule {}
