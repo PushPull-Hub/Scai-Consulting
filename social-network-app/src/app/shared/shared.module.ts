@@ -5,9 +5,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { NgbdTypeaheadHttp } from './search-location/search-location.component';
 
 @NgModule({
-  declarations: [NavbarComponent],
+  declarations: [NavbarComponent, NgbdTypeaheadHttp],
   imports: [
     CommonModule,
     RouterModule,
@@ -15,6 +16,13 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     NgbModule,
   ],
-  exports: [NavbarComponent, FormsModule, NgbModule, RouterModule, NgbModule],
+  exports: [
+    NavbarComponent,
+    FormsModule,
+    NgbModule,
+    RouterModule,
+    NgbModule,
+    NgbdTypeaheadHttp,
+  ],
 })
 export class SharedModule {}
