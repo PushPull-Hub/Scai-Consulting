@@ -19,6 +19,6 @@ export class AuthService {
     localStorage.removeItem('Token');
     localStorage.removeItem('loggedUserId');
     this.isLoggedIn = false;
-    this.router.navigate(['/sign-in']);
+    this.router.navigate(['/app/sign-in']);
   };
 }

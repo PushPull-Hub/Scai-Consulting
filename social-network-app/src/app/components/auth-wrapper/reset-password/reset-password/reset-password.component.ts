@@ -29,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
     } else if (newPass === newPassConfirmation) {
       const newPassword = newPass.toString();
       this.user.updateUser(this.selectedUserId, 'password', newPassword);
-      this.route.navigate(['/sign-in']);
+      this.route.navigate(['/app/sign-in']);
     }
   }
 }
