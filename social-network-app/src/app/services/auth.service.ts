@@ -7,10 +7,14 @@ import { User } from '../models/User.model';
   providedIn: 'root',
 })
 export class AuthService {
-  loggedUser: User;
+  loggedUserId: string =
+    JSON.parse(localStorage.getItem('loggedUserId')) || null;
   isLoggedIn: boolean = false;
-  loggedUserId: string;
-  theLoggedUserName: string;
+  loggedUser: User = this.userService.getUserById(this.loggedUserId) || null;
+  theLoggedUserName: string = this.userService.getaUserProperty(
+    this.loggedUserId,
+    'username'
+  );
 
   constructor(private router: Router, private userService: UserServices) {}
 
@@ -20,11 +24,8 @@ export class AuthService {
         (user) => user.email == email && user.password == password
       );
       if (testedUser) {
-        this.loggedUserId = testedUser.id;
-        this.theLoggedUserName = testedUser.username;
-        this.loggedUser = testedUser;
         this.userService.updateUser(this.loggedUserId, 'isActive', true);
-        localStorage.setItem('loggedUserId', JSON.stringify(this.loggedUserId));
+        localStorage.setItem('loggedUserId', JSON.stringify(testedUser.id));
         return true;
       }
       return false;

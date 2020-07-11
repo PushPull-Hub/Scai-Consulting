@@ -36,7 +36,14 @@ export class UserServices implements OnInit {
   // CRUD methods
 
   getUsers = () => JSON.parse(localStorage.getItem('Users'));
+
   getUserById = (id) => this.usersList.find((user) => user.id === id);
+
+  getaUserProperty = (id, property: string) => {
+    const user = this.getUserById(id);
+    const prop = user[`${property}`];
+    return prop;
+  };
 
   createUSer = (user: User, posts, images) => {
     this.usersList.push(user);
