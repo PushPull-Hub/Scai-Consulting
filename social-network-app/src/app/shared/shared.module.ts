@@ -6,9 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NgbdTypeaheadHttp } from './search-location/search-location.component';
+import { FriendsFinder } from './search-friends/search-friends.component';
 
 @NgModule({
-  declarations: [NavbarComponent, NgbdTypeaheadHttp],
+  declarations: [NavbarComponent, NgbdTypeaheadHttp, FriendsFinder],
   imports: [
     CommonModule,
     RouterModule,
@@ -23,6 +24,7 @@ import { NgbdTypeaheadHttp } from './search-location/search-location.component';
     RouterModule,
     NgbModule,
     NgbdTypeaheadHttp,
+    FriendsFinder,
   ],
 })
 export class SharedModule {}
