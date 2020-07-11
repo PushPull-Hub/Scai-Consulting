@@ -11,6 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'app',
+    canActivate: [UnAuthGuard],
     loadChildren: () =>
       import('./components/auth-wrapper/authentication.module').then(
         (m) => m.AuthentictionModule
@@ -18,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./components/home-wrapper/home-wrapper.module').then(
         (m) => m.HomeWrapperModule

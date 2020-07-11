@@ -5,12 +5,7 @@ import { HomePageComponent } from './home-page/home.component';
 import { AuthGuard } from 'src/app/auth/auth.guard';
 
 const routes: Routes = [
-  // { path: ' ', redirectTo: 'home/:username/:id', pathMatch: 'full' },
-  {
-    path: '',
-    component: HomePageComponent,
-    canActivate: [AuthGuard],
-  },
+  { path: '', component: HomePageComponent },
   { path: 'profile', redirectTo: 'profile/:username/:id', pathMatch: 'full' },
   {
     path: 'profile/:username/:id',

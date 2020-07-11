@@ -10,18 +10,10 @@ import { UnAuthGuard } from 'src/app/auth/un-auth.guard';
 
 const routes: Routes = [
   { path: '', component: AboutComponent },
-  { path: 'sign-in', component: SignInComponent, canActivate: [UnAuthGuard] },
-  { path: 'sign-up', component: SignUpComponent, canActivate: [UnAuthGuard] },
-  {
-    path: 'reset-password',
-    component: ResetPasswordComponent,
-    canActivate: [UnAuthGuard],
-  },
-  {
-    path: 'verify-email',
-    component: VerifyEmailComponent,
-    canActivate: [UnAuthGuard],
-  },
+  { path: 'sign-in', component: SignInComponent },
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
 ];
 
 @NgModule({
