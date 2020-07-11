@@ -5,15 +5,18 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  isLoggedIn: boolean;
+  isLoggedIn: boolean = false;
 
   constructor(private router: Router) {}
 
-  logIn = (id?) => {
-    localStorage.getItem('loggedUserId')
-      ? (this.isLoggedIn = true)
-      : (this.isLoggedIn = false);
-  };
+  isAuthenticated() {
+    this.isLoggedIn = localStorage.getItem('loggedUserId') ? true : false;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.isLoggedIn);
+      }, 100);
+    });
+  }
 
   logOut = () => {
     localStorage.removeItem('Token');

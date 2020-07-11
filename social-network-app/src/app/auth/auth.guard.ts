@@ -14,6 +14,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
+
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -22,13 +23,13 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this.authService.isLoggedIn) {
-      console.log('true is the loggedin value');
-      return true;
-    } else {
-      console.log("I'm on else ");
-      this.router.navigate(['/sign-in']);
-      return false;
-    }
+    return this.authService.isAuthenticated().then((authenticated: boolean) => {
+      if (authenticated) {
+        return true;
+      } else {
+        this.router.navigate(['app/sign-in']);
+        return false;
+      }
+    });
   }
 }
