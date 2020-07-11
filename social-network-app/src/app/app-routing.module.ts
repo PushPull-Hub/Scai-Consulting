@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
+import { UnAuthGuard } from './auth/un-auth.guard';
 
 const routes: Routes = [
   {
-    path: ' ',
+    path: '',
     redirectTo: 'app',
     pathMatch: 'full',
   },
