@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
   combination = false;
 
-  constructor(private userService: UserServices, private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {}
 
@@ -19,11 +20,20 @@ export class SignInComponent implements OnInit {
     const email = f.value.email;
     const password = f.value.password;
 
-    if (this.userService.signIn(email, password)) {
+    if (this.authService.logIn(email, password)) {
+      console.log("it's returning true ");
       this.combination = false;
       this.router.navigate(['/home']);
     } else {
       this.combination = true;
+      console.log("can't route to home ");
     }
+
+    // if (this.userService.signIn(email, password)) {
+    //   this.combination = false;
+    //   this.router.navigate(['/home']);
+    // } else {
+    //   this.combination = true;
+    // }
   }
 }

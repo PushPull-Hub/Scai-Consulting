@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-intro',
@@ -9,13 +10,14 @@ import { UserServices } from 'src/app/services/user.service';
 })
 export class IntroComponent implements OnInit {
   EditButtonClicked: boolean = false;
-  loggedUser = this.userService.loggedUser;
-  usersList = this.userService.getUsers();
   location: string = '';
   hometown: string = '';
   work_in: string = '';
   birthday: string = '';
-  constructor(private userService: UserServices) {}
+  constructor(
+    private userService: UserServices,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -34,27 +36,26 @@ export class IntroComponent implements OnInit {
     this.birthday = birthday;
 
     this.userService.updateUser(
-      this.userService.loggedUserId,
+      this.authService.loggedUserId,
       'location',
       location
     );
     this.userService.updateUser(
-      this.userService.loggedUserId,
+      this.authService.loggedUserId,
       'hometown',
       hometown
     );
     this.userService.updateUser(
-      this.userService.loggedUserId,
+      this.authService.loggedUserId,
       'work_in',
       work_in
     );
     this.userService.updateUser(
-      this.userService.loggedUserId,
+      this.authService.loggedUserId,
       'birthday',
       birthday
     );
 
     this.EditButtonClicked = false;
-    console.log(this.loggedUser);
   };
 }
