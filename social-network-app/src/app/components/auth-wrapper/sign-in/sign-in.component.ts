@@ -21,9 +21,7 @@ export class SignInComponent implements OnInit {
 
     if (this.userService.signIn(email, password)) {
       this.combination = false;
-      this.router.navigate([
-        `/home/${this.userService.loggedUserName}/${this.userService.loggedUserId}`,
-      ]);
+      this.router.navigate(['/home']);
     } else {
       this.combination = true;
     }

@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeWrapperComponent } from './home-wrapper.component';
 import { HomePageComponent } from './home-page/home.component';
-import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from 'src/app/auth/auth.guard';
 
 const routes: Routes = [
-  { path: ' ', redirectTo: 'home/:username/:id', pathMatch: 'full' },
-  { path: 'home/:username/:id', component: HomePageComponent },
+  // { path: ' ', redirectTo: 'home/:username/:id', pathMatch: 'full' },
+  {
+    path: '',
+    component: HomePageComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'profile', redirectTo: 'profile/:username/:id', pathMatch: 'full' },
   {
     path: 'profile/:username/:id',
