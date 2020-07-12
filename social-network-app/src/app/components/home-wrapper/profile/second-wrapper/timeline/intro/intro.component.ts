@@ -11,11 +11,15 @@ import { User } from 'src/app/models/User.model';
 })
 export class IntroComponent implements OnInit {
   EditButtonClicked: boolean = false;
-  loggedUser: User = this.authService.loggedUser;
-  location: string = this.loggedUser.location || '';
-  hometown: string = this.loggedUser.hometown || '';
-  work_in: string = this.loggedUser.work_in || '';
-  birthday: string = this.loggedUser.birthday || '';
+  theLoggedUserId = this.authService.loggedUserId;
+  location: string =
+    this.userService.getaUserProperty(this.theLoggedUserId, 'location') || '';
+  hometown: string =
+    this.userService.getaUserProperty(this.theLoggedUserId, 'hometown') || '';
+  work_in: string =
+    this.userService.getaUserProperty(this.theLoggedUserId, 'work_in') || '';
+  birthday: string =
+    this.userService.getaUserProperty(this.theLoggedUserId, 'birthday') || '';
   constructor(
     private userService: UserServices,
     private authService: AuthService
