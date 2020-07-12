@@ -21,19 +21,10 @@ export class SignInComponent implements OnInit {
     const password = f.value.password;
 
     if (this.authService.logIn(email, password)) {
-      console.log("it's returning true ");
       this.combination = false;
       this.router.navigate(['/home']);
     } else {
       this.combination = true;
-      console.log("can't route to home ");
     }
-
-    // if (this.userService.signIn(email, password)) {
-    //   this.combination = false;
-    //   this.router.navigate(['/home']);
-    // } else {
-    //   this.combination = true;
-    // }
   }
 }

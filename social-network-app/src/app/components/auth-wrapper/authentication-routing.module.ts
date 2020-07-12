@@ -6,7 +6,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ResetPasswordComponent } from './reset-password/reset-password/reset-password.component';
 import { VerifyEmailComponent } from './reset-password/verify-email/verify-email.component';
 import { AboutComponent } from './about/about.component';
-import { UnAuthGuard } from 'src/app/auth/un-auth.guard';
 
 const routes: Routes = [
   { path: '', component: AboutComponent },
