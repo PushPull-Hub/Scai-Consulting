@@ -7,9 +7,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NgbdTypeaheadHttp } from './search-location/search-location.component';
 import { FriendsFinder } from './search-friends/search-friends.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
-  declarations: [NavbarComponent, NgbdTypeaheadHttp, FriendsFinder],
+  declarations: [
+    NavbarComponent,
+    NgbdTypeaheadHttp,
+    FriendsFinder,
+    SpinnerComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -25,6 +31,7 @@ import { FriendsFinder } from './search-friends/search-friends.component';
     NgbModule,
     NgbdTypeaheadHttp,
     FriendsFinder,
+    SpinnerComponent,
   ],
 })
 export class SharedModule {}
