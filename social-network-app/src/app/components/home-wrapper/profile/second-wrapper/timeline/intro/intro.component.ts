@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/User.model';
 
 @Component({
   selector: 'app-intro',
@@ -10,10 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class IntroComponent implements OnInit {
   EditButtonClicked: boolean = false;
-  location: string = '';
-  hometown: string = '';
-  work_in: string = '';
-  birthday: string = '';
+  loggedUser: User = this.authService.loggedUser;
+  location: string = this.loggedUser.location || '';
+  hometown: string = this.loggedUser.hometown || '';
+  work_in: string = this.loggedUser.work_in || '';
+  birthday: string = this.loggedUser.birthday || '';
   constructor(
     private userService: UserServices,
     private authService: AuthService

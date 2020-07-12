@@ -11,10 +11,9 @@ export class AuthService {
     JSON.parse(localStorage.getItem('loggedUserId')) || null;
   isLoggedIn: boolean = false;
   loggedUser: User = this.userService.getUserById(this.loggedUserId) || null;
-  theLoggedUserName: string = this.userService.getaUserProperty(
-    this.loggedUserId,
-    'username'
-  );
+  theLoggedUserName: string = this.loggedUserId
+    ? this.userService.getaUserProperty(this.loggedUserId, 'username')
+    : null;
 
   constructor(private router: Router, private userService: UserServices) {}
 
@@ -24,6 +23,9 @@ export class AuthService {
         (user) => user.email == email && user.password == password
       );
       if (testedUser) {
+        this.loggedUser = testedUser;
+        this.loggedUserId = testedUser.id;
+        this.theLoggedUserName = testedUser.username;
         this.userService.updateUser(this.loggedUserId, 'isActive', true);
         localStorage.setItem('loggedUserId', JSON.stringify(testedUser.id));
         return true;
