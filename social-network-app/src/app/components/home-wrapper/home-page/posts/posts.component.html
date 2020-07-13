@@ -10,6 +10,7 @@
     <h4 style="margin-top: 10px;">
       <i class="fa fa-paperclip" aria-hidden="true"></i> Posts
     </h4>
-    <app-post></app-post>
+    <!-- <app-spinner></app-spinner> -->
+    <app-post *ngFor="let post of posts" [post]="post"></app-post>
   </div>
 </div>

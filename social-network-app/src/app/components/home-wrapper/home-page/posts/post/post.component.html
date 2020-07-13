@@ -39,7 +39,7 @@
         margin: 0 17px 0 17px;
       "
     >
-      hello
+      {{ post.description }} <br />
     </div>
   </div>
   <!-- likes comments  -->
@@ -48,12 +48,13 @@
       <ol class="breadcrumb" style="margin-bottom: 0;">
         <li class="breadcrumb-item">
           <button class="btn btn secondary">
-            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            <i class="fa fa-thumbs-up" aria-hidden="true"></i>({{ post.likes }})
           </button>
         </li>
         <li class="breadcrumb-item">
           <button class="btn btn secondary">
             <i class="fa fa-comment" aria-hidden="true"></i>
+            ( {{ post.comments.length - 1 }} )
           </button>
         </li>
         <li class="breadcrumb-item">
