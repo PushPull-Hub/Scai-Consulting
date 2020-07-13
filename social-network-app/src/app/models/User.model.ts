@@ -1,3 +1,5 @@
+import { Friend } from './Friend.model';
+
 export class User extends Object {
   id: string;
   username: string; // should deleted
@@ -14,5 +16,5 @@ export class User extends Object {
   location: string;
   work_in: string;
   relationship_status: string;
-  friends: [];
+  friends: Friend[];
 }

@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { User } from 'src/app/models/User.model';
 import { Post } from 'src/app/models/Post.model';
 import { Images } from 'src/app/models/Images.model';
+import { Friend } from 'src/app/models/Friend.model';
 
 @Component({
   selector: 'app-sign-up',
@@ -43,6 +44,7 @@ export class SignUpComponent implements OnInit {
       (user.location = ' '),
       (user.work_in = ' '),
       (user.relationship_status = ' ');
+    user.friends = [];
 
     posts.userId = user.id;
     posts.likes = '';
