@@ -10,7 +10,11 @@ export class User extends Object {
   isActive: boolean;
   about: string;
   gender: string;
-  birthday: string;
+  birthday: {
+    year: number;
+    month: number;
+    day: number;
+  };
   hometown: string;
   adress: string;
   location: string;
