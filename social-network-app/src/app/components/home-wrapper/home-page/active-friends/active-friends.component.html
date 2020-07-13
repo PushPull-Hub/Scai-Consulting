@@ -18,7 +18,30 @@
           *ngIf="clicked"
           class="container"
           style="height: 300px; background: white;"
-        ></div>
+        >
+          <table class="table table-sm table-hover">
+            <tbody>
+              <tr *ngFor="let ActiveFriend of ActiveFriends">
+                <th>
+                  <img
+                    src="../../../../../assets/images/man-user-empty-picture.jpg"
+                    class="rounded-circle"
+                    style="width: 40px; height: 40px;"
+                  />
+                </th>
+                <td>{{ ActiveFriend.username }}</td>
+                <td>
+                  <i
+                    _ngcontent-jcl-c119=""
+                    aria-hidden="true"
+                    class="fa fa-circle"
+                    style="color: green;"
+                  ></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
