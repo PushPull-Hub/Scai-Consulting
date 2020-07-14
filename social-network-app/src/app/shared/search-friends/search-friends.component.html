@@ -1,18 +1,19 @@
-<p>
+<!-- <p>
   Prevents manual text entry and updates the model only when an item from
   suggestions is selected
 </p>
 
-<label for="typeahead-prevent-manual-entry">Search for a state:</label>
+<label for="typeahead-prevent-manual-entry">Search for a state:</label> -->
 <input
   id="friends-finder"
   type="text"
-  class="form-control"
+  placeholder="Search"
+  class="form-control mr-sm-2"
   [(ngModel)]="model"
   [ngbTypeahead]="search"
   [inputFormatter]="formatter"
   [resultFormatter]="formatter"
   [editable]="false"
 />
-<hr />
-<pre>Model: {{ model | json }}</pre>
+<!-- <hr />
+<pre>Model: {{ model | json }}</pre> -->
