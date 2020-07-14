@@ -24,8 +24,10 @@
             <i class="fa fa-paperclip" aria-hidden="true"></i> Posts
           </h4>
           <hr class="my-4" style="margin-right: 20px; margin-left: 20px;" />
+          <!-- the 2020 posts  -->
+
           <div id="2020-posts" class="container">
-            <div class="container" id="post">
+            <div class="container" id="post" *ngFor="let userPost of Userposts">
               <div class="row">
                 <!-- from here  -->
                 <div
@@ -53,12 +55,16 @@
                           </div>
                         </li>
                         <li class="breadcrumb-item">
-                          <a href="#">Mark Zuckerberg</a>
+                          <a href="#">{{ userName }}</a>
                         </li>
                       </ol>
                     </div>
                   </div>
                   <!-- post  body -->
+                  <div class="row">
+                    <p class="post-description">{{ userPost.description }}</p>
+                    <p>{{ userPost.text }}</p>
+                  </div>
                   <div class="row">
                     <div
                       class="container-fluid post-photo"
@@ -71,10 +77,10 @@
                         background-size: cover;
                       "
                     >
-                      <img
+                      <!-- <img
                         src="../../../../../assets/images/Mark.jpg"
                         style="width: 500px; height: 500px;"
-                      />
+                      /> -->
                     </div>
                   </div>
                   <!-- icons row ( like comment share )   -->
@@ -86,12 +92,15 @@
                       <ol class="breadcrumb" style="margin-bottom: 0;">
                         <li class="breadcrumb-item">
                           <button class="btn btn secondary">
-                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i> (
+                            {{ userPost.likes }} )
                           </button>
                         </li>
                         <li class="breadcrumb-item">
                           <button class="btn btn secondary">
-                            <i class="fa fa-comment" aria-hidden="true"></i>
+                            <i class="fa fa-comment" aria-hidden="true"></i> ({{
+                              userPost.comments.length - 1
+                            }})
                           </button>
                         </li>
                         <li class="breadcrumb-item">
@@ -134,175 +143,27 @@
               </div>
             </div>
           </div>
-          <!-- the 2020 posts  -->
           <hr />
           <h4 id="list-item-2">2019</h4>
           <hr />
-          <div id="2020-posts" class="container">
-            <div class="container" id="post">
-              <div class="row">
-                <!-- from here  -->
-                <div
-                  class="container col-12"
-                  style="
-                    border: 1px solid rgba(0, 0, 0, 0.125);
-                    padding: 0;
-                    border-radius: 5px;
-                  "
-                >
-                  <!--  post nav -->
-                  <div class="row">
-                    <div
-                      class="container-fluid post-nav"
-                      style="width: 600px; padding: 0;"
-                    >
-                      <ol class="breadcrumb" style="margin-bottom: 0;">
-                        <li class="breadcrumb-item">
-                          <span class="rounded-circle">
-                            <a href="#">picture </a></span
-                          >
-                        </li>
-                        <li class="breadcrumb-item">
-                          <a href="#">Mark Zuckerburg</a>
-                        </li>
-                      </ol>
-                    </div>
-                  </div>
-                  <!-- post  body -->
-                  <div class="row">
-                    <div
-                      class="container-fluid post-photo"
-                      style="
-                        width: 600px;
-                        padding: 0 15px 0 15px;
-                        height: 600px;
-                        background: white;
-                        margin: 0 17px 0 17px;
-                      "
-                    >
-                      hello
-                    </div>
-                  </div>
-                  <!-- icons row ( like comment share )   -->
-                  <div class="row">
-                    <div
-                      class="container-fluid post-nav"
-                      style="width: 600px; padding: 0;"
-                    >
-                      <ol class="breadcrumb" style="margin-bottom: 0;">
-                        <li class="breadcrumb-item">
-                          <button class="btn btn secondary">
-                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                          </button>
-                        </li>
-                        <li class="breadcrumb-item">
-                          <button class="btn btn secondary">
-                            <i class="fa fa-comment" aria-hidden="true"></i>
-                          </button>
-                        </li>
-                        <li class="breadcrumb-item">
-                          <button class="btn btn secondary">
-                            <i class="fa fa-share" aria-hidden="true"></i>
-                          </button>
-                        </li>
-                      </ol>
-                    </div>
-                  </div>
-                  <!-- Comment Section (input )  -->
-                  <div class="row">
-                    <div
-                      class="container-fluid comment-section"
-                      style="width: 600px; padding: 0;"
-                    >
-                      <div class="input-group fluid">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Add a Comment "
-                          aria-label="Recipient's username"
-                          aria-describedby="button-addon2"
-                        />
-                        <div class="input-group-append">
-                          <button
-                            class="btn btn-outline-primary"
-                            type="button"
-                            id="button-addon2"
-                          >
-                            Comment
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- to here  -->
-                </div>
-              </div>
-            </div>
+          <!-- the 2019 posts  -->
+          <div id="2019-posts" class="container">
+            <p>Posts of 2019</p>
           </div>
           <hr />
           <h4 id="list-item-3">2018</h4>
           <hr />
-          <p>
-            Ex consequat commodo adipisicing exercitation aute excepteur
-            occaecat ullamco duis aliqua id magna ullamco eu. Do aute ipsum
-            ipsum ullamco cillum consectetur ut et aute consectetur labore.
-            Fugiat laborum incididunt tempor eu consequat enim dolore proident.
-            Qui laborum do non excepteur nulla magna eiusmod consectetur in.
-            Aliqua et aliqua officia quis et incididunt voluptate non anim
-            reprehenderit adipisicing dolore ut consequat deserunt mollit
-            dolore. Aliquip nulla enim veniam non fugiat id cupidatat nulla elit
-            cupidatat commodo velit ut eiusmod cupidatat elit dolore.
-          </p>
+          <!-- the 2018 Posts  -->
+          <div id="2018-posts" class="containe">
+            <p>Posts of 2018</p>
+          </div>
+          <hr />
           <h4 id="list-item-4">Birthday</h4>
-          <hr class="my-4" style="margin-right: 20px; margin-left: 20px;" />
-          <p>
-            Ex consequat commodo adipisicing exercitation aute excepteur
-            occaecat ullamco duis aliqua id magna ullamco eu. Do aute ipsum
-            ipsum ullamco cillum consectetur ut et aute consectetur labore.
-            Fugiat laborum incididunt tempor eu consequat enim dolore proident.
-            Qui laborum do non excepteur nulla magna eiusmod consectetur in.
-            Aliqua et aliqua officia quis et incididunt voluptate non anim
-            reprehenderit adipisicing dolore ut consequat deserunt mollit
-            dolore. Aliquip nulla enim veniam non fugiat id cupidatat nulla elit
-            cupidatat commodo velit ut eiusmod cupidatat elit dolore.Ex
-            consequat commodo adipisicing exercitation aute excepteur occaecat
-            ullamco duis aliqua id magna ullamco eu. Do aute ipsum ipsum ullamco
-            cillum consectetur ut et aute consectetur labore. Fugiat laborum
-            incididunt tempor eu consequat enim dolore proident. Qui laborum do
-            non excepteur nulla magna eiusmod consectetur in. Aliqua et aliqua
-            officia quis et incididunt voluptate non anim reprehenderit
-            adipisicing dolore ut consequat deserunt mollit dolore. Aliquip
-            nulla enim veniam non fugiat id cupidatat nulla elit cupidatat
-            commodo velit ut eiusmod cupidatat elit dolore.Ex consequat commodo
-            adipisicing exercitation aute excepteur occaecat ullamco duis aliqua
-            id magna ullamco eu. Do aute ipsum ipsum ullamco cillum consectetur
-            ut et aute consectetur labore. Fugiat laborum incididunt tempor eu
-            consequat enim dolore proident. Qui laborum do non excepteur nulla
-            magna eiusmod consectetur in. Aliqua et aliqua officia quis et
-            incididunt voluptate non anim reprehenderit adipisicing dolore ut
-            consequat deserunt mollit dolore. Aliquip nulla enim veniam non
-            fugiat id cupidatat nulla elit cupidatat commodo velit ut eiusmod
-            cupidatat elit dolore.Ex consequat commodo adipisicing exercitation
-            aute excepteur occaecat ullamco duis aliqua id magna ullamco eu. Do
-            aute ipsum ipsum ullamco cillum consectetur ut et aute consectetur
-            labore. Fugiat laborum incididunt tempor eu consequat enim dolore
-            proident. Qui laborum do non excepteur nulla magna eiusmod
-            consectetur in. Aliqua et aliqua officia quis et incididunt
-            voluptate non anim reprehenderit adipisicing dolore ut consequat
-            deserunt mollit dolore. Aliquip nulla enim veniam non fugiat id
-            cupidatat nulla elit cupidatat commodo velit ut eiusmod cupidatat
-            elit dolore.Ex consequat commodo adipisicing exercitation aute
-            excepteur occaecat ullamco duis aliqua id magna ullamco eu. Do aute
-            ipsum ipsum ullamco cillum consectetur ut et aute consectetur
-            labore. Fugiat laborum incididunt tempor eu consequat enim dolore
-            proident. Qui laborum do non excepteur nulla magna eiusmod
-            consectetur in. Aliqua et aliqua officia quis et incididunt
-            voluptate non anim reprehenderit adipisicing dolore ut consequat
-            deserunt mollit dolore. Aliquip nulla enim veniam non fugiat id
-            cupidatat nulla elit cupidatat commodo velit ut eiusmod cupidatat
-            elit dolore.
-          </p>
+          <hr />
+          <!-- the Birthday  -->
+          <div id="birthday" class="container">
+            <p>birthday</p>
+          </div>
         </div>
       </div>
     </div>

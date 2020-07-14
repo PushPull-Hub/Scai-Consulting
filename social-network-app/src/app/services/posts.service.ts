@@ -30,6 +30,15 @@ export class PostsService {
     return this.posts;
   }
 
+  getUserPost(): Post[] {
+    const List: Post[] = [];
+    this.posts.map((post) => {
+      post.userId === this.loggedUserId && List.push(post);
+    });
+    console.log(List);
+    return List;
+  }
+
   getUserFriendsPosts(): Post[] {
     const List: Post[] = [];
     this.theUserFriendList.map((friend: Friend) => {
