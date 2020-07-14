@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
-  postDescreption: string;
+  postText: string;
   constructor(
     private postService: PostsService,
     private authService: AuthService
@@ -20,11 +20,12 @@ export class CreatePostComponent implements OnInit {
   sharePost() {
     const post = new Post();
     post.userId = this.authService.loggedUserId;
-    post.description = this.postDescreption;
+    post.text = this.postText;
+    post.description = '';
     post.comments = [''];
     post.likes = '';
     post.image = [];
-    this.postDescreption = '';
+    this.postText = '';
     this.postService.addPost(post);
   }
 }
