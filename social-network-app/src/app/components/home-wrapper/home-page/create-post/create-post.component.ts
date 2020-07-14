@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PostsService } from 'src/app/services/posts.service';
+import { Post } from 'src/app/models/Post.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-create-post',
@@ -6,7 +9,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
-  constructor() {}
+  postDescreption: string;
+  constructor(
+    private postService: PostsService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {}
+
+  sharePost() {
+    const post = new Post();
+    post.userId = this.authService.loggedUserId;
+    post.description = this.postDescreption;
+    post.comments = [''];
+    post.likes = '';
+    post.image = [];
+    this.postDescreption = '';
+    this.postService.addPost(post);
+  }
 }

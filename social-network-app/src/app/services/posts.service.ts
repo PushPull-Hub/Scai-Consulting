@@ -26,6 +26,10 @@ export class PostsService {
     private userService: UserServices
   ) {}
 
+  getPosts(): Post[] {
+    return this.posts;
+  }
+
   getUserFriendsPosts(): Post[] {
     const List: Post[] = [];
     this.theUserFriendList.map((friend: Friend) => {
@@ -37,5 +41,10 @@ export class PostsService {
     return this.UserFriendsPosts;
   }
 
-  addPost = () => {};
+  addPost = (post: Post) => {
+    const posts = this.getPosts();
+    posts.push(post);
+    this.posts = posts;
+    localStorage.setItem('Posts', JSON.stringify(this.posts));
+  };
 }

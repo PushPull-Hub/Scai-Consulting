@@ -9,7 +9,7 @@
   border: 1px solid grey;
 }
 
-#status {
+#post-descreption {
   width: 445px;
   height: 59;
   background: transparent !important;
@@ -18,13 +18,13 @@
   padding-left: 15px;
 }
 
-#status:focus {
+#post-descreption:focus {
   background-color: transparent;
   border: 0px;
   outline: none;
   cursor: default;
 }
 
-#status::placeholder {
+#post-descreption::placeholder {
   color: #2fa4e7;
 }
