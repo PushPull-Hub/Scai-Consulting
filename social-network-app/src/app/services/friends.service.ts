@@ -20,11 +20,12 @@ export class FriendsService {
   ) {}
 
   getActiveFriendsList(): Friend[] {
+    const ActiveFriends: Friend[] = [];
     this.theUserFriendsList.map((friend) => {
       if (this.userService.getaUserProperty(friend.id, 'isActive')) {
-        this.ActiveFriends.push(friend);
+        ActiveFriends.push(friend);
       }
     });
-    return this.ActiveFriends;
+    return ActiveFriends;
   }
 }
