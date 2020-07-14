@@ -15,9 +15,17 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SignUpComponent implements OnInit {
   date: NgbDateStruct;
+  options = [
+    { name: 'Male', value: 'Male' },
+    { name: 'Female', value: 'Female' },
+    { name: 'other', value: 'Other' },
+  ];
+  selectedOption: string;
 
   constructor(private user: UserServices, private router: Router) {}
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.selectedOption);
+  }
 
   signUp(f: NgForm) {
     const email = f.value.email;
@@ -38,7 +46,7 @@ export class SignUpComponent implements OnInit {
     user.id = uuidv4();
     user.isActive = false;
     (user.about = ' '),
-      (user.gender = ' '),
+      (user.gender = this.selectedOption),
       (user.birthday = this.date),
       (user.hometown = ' '),
       (user.adress = ' '),
@@ -55,7 +63,7 @@ export class SignUpComponent implements OnInit {
 
     images.id = user.id;
     images.Images = [];
-
+    console.log(user);
     this.user.createUSer(user, posts, images);
     this.router.navigate(['/sign-in']);
   }

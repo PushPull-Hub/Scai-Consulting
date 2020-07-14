@@ -96,11 +96,14 @@
         </div>
         <div class="from-row">
           <div class="form-group col-md-6" id="gender">
-            <select class="custom-select">
-              <option selected="">Sex</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Others">Others</option>
+            <select
+              class="custom-select"
+              [(ngModel)]="selectedOption"
+              name="first"
+            >
+              <option [value]="option.value" *ngFor="let option of options">{{
+                option.name
+              }}</option>
             </select>
           </div>
         </div>
