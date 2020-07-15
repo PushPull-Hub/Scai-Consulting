@@ -11,7 +11,7 @@ import { User } from 'src/app/models/User.model';
 })
 export class IntroComponent implements OnInit {
   EditButtonClicked: boolean = false;
-  theLoggedUserId = this.authService.loggedUserId;
+  theLoggedUserId: number = this.authService.loggedUserId;
   location: string =
     this.userService.getaUserProperty(this.theLoggedUserId, 'location') || '';
   hometown: string =

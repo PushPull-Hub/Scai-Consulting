@@ -12,7 +12,7 @@ import { UserServices } from './user.service';
 })
 export class PostsService {
   posts: Post[] = JSON.parse(localStorage.getItem('Posts')) || [];
-  loggedUserId: string = this.authService.loggedUserId;
+  loggedUserId: number = this.authService.loggedUserId;
   theUserFriendList: Friend[] = this.friendService.theUserFriendsList;
   UserFriendsPosts: Post[] = [];
   loggedUserName: string = this.userService.getaUserProperty(

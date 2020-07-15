@@ -7,7 +7,7 @@ import { User } from '../models/User.model';
   providedIn: 'root',
 })
 export class AuthService {
-  loggedUserId: string =
+  loggedUserId: number =
     JSON.parse(localStorage.getItem('loggedUserId')) || null;
   isLoggedIn: boolean = false;
   loggedUser: User = this.userService.getUserById(this.loggedUserId) || null;

@@ -1,8 +1,8 @@
 import { Friend } from './Friend.model';
 
 export class User extends Object {
-  id: string;
-  username: string; // should deleted
+  id: number;
+  username: string;
   email: string;
   password: string;
   firstname: string;

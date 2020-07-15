@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ResetPasswordComponent implements OnInit {
   incorrectConfirmedPass = false;
-  selectedUserId: string;
+  selectedUserId: number;
 
   constructor(private user: UserServices, private route: Router) {}
 

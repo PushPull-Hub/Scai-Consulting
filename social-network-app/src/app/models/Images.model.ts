@@ -1,4 +1,4 @@
 export class Images extends Object {
-  id: string;
+  id: number;
   Images: [];
 }

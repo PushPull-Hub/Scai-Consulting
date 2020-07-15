@@ -1,4 +1,4 @@
 export class Friend extends Object {
-  id: string;
+  id: number;
   username: string;
 }

@@ -2,6 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/User.model';
 import * as jwt_decode from 'jwt-decode';
+import { Post } from '../models/Post.model';
+import { Images } from '../models/Images.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,7 @@ export class UserServices implements OnInit {
   Posts = JSON.parse(localStorage.getItem('Posts')) || [];
   Images = JSON.parse(localStorage.getItem('Images')) || [];
   // not needed
-  selectedUserId: string;
+  selectedUserId: number;
   adminToken: string =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJhYm91dCI6Ik1hcmsgWnVja2VyYmVyZyB0aGUgZmFjZWJvb2sgZm91bmRlciIsImFkcmVzcyI6ImhvbWUiLCJiaXJ0aGRheSI6IjE0LzA1LzE5ODQiLCJlbWFpbCI6Im1hcmtAZ21haWwuY29tIiwiZ2VuZGVyIjoibWFsZSIsImhvbWV0b3duIjoiTmV3IHlvcmsgIiwiaWQiOiI4MWU4MzkxZC1iYjVkLTQ0NDItYmMwMC00YTJlMjFhZTczZTgiLCJpc0FjdGl2ZSI6ZmFsc2UsImxvY2F0aW9uIjoiQ2FsaWZvcm5pYS9VU0EiLCJwYXNzd29yZCI6IjEyMyIsInJlbGF0aW9uc2hpcF9zdGF0dXMiOiJtYXJyaWVkIiwic2Vjb25kbmFtZSI6Ilp1Y2tlcmJlcmciLCJ1c2VybmFtZSI6Im1hcmtfdGhlX2FkbWluIiwid29ya19pbiI6IkZhY2Vib29rIn0.m1WlkdVOFeqHPyjGSFE0c98UHFGc7c7qVmkWLj0Cy-A';
 
@@ -32,17 +34,18 @@ export class UserServices implements OnInit {
 
   // CRUD methods
 
-  getUsers = () => JSON.parse(localStorage.getItem('Users'));
+  getUsers = (): User[] => JSON.parse(localStorage.getItem('Users'));
 
-  getUserById = (id) => this.usersList.find((user) => user.id === id);
+  getUserById = (id: number): User =>
+    this.usersList.find((user) => user.id === id);
 
-  getaUserProperty = (id, property: string) => {
+  getaUserProperty = (id: number, property: string) => {
     const user = this.getUserById(id);
     const prop = user[`${property}`];
     return prop;
   };
 
-  createUSer = (user: User, posts, images) => {
+  createUSer = (user: User, posts: Post, images: Images) => {
     this.usersList.push(user);
     this.Posts.push(posts);
     this.Images.push(images);
@@ -51,7 +54,7 @@ export class UserServices implements OnInit {
     this.storeImages();
   };
 
-  updateUser = (id, key, newValue) => {
+  updateUser = (id: number, key: string, newValue: any) => {
     const user = this.usersList.find((user) => user.id === id);
     user[`${key}`] = newValue;
     const indexOfUser = this.usersList.map((x) => x.id).indexOf(id);
@@ -59,14 +62,14 @@ export class UserServices implements OnInit {
     localStorage.setItem('Users', JSON.stringify(this.usersList));
   };
 
-  deleteUser = (id) => {
+  deleteUser = (id: number) => {
     const user = this.getUserById(id);
     const indexOfUser = this.usersList.map((x) => x.id).indexOf(id);
     this.usersList.splice(indexOfUser, 1);
     localStorage.setItem('Users', JSON.stringify(this.usersList));
   };
 
-  verifyEmail(email): boolean {
+  verifyEmail(email: string): boolean {
     const testedUser = this.usersList.find((user) => user.email === email);
     if (testedUser) {
       this.selectedUserId = testedUser.id;

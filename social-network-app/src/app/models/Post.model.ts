@@ -1,5 +1,5 @@
 export class Post extends Object {
-  userId: string;
+  userId: number;
   text: string;
   description: string;
   comments: string[];
