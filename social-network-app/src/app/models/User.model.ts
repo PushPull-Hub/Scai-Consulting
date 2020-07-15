@@ -21,4 +21,6 @@ export class User extends Object {
   work_in: string;
   relationship_status: string;
   friends: Friend[];
+  profile_picture: string;
+  private: [];
 }
