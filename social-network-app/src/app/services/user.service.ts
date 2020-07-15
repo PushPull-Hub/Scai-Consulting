@@ -39,6 +39,25 @@ export class UserServices implements OnInit {
   getUserById = (id: number): User =>
     this.usersList.find((user) => user.id === id);
 
+  // Copy of User Object without Sensible Infos (email, password..) .
+  getUserSecondVersion = (id: number): User => {
+    const user = this.getUserById(id);
+    const userSecondVersion = new User();
+    userSecondVersion.id = user.id;
+    userSecondVersion.username = user.username;
+    userSecondVersion.firstname = user.firstname;
+    userSecondVersion.secondname = user.secondname;
+    userSecondVersion.gender = user.gender;
+    userSecondVersion.birthday = user.birthday;
+    userSecondVersion.hometown = user.hometown;
+    userSecondVersion.location = user.location;
+    userSecondVersion.friends = user.friends;
+    userSecondVersion.adress = user.adress;
+    userSecondVersion.work_in = user.work_in;
+    userSecondVersion.relationship_status = user.relationship_status;
+    return userSecondVersion;
+  };
+
   getaUserProperty = (id: number, property: string) => {
     const user = this.getUserById(id);
     const prop = user[`${property}`];
