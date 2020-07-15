@@ -18,8 +18,13 @@ export class IntroComponent implements OnInit {
     this.userService.getaUserProperty(this.theLoggedUserId, 'hometown') || '';
   work_in: string =
     this.userService.getaUserProperty(this.theLoggedUserId, 'work_in') || '';
-  birthday: string =
-    this.userService.getaUserProperty(this.theLoggedUserId, 'birthday') || '';
+  birthdayObject: {
+    year: string;
+    month: string;
+    day: string;
+  } = this.userService.getaUserProperty(this.theLoggedUserId, 'birthday');
+  birthday: string = `${this.birthdayObject.year}/${this.birthdayObject.month}/${this.birthdayObject.day}`;
+
   constructor(
     private userService: UserServices,
     private authService: AuthService

@@ -23,9 +23,7 @@ export class SignUpComponent implements OnInit {
   selectedOption: string;
 
   constructor(private user: UserServices, private router: Router) {}
-  ngOnInit() {
-    console.log(this.selectedOption);
-  }
+  ngOnInit() {}
 
   signUp(f: NgForm) {
     const email = f.value.email;
@@ -45,14 +43,14 @@ export class SignUpComponent implements OnInit {
     user.secondname = secondName;
     user.id = uuidv4();
     user.isActive = false;
-    (user.about = ' '),
+    (user.about = ''),
       (user.gender = this.selectedOption),
       (user.birthday = this.date),
-      (user.hometown = ' '),
-      (user.adress = ' '),
-      (user.location = ' '),
-      (user.work_in = ' '),
-      (user.relationship_status = ' ');
+      (user.hometown = ''),
+      (user.adress = ''),
+      (user.location = ''),
+      (user.work_in = ''),
+      (user.relationship_status = '');
     user.friends = [];
 
     posts.userId = user.id;
@@ -63,7 +61,6 @@ export class SignUpComponent implements OnInit {
 
     images.id = user.id;
     images.Images = [];
-    console.log(user);
     this.user.createUSer(user, posts, images);
     this.router.navigate(['/sign-in']);
   }
