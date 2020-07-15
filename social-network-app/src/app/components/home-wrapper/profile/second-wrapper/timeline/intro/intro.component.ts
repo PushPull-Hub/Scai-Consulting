@@ -23,7 +23,9 @@ export class IntroComponent implements OnInit {
     month: string;
     day: string;
   } = this.userService.getaUserProperty(this.theLoggedUserId, 'birthday');
-  birthday: string = `${this.birthdayObject.year}/${this.birthdayObject.month}/${this.birthdayObject.day}`;
+  birthday: string = this.birthdayObject.year
+    ? `${this.birthdayObject.year}/${this.birthdayObject.month}/${this.birthdayObject.day}`
+    : '';
 
   constructor(
     private userService: UserServices,
