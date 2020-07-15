@@ -79,6 +79,7 @@
                     ngbDatepicker
                     #d="ngbDatepicker"
                     style="width: 285px;"
+                    required
                   />
                   <div class="input-group-append">
                     <button
@@ -96,10 +97,12 @@
         </div>
         <div class="from-row">
           <div class="form-group col-md-6" id="gender">
+            <label>Gender</label>
             <select
               class="custom-select"
               [(ngModel)]="selectedOption"
               name="first"
+              required
             >
               <option [value]="option.value" *ngFor="let option of options">{{
                 option.name

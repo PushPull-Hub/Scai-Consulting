@@ -14,8 +14,5 @@ export class PostsComponent implements OnInit {
   constructor(private postService: PostsService) {}
   posts: Post[] = this.postService.getUserFriendsPosts();
 
-  ngOnInit(): void {
-    // this.postService.getUserFriendsPosts();
-    console.log(this.posts);
-  }
+  ngOnInit(): void {}
 }
