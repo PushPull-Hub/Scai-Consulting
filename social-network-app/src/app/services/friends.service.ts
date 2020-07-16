@@ -7,7 +7,7 @@ import { Friend } from '../models/Friend.model';
   providedIn: 'root',
 })
 export class FriendsService {
-  theLoggedUserId: number = this.authService.loggedUserId;
+  theLoggedUserId: string = this.authService.loggedUserId;
   theUserFriendsList: Friend[] = this.userService.getaUserProperty(
     this.theLoggedUserId,
     'friends'

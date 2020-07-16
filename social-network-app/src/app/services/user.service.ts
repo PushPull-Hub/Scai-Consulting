@@ -14,7 +14,7 @@ export class UserServices implements OnInit {
   Posts = JSON.parse(localStorage.getItem('Posts')) || [];
   Images = JSON.parse(localStorage.getItem('Images')) || [];
   // not needed
-  selectedUserId: number;
+  selectedUserId: string;
   adminToken: string =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJhYm91dCI6Ik1hcmsgWnVja2VyYmVyZyB0aGUgZmFjZWJvb2sgZm91bmRlciIsImFkcmVzcyI6ImhvbWUiLCJiaXJ0aGRheSI6IjE0LzA1LzE5ODQiLCJlbWFpbCI6Im1hcmtAZ21haWwuY29tIiwiZ2VuZGVyIjoibWFsZSIsImhvbWV0b3duIjoiTmV3IHlvcmsgIiwiaWQiOiI4MWU4MzkxZC1iYjVkLTQ0NDItYmMwMC00YTJlMjFhZTczZTgiLCJpc0FjdGl2ZSI6ZmFsc2UsImxvY2F0aW9uIjoiQ2FsaWZvcm5pYS9VU0EiLCJwYXNzd29yZCI6IjEyMyIsInJlbGF0aW9uc2hpcF9zdGF0dXMiOiJtYXJyaWVkIiwic2Vjb25kbmFtZSI6Ilp1Y2tlcmJlcmciLCJ1c2VybmFtZSI6Im1hcmtfdGhlX2FkbWluIiwid29ya19pbiI6IkZhY2Vib29rIn0.m1WlkdVOFeqHPyjGSFE0c98UHFGc7c7qVmkWLj0Cy-A';
 
@@ -36,29 +36,30 @@ export class UserServices implements OnInit {
 
   getUsers = (): User[] => JSON.parse(localStorage.getItem('Users'));
 
-  getUserById = (id: number): User =>
+  getUserById = (id: string): User =>
     this.usersList.find((user) => user.id === id);
 
   // Copy of User Object without Sensible Infos (email, password..) .
-  getUserSecondVersion = (id: number): User => {
+  getUserVersion2 = (id: string): User => {
     const user = this.getUserById(id);
-    const userSecondVersion = new User();
-    userSecondVersion.id = user.id;
-    userSecondVersion.username = user.username;
-    userSecondVersion.firstname = user.firstname;
-    userSecondVersion.secondname = user.secondname;
-    userSecondVersion.gender = user.gender;
-    userSecondVersion.birthday = user.birthday;
-    userSecondVersion.hometown = user.hometown;
-    userSecondVersion.location = user.location;
-    userSecondVersion.friends = user.friends;
-    userSecondVersion.adress = user.adress;
-    userSecondVersion.work_in = user.work_in;
-    userSecondVersion.relationship_status = user.relationship_status;
-    return userSecondVersion;
+    const userVersion2 = new User();
+    userVersion2.id = user.id;
+    userVersion2.username = user.username;
+    userVersion2.firstname = user.firstname;
+    userVersion2.secondname = user.secondname;
+    userVersion2.gender = user.gender;
+    userVersion2.birthday = user.birthday;
+    userVersion2.hometown = user.hometown;
+    userVersion2.location = user.location;
+    userVersion2.friends = user.friends;
+    userVersion2.adress = user.adress;
+    userVersion2.work_in = user.work_in;
+    userVersion2.relationship_status = user.relationship_status;
+    console.log(userVersion2);
+    return userVersion2;
   };
 
-  getaUserProperty = (id: number, property: string) => {
+  getaUserProperty = (id: string, property: string) => {
     const user = this.getUserById(id);
     const prop = user[`${property}`];
     return prop;
@@ -73,7 +74,7 @@ export class UserServices implements OnInit {
     this.storeImages();
   };
 
-  updateUser = (id: number, key: string, newValue: any) => {
+  updateUser = (id: string, key: string, newValue: any) => {
     const user = this.usersList.find((user) => user.id === id);
     user[`${key}`] = newValue;
     const indexOfUser = this.usersList.map((x) => x.id).indexOf(id);
@@ -81,7 +82,7 @@ export class UserServices implements OnInit {
     localStorage.setItem('Users', JSON.stringify(this.usersList));
   };
 
-  deleteUser = (id: number) => {
+  deleteUser = (id: string) => {
     const user = this.getUserById(id);
     const indexOfUser = this.usersList.map((x) => x.id).indexOf(id);
     this.usersList.splice(indexOfUser, 1);

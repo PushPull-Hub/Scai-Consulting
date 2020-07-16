@@ -2,7 +2,7 @@ import { Friend } from './Friend.model';
 import { User } from './User.model';
 
 export class Message extends Object {
-  id: number; // id of this message
+  id: string; // id of this message
   created_time: string;
   from: User; // userSecondVersionb in order to protect user privacy.
   message: string;

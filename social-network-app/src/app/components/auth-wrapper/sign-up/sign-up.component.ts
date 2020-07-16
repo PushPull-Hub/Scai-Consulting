@@ -54,7 +54,7 @@ export class SignUpComponent implements OnInit {
     user.friends = [];
 
     posts.userId = user.id;
-    posts.likes = '';
+    posts.likes = 0;
     posts.description = '';
     posts.comments = [''];
     posts.image = [];

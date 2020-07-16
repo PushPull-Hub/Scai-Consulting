@@ -1,7 +1,7 @@
 import { Friend } from './Friend.model';
 
 export class User extends Object {
-  id: number;
+  id: string;
   username: string;
   email: string;
   password: string;

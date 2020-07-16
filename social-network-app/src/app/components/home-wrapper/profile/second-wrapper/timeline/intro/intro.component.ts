@@ -11,7 +11,7 @@ import { User } from 'src/app/models/User.model';
 })
 export class IntroComponent implements OnInit {
   EditButtonClicked: boolean = false;
-  theLoggedUserId: number = this.authService.loggedUserId;
+  theLoggedUserId: string = this.authService.loggedUserId;
   location: string =
     this.userService.getaUserProperty(this.theLoggedUserId, 'location') || '';
   hometown: string =
@@ -32,7 +32,9 @@ export class IntroComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.getUserVersion2('2e20fd07-df58-4bd4-9cb5-1a8c5ab68b55');
+  }
 
   showInputs = () => {
     this.EditButtonClicked = true;

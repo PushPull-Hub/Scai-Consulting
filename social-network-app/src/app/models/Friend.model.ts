@@ -1,5 +1,5 @@
 export class Friend extends Object {
-  id: number;
+  id: string;
   username: string;
   profile_picture: string;
   isActive: boolean;

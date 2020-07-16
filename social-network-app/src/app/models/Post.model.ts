@@ -1,5 +1,5 @@
 export class Post extends Object {
-  userId: number;
+  userId: string;
   created_time: string;
   text: string;
   description: string;
