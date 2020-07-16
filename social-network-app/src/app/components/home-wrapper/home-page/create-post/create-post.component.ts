@@ -10,6 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CreatePostComponent implements OnInit {
   postText: string;
+  date = new Date();
+  now = this.date.toDateString();
+
   constructor(
     private postService: PostsService,
     private authService: AuthService
@@ -25,23 +28,13 @@ export class CreatePostComponent implements OnInit {
     post.comments = [''];
     post.likes = 0;
     post.image = [];
+    post.created_time = this.now;
     post.location = '';
     post.can_reply = true;
     post.can_share = true;
     post.is_hidden = false;
     this.postText = '';
     this.postService.addPost(post);
+    console.log(post.created_time);
   }
 }
-
-// userId: number;
-// created_time: string;
-// text: string;
-// description: string;
-// comments: string[];
-// likes: number;
-// image: [];
-// can_reply: boolean;
-// can_share: boolean;
-// is_hidden: boolean;
-// location: string;

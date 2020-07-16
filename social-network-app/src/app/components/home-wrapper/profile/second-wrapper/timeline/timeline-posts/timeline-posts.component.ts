@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Post } from 'src/app/models/Post.model';
 import { PostsService } from 'src/app/services/posts.service';
 import { AuthService } from 'src/app/services/auth.service';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-timeline-posts',
@@ -13,15 +15,18 @@ export class TimelinePostsComponent implements OnInit {
   Userposts: Post[] = this.postsService.getUserPost();
   userName: String = this.authService.theLoggedUserName;
   commentButtonClicked: boolean = false;
-  // likes : number = this.Userposts.map(post => {})
   comments: string[];
+
+  now = moment().hour();
 
   constructor(
     private postsService: PostsService,
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.now);
+  }
 
   onCommentButtonClicked() {
     this.commentButtonClicked = !this.commentButtonClicked;
