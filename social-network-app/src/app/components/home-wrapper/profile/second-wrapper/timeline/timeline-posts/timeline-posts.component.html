@@ -38,130 +38,99 @@
                     border-radius: 5px;
                   "
                 >
-                  <!--  post nav -->
-                  <div class="row">
-                    <div
-                      class="container-fluid post-nav"
-                      style="width: 600px; padding: 0;"
-                    >
-                      <ol class="breadcrumb" style="margin-bottom: 0;">
-                        <li class="breadcrumb-item">
-                          <div>
-                            <img
-                              src="../../../../../assets/images/Mark.jpg"
-                              style="height: 40px; width: 40px;"
-                              class="rounded-circle"
-                            />
-                          </div>
-                        </li>
-                        <li class="breadcrumb-item">
-                          <a href="#">{{ userName }}</a>
-                        </li>
-                      </ol>
-                    </div>
-                  </div>
-                  <!-- post  body -->
-                  <div class="row">
-                    <p class="post-description">{{ userPost.description }}</p>
-                    <p>{{ userPost.text }}</p>
-                  </div>
-                  <div class="row">
-                    <div
-                      class="container-fluid post-photo"
-                      style="
-                        width: 600px;
-                        padding: 0 15px 0 15px;
-                        height: 600px;
-                        background: white;
-                        margin: 0 17px 0 17px;
-                        background-size: cover;
-                      "
-                    >
-                      <!-- <img
-                        src="../../../../../assets/images/Mark.jpg"
-                        style="width: 500px; height: 500px;"
-                      /> -->
-                    </div>
-                  </div>
-                  <!-- icons row ( like comment share )   -->
-                  <div class="row">
-                    <div
-                      class="container-fluid post-nav"
-                      style="width: 600px; padding: 0;"
-                    >
-                      <ol class="breadcrumb" style="margin-bottom: 0;">
-                        <li class="breadcrumb-item">
-                          <button class="btn btn secondary">
-                            <i class="fa fa-thumbs-up" aria-hidden="true"></i> (
-                            {{ userPost.likes }} )
-                          </button>
-                        </li>
-                        <li class="breadcrumb-item">
-                          <button class="btn btn secondary">
-                            <i class="fa fa-comment" aria-hidden="true"></i> ({{
-                              userPost.comments.length - 1
-                            }})
-                          </button>
-                        </li>
-                        <li class="breadcrumb-item">
-                          <button class="btn btn secondary">
-                            <i class="fa fa-share" aria-hidden="true"></i>
-                          </button>
-                        </li>
-                      </ol>
-                    </div>
-                  </div>
-                  <!-- Comment Section (input )  -->
-                  <div class="row">
-                    <div
-                      class="container-fluid comment-section"
-                      style="width: 600px; padding: 0;"
-                    >
-                      <div class="input-group fluid">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Add a Comment "
-                          aria-label="Recipient's username"
-                          aria-describedby="button-addon2"
-                        />
-                        <div class="input-group-append">
-                          <button
-                            class="btn btn-outline-primary"
-                            type="button"
-                            id="button-addon2"
-                          >
-                            Comment
-                          </button>
+                  <div class="container-fluid post-nav" style="padding: 0;">
+                    <ol class="breadcrumb" style="margin-bottom: 0;">
+                      <li class="breadcrumb-item">
+                        <div>
+                          <img
+                            src="../../../../../assets/images/Mark.jpg"
+                            style="height: 40px; width: 40px;"
+                            class="rounded-circle"
+                          />
                         </div>
+                      </li>
+                      <li class="breadcrumb-item">
+                        <a href="#">{{ userName }}</a>
+                      </li>
+                    </ol>
+                    <ol>
+                      <div class="container">
+                        <p>Hello</p>
+                        <!-- <p>{{ userPost.text }}</p> -->
+                      </div>
+                    </ol>
+                    <ol class="breadcrumb" style="margin-bottom: 0;">
+                      <li class="breadcrumb-item">
+                        <button class="btn btn secondary">
+                          <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                          {{ userPost.likes }} Likes
+                        </button>
+                      </li>
+                      <li class="breadcrumb-item">
+                        <button
+                          class="btn btn secondary"
+                          (click)="onCommentButtonClicked()"
+                        >
+                          <i class="fa fa-comment" aria-hidden="true"></i>
+                          {{ userPost.comments.length - 1 }} Comments
+                        </button>
+                      </li>
+                      <li class="breadcrumb-item">
+                        <button class="btn btn secondary">
+                          <i class="fa fa-share" aria-hidden="true"></i> Share
+                        </button>
+                      </li>
+                    </ol>
+                    <ol id="comments-container" *ngIf="commentButtonClicked">
+                      <div class="container">
+                        <p>that's first comment</p>
+                        <p>that's second comment</p>
+                      </div>
+                    </ol>
+                    <div class="input-group fluid">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Add a Comment "
+                        aria-label="Recipient's username"
+                        aria-describedby="button-addon2"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-outline-primary"
+                          type="button"
+                          id="button-addon2"
+                        >
+                          Comment
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- POST  -->
-          </div>
-          <hr />
-          <h4 id="list-item-2">2019</h4>
-          <hr />
-          <!-- the 2019 posts  -->
-          <div id="2019-posts" class="container">
-            <p>Posts of 2019</p>
-          </div>
-          <hr />
-          <h4 id="list-item-3">2018</h4>
-          <hr />
-          <!-- the 2018 Posts  -->
-          <div id="2018-posts" class="containe">
-            <p>Posts of 2018</p>
-          </div>
-          <hr />
-          <h4 id="list-item-4">Birthday</h4>
-          <hr />
-          <!-- the Birthday  -->
-          <div id="birthday" class="container">
-            <p>birthday</p>
+            <!-- POST Finished   -->
+            <!-- <hr />
+            <h4 id="list-item-2">2019</h4>
+            <hr />
+             the 2019 posts  
+            <div id="2019-posts" class="container">
+              <p>Posts of 2019</p>
+            </div>
+            <hr />
+            <h4 id="list-item-3">2018</h4>
+            <hr />
+             the 2018 Posts  
+            <div id="2018-posts" class="containe">
+              <p>Posts of 2018</p>
+            </div>
+            <hr />
+            <h4 id="list-item-4">Birthday</h4>
+            <hr />
+             the Birthday 
+            <div id="birthday" class="container">
+              <p>birthday</p>
+            </div> -->
           </div>
         </div>
       </div>

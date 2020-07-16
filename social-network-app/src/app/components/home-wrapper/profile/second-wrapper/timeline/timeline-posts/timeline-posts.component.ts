@@ -12,6 +12,9 @@ import { AuthService } from 'src/app/services/auth.service';
 export class TimelinePostsComponent implements OnInit {
   Userposts: Post[] = this.postsService.getUserPost();
   userName: String = this.authService.theLoggedUserName;
+  commentButtonClicked: boolean = false;
+  // likes : number = this.Userposts.map(post => {})
+  comments: string[];
 
   constructor(
     private postsService: PostsService,
@@ -19,4 +22,8 @@ export class TimelinePostsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  onCommentButtonClicked() {
+    this.commentButtonClicked = !this.commentButtonClicked;
+  }
 }
