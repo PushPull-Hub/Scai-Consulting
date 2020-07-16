@@ -23,9 +23,25 @@ export class CreatePostComponent implements OnInit {
     post.text = this.postText;
     post.description = '';
     post.comments = [''];
-    post.likes = '';
+    post.likes = 0;
     post.image = [];
+    post.location = '';
+    post.can_reply = true;
+    post.can_share = true;
+    post.is_hidden = false;
     this.postText = '';
     this.postService.addPost(post);
   }
 }
+
+// userId: number;
+// created_time: string;
+// text: string;
+// description: string;
+// comments: string[];
+// likes: number;
+// image: [];
+// can_reply: boolean;
+// can_share: boolean;
+// is_hidden: boolean;
+// location: string;
