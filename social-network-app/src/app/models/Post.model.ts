@@ -1,6 +1,7 @@
 export class Post extends Object {
   userId: string;
-  created_time: string;
+  postId: string;
+  created_time: any;
   text: string;
   description: string;
   comments: string[];

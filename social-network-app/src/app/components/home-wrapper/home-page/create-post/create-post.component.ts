@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from 'src/app/services/posts.service';
 import { Post } from 'src/app/models/Post.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-create-post',
@@ -23,6 +24,7 @@ export class CreatePostComponent implements OnInit {
   sharePost() {
     const post = new Post();
     post.userId = this.authService.loggedUserId;
+    post.postId = uuidv4();
     post.text = this.postText;
     post.description = '';
     post.comments = [''];
@@ -34,7 +36,7 @@ export class CreatePostComponent implements OnInit {
     post.can_share = true;
     post.is_hidden = false;
     this.postText = '';
-    this.postService.addPost(post);
-    console.log(post.created_time);
+    this.postService.createPost(post);
+    console.log(post.postId);
   }
 }
