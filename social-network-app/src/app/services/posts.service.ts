@@ -72,8 +72,10 @@ export class PostsService {
   likePost(id: string) {
     const post = this.getPostById(id);
     if (this.hasBeenLiked) {
-      this.updatePost(post.postId, 'likes', post.likes - 1);
-      this.hasBeenLiked = false;
+      if (post.likes > 0) {
+        this.updatePost(post.postId, 'likes', post.likes - 1);
+        this.hasBeenLiked = false;
+      }
     } else {
       this.updatePost(post.postId, 'likes', post.likes + 1);
       this.hasBeenLiked = true;
