@@ -24,11 +24,12 @@ export class TimelinePostsComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.now);
-  }
+  ngOnInit(): void {}
 
   onCommentButtonClicked() {
     this.commentButtonClicked = !this.commentButtonClicked;
+  }
+  onLikeButtonClicked(id: string) {
+    this.postsService.likePost(id);
   }
 }

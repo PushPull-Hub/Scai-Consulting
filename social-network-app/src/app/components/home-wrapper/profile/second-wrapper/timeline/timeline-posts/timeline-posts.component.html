@@ -61,7 +61,10 @@
                     </ol>
                     <ol class="breadcrumb" style="margin-bottom: 0;">
                       <li class="breadcrumb-item">
-                        <button class="btn btn secondary">
+                        <button
+                          class="btn btn secondary"
+                          (click)="onLikeButtonClicked(userPost.postId)"
+                        >
                           <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                           {{ userPost.likes }} Likes
                         </button>

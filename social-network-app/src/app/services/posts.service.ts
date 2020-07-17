@@ -19,6 +19,7 @@ export class PostsService {
     this.loggedUserId,
     'username'
   );
+  hasBeenLiked: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -29,6 +30,9 @@ export class PostsService {
   getPosts(): Post[] {
     return this.posts;
   }
+
+  getPostById = (id: string): Post =>
+    this.posts.find((post) => post.postId === id);
 
   getUserPost(): Post[] {
     const List: Post[] = [];
@@ -50,10 +54,29 @@ export class PostsService {
     return this.UserFriendsPosts;
   }
 
-  addPost = (post: Post) => {
+  createPost = (post: Post) => {
     const posts = this.getPosts();
     posts.push(post);
     this.posts = posts;
     localStorage.setItem('Posts', JSON.stringify(this.posts));
   };
+
+  updatePost(id: string, key: string, newValue: any) {
+    const post = this.getPostById(id);
+    post[`${key}`] = newValue;
+    const indexOfPost = this.posts.map((x) => x.postId).indexOf(id);
+    this.posts.splice(indexOfPost, 1, post);
+    localStorage.setItem('Posts', JSON.stringify(this.posts));
+  }
+
+  likePost(id: string) {
+    const post = this.getPostById(id);
+    if (this.hasBeenLiked) {
+      this.updatePost(post.postId, 'likes', post.likes - 1);
+      this.hasBeenLiked = false;
+    } else {
+      this.updatePost(post.postId, 'likes', post.likes + 1);
+      this.hasBeenLiked = true;
+    }
+  }
 }
