@@ -12,6 +12,12 @@ import { Post } from 'src/app/models/Post.model';
 export class PostsComponent implements OnInit {
   constructor(private postService: PostsService) {}
   posts: Post[] = this.postService.getUserFriendsPosts();
+  loading: boolean = true;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.loading = false;
+    }, 900);
+    this.loading = true;
+  }
 }
