@@ -46,7 +46,7 @@ export class PostsService {
   getUserFriendsPosts(): Post[] {
     const List: Post[] = [];
     this.theUserFriendList.map((friend: Friend) => {
-      this.posts.find(
+      this.posts.map(
         (post: Post) => post.userId === friend.id && List.push(post)
       );
     });
