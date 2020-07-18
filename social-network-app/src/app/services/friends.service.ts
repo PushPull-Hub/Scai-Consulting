@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserServices } from './user.service';
 import { AuthService } from './auth.service';
 import { Friend } from '../models/Friend.model';
+import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,18 @@ export class FriendsService {
     private userService: UserServices,
     private authService: AuthService
   ) {}
+
+  getFriendbyId(id: string): User {
+    return this.userService.getUserById(id);
+  }
+
+  getaFriendProperty(id: string, property: string): any {
+    return this.userService.getaUserProperty(id, property);
+  }
+
+  getUserFriends(id: string) {
+    return this.theUserFriendsList;
+  }
 
   getActiveFriendsList(): Friend[] {
     const ActiveFriends: Friend[] = [];
