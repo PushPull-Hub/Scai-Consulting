@@ -17,7 +17,7 @@ export class PostsComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.loading = false;
-    }, 900);
+    }, 800);
     this.loading = true;
   }
 }
