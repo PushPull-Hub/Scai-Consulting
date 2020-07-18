@@ -21,7 +21,7 @@
             </div>
           </li>
           <li class="breadcrumb-item">
-            <a href="#">{{ userName }}</a>
+            <a href="#"> {{ creatorName(post.userId, "username") }} </a>
           </li>
         </ol>
         <ol style="background: white; margin-bottom: 0px;">
@@ -34,17 +34,14 @@
           <li class="breadcrumb-item">
             <button
               class="btn btn secondary"
-              (click)="onLikeButtonClicked(post.postId)"
+              (click)="onLikeButtonClick(post.postId)"
             >
               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
               {{ post.likes }} Likes
             </button>
           </li>
           <li class="breadcrumb-item">
-            <button
-              class="btn btn secondary"
-              (click)="onCommentButtonClicked()"
-            >
+            <button class="btn btn secondary" (click)="onCommentButtonClick()">
               <i class="fa fa-comment" aria-hidden="true"></i>
               {{ post.comments.length - 1 }} Comments
             </button>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Post } from 'src/app/models/Post.model';
 import { PostsService } from 'src/app/services/posts.service';
+import { FriendsService } from 'src/app/services/friends.service';
 
 @Component({
   selector: 'app-post',
@@ -9,18 +10,25 @@ import { PostsService } from 'src/app/services/posts.service';
 })
 export class PostComponent implements OnInit {
   @Input() post: Post;
-  loggedUserName = this.postsService.loggedUserName;
   commentButtonClicked: boolean = false;
   comments: string[];
 
-  constructor(private postsService: PostsService) {}
+  constructor(
+    private postsService: PostsService,
+    private friendService: FriendsService
+  ) {}
 
   ngOnInit(): void {}
 
-  onCommentButtonClicked() {
+  onCommentButtonClick() {
     this.commentButtonClicked = !this.commentButtonClicked;
   }
-  onLikeButtonClicked(id: string) {
+  onLikeButtonClick(id: string) {
     this.postsService.likePost(id);
+  }
+
+  creatorName(id: string) {
+    const name = this.friendService.getaFriendProperty(id, 'username');
+    return name;
   }
 }
