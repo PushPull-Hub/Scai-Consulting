@@ -21,7 +21,8 @@ export class FriendsFinder {
   friends: Friend[] = this.friendService.theUserFriendsList;
 
   public model: Friend;
-  formatter = (friend: Friend) => friend.username;
+  formatter = (friend: Friend): string =>
+    this.friendService.getaFriendProperty(friend.id, 'username');
 
   search = (text$: Observable<string>) =>
     text$.pipe(
@@ -30,7 +31,11 @@ export class FriendsFinder {
       filter((term) => term.length >= 2),
       map((term) =>
         this.friends
-          .filter((friend) => new RegExp(term, 'mi').test(friend.username))
+          .filter((friend) =>
+            new RegExp(term, 'mi').test(
+              this.friendService.getaFriendProperty(friend.id, 'username')
+            )
+          )
           .slice(0, 10)
       )
     );
