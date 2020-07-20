@@ -28,7 +28,29 @@
       </div>
       <!-- here -->
       <div class="row" style="margin-bottom: 10px; margin-top: 10px;">
-        <div class="col-10"></div>
+        <div class="col-10">
+          <div class="share-button">
+            <span
+              ><i
+                class="fa fa-plus-circle"
+                aria-hidden="true"
+                style="font-size: 2.5rem;"
+              ></i>
+            </span>
+
+            <a><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+            <a><i class="fa fa-users" aria-hidden="true"></i></a>
+            <a><i class="fa fa-smile-o" aria-hidden="true"></i> </a>
+            <a (click)="onLocationIconClick()">
+              <i class="fa fa-location-arrow" aria-hidden="true"></i>
+            </a>
+          </div>
+          <app-location-finder
+            *ngIf="locationIconClicked"
+          ></app-location-finder>
+          <!-- <input type="file" (change)="onFileSelected($event)" />
+          <button type="button" (click)="onUploadFile()">Upload</button> -->
+        </div>
         <div class="col-2">
           <button class="btn btn-secondary" (click)="sharePost()">Share</button>
         </div>

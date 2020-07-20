@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { PostsService } from 'src/app/services/posts.service';
 import { Post } from 'src/app/models/Post.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,6 +13,8 @@ export class CreatePostComponent implements OnInit {
   postText: string;
   date = new Date();
   now = this.date.toDateString();
+  locationIconClicked: boolean = false;
+  selectedFile: File = null;
 
   constructor(
     private postService: PostsService,
@@ -37,6 +39,16 @@ export class CreatePostComponent implements OnInit {
     post.is_hidden = false;
     this.postText = '';
     this.postService.createPost(post);
-    console.log(post.postId);
   }
+
+  onLocationIconClick() {
+    this.locationIconClicked = !this.locationIconClicked;
+  }
+
+  onFileSelected(event) {
+    // this.selectedFile = <File>event.target.files[0];
+    console.log(event);
+  }
+
+  onUploadFile() {}
 }
