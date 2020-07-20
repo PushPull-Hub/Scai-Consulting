@@ -21,6 +21,7 @@ export class SignUpComponent implements OnInit {
     { name: 'other', value: 'Other' },
   ];
   selectedOption: string;
+  now = new Date();
 
   constructor(private user: UserServices, private router: Router) {}
   ngOnInit() {}
@@ -59,6 +60,7 @@ export class SignUpComponent implements OnInit {
     posts.description = '';
     posts.comments = [''];
     posts.image = [];
+    posts.created_time = this.now.toDateString();
 
     images.id = user.id;
     images.Images = [];
