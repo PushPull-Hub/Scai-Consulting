@@ -21,13 +21,17 @@
             </div>
           </li>
           <li class="breadcrumb-item">
-            <a href="#"> {{ creatorName(post.userId, "username") }} </a>
+            <a href="#"> {{ creatorName(post.userId) }} </a>
+          </li>
+          <li>
+            <p style="margin-left: 451px; margin-bottom: 0;">
+              {{ post.created_time }}
+            </p>
           </li>
         </ol>
         <ol style="background: white; margin-bottom: 0px;">
           <div class="container">
             <p style="margin-bottom: 0px;">{{ post.text }}</p>
-            <p>{{ post.created_time }}</p>
           </div>
         </ol>
         <ol class="breadcrumb" style="margin-bottom: 0;">
@@ -41,7 +45,7 @@
             </button>
           </li>
           <li class="breadcrumb-item">
-            <button class="btn btn secondary" (click)="onCommentButtonClick()">
+            <button class="btn btn secondary" (click)="onCommentIconClick()">
               <i class="fa fa-comment" aria-hidden="true"></i>
               {{ post.comments.length - 1 }} Comments
             </button>
@@ -53,24 +57,28 @@
           </li>
         </ol>
         <ol id="comments-container" *ngIf="commentButtonClicked">
-          <div class="container">
-            <p>that's first comment</p>
-            <p>that's second comment</p>
+          <div class="container" *ngFor="let comment of post.comments">
+            <p>{{ commenterName }} : {{ comment }}</p>
+            <!-- <p>that's first comment</p>
+            <p>that's second comment</p> -->
           </div>
         </ol>
         <div class="input-group fluid">
           <input
             type="text"
             class="form-control"
+            style="border-bottom: 0;"
             placeholder="Add a Comment "
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
+            [(ngModel)]="comment"
           />
           <div class="input-group-append">
             <button
               class="btn btn-outline-primary"
               type="button"
               id="button-addon2"
+              (click)="onCommentButtonClick(post.postId, comment)"
             >
               Comment
             </button>

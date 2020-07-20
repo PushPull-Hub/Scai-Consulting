@@ -61,8 +61,7 @@ export class UserServices implements OnInit {
 
   getaUserProperty = (id: string, property: string) => {
     const user = this.getUserById(id);
-    const prop = user[`${property}`];
-    return prop;
+    return user[`${property}`];
   };
 
   createUSer = (user: User, posts: Post, images: Images) => {

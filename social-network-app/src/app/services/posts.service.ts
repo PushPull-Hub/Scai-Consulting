@@ -20,6 +20,7 @@ export class PostsService {
     'username'
   );
   hasBeenLiked: boolean = false;
+  commenterName: string;
 
   constructor(
     private authService: AuthService,
@@ -39,8 +40,12 @@ export class PostsService {
     this.posts.map((post) => {
       post.userId === this.loggedUserId && List.push(post);
     });
-    console.log(List);
     return List;
+  }
+
+  getaPostProperty(postId: string, property: string): any {
+    const post: Post = this.getPostById(postId);
+    return post[`${property}`];
   }
 
   getUserFriendsPosts(): Post[] {
@@ -80,5 +85,15 @@ export class PostsService {
       this.updatePost(post.postId, 'likes', post.likes + 1);
       this.hasBeenLiked = true;
     }
+  }
+
+  commentOnaPost(from: string, postId: string, comment: string) {
+    const post = this.getPostById(postId);
+    const postComments: string[] = post.comments;
+    postComments.push(comment);
+    console.log(postComments);
+    this.updatePost(post.postId, 'comments', postComments);
+    this.commenterName = this.userService.getaUserProperty(from, 'username');
+    console.log(this.commenterName);
   }
 }
