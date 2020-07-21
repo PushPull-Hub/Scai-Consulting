@@ -13,15 +13,16 @@ export class FriendsComponent implements OnInit {
   friendsSuggestion: string[] = this.friendsService.getTenFriendsSuggestion();
   friendsIconClicked: boolean = true;
   AddFriendIconClicked: boolean = false;
+  2;
+  added: boolean = true;
+  loggedUserId: string = this.friendsService.theLoggedUserId;
 
   constructor(
     private friendsService: FriendsService,
     private userService: UserServices
   ) {}
 
-  ngOnInit(): void {
-    console.log(this.friendsService.getTenFriendsSuggestion());
-  }
+  ngOnInit(): void {}
 
   getFriendProperty(id: string, property: string) {
     return this.friendsService.getaFriendProperty(id, property);
@@ -35,5 +36,8 @@ export class FriendsComponent implements OnInit {
   onAddFriendsIconClick() {
     this.AddFriendIconClicked = true;
     this.friendsIconClicked = false;
+  }
+  addFriend(adderId, addedId) {
+    this.friendsService.addFriend(adderId, addedId);
   }
 }

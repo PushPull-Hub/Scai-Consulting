@@ -53,4 +53,13 @@ export class FriendsService {
       );
     }
   }
+
+  addFriend(adderId: string, addedId) {
+    const friends: Friend[] = this.userService.getaUserProperty(
+      adderId,
+      'friends'
+    );
+    friends.push(addedId);
+    this.userService.updateUser(addedId, 'friends', friends);
+  }
 }

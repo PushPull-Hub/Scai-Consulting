@@ -81,19 +81,26 @@
           *ngIf="AddFriendIconClicked"
         >
           <tbody>
-            <tr *ngFor="let suggestedFriend of friendsSuggestion">
-              <th scope="row">
-                <img
-                  src="../../../../../assets/images/man-user-empty-picture.jpg"
-                  class="rounded-circle"
-                  style="width: 40px; height: 40px;"
-                />
-              </th>
-              <th>{{ getFriendProperty(suggestedFriend, "username") }}</th>
-              <th>
-                <button class="btn btn-info">add as friend</button>
-              </th>
-            </tr>
+            <ng-container *ngIf="added">
+              <tr *ngFor="let suggestedFriend of friendsSuggestion">
+                <th scope="row">
+                  <img
+                    src="../../../../../assets/images/man-user-empty-picture.jpg"
+                    class="rounded-circle"
+                    style="width: 40px; height: 40px;"
+                  />
+                </th>
+                <th>{{ getFriendProperty(suggestedFriend, "username") }}</th>
+                <th>
+                  <button
+                    class="btn btn-info"
+                    (click)="addFriend(loggedUserId, suggestedFriend)"
+                  >
+                    add as friend
+                  </button>
+                </th>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>
