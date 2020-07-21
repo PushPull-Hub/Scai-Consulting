@@ -7,8 +7,8 @@ import {
   filter,
 } from 'rxjs/operators';
 
-import { Friend } from 'src/app/models/Friend.model';
-import { FriendsService } from 'src/app/services/friends.service';
+import { User } from 'src/app/models/User.model';
+import { UserServices } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-search-friends',
@@ -16,13 +16,13 @@ import { FriendsService } from 'src/app/services/friends.service';
   styleUrls: ['./search-friends.component.scss'],
 })
 export class FriendsFinder {
-  constructor(private friendService: FriendsService) {}
+  constructor(private userService: UserServices) {}
 
-  friends: Friend[] = this.friendService.theUserFriendsList;
+  users: User[] = this.userService.usersList;
 
-  public model: Friend;
-  formatter = (friend: Friend): string =>
-    this.friendService.getaFriendProperty(friend.id, 'username');
+  public model: User;
+  formatter = (user: User): string =>
+    this.userService.getaUserProperty(user.id, 'username');
 
   search = (text$: Observable<string>) =>
     text$.pipe(
@@ -30,10 +30,10 @@ export class FriendsFinder {
       distinctUntilChanged(),
       filter((term) => term.length >= 2),
       map((term) =>
-        this.friends
-          .filter((friend) =>
+        this.users
+          .filter((user) =>
             new RegExp(term, 'mi').test(
-              this.friendService.getaFriendProperty(friend.id, 'username')
+              this.userService.getaUserProperty(user.id, 'username')
             )
           )
           .slice(0, 10)
