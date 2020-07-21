@@ -35,6 +35,7 @@ export class UserServices implements OnInit {
   // CRUD methods
 
   getUsers = (): User[] => JSON.parse(localStorage.getItem('Users'));
+  getUsersIds = () => this.usersList.map((user) => user.id);
 
   getUserById = (id: string): User =>
     this.usersList.find((user) => user.id === id);

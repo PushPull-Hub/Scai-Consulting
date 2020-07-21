@@ -28,7 +28,7 @@ export class FriendsService {
     return this.userService.getaUserProperty(id, property);
   }
 
-  getUserFriends(id: string) {
+  getUserFriends() {
     return this.theUserFriendsList;
   }
 
@@ -40,5 +40,15 @@ export class FriendsService {
       }
     });
     return ActiveFriends;
+  }
+
+  getTenFriendsSuggestion() {
+    const appUsersIds = this.userService.getUsersIds();
+    const friendsIds = this.theUserFriendsList.map((friend) => friend.id);
+    for (let i = 0; i < 10; i++) {
+      return appUsersIds.filter((id) =>
+        friendsIds.every((identity) => identity !== id)
+      );
+    }
   }
 }
