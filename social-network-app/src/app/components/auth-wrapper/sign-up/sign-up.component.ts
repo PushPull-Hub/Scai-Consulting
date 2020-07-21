@@ -61,6 +61,7 @@ export class SignUpComponent implements OnInit {
     posts.comments = [''];
     posts.image = [];
     posts.created_time = this.now.toDateString();
+    posts.text = `The ${posts.created_time}, ${user.username} signed up to SCAI  `;
 
     images.id = user.id;
     images.Images = [];
