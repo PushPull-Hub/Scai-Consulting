@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { UserServices } from './user.service';
 import { AuthService } from './auth.service';
+
 import { Friend } from '../models/Friend.model';
 import { User } from '../models/User.model';
+import { Conversation } from '../models/Conversation.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +16,7 @@ export class FriendsService {
     'friends'
   );
   ActiveFriends: Friend[] = [];
+  messages: Conversation[] = JSON.parse(localStorage.getItem('Messages')) || [];
 
   constructor(
     private userService: UserServices,
@@ -72,10 +75,13 @@ export class FriendsService {
 
     AdderFriends.push(addedFriend);
     AddeedFriends.push(adderFriend);
-    console.log(AddeedFriends);
-    console.log(AdderFriends);
 
     this.userService.updateUser(adderId, 'friends', AdderFriends);
     this.userService.updateUser(addedId, 'friends', AddeedFriends);
+
+    const conversation = new Conversation();
+    conversation.id = `${adderId}${addedId}`;
+    this.messages.push(conversation);
+    localStorage.setItem('Messages', JSON.stringify(this.messages));
   }
 }
