@@ -54,12 +54,28 @@ export class FriendsService {
     }
   }
 
-  addFriend(adderId: string, addedId) {
-    const friends: Friend[] = this.userService.getaUserProperty(
+  addFriend(adderId: string, addedId: string) {
+    const AdderFriends: Friend[] = this.userService.getaUserProperty(
       adderId,
       'friends'
     );
-    friends.push(addedId);
-    this.userService.updateUser(addedId, 'friends', friends);
+    const AddeedFriends: Friend[] = this.userService.getaUserProperty(
+      addedId,
+      'friends'
+    );
+
+    const adderFriend = new Friend();
+    const addedFriend = new Friend();
+
+    adderFriend.id = addedId;
+    addedFriend.id = addedId;
+
+    AdderFriends.push(addedFriend);
+    AddeedFriends.push(adderFriend);
+    console.log(AddeedFriends);
+    console.log(AdderFriends);
+
+    this.userService.updateUser(adderId, 'friends', AdderFriends);
+    this.userService.updateUser(addedId, 'friends', AddeedFriends);
   }
 }
