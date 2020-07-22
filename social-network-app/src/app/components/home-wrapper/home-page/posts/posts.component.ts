@@ -20,4 +20,7 @@ export class PostsComponent implements OnInit {
     }, 800);
     this.loading = true;
   }
+
+  sortPosts = (a: Post, b: Post) =>
+    new Date(b.created_time).getTime() - new Date(a.created_time).getTime();
 }
