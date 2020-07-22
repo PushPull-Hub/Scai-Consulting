@@ -1,0 +1,88 @@
+<!-- <div class="container" id="post">
+  <div class="row">
+    <div
+      class="container col-12"
+      style="
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        padding: 0;
+        border-radius: 5px;
+        margin-bottom: 40px;
+      "
+    >
+      <div class="container-fluid post-nav" style="padding: 0;">
+        <ol class="breadcrumb" style="margin-bottom: 0;">
+          <li class="breadcrumb-item">
+            <div>
+              <img
+                src="../../../../../assets/images/Mark.jpg"
+                style="height: 40px; width: 40px;"
+                class="rounded-circle"
+              />
+            </div>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="#"> {{ creatorName(post.userId) }} </a>
+          </li>
+          <li>
+            <p style="margin-left: 400px; margin-bottom: 0;">
+              {{ post.created_time }}
+            </p>
+          </li>
+        </ol>
+        <ol style="background: white; margin-bottom: 0px;">
+          <div class="container">
+            <p style="margin-bottom: 0px;">{{ post.text }}</p>
+          </div>
+        </ol>
+        <ol class="breadcrumb" style="margin-bottom: 0;">
+          <li class="breadcrumb-item">
+            <button
+              class="btn btn secondary"
+              (click)="onLikeButtonClick(post.postId)"
+            >
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+              {{ post.likes }} Likes
+            </button>
+          </li>
+          <li class="breadcrumb-item">
+            <button class="btn btn secondary" (click)="onCommentIconClick()">
+              <i class="fa fa-comment" aria-hidden="true"></i>
+              {{ post.comments.length - 1 }} Comments
+            </button>
+          </li>
+          <li class="breadcrumb-item">
+            <button class="btn btn secondary">
+              <i class="fa fa-share" aria-hidden="true"></i> Share
+            </button>
+          </li>
+        </ol>
+        <ol id="comments-container" *ngIf="commentButtonClicked">
+          <div class="container" *ngFor="let comment of post.comments">
+            <p>{{ commenterName }} : {{ comment }}</p>
+          </div>
+        </ol>
+        <div class="input-group fluid">
+          <input
+            type="text"
+            class="form-control"
+            style="border-bottom: 0;"
+            placeholder="Add a Comment "
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+            [(ngModel)]="comment"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-primary"
+              type="button"
+              id="button-addon2"
+              (click)="onCommentButtonClick(post.postId, comment)"
+            >
+              Comment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

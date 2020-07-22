@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { NgbdTypeaheadHttp } from './search-location/search-location.component';
 import { FriendsFinder } from './search-friends/search-friends.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { PostComponent } from './post/post.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     NgbdTypeaheadHttp,
     FriendsFinder,
     SpinnerComponent,
+    PostComponent,
   ],
   imports: [
     CommonModule,
