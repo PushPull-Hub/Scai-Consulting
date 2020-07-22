@@ -118,7 +118,10 @@
       </div>
       <div class="col-sm-3"></div>
       <ng-container *ngIf="messageIconClicked">
-        <app-message-box [conversation]="conversation"></app-message-box>
+        <app-message-box
+          [conversation]="conversation"
+          [friendId]="friendId"
+        ></app-message-box>
       </ng-container>
     </div>
   </div>

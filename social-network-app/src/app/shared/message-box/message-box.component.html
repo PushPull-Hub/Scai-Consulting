@@ -10,7 +10,21 @@
           "
           (click)="showConversation()"
         >
-          Conversation
+          <i
+            *ngIf="getFriendProperty(friendId, 'isActive')"
+            _ngcontent-jcl-c119=""
+            aria-hidden="true"
+            class="fa fa-circle"
+            style="color: green;"
+          ></i>
+          <i
+            *ngIf="!getFriendProperty(friendId, 'isActive')"
+            _ngcontent-jcl-c119=""
+            aria-hidden="true"
+            class="fa fa-circle"
+            style="color: grey;"
+          ></i>
+          {{ getFriendProperty(friendId, "username") }}
           <li
             style="list-style: none; display: inline;"
             (click)="hideMessageBox()"

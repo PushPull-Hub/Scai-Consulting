@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Conversation } from 'src/app/models/Conversation.model';
+import { FriendsService } from 'src/app/services/friends.service';
 
 @Component({
   selector: 'app-message-box',
@@ -9,8 +10,11 @@ import { Conversation } from 'src/app/models/Conversation.model';
 })
 export class MessageBoxComponent implements OnInit {
   @Input() conversation: Conversation;
+  @Input() friendId: string;
+  loggedUserId: string = this.friendsService.theLoggedUserId;
   clicked: boolean = false;
-  constructor() {}
+
+  constructor(private friendsService: FriendsService) {}
 
   ngOnInit(): void {}
 
@@ -21,4 +25,8 @@ export class MessageBoxComponent implements OnInit {
     // this.messageIconClicked = false;
     console.log('cancel button clicked ');
   }
+
+  getFriendProperty = (id: string, property: string) => {
+    return this.friendsService.getaFriendProperty(id, property);
+  };
 }

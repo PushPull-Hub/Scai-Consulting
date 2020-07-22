@@ -21,6 +21,7 @@ export class FriendsComponent implements OnInit {
   messageIconClicked: boolean = false;
   loggedUserId: string = this.friendsService.theLoggedUserId;
   conversation: Conversation;
+  friendId: string;
 
   constructor(
     private friendsService: FriendsService,
@@ -53,5 +54,6 @@ export class FriendsComponent implements OnInit {
   getConversationWithThisFriend(userId, friendId) {
     this.messageIconClicked = true;
     this.conversation = this.messagesService.getConversation(userId, friendId);
+    this.friendId = friendId;
   }
 }
