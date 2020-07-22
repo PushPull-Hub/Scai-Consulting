@@ -59,6 +59,7 @@
                     class="fa fa-comments-o"
                     aria-hidden="true"
                     style="color: #2fa4e7;"
+                    (click)="showMessageBox()"
                   ></i>
                 </li>
               </td>
@@ -114,6 +115,7 @@
         </table>
       </div>
       <div class="col-sm-3"></div>
+      <app-message-box *ngIf="messageIconClicked"></app-message-box>
     </div>
   </div>
 </div>

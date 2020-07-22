@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row justify-content-end">
+    <div class="col-3 fixed-bottom offset-9">
+      <div class="container">
+        <button
+          class="btn btn-secondary btn-lg btn-block border-bottom-0"
+          style="
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+              0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          "
+          (click)="showConversation()"
+        >
+          Conversation
+
+          <li
+            style="list-style: none; display: inline;"
+            (click)="showConversation()"
+          >
+            <i class="fa fa-times" aria-hidden="true" style="color: red;"></i>
+          </li>
+        </button>
+        <div *ngIf="clicked">
+          <div
+            class="container-fluid"
+            style="height: 300px; background: white;"
+          ></div>
+          <input type="text" style="width: 320px;" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { NgbdTypeaheadHttp } from './search-location/search-location.component';
 import { FriendsFinder } from './search-friends/search-friends.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PostComponent } from './post/post.component';
+import { MessageBoxComponent } from './message-box/message-box.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PostComponent } from './post/post.component';
     FriendsFinder,
     SpinnerComponent,
     PostComponent,
+    MessageBoxComponent,
   ],
   imports: [
     CommonModule,
@@ -34,6 +36,7 @@ import { PostComponent } from './post/post.component';
     NgbdTypeaheadHttp,
     FriendsFinder,
     SpinnerComponent,
+    MessageBoxComponent,
   ],
 })
 export class SharedModule {}

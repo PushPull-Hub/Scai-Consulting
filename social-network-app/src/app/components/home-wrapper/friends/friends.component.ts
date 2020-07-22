@@ -17,6 +17,7 @@ export class FriendsComponent implements OnInit {
   friendsIconClicked: boolean = true;
   AddFriendIconClicked: boolean = false;
   added: boolean = true;
+  messageIconClicked: boolean = false;
   loggedUserId: string = this.friendsService.theLoggedUserId;
 
   constructor(
@@ -44,5 +45,9 @@ export class FriendsComponent implements OnInit {
   }
   addFriend(adderId, addedId) {
     this.friendsService.addFriend(adderId, addedId);
+  }
+
+  showMessageBox() {
+    this.messageIconClicked = true;
   }
 }
