@@ -5,6 +5,7 @@ import { Friend } from 'src/app/models/Friend.model';
 import { FriendsService } from 'src/app/services/friends.service';
 import { UserServices } from 'src/app/services/user.service';
 import { MessagesService } from 'src/app/services/messages.service';
+import { Conversation } from 'src/app/models/Conversation.model';
 
 @Component({
   selector: 'app-friends',
@@ -19,6 +20,7 @@ export class FriendsComponent implements OnInit {
   added: boolean = true;
   messageIconClicked: boolean = false;
   loggedUserId: string = this.friendsService.theLoggedUserId;
+  conversation: Conversation;
 
   constructor(
     private friendsService: FriendsService,
@@ -28,7 +30,7 @@ export class FriendsComponent implements OnInit {
 
   ngOnInit(): void {
     console.table(this.userService.getUsers());
-    console.table(this.messagesService.messages);
+    console.table(this.messagesService.getMessages());
   }
 
   getFriendProperty = (id: string, property: string) =>
@@ -43,11 +45,13 @@ export class FriendsComponent implements OnInit {
     this.AddFriendIconClicked = true;
     this.friendsIconClicked = false;
   }
+
   addFriend(adderId, addedId) {
     this.friendsService.addFriend(adderId, addedId);
   }
 
-  showMessageBox() {
+  getConversationWithThisFriend(userId, friendId) {
     this.messageIconClicked = true;
+    this.conversation = this.messagesService.getConversation(userId, friendId);
   }
 }

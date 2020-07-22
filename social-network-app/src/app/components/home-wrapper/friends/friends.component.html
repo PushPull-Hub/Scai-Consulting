@@ -59,7 +59,9 @@
                     class="fa fa-comments-o"
                     aria-hidden="true"
                     style="color: #2fa4e7;"
-                    (click)="showMessageBox()"
+                    (click)="
+                      getConversationWithThisFriend(loggedUserId, friend.id)
+                    "
                   ></i>
                 </li>
               </td>
@@ -115,7 +117,9 @@
         </table>
       </div>
       <div class="col-sm-3"></div>
-      <app-message-box *ngIf="messageIconClicked"></app-message-box>
+      <ng-container *ngIf="messageIconClicked">
+        <app-message-box [conversation]="conversation"></app-message-box>
+      </ng-container>
     </div>
   </div>
 </div>

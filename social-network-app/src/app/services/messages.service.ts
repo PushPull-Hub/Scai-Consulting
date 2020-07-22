@@ -16,6 +16,10 @@ export class MessagesService {
     private friendsService: FriendsService
   ) {}
 
+  getMessages(): Conversation[] {
+    return (this.messages = JSON.parse(localStorage.getItem('Messages')) || []);
+  }
+
   getConversation(userId: string, friendId: string): Conversation {
     const stConversationId = `${userId}${friendId}`;
     const ndConversationId = `${friendId}${userId}`;
@@ -25,8 +29,4 @@ export class MessagesService {
         conversation.id === ndConversationId
     );
   }
-
-  // sendMessage(senderId: string, recieverId: string) {
-
-  // }
 }
