@@ -32,9 +32,7 @@ export class IntroComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {
-    this.userService.getUserVersion2('2e20fd07-df58-4bd4-9cb5-1a8c5ab68b55');
-  }
+  ngOnInit(): void {}
 
   showInputs = () => {
     this.EditButtonClicked = true;

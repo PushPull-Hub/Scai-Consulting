@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Friend } from 'src/app/models/Friend.model';
+
 import { FriendsService } from 'src/app/services/friends.service';
 import { UserServices } from 'src/app/services/user.service';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-friends',
@@ -18,11 +21,13 @@ export class FriendsComponent implements OnInit {
 
   constructor(
     private friendsService: FriendsService,
-    private userService: UserServices
+    private userService: UserServices,
+    private messagesService: MessagesService
   ) {}
 
   ngOnInit(): void {
     console.table(this.userService.getUsers());
+    console.table(this.messagesService.messages);
   }
 
   getFriendProperty = (id: string, property: string) =>

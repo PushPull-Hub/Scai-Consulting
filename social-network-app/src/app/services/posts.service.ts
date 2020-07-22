@@ -91,9 +91,8 @@ export class PostsService {
     const post = this.getPostById(postId);
     const postComments: string[] = post.comments;
     postComments.push(comment);
-    console.log(postComments);
+
     this.updatePost(post.postId, 'comments', postComments);
     this.commenterName = this.userService.getaUserProperty(from, 'username');
-    console.log(this.commenterName);
   }
 }

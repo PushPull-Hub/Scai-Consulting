@@ -3,6 +3,7 @@ import { PostsService } from 'src/app/services/posts.service';
 import { Post } from 'src/app/models/Post.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { v4 as uuidv4 } from 'uuid';
+import { UserServices } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-create-post',
@@ -18,10 +19,14 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private postService: PostsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserServices
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.table(this.userService.usersList);
+    console.table(this.userService.getPosts());
+  }
 
   sharePost() {
     const post = new Post();
