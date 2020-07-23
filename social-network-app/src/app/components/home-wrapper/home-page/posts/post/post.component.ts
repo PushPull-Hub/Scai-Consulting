@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class PostComponent implements OnInit {
   @Input() post: Post;
   commentButtonClicked: boolean = false;
-  commenterName: string = this.authService.loggedUser.username;
   comment: string;
 
   constructor(
@@ -28,13 +27,17 @@ export class PostComponent implements OnInit {
   }
 
   onCommentButtonClick(postId: string, comment: string) {
-    this.postsService.commentOnaPost(
+    this.post.comments = this.postsService.commentOnaPost(
       this.authService.loggedUser.id,
       postId,
       comment
     );
-    console.log(this.commenterName);
+
     this.comment = '';
+  }
+
+  getCommenterName(id: string) {
+    return this.friendService.getaFriendProperty(id, 'username');
   }
 
   onLikeButtonClick(id: string) {

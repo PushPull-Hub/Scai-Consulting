@@ -58,7 +58,10 @@
         </ol>
         <ol id="comments-container" *ngIf="commentButtonClicked">
           <div class="container" *ngFor="let comment of post.comments">
-            <p>{{ commenterName }} : {{ comment }}</p>
+            <p>
+              {{ getCommenterName(comment.commenterId) }} :
+              {{ comment.comment }}
+            </p>
           </div>
         </ol>
         <div class="input-group fluid">

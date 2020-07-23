@@ -23,10 +23,7 @@ export class CreatePostComponent implements OnInit {
     private userService: UserServices
   ) {}
 
-  ngOnInit(): void {
-    console.table(this.userService.usersList);
-    console.table(this.userService.getPosts());
-  }
+  ngOnInit(): void {}
 
   sharePost() {
     const post = new Post();

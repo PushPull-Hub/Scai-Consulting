@@ -16,7 +16,6 @@ export class PostsService {
   theUserFriendList: Friend[] = this.friendService.theUserFriendsList;
   UserFriendsPosts: Post[];
   hasBeenLiked: boolean = false;
-  commenterName: string;
 
   constructor(
     private authService: AuthService,
@@ -90,10 +89,11 @@ export class PostsService {
 
   commentOnaPost(from: string, postId: string, comment: string) {
     const post = this.getPostById(postId);
-    const postComments: string[] = post.comments;
-    postComments.push(comment);
-
+    const postComments = post.comments;
+    const _comment = { commenterId: from, comment: comment };
+    postComments.push(_comment);
     this.updatePost(post.postId, 'comments', postComments);
-    this.commenterName = this.userService.getaUserProperty(from, 'username');
+    return postComments;
+    // this.commenterName = this.userService.getaUserProperty(from, 'username');
   }
 }
