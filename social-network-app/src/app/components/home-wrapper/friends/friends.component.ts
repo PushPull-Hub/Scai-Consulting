@@ -6,6 +6,7 @@ import { FriendsService } from 'src/app/services/friends.service';
 import { UserServices } from 'src/app/services/user.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { Conversation } from 'src/app/models/Conversation.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-friends',
@@ -19,14 +20,15 @@ export class FriendsComponent implements OnInit {
   AddFriendIconClicked: boolean = false;
   added: boolean = true;
   messageIconClicked: boolean = false;
-  loggedUserId: string = this.friendsService.theLoggedUserId;
+  loggedUserId: string = this.authService.loggedUser.id;
   conversation: Conversation;
   friendId: string;
 
   constructor(
     private friendsService: FriendsService,
     private userService: UserServices,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class FriendsComponent implements OnInit {
     this.userService.getaUserProperty(id, property);
 
   onFriendsIconClick() {
+    this.friends = this.friendsService.getUserFriends();
     this.friendsIconClicked = true;
     this.AddFriendIconClicked = false;
   }

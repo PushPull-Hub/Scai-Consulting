@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class PostComponent implements OnInit {
   @Input() post: Post;
   commentButtonClicked: boolean = false;
-  commenterName: string = this.authService.theLoggedUserName;
+  commenterName: string = this.authService.loggedUser.username;
   comment: string;
 
   constructor(
@@ -29,7 +29,7 @@ export class PostComponent implements OnInit {
 
   onCommentButtonClick(postId: string, comment: string) {
     this.postsService.commentOnaPost(
-      this.authService.loggedUserId,
+      this.authService.loggedUser.id,
       postId,
       comment
     );

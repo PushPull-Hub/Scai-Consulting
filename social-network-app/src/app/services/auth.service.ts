@@ -7,14 +7,8 @@ import { User } from '../models/User.model';
   providedIn: 'root',
 })
 export class AuthService {
-  loggedUserId: string =
-    JSON.parse(localStorage.getItem('loggedUserId')) || null;
+  loggedUser: User;
   isLoggedIn: boolean = false;
-  loggedUser: User =
-    this.userService.getUserById(this.getLoggedUserId()) || null;
-  theLoggedUserName: string = this.getLoggedUserId()
-    ? this.userService.getaUserProperty(this.getLoggedUserId(), 'username')
-    : null;
 
   constructor(private router: Router, private userService: UserServices) {}
 
@@ -24,11 +18,10 @@ export class AuthService {
         (user) => user.email == email && user.password == password
       );
       if (testedUser) {
-        this.loggedUser = testedUser;
-        this.loggedUserId = testedUser.id;
-        this.theLoggedUserName = testedUser.username;
-        this.userService.updateUser(this.loggedUserId, 'isActive', true);
-        localStorage.setItem('loggedUserId', JSON.stringify(testedUser.id));
+        this.loggedUser = this.userService.getUserVersion2(testedUser.id);
+        console.log(this.loggedUser);
+        this.userService.updateUser(this.loggedUser.id, 'isActive', true);
+        localStorage.setItem('loggedUserId', this.loggedUser.id);
         return true;
       }
       return false;
@@ -45,17 +38,25 @@ export class AuthService {
   }
 
   logOut = () => {
-    localStorage.removeItem('Token');
     localStorage.removeItem('loggedUserId');
-    this.userService.updateUser(this.loggedUserId, 'isActive', false);
+    this.userService.updateUser(this.loggedUser.id, 'isActive', false);
     this.loggedUser = null;
-    this.loggedUserId = null;
-    this.theLoggedUserName = null;
     this.isLoggedIn = false;
     this.router.navigate(['/app/sign-in']);
   };
 
   getLoggedUserId() {
-    return JSON.parse(localStorage.getItem('loggedUserId')) || null;
+    if (!this.loggedUser) {
+      const loggedId = localStorage.getItem('loggedUserId');
+      if (!loggedId) return null;
+      this.loggedUser = this.userService.getUserById(loggedId);
+    }
+    return this.loggedUser.id;
+  }
+
+  getLoggedUser() {
+    if (!this.loggedUser) {
+      this.loggedUser = this.userService.getUserById(this.getLoggedUserId());
+    } else return this.loggedUser;
   }
 }

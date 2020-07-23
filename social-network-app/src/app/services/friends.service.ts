@@ -65,7 +65,7 @@ export class FriendsService {
 
   addFriend(friendId: string) {
     const userFriends: Friend[] = this.userService.getaUserProperty(
-      this.authService.loggedUserId,
+      this.authService.getLoggedUserId(),
       'friends'
     );
     const addedFriends: Friend[] = this.userService.getaUserProperty(
@@ -77,20 +77,20 @@ export class FriendsService {
     const user = new Friend();
 
     friend.id = friendId;
-    user.id = this.authService.loggedUserId;
+    user.id = this.authService.getLoggedUserId();
 
     userFriends.push(friend);
     addedFriends.push(user);
 
     this.userService.updateUser(
-      this.authService.loggedUserId,
+      this.authService.getLoggedUserId(),
       'friends',
       userFriends
     );
     this.userService.updateUser(friendId, 'friends', addedFriends);
 
     const conversation = new Conversation();
-    conversation.id = `${this.authService.loggedUserId}${friendId}`;
+    conversation.id = `${this.authService.getLoggedUserId()}${friendId}`;
     conversation.messages = [];
     this.messages.push(conversation);
     localStorage.setItem('Messages', JSON.stringify(this.messages));

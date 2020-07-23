@@ -40,7 +40,7 @@ export class UserServices implements OnInit {
 
   // Copy of User Object without Sensible Infos (email, password..) .
   getUserVersion2 = (id: string): User => {
-    const user = this.getUserById(id);
+    const user: User = this.getUserById(id);
     const userVersion2 = new User();
     userVersion2.id = user.id;
     userVersion2.username = user.username;
@@ -54,7 +54,6 @@ export class UserServices implements OnInit {
     userVersion2.adress = user.adress;
     userVersion2.work_in = user.work_in;
     userVersion2.relationship_status = user.relationship_status;
-    console.log(userVersion2);
     return userVersion2;
   };
 

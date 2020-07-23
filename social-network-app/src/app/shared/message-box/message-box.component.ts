@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Conversation } from 'src/app/models/Conversation.model';
 import { FriendsService } from 'src/app/services/friends.service';
 import { MessagesService } from 'src/app/services/messages.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-message-box',
@@ -12,13 +13,14 @@ import { MessagesService } from 'src/app/services/messages.service';
 export class MessageBoxComponent implements OnInit {
   @Input() conversation: Conversation;
   @Input() friendId: string;
-  loggedUserId: string = this.friendsService.theLoggedUserId;
+  loggedUserId: string = this.authService.loggedUser.id;
   text: string;
   clicked: boolean = false;
 
   constructor(
     private friendsService: FriendsService,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {}

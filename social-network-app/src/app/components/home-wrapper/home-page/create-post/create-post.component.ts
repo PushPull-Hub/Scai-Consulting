@@ -30,7 +30,7 @@ export class CreatePostComponent implements OnInit {
 
   sharePost() {
     const post = new Post();
-    post.userId = this.authService.loggedUserId;
+    post.userId = this.authService.loggedUser.id;
     post.postId = uuidv4();
     post.text = this.postText;
     post.description = '';

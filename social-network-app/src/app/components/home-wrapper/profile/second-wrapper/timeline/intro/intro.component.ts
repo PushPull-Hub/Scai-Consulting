@@ -11,18 +11,30 @@ import { User } from 'src/app/models/User.model';
 })
 export class IntroComponent implements OnInit {
   EditButtonClicked: boolean = false;
-  theLoggedUserId: string = this.authService.loggedUserId;
+
   location: string =
-    this.userService.getaUserProperty(this.theLoggedUserId, 'location') || '';
+    this.userService.getaUserProperty(
+      this.authService.loggedUser.id,
+      'location'
+    ) || '';
   hometown: string =
-    this.userService.getaUserProperty(this.theLoggedUserId, 'hometown') || '';
+    this.userService.getaUserProperty(
+      this.authService.loggedUser.id,
+      'hometown'
+    ) || '';
   work_in: string =
-    this.userService.getaUserProperty(this.theLoggedUserId, 'work_in') || '';
+    this.userService.getaUserProperty(
+      this.authService.loggedUser.id,
+      'work_in'
+    ) || '';
   birthdayObject: {
     year: string;
     month: string;
     day: string;
-  } = this.userService.getaUserProperty(this.theLoggedUserId, 'birthday');
+  } = this.userService.getaUserProperty(
+    this.authService.loggedUser.id,
+    'birthday'
+  );
   birthday: string = this.birthdayObject.year
     ? `${this.birthdayObject.year}/${this.birthdayObject.month}/${this.birthdayObject.day}`
     : '';
@@ -49,22 +61,22 @@ export class IntroComponent implements OnInit {
     this.birthday = birthday;
 
     this.userService.updateUser(
-      this.authService.loggedUserId,
+      this.authService.loggedUser.id,
       'location',
       location
     );
     this.userService.updateUser(
-      this.authService.loggedUserId,
+      this.authService.loggedUser.id,
       'hometown',
       hometown
     );
     this.userService.updateUser(
-      this.authService.loggedUserId,
+      this.authService.loggedUser.id,
       'work_in',
       work_in
     );
     this.userService.updateUser(
-      this.authService.loggedUserId,
+      this.authService.loggedUser.id,
       'birthday',
       birthday
     );

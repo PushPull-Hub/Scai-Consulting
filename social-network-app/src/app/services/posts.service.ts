@@ -12,13 +12,9 @@ import { UserServices } from './user.service';
 })
 export class PostsService {
   posts: Post[] = JSON.parse(localStorage.getItem('Posts')) || [];
-  loggedUserId: string = this.authService.loggedUserId;
+
   theUserFriendList: Friend[] = this.friendService.theUserFriendsList;
   UserFriendsPosts: Post[] = [];
-  loggedUserName: string = this.userService.getaUserProperty(
-    this.loggedUserId,
-    'username'
-  );
   hasBeenLiked: boolean = false;
   commenterName: string;
 
@@ -38,7 +34,7 @@ export class PostsService {
   getUserPost(): Post[] {
     const List: Post[] = [];
     JSON.parse(localStorage.getItem('Posts')).map((post) => {
-      post.userId === this.loggedUserId && List.push(post);
+      post.userId === this.authService.loggedUser.id && List.push(post);
     });
     return List;
   }
@@ -51,7 +47,7 @@ export class PostsService {
   getUserFriendsPosts(): Post[] {
     const List: Post[] = [];
     this.userService
-      .getaUserProperty(this.authService.loggedUserId, 'friends')
+      .getaUserProperty(this.authService.loggedUser.id, 'friends')
       .map((friend: Friend) => {
         JSON.parse(localStorage.getItem('Posts')).map(
           (post: Post) => post.userId === friend.id && List.push(post)
