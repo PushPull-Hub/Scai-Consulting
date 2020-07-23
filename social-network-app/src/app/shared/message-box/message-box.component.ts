@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Conversation } from 'src/app/models/Conversation.model';
 import { FriendsService } from 'src/app/services/friends.service';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-message-box',
@@ -12,9 +13,13 @@ export class MessageBoxComponent implements OnInit {
   @Input() conversation: Conversation;
   @Input() friendId: string;
   loggedUserId: string = this.friendsService.theLoggedUserId;
+  text: string;
   clicked: boolean = false;
 
-  constructor(private friendsService: FriendsService) {}
+  constructor(
+    private friendsService: FriendsService,
+    private messagesService: MessagesService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -29,4 +34,9 @@ export class MessageBoxComponent implements OnInit {
   getFriendProperty = (id: string, property: string) => {
     return this.friendsService.getaFriendProperty(id, property);
   };
+
+  sendMessage(sender: string, reciever: string, text: string) {
+    this.messagesService.sendMessage(sender, reciever, text);
+    this.text = '';
+  }
 }
