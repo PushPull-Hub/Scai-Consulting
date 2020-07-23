@@ -81,6 +81,7 @@ export class FriendsService {
 
     const conversation = new Conversation();
     conversation.id = `${adderId}${addedId}`;
+    conversation.messages = [];
     this.messages.push(conversation);
     localStorage.setItem('Messages', JSON.stringify(this.messages));
   }
