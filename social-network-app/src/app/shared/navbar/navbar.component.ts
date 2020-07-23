@@ -7,11 +7,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  loggedUserId = this.authService.loggedUserId;
-  theLoggedUserName = this.authService.theLoggedUserName;
-  urlParam = `${this.theLoggedUserName}/${this.loggedUserId}`;
+  urlParam: string;
 
   constructor(private authService: AuthService) {}
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.urlParam = `${this.authService.loggedUser.username}/${this.authService.loggedUser.id}`;
+  }
+
   logOut = () => this.authService.logOut();
 }
