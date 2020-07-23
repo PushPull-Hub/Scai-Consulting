@@ -36,7 +36,7 @@ export class UserServices implements OnInit {
   getUsersIds = () => this.usersList.map((user) => user.id);
 
   getUserById = (id: string): User =>
-    this.usersList.find((user) => user.id === id);
+    JSON.parse(localStorage.getItem('Users')).find((user) => user.id === id);
 
   // Copy of User Object without Sensible Infos (email, password..) .
   getUserVersion2 = (id: string): User => {

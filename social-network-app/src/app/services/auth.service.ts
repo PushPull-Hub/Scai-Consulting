@@ -10,9 +10,10 @@ export class AuthService {
   loggedUserId: string =
     JSON.parse(localStorage.getItem('loggedUserId')) || null;
   isLoggedIn: boolean = false;
-  loggedUser: User = this.userService.getUserById(this.loggedUserId) || null;
-  theLoggedUserName: string = this.loggedUserId
-    ? this.userService.getaUserProperty(this.loggedUserId, 'username')
+  loggedUser: User =
+    this.userService.getUserById(this.getLoggedUserId()) || null;
+  theLoggedUserName: string = this.getLoggedUserId()
+    ? this.userService.getaUserProperty(this.getLoggedUserId(), 'username')
     : null;
 
   constructor(private router: Router, private userService: UserServices) {}
@@ -53,4 +54,8 @@ export class AuthService {
     this.isLoggedIn = false;
     this.router.navigate(['/app/sign-in']);
   };
+
+  getLoggedUserId() {
+    return JSON.parse(localStorage.getItem('loggedUserId')) || null;
+  }
 }

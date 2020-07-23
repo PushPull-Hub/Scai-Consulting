@@ -31,7 +31,6 @@ export class FriendsComponent implements OnInit {
 
   ngOnInit(): void {
     console.table(this.userService.getUsers());
-    console.table(this.messagesService.getMessages());
   }
 
   getFriendProperty = (id: string, property: string) =>
@@ -47,8 +46,8 @@ export class FriendsComponent implements OnInit {
     this.friendsIconClicked = false;
   }
 
-  addFriend(adderId, addedId) {
-    this.friendsService.addFriend(adderId, addedId);
+  addFriend(addedId) {
+    this.friendsService.addFriend(addedId);
   }
 
   getConversationWithThisFriend(userId, friendId) {

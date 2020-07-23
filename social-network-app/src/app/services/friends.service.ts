@@ -10,9 +10,8 @@ import { Conversation } from '../models/Conversation.model';
   providedIn: 'root',
 })
 export class FriendsService {
-  theLoggedUserId: string = this.authService.loggedUserId;
   theUserFriendsList: Friend[] = this.userService.getaUserProperty(
-    this.theLoggedUserId,
+    this.authService.getLoggedUserId(),
     'friends'
   );
   ActiveFriends: Friend[] = [];
@@ -32,57 +31,69 @@ export class FriendsService {
   }
 
   getUserFriends() {
-    return this.theUserFriendsList;
+    return this.userService.getaUserProperty(
+      this.authService.getLoggedUserId(),
+      'friends'
+    );
   }
 
   getActiveFriendsList(): Friend[] {
     const ActiveFriends: Friend[] = [];
-    this.theUserFriendsList.map((friend) => {
-      if (this.userService.getaUserProperty(friend.id, 'isActive')) {
-        ActiveFriends.push(friend);
-      }
-    });
+    this.userService
+      .getaUserProperty(this.authService.getLoggedUserId(), 'friends')
+      .map((friend) => {
+        if (this.userService.getaUserProperty(friend.id, 'isActive')) {
+          ActiveFriends.push(friend);
+        }
+      });
     return ActiveFriends;
   }
 
   getTenFriendsSuggestion() {
     const appUsersIds = this.userService.getUsersIds();
-    const friendsIds = this.theUserFriendsList.map((friend) => friend.id);
+    const friendsIds = this.userService
+      .getaUserProperty(this.authService.getLoggedUserId(), 'friends')
+      .map((friend) => friend.id);
     for (let i = 0; i < 10; i++) {
       return appUsersIds.filter(
         (id) =>
-          id !== this.authService.loggedUserId &&
-          friendsIds.map((identity) => identity !== id)
+          id !== this.authService.getLoggedUserId() &&
+          friendsIds.every((identity) => identity !== id)
       );
     }
   }
 
-  addFriend(adderId: string, addedId: string) {
-    const AdderFriends: Friend[] = this.userService.getaUserProperty(
-      adderId,
+  addFriend(friendId: string) {
+    const userFriends: Friend[] = this.userService.getaUserProperty(
+      this.authService.loggedUserId,
       'friends'
     );
-    const AddeedFriends: Friend[] = this.userService.getaUserProperty(
-      addedId,
+    const addedFriends: Friend[] = this.userService.getaUserProperty(
+      friendId,
       'friends'
     );
 
-    const adderFriend = new Friend();
-    const addedFriend = new Friend();
+    const friend = new Friend();
+    const user = new Friend();
 
-    adderFriend.id = addedId;
-    addedFriend.id = addedId;
+    friend.id = friendId;
+    user.id = this.authService.loggedUserId;
 
-    AdderFriends.push(addedFriend);
-    AddeedFriends.push(adderFriend);
+    userFriends.push(friend);
+    addedFriends.push(user);
 
-    this.userService.updateUser(adderId, 'friends', AdderFriends);
-    this.userService.updateUser(addedId, 'friends', AddeedFriends);
+    this.userService.updateUser(
+      this.authService.loggedUserId,
+      'friends',
+      userFriends
+    );
+    this.userService.updateUser(friendId, 'friends', addedFriends);
 
     const conversation = new Conversation();
-    conversation.id = `${adderId}${addedId}`;
+    conversation.id = `${this.authService.loggedUserId}${friendId}`;
     conversation.messages = [];
     this.messages.push(conversation);
     localStorage.setItem('Messages', JSON.stringify(this.messages));
+    console.log('added');
   }
 }

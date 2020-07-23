@@ -29,7 +29,7 @@ export class PostsService {
   ) {}
 
   getPosts(): Post[] {
-    return this.posts;
+    return JSON.parse(localStorage.getItem('Posts')) || [];
   }
 
   getPostById = (id: string): Post =>
@@ -37,7 +37,7 @@ export class PostsService {
 
   getUserPost(): Post[] {
     const List: Post[] = [];
-    this.posts.map((post) => {
+    JSON.parse(localStorage.getItem('Posts')).map((post) => {
       post.userId === this.loggedUserId && List.push(post);
     });
     return List;
@@ -50,11 +50,13 @@ export class PostsService {
 
   getUserFriendsPosts(): Post[] {
     const List: Post[] = [];
-    this.theUserFriendList.map((friend: Friend) => {
-      this.posts.map(
-        (post: Post) => post.userId === friend.id && List.push(post)
-      );
-    });
+    this.userService
+      .getaUserProperty(this.authService.loggedUserId, 'friends')
+      .map((friend: Friend) => {
+        JSON.parse(localStorage.getItem('Posts')).map(
+          (post: Post) => post.userId === friend.id && List.push(post)
+        );
+      });
     this.UserFriendsPosts = List;
     return this.UserFriendsPosts;
   }
