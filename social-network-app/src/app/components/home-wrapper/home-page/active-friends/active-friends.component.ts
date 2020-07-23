@@ -9,7 +9,7 @@ import { Friend } from 'src/app/models/Friend.model';
 })
 export class ActiveFriendsComponent implements OnInit {
   clicked: boolean = false;
-  ActiveFriends: Friend[] = [];
+  ActiveFriends: Friend[];
   constructor(private friendsService: FriendsService) {}
 
   ngOnInit(): void {}
@@ -18,4 +18,8 @@ export class ActiveFriendsComponent implements OnInit {
     this.clicked = !this.clicked;
     this.ActiveFriends = this.friendsService.getActiveFriendsList();
   };
+
+  showFriendUserName(id: string) {
+    return this.friendsService.getaFriendProperty(id, 'username');
+  }
 }
