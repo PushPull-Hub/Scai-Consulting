@@ -49,10 +49,10 @@ export class FriendsService {
     const appUsersIds = this.userService.getUsersIds();
     const friendsIds = this.theUserFriendsList.map((friend) => friend.id);
     for (let i = 0; i < 10; i++) {
-      return appUsersIds.filter((id) =>
-        friendsIds.every(
-          (identity) => identity !== id && id !== this.authService.loggedUserId
-        )
+      return appUsersIds.filter(
+        (id) =>
+          id !== this.authService.loggedUserId &&
+          friendsIds.map((identity) => identity !== id)
       );
     }
   }
