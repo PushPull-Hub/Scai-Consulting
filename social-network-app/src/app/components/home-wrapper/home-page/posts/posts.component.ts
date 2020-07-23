@@ -11,14 +11,19 @@ import { Post } from 'src/app/models/Post.model';
 })
 export class PostsComponent implements OnInit {
   constructor(private postService: PostsService) {}
-  posts: Post[] = this.postService.getUserFriendsPosts();
+  posts: Post[];
   loading: boolean = true;
 
   ngOnInit(): void {
+    this.posts = this.postService.getUserFriendsPosts();
     setTimeout(() => {
       this.loading = false;
     }, 800);
     this.loading = true;
+  }
+
+  getUserFriendPosts(): Post[] {
+    return this.postService.getUserFriendsPosts();
   }
 
   sortPosts = (a: Post, b: Post) =>

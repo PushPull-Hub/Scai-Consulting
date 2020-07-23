@@ -38,7 +38,7 @@ export class PostComponent implements OnInit {
   }
 
   onLikeButtonClick(id: string) {
-    this.postsService.likePost(id);
+    this.post.likes = this.postsService.likePost(id);
   }
 
   creatorName(id: string) {

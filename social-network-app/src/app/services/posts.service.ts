@@ -14,7 +14,7 @@ export class PostsService {
   posts: Post[] = JSON.parse(localStorage.getItem('Posts')) || [];
 
   theUserFriendList: Friend[] = this.friendService.theUserFriendsList;
-  UserFriendsPosts: Post[] = [];
+  UserFriendsPosts: Post[];
   hasBeenLiked: boolean = false;
   commenterName: string;
 
@@ -72,17 +72,20 @@ export class PostsService {
     localStorage.setItem('Posts', JSON.stringify(this.posts));
   }
 
-  likePost(id: string) {
+  likePost(id: string): number {
     const post = this.getPostById(id);
     if (this.hasBeenLiked) {
       if (post.likes > 0) {
         this.updatePost(post.postId, 'likes', post.likes - 1);
         this.hasBeenLiked = false;
+        post.likes - 1;
       }
     } else {
       this.updatePost(post.postId, 'likes', post.likes + 1);
       this.hasBeenLiked = true;
+      post.likes + 1;
     }
+    return post.likes;
   }
 
   commentOnaPost(from: string, postId: string, comment: string) {
