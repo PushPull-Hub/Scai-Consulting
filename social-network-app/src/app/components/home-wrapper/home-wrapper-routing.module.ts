@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./profile/profile.module').then((m) => m.ProfileModule),
   },
-  { path: 'friends/:username/:id', component: FriendsComponent },
+  { path: 'friends', component: FriendsComponent },
 ];
 
 @NgModule({
