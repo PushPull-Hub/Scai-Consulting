@@ -28,5 +28,10 @@ export class FriendshipsSuggestionComponent implements OnInit {
 
   addFriend(addedId) {
     this.friendsService.addFriend(addedId);
+    setTimeout(() => {
+      this.friendsSuggestion = this.friendsSuggestion.filter(
+        (suggested) => suggested !== addedId
+      );
+    }, 500);
   }
 }
