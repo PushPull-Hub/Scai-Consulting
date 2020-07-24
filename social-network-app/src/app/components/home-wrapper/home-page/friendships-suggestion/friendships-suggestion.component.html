@@ -13,103 +13,34 @@
   >
     <h4><i class="fa fa-search" aria-hidden="true"></i> &nbsp; suggestions</h4>
   </div>
+  <ng-container *ngFor="let suggestedFriend of friendsSuggestion">
+    <div class="row suggested-friend" style="margin-top: 10px;">
+      <div class="col-2">
+        <div>
+          <img
+            class="rounded-circle"
+            src="../../../../../assets/images/man-user-empty-picture.jpg"
+            style="width: 40px; height: 40px;"
+          />
+        </div>
+      </div>
 
-  <div class="row suggested-friend" style="margin-top: 10px;">
-    <div class="col-2">
+      <div class="col-7">
+        <h2 class="friend-name">
+          {{ getFriendProperty(suggestedFriend, "username") }}
+        </h2>
+      </div>
       <div>
-        <img
-          class="rounded-circle"
-          src="../../../../assets/images/Mark5.jpg"
-          style="width: 40px; height: 40px;"
-        />
+        <button
+          class="btn btn-info"
+          style="padding: 0 16px 0 15px; margin-top: 5px;"
+          (click)="addFriend(suggestedFriend); clicked = true"
+          [disabled]="clicked"
+        >
+          add
+        </button>
       </div>
     </div>
-
-    <div class="col-7">
-      <h2 class="friend-name">Mark Zuckerberg</h2>
-    </div>
-    <div>
-      <button
-        class="btn btn-info"
-        style="padding: 0 16px 0 15px; margin-top: 5px;"
-      >
-        add
-      </button>
-    </div>
-  </div>
-  <hr style="border-top: 1px solid #dfe3ee; margin: 5px 0 5px 0;" />
-  <div class="row" style="margin-top: 10px;">
-    <div class="col-2">
-      <div style="width: 40px; height: 40px;">
-        <img
-          class="rounded-circle"
-          src="../../../../assets/images/salvini.jpg"
-          style="width: 40px; height: 40px;"
-        />
-      </div>
-    </div>
-
-    <div class="col-7">
-      <h2 class="friend-name">Matteo Salvini</h2>
-    </div>
-    <div>
-      <button
-        class="btn btn-info"
-        style="padding: 0 16px 0 15px; margin-top: 5px;"
-      >
-        add
-      </button>
-    </div>
-  </div>
-  <hr style="border-top: 1px solid #dfe3ee; margin: 5px 0 5px 0;" />
-  <div class="row suggested-friend" style="margin-top: 10px;">
-    <div class="col-2">
-      <div>
-        <img
-          class="rounded-circle"
-          src="../../../../assets/images/lana.jpeg"
-          style="width: 40px; height: 40px;"
-        />
-      </div>
-    </div>
-
-    <div class="col-7">
-      <h2 class="friend-name">Lana del Rey</h2>
-    </div>
-    <div>
-      <button
-        class="btn btn-info"
-        style="padding: 0 16px 0 15px; margin-top: 5px;"
-      >
-        add
-      </button>
-    </div>
-  </div>
-  <hr style="border-top: 1px solid #dfe3ee; margin: 5px 0 5px 0;" />
-  <div
-    class="row suggested-friend"
-    style="margin-top: 10px; margin-bottom: 10px;"
-  >
-    <div class="col-2">
-      <div>
-        <img
-          class="rounded-circle"
-          src="../../../../assets/images/Albert.jpeg"
-          style="width: 40px; height: 40px;"
-        />
-      </div>
-    </div>
-
-    <div class="col-7">
-      <h2 class="friend-name">Alert Einstein</h2>
-    </div>
-    <div>
-      <button
-        class="btn btn-info"
-        style="padding: 0 16px 0 15px; margin-top: 5px;"
-      >
-        add
-      </button>
-    </div>
-  </div>
+    <hr style="border-top: 1px solid #dfe3ee; margin: 5px 0 5px 0;" />
+  </ng-container>
 </div>
