@@ -13,6 +13,11 @@ const routes: Routes = [
       import('./profile/profile.module').then((m) => m.ProfileModule),
   },
   { path: 'friends', component: FriendsComponent },
+  {
+    path: 'messenger',
+    loadChildren: () =>
+      import('./messenger/messenger.module').then((m) => m.MessengerModule),
+  },
 ];
 
 @NgModule({
