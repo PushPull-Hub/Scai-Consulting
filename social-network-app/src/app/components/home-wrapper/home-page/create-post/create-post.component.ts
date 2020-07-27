@@ -31,7 +31,7 @@ export class CreatePostComponent implements OnInit {
     post.postId = uuidv4();
     post.text = this.postText;
     post.description = '';
-    post.comments = [''];
+    post.comments = [{ commenterId: '', comment: '' }];
     post.likes = 0;
     post.image = [];
     post.created_time = this.now;
