@@ -7,6 +7,7 @@ import { Conversation } from '../models/Conversation.model';
 import { Message } from '../models/Message.model';
 
 import { v4 as uuidv4 } from 'uuid';
+import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,16 @@ export class MessagesService {
         conversation.id === stConversationId ||
         conversation.id === ndConversationId
     );
+  }
+
+  getUserConversations(userId: string) {
+    return this.getMessages().map((conversation) =>
+      conversation.id.includes(userId) ? conversation : undefined
+    );
+  }
+
+  getTheFriend(userId: string, conversationId: string) {
+    return conversationId.replace(userId, '');
   }
 
   updateConversationMessagesArray(id: string, messagesArray: Message[]) {

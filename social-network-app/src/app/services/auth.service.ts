@@ -19,7 +19,6 @@ export class AuthService {
       );
       if (testedUser) {
         this.loggedUser = this.userService.getUserVersion2(testedUser.id);
-        console.log(this.loggedUser);
         this.userService.updateUser(this.loggedUser.id, 'isActive', true);
         localStorage.setItem('loggedUserId', this.loggedUser.id);
         return true;
@@ -54,7 +53,7 @@ export class AuthService {
     return this.loggedUser.id;
   }
 
-  getLoggedUser() {
+  getLoggedUser(): User {
     if (!this.loggedUser) {
       this.loggedUser = this.userService.getUserById(this.getLoggedUserId());
     } else return this.loggedUser;

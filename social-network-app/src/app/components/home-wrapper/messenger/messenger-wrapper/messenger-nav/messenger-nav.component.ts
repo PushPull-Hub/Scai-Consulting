@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserServices } from 'src/app/services/user.service';
+import { MessagesService } from 'src/app/services/messages.service';
+import { Conversation } from 'src/app/models/Conversation.model';
 
 @Component({
   selector: 'app-messenger-nav',
@@ -7,7 +11,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessengerNavComponent implements OnInit {
   isMessageReaded: boolean = false;
-  constructor() {}
+  conversations: Conversation[];
+  @Output() eventClicked = new EventEmitter<Event>();
 
-  ngOnInit(): void {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserServices,
+    private messageService: MessagesService
+  ) {}
+
+  ngOnInit(): void {
+    this.conversations = this.messageService.getUserConversations(
+      this.authService.getLoggedUserId()
+    );
+  }
+
+  getFriendUsername(conversationId: string): string {
+    return this.userService.getUserVersion2(
+      this.messageService.getTheFriend(
+        this.authService.getLoggedUserId(),
+        conversationId
+      )
+    ).username;
+  }
+
+  onClick(event: Event): void {
+    this.eventClicked.emit(event);
+    console.log(event);
+  }
 }
