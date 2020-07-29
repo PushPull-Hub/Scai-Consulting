@@ -4,7 +4,7 @@ export class Post extends Object {
   created_time: any;
   text: string;
   description: string;
-  comments: [{ commenterId: string; comment: string }];
+  comments: Array<{ commenterId: string; comment: string }>;
   likes: number;
   image: [];
   can_reply: boolean;

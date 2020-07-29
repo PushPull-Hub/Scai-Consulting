@@ -47,7 +47,11 @@
           <li class="breadcrumb-item">
             <button class="btn btn secondary" (click)="onCommentIconClick()">
               <i class="fa fa-comment" aria-hidden="true"></i>
-              {{ post.comments.length - 1 }} Comments
+              {{
+                post.comments.length > 1
+                  ? post.comments.length + " Comments"
+                  : post.comments.length + " Comment"
+              }}
             </button>
           </li>
           <li class="breadcrumb-item">

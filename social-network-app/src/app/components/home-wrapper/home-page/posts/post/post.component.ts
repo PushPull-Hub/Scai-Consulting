@@ -27,14 +27,10 @@ export class PostComponent implements OnInit {
   }
 
   onCommentButtonClick(postId: string, comment: string) {
-    this.post.comments = this.postsService.commentOnaPost(
-      this.authService.loggedUser.id,
-      postId,
-      comment
-    );
-
+    this.post.comments = this.postsService.commentOnaPost(postId, comment);
     this.comment = '';
   }
+  // to be modified
 
   getCommenterName(id: string) {
     return this.friendService.getaFriendProperty(id, 'username');

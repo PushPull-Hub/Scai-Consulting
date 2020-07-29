@@ -87,10 +87,13 @@ export class PostsService {
     return post.likes;
   }
 
-  commentOnaPost(from: string, postId: string, comment: string) {
+  commentOnaPost(postId: string, comment: string) {
     const post = this.getPostById(postId);
     const postComments = post.comments;
-    const _comment = { commenterId: from, comment: comment };
+    const _comment = {
+      commenterId: this.authService.getLoggedUserId(),
+      comment: comment,
+    };
     postComments.push(_comment);
     this.updatePost(post.postId, 'comments', postComments);
     return postComments;
