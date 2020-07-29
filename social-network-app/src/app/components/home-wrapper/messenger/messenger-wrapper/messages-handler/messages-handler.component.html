@@ -4,7 +4,7 @@
     class="container-fluid header"
     style="height: 70px; border-bottom: 2px solid #efefef;"
   >
-    <ul class="header-list">
+    <ul class="header-list" *ngIf="event">
       <li>
         <span>
           <img
@@ -15,7 +15,10 @@
         </span>
       </li>
       <li>
-        <span style="margin: 4px 0 0 20px;"><h3>Friend</h3> </span>
+        <span style="margin: 4px 0 0 20px;">
+          <!-- <h3>{{ event.id }}</h3> -->
+          <h3>{{ getFriendUsername(event.id) }}</h3>
+        </span>
       </li>
       <li style="float: right;">
         <span>
@@ -43,7 +46,13 @@
             <div class="chats">
               <div class="msg-page">
                 <!-- income chat  -->
-                <div class="recieved-chats">
+                <div
+                  class="recieved-chats"
+                  *ngFor="
+                    let message of event.messages
+                      | messagefilter: getFriendId(event.id)
+                  "
+                >
                   <div class="recieved-chats-img">
                     <img
                       class="rounded-circle"
@@ -54,8 +63,7 @@
                   <div class="recieved-msg">
                     <div class="recieved-msg-inbox">
                       <p>
-                        hello this is a msg from your friend Chris , I'm trying
-                        to making it long a bit
+                        {{ message.text }}
                       </p>
                       <span class="time">11:00 PM </span>
                     </div>
@@ -64,11 +72,15 @@
                 <!-- income chat  -->
 
                 <!-- outgoing chat  -->
-                <div class="outgoing-chats">
+                <div
+                  class="outgoing-chats"
+                  *ngFor="
+                    let message of event.messages | messagefilter: loggedUserId
+                  "
+                >
                   <div class="outgoing-chats-msg">
                     <p>
-                      hello this is a msg from me , I'm trying to making it long
-                      a bit as well
+                      {{ message.text }}
                     </p>
                     <span class="time">11:00 PM </span>
                   </div>
@@ -111,6 +123,7 @@
           aria-label="Recipient's username"
           aria-describedby="button-addon2"
           style="border-radius: 20px; margin: 0 20px 0 20px;"
+          [(ngModel)]="text"
         />
         <div class="input-group-append">
           <button
@@ -118,6 +131,7 @@
             type="button "
             id="button-addon2"
             style="border-radius: 20px; margin-right: 10px;"
+            (click)="sendMessage(loggedUserId, getFriendId(event.id), text)"
           >
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </button>
