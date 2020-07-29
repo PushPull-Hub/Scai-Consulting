@@ -7,7 +7,6 @@ import { Conversation } from '../models/Conversation.model';
 import { Message } from '../models/Message.model';
 
 import { v4 as uuidv4 } from 'uuid';
-import { User } from '../models/User.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,8 +34,8 @@ export class MessagesService {
   }
 
   getUserConversations(userId: string) {
-    return this.getMessages().map((conversation) =>
-      conversation.id.includes(userId) ? conversation : undefined
+    return this.getMessages().filter((conversation) =>
+      conversation.id.includes(userId)
     );
   }
 
