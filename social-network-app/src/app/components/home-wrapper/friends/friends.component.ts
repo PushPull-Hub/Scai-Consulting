@@ -14,13 +14,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./friends.component.scss'],
 })
 export class FriendsComponent implements OnInit {
-  friends: Friend[] = this.friendsService.getUserFriends();
-  friendsSuggestion: string[] = this.friendsService.getTenFriendsSuggestion();
+  friends: Friend[];
+  friendsSuggestion: string[];
   friendsIconClicked: boolean = true;
   AddFriendIconClicked: boolean = false;
   added: boolean = true;
   messageIconClicked: boolean = false;
-  loggedUserId: string = this.authService.loggedUser.id;
+  loggedUserId: string;
   conversation: Conversation;
   friendId: string;
 
@@ -33,6 +33,9 @@ export class FriendsComponent implements OnInit {
 
   ngOnInit(): void {
     console.table(this.userService.getUsers());
+    this.friends = this.friendsService.getUserFriends();
+    this.friendsSuggestion = this.friendsService.getTenFriendsSuggestion();
+    this.loggedUserId = this.authService.loggedUser.id;
   }
 
   getFriendProperty = (id: string, property: string) =>
@@ -51,6 +54,10 @@ export class FriendsComponent implements OnInit {
 
   addFriend(addedId) {
     this.friendsService.addFriend(addedId);
+    this.friends = this.friendsService.getUserFriends();
+    this.friendsSuggestion = this.friendsSuggestion.filter(
+      (id) => id !== addedId
+    );
   }
 
   getConversationWithThisFriend(userId, friendId) {
