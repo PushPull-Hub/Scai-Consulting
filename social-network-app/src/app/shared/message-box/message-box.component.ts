@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MessageBoxComponent implements OnInit {
   @Input() conversation: Conversation;
   @Input() friendId: string;
-  loggedUserId: string = this.authService.loggedUser.id;
+  loggedUserId: string;
   text: string;
   clicked: boolean = false;
 
@@ -23,7 +23,9 @@ export class MessageBoxComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loggedUserId = this.authService.loggedUser.id;
+  }
 
   showConversation() {
     this.clicked = !this.clicked;
@@ -37,8 +39,8 @@ export class MessageBoxComponent implements OnInit {
     return this.friendsService.getaFriendProperty(id, property);
   };
 
-  sendMessage(sender: string, reciever: string, text: string) {
-    this.messagesService.sendMessage(sender, reciever, text);
+  sendMessage(reciever: string, text: string) {
+    this.messagesService.sendMessage(reciever, text);
     this.text = '';
   }
 }

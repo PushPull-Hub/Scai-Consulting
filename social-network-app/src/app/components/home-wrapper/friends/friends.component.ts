@@ -60,9 +60,9 @@ export class FriendsComponent implements OnInit {
     );
   }
 
-  getConversationWithThisFriend(userId, friendId) {
+  getConversation(friendId) {
     this.messageIconClicked = true;
-    this.conversation = this.messagesService.getConversation(userId, friendId);
+    this.conversation = this.messagesService.getConversation(friendId);
     this.friendId = friendId;
   }
 }

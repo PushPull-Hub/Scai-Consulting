@@ -59,9 +59,7 @@
                     class="fa fa-comments-o"
                     aria-hidden="true"
                     style="color: #2fa4e7;"
-                    (click)="
-                      getConversationWithThisFriend(loggedUserId, friend.id)
-                    "
+                    (click)="getConversation(friend.id)"
                   ></i>
                 </li>
               </td>
@@ -103,6 +101,7 @@
                   />
                 </th>
                 <th>{{ getFriendProperty(suggestedFriend, "username") }}</th>
+                <!-- to be modified  -->
                 <th>
                   <button
                     class="btn btn-info"

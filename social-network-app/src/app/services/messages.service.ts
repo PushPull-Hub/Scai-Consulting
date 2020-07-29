@@ -7,6 +7,7 @@ import { Conversation } from '../models/Conversation.model';
 import { Message } from '../models/Message.model';
 
 import { v4 as uuidv4 } from 'uuid';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,16 +17,17 @@ export class MessagesService {
 
   constructor(
     private userService: UserServices,
-    private friendsService: FriendsService
+    private friendsService: FriendsService,
+    private authService: AuthService
   ) {}
 
   getMessages(): Conversation[] {
     return (this.messages = JSON.parse(localStorage.getItem('Messages')) || []);
   }
 
-  getConversation(userId: string, friendId: string): Conversation {
-    const stConversationId = `${userId}${friendId}`;
-    const ndConversationId = `${friendId}${userId}`;
+  getConversation(friendId: string): Conversation {
+    const stConversationId = `${this.authService.getLoggedUserId()}${friendId}`;
+    const ndConversationId = `${friendId}${this.authService.getLoggedUserId()}`;
     return this.messages.find(
       (conversation) =>
         conversation.id === stConversationId ||
@@ -33,14 +35,22 @@ export class MessagesService {
     );
   }
 
-  getUserConversations(userId: string) {
+  getUserConversations(): Conversation[] {
     return this.getMessages().filter((conversation) =>
-      conversation.id.includes(userId)
+      conversation.id.includes(this.authService.getLoggedUserId())
     );
   }
 
-  getTheFriend(userId: string, conversationId: string) {
-    return conversationId.replace(userId, '');
+  getTheFriendId(conversationId: string) {
+    return this.authService.getLoggedUserId()
+      ? conversationId.replace(this.authService.getLoggedUserId(), '')
+      : undefined;
+  }
+
+  getTheFriend(conversationId: string) {
+    return this.userService.getUserVersion2(
+      this.getTheFriendId(conversationId)
+    );
   }
 
   updateConversationMessagesArray(id: string, messagesArray: Message[]) {
@@ -54,13 +64,13 @@ export class MessagesService {
     localStorage.setItem('Messages', JSON.stringify(this.messages));
   }
 
-  sendMessage(sender: string, reciever: string, text: string) {
-    const conversation: Conversation = this.getConversation(sender, reciever);
+  sendMessage(reciever: string, text: string) {
+    const conversation: Conversation = this.getConversation(reciever);
     console.log(conversation);
     const messages = conversation.messages;
     const message = new Message();
     message.id = uuidv4();
-    message.sender = sender;
+    message.sender = this.authService.getLoggedUserId();
     message.reciever = reciever;
     message.text = text;
     console.log(message);

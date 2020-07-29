@@ -26,23 +26,14 @@ export class MessagesHandlerComponent implements OnInit {
   }
 
   getFriendUsername(conversationId: string): string {
-    return this.userService.getUserVersion2(
-      this.messageService.getTheFriend(
-        this.authService.getLoggedUserId(),
-        conversationId
-      )
-    ).username;
+    return this.messageService.getTheFriend(conversationId).username;
   }
 
   getFriendId(id: string): string {
-    return this.messageService.getTheFriend(
-      this.authService.getLoggedUserId(),
-      id
-    );
+    return this.messageService.getTheFriendId(id);
   }
-  sendMessage(sender: string, reciever: string, text: string) {
-    this.messageService.sendMessage(sender, reciever, text);
-    this.messageService.sendMessage(sender, reciever, text);
+  sendMessage(reciever: string, text: string) {
+    this.messageService.sendMessage(reciever, text);
     this.text = '';
   }
 }

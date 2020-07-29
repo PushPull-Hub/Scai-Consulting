@@ -21,18 +21,11 @@ export class MessengerNavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.conversations = this.messageService.getUserConversations(
-      this.authService.getLoggedUserId()
-    );
+    this.conversations = this.messageService.getUserConversations();
   }
 
   getFriendUsername(conversationId: string): string {
-    return this.userService.getUserVersion2(
-      this.messageService.getTheFriend(
-        this.authService.getLoggedUserId(),
-        conversationId
-      )
-    ).username;
+    return this.messageService.getTheFriend(conversationId).username;
   }
 
   onClick(event: Event): void {
