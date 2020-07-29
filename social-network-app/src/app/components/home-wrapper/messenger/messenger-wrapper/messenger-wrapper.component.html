@@ -5,10 +5,12 @@
     class="container-fluid col-sm-3"
     style="padding-right: 0; border-right: 2px solid #efefef;"
   >
-    <app-messenger-nav></app-messenger-nav>
+    <app-messenger-nav
+      (eventClicked)="childEventClicked($event)"
+    ></app-messenger-nav>
   </div>
 
   <div class="container-fluid col-sm-9">
-    <app-messages-handler></app-messages-handler>
+    <app-messages-handler [event]="clickedEvent"></app-messages-handler>
   </div>
 </div>
