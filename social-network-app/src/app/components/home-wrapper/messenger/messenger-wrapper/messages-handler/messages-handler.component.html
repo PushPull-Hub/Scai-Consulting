@@ -4,7 +4,7 @@
     class="container-fluid header"
     style="height: 70px; border-bottom: 2px solid #efefef;"
   >
-    <ul class="header-list" *ngIf="event">
+    <ul class="header-list" *ngIf="conversation">
       <li>
         <span>
           <img
@@ -16,8 +16,8 @@
       </li>
       <li>
         <span style="margin: 4px 0 0 20px;">
-          <!-- <h3>{{ event.id }}</h3> -->
-          <h3>{{ getFriendUsername(event.id) }}</h3>
+          <h3>{{ getFriendUsername(conversation.id) }}</h3>
+          <!-- to be modified -->
         </span>
       </li>
       <li style="float: right;">
@@ -46,53 +46,53 @@
             <div class="chats">
               <div class="msg-page">
                 <!-- income chat  -->
-                <div
-                  class="recieved-chats"
-                  *ngFor="
-                    let message of event.messages
-                      | messagefilter: getFriendId(event.id)
-                  "
-                >
-                  <div class="recieved-chats-img">
-                    <img
-                      class="rounded-circle"
-                      style="width: 20px; height: 20px;"
-                      src="../../../../../../assets/images/man-user-empty-picture.jpg"
-                    />
-                  </div>
-                  <div class="recieved-msg">
-                    <div class="recieved-msg-inbox">
-                      <p>
-                        {{ message.text }}
-                      </p>
-                      <span class="time">11:00 PM </span>
+                <ng-container *ngFor="let message of conversation.messages">
+                  <ng-container
+                    *ngIf="
+                      message.sender === getFriendId(conversation.id);
+                      else outgoingChat
+                    "
+                  >
+                    <div class="recieved-chats">
+                      <div class="recieved-chats-img">
+                        <img
+                          class="rounded-circle"
+                          style="width: 20px; height: 20px;"
+                          src="../../../../../../assets/images/man-user-empty-picture.jpg"
+                        />
+                      </div>
+                      <div class="recieved-msg">
+                        <div class="recieved-msg-inbox">
+                          <p>
+                            {{ message.text }}
+                          </p>
+                          <span class="time">11:00 PM </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <!-- income chat  -->
+                  </ng-container>
+                  <!-- income chat  -->
 
-                <!-- outgoing chat  -->
-                <div
-                  class="outgoing-chats"
-                  *ngFor="
-                    let message of event.messages | messagefilter: loggedUserId
-                  "
-                >
-                  <div class="outgoing-chats-msg">
-                    <p>
-                      {{ message.text }}
-                    </p>
-                    <span class="time">11:00 PM </span>
-                  </div>
-                  <div class="outgoing-chats-img">
-                    <img
-                      class="rounded-circle"
-                      style="width: 20px; height: 20px;"
-                      src="../../../../../../assets/images/man-user-empty-picture.jpg"
-                    />
-                  </div>
-                </div>
-                <!-- outgoing chat  -->
+                  <!-- outgoing chat  -->
+                  <ng-template #outgoingChat>
+                    <div class="outgoing-chats">
+                      <div class="outgoing-chats-msg">
+                        <p>
+                          {{ message.text }}
+                        </p>
+                        <span class="time">11:00 PM </span>
+                      </div>
+                      <div class="outgoing-chats-img">
+                        <img
+                          class="rounded-circle"
+                          style="width: 20px; height: 20px;"
+                          src="../../../../../../assets/images/man-user-empty-picture.jpg"
+                        />
+                      </div>
+                    </div>
+                  </ng-template>
+                  <!-- outgoing chat  -->
+                </ng-container>
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@
             type="button "
             id="button-addon2"
             style="border-radius: 20px; margin-right: 10px;"
-            (click)="sendMessage(getFriendId(event.id), text)"
+            (click)="sendMessage(getFriendId(conversation.id), text)"
           >
             <i class="fa fa-paper-plane" aria-hidden="true"></i>
           </button>
