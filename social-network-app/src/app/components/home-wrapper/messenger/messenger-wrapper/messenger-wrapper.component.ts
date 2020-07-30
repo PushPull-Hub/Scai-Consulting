@@ -6,12 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./messenger-wrapper.component.scss'],
 })
 export class MessengerWrapperComponent implements OnInit {
-  public clickedEvent: Event;
+  public clickedConversation: Event;
   constructor() {}
 
   ngOnInit(): void {}
 
   childEventClicked(event: Event) {
-    this.clickedEvent = event;
+    this.clickedConversation = event;
   }
 }

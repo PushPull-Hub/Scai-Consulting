@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrls: ['./messages-handler.component.scss'],
 })
 export class MessagesHandlerComponent implements OnInit {
-  @Input() event: Conversation;
+  @Input() conversation: Conversation;
   loggedUserId: string;
   text: string;
   constructor(
@@ -23,6 +23,7 @@ export class MessagesHandlerComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedUserId = this.authService.getLoggedUserId();
+    console.log(this.conversation);
   }
 
   getFriendUsername(conversationId: string): string {
@@ -33,7 +34,11 @@ export class MessagesHandlerComponent implements OnInit {
     return this.messageService.getTheFriendId(id);
   }
   sendMessage(reciever: string, text: string) {
+    console.log(this.conversation);
     this.messageService.sendMessage(reciever, text);
+    this.conversation = this.messageService.getConversation(reciever);
+    console.log(this.conversation);
+    // this.messageService.getUserConversations();
     this.text = '';
   }
 }

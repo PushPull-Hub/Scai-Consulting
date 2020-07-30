@@ -30,6 +30,5 @@ export class MessengerNavComponent implements OnInit {
 
   onClick(event: Event): void {
     this.eventClicked.emit(event);
-    console.log(event);
   }
 }
