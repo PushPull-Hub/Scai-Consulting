@@ -4,6 +4,7 @@ import { Post } from 'src/app/models/Post.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { v4 as uuidv4 } from 'uuid';
 import { UserServices } from 'src/app/services/user.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-post',
@@ -13,7 +14,7 @@ import { UserServices } from 'src/app/services/user.service';
 export class CreatePostComponent implements OnInit {
   postText: string;
   date = new Date();
-  now = this.date.toDateString();
+  now = moment().format('Do MMMM YYYY');
   locationIconClicked: boolean = false;
   selectedFile: File = null;
 
