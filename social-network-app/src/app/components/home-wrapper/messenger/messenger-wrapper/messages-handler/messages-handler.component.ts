@@ -34,11 +34,12 @@ export class MessagesHandlerComponent implements OnInit {
     return this.messageService.getTheFriendId(id);
   }
   sendMessage(reciever: string, text: string) {
-    console.log(this.conversation);
-    this.messageService.sendMessage(reciever, text);
-    this.conversation = this.messageService.getConversation(reciever);
-    console.log(this.conversation);
-    // this.messageService.getUserConversations();
-    this.text = '';
+    if (text !== '') {
+      this.messageService.sendMessage(reciever, text);
+      this.conversation = this.messageService.getConversation(reciever);
+      this.text = '';
+    } else {
+      console.log('emptry input');
+    }
   }
 }
