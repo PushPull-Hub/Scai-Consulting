@@ -11,6 +11,7 @@ import { Conversation } from 'src/app/models/Conversation.model';
 })
 export class MessengerNavComponent implements OnInit {
   isMessageReaded: boolean = false;
+  loggedUserId: string;
   conversations: Conversation[];
   @Output() eventClicked = new EventEmitter<Event>();
 
@@ -18,17 +19,23 @@ export class MessengerNavComponent implements OnInit {
     private authService: AuthService,
     private userService: UserServices,
     private messageService: MessagesService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.conversations = this.messageService.getUserConversations();
+    this.loggedUserId = this.authService.getLoggedUserId();
   }
 
   getFriendUsername(conversationId: string): string {
     return this.messageService.getTheFriend(conversationId).username;
   }
 
-  onClick(event: Event): void {
-    this.eventClicked.emit(event);
+  onClick(conversation): void {
+    this.eventClicked.emit(conversation);
+    if (conversation.messages.length > 0) {
+
+      // this.messageService.updateMessage(conversation.id, conversation.messages.slice(-1)[0].id, "is_readed", true)
+    }
+    // console.log(conversation.id)
   }
 }

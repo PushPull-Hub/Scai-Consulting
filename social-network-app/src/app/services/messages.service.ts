@@ -19,7 +19,7 @@ export class MessagesService {
     private userService: UserServices,
     private friendsService: FriendsService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   getMessages(): Conversation[] {
     return (this.messages = JSON.parse(localStorage.getItem('Messages')) || []);
@@ -58,22 +58,38 @@ export class MessagesService {
       (conversation) => conversation.id === id
     );
     conversation.messages = messagesArray;
-    console.log(conversation);
     const IndexOfConversation = this.messages.map((x) => x.id).indexOf(id);
     this.messages.splice(IndexOfConversation, 1, conversation);
     localStorage.setItem('Messages', JSON.stringify(this.messages));
   }
 
+  // setLastMessageToReaded (ConversationId:string) {
+  //  this.getUserConversations.filter(conversation => conversation.id === ConversationId )
+
+  // }
+
+
+  updateMessage(conversationId: string, messageId: string, property: string, newValue: any) {
+    const conversation: Conversation = this.getMessages().find(conversation => conversation.id === conversationId);
+    const message: Message = conversation.messages.find(msg => msg.id = messageId);
+    console.log("message", message)
+    message[`${property}`] = newValue;
+    console.log("message", message)
+    const IndexOfConversation = this.messages.map(conversation => conversation.id).indexOf(conversationId);
+    this.messages.splice(IndexOfConversation, 1, conversation)
+    localStorage.setItem("Messages", JSON.stringify(this.messages))
+  }
+
   sendMessage(reciever: string, text: string) {
     const conversation: Conversation = this.getConversation(reciever);
-    console.log(conversation);
     const messages = conversation.messages;
     const message = new Message();
     message.id = uuidv4();
     message.sender = this.authService.getLoggedUserId();
     message.reciever = reciever;
     message.text = text;
-    console.log(message);
+    message.is_readed = false;
+
     messages.push(message);
 
     this.updateConversationMessagesArray(conversation.id, messages);

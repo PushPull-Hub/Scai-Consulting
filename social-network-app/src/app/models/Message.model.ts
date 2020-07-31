@@ -9,4 +9,5 @@ export class Message extends Object {
   subject: string;
   tags: object[]; //  tags indicating the message
   reciever: string; //  list of recipients of the message.
+  is_readed: boolean;
 }
