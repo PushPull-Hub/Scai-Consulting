@@ -22,9 +22,9 @@ export class TimelinePostsComponent implements OnInit {
   constructor(
     private postsService: PostsService,
     private authService: AuthService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onCommentButtonClicked() {
     this.commentButtonClicked = !this.commentButtonClicked;

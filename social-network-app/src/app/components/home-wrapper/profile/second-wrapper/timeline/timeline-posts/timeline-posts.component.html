@@ -1,7 +1,5 @@
 <div class="row" style="margin-left: 9px;">
-  <div
-    class="container-fluid bg-light"
-    style="
+  <div class="container-fluid bg-light" style="
       border-radius: 15px;
       width: 800px;
       margin: 30px 0 0 10px;
@@ -9,17 +7,11 @@
       border: 1px solid rgba(0, 0, 0, 0.125);
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    "
-  >
+    ">
     <div class="row">
       <div class="col-8" style="max-width: 66%;">
-        <div
-          data-spy="scroll"
-          data-target="#list-example"
-          data-offset="0"
-          class="scrollspy-example"
-          style="height: 900px; width: 632px; overflow-y: scroll;"
-        >
+        <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example"
+          style="height: 900px; width: 632px; overflow-y: scroll;">
           <h4 style="margin-top: 10px; margin-left: 10px;">
             <i class="fa fa-paperclip" aria-hidden="true"></i> Posts
           </h4>
@@ -28,26 +20,21 @@
 
           <div id="2020-posts" class="container">
             <!-- POST -->
+            <!-- <post *ngFor="let post of posts "></post> -->
             <div class="container" id="post" *ngFor="let userPost of Userposts">
               <div class="row">
-                <div
-                  class="container col-12"
-                  style="
+                <div class="container col-12" style="
                     border: 1px solid rgba(0, 0, 0, 0.125);
                     padding: 0;
                     border-radius: 5px;
                     margin-bottom: 40px;
-                  "
-                >
+                  ">
                   <div class="container-fluid post-nav" style="padding: 0;">
                     <ol class="breadcrumb" style="margin-bottom: 0;">
                       <li class="breadcrumb-item">
                         <div>
-                          <img
-                            src="../../../../../assets/images/Mark.jpg"
-                            style="height: 40px; width: 40px;"
-                            class="rounded-circle"
-                          />
+                          <img src="../../../../../assets/images/Mark.jpg" style="height: 40px; width: 40px;"
+                            class="rounded-circle" />
                         </div>
                       </li>
                       <li class="breadcrumb-item">
@@ -61,19 +48,13 @@
                     </ol>
                     <ol class="breadcrumb" style="margin-bottom: 0;">
                       <li class="breadcrumb-item">
-                        <button
-                          class="btn btn secondary"
-                          (click)="onLikeButtonClicked(userPost.postId)"
-                        >
+                        <button class="btn btn secondary" (click)="onLikeButtonClicked(userPost.postId)">
                           <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                           {{ userPost.likes }} Likes
                         </button>
                       </li>
                       <li class="breadcrumb-item">
-                        <button
-                          class="btn btn secondary"
-                          (click)="onCommentButtonClicked()"
-                        >
+                        <button class="btn btn secondary" (click)="onCommentButtonClicked()">
                           <i class="fa fa-comment" aria-hidden="true"></i>
                           {{ userPost.comments.length - 1 }} Comments
                         </button>
@@ -91,19 +72,10 @@
                       </div>
                     </ol>
                     <div class="input-group fluid">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Add a Comment "
-                        aria-label="Recipient's username"
-                        aria-describedby="button-addon2"
-                      />
+                      <input type="text" class="form-control" placeholder="Add a Comment "
+                        aria-label="Recipient's username" aria-describedby="button-addon2" />
                       <div class="input-group-append">
-                        <button
-                          class="btn btn-outline-primary"
-                          type="button"
-                          id="button-addon2"
-                        >
+                        <button class="btn btn-outline-primary" type="button" id="button-addon2">
                           Comment
                         </button>
                       </div>

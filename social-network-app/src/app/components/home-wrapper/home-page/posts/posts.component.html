@@ -1,11 +1,8 @@
-<div
-  class="container-fluid bg-light"
-  style="
+<div class="container-fluid bg-light" style="
     border-radius: 15px;
     border: 1px solid #dddfe2;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  "
->
+  ">
   <div id="posts" class="row-md-10" style="height: 3000px;">
     <h4 style="margin-top: 10px;">
       <i class="fa fa-paperclip" aria-hidden="true"></i> Posts
@@ -14,6 +11,7 @@
 
     <ng-container *ngIf="!loading">
       <app-post *ngFor="let post of posts" [post]="post"></app-post>
+      <!-- <post *ngFor="let post of posts" [post]="post"></post> -->
     </ng-container>
   </div>
 </div>

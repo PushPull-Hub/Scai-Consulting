@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PostsService } from 'src/app/services/posts.service';
 import { FriendsService } from 'src/app/services/friends.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,39 +10,35 @@ import { Post } from 'src/app/models/Post.model';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  // post: Post;
+  // @Input() post: Post;
   // commentButtonClicked: boolean = false;
-  // commenterName: string = this.authService.theLoggedUserName;
   // comment: string;
 
   constructor(
     private postsService: PostsService,
     private friendService: FriendsService,
     private authService: AuthService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   // onCommentIconClick() {
   //   this.commentButtonClicked = !this.commentButtonClicked;
   // }
 
   // onCommentButtonClick(postId: string, comment: string) {
-  //   this.postsService.commentOnaPost(
-  //     this.authService.loggedUserId,
-  //     postId,
-  //     comment
-  //   );
-  //   console.log(this.commenterName);
+  //   this.post.comments = this.postsService.commentOnaPost(postId, comment);
   //   this.comment = '';
+  // }
+  // // to be modified
+
+  // getCommenterName(id: string) {
+  //   return this.friendService.getaFriendProperty(id, 'username');
   // }
 
   // onLikeButtonClick(id: string) {
-  //   this.postsService.likePost(id);
+  //   this.post.likes = this.postsService.likePost(id);
   // }
-
-  // sortPosts = (a: Post, b: Post) =>
-  //   new Date(a.created_time).getTime() - new Date(b.created_time).getTime();
 
   // creatorName(id: string) {
   //   return this.friendService.getaFriendProperty(id, 'username');

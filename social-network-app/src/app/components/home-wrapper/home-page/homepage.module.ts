@@ -24,4 +24,4 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [CommonModule, HomepageRoutingModule, SharedModule],
   exports: [],
 })
-export class HomepageModule {}
+export class HomepageModule { }

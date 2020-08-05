@@ -39,4 +39,4 @@ import { MessageBoxComponent } from './message-box/message-box.component';
     MessageBoxComponent,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

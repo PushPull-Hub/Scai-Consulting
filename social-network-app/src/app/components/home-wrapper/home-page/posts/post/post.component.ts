@@ -18,9 +18,9 @@ export class PostComponent implements OnInit {
     private postsService: PostsService,
     private friendService: FriendsService,
     private authService: AuthService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onCommentIconClick() {
     this.commentButtonClicked = !this.commentButtonClicked;
