@@ -28,12 +28,12 @@
             </th>
             <td style="padding-left: 0; padding-right: 0;">
               <div class="container-fluid" style="padding-left: 0; padding-right: 0;">
-                <strong>{{ getFriendUsername(conversation.id) }}</strong> &nbsp;
+                <strong style="color : #2FA4E7;">{{ getFriendUsername(conversation.id) }}</strong> &nbsp;
                 <!-- to be modifie  -->
 
                 <ng-container *ngIf="conversation.messages.slice(-1)[0]; else emptyString">
                   <ng-container *ngIf="
-                      conversation.messages.slice(-1)[0].is_readed &&  conversation.messages.slice(-1)[0].sender !== loggedUserId
+                      conversation.messages.slice(-1)[0].sender == loggedUserId
                       else isNotReaded
                     ">
                     <small>
