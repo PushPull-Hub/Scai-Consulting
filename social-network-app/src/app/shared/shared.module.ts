@@ -10,6 +10,7 @@ import { FriendsFinder } from './search-friends/search-friends.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PostComponent } from './post/post.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MessageBoxComponent } from './message-box/message-box.component';
     SpinnerComponent,
     PostComponent,
     MessageBoxComponent,
+    CreatePostComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,7 @@ import { MessageBoxComponent } from './message-box/message-box.component';
     FriendsFinder,
     SpinnerComponent,
     MessageBoxComponent,
+    CreatePostComponent
   ],
 })
 export class SharedModule { }

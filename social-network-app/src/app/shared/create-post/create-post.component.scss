@@ -1,0 +1,100 @@
+#picture {
+    width: 60px;
+    height: 60px;
+    margin: 0 20px 0 40px;
+  }
+  #picture img {
+    width: 60px;
+    height: 60px;
+    border: 1px solid grey;
+  }
+  
+  #post-descreption {
+    width: 445px;
+    height: 59;
+    background: transparent !important;
+    font-size: 1.5rem;
+    border: none;
+    padding-left: 15px;
+  }
+  
+  #post-descreption:focus {
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+    cursor: default;
+  }
+  
+  #post-descreption::placeholder {
+    color: #2fa4e7;
+  }
+  
+  .share-button {
+    width: 308px;
+    height: 42px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s linear;
+    border: 1px solid #2fa4e7;
+    margin-left: 150px;
+  }
+  
+  .share-button:hover {
+    transform: scale(1.1);
+    background: #2fa4e7;
+  }
+  
+  .share-button span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    color: #2fa4e7;
+    text-align: center;
+    letter-spacing: 1px;
+    z-index: 999;
+    transition: 0.6s linear;
+    border-radius: 40px;
+  }
+  
+  .share-button:hover span {
+    transform: translateX(-100%);
+    transition-delay: 0.3s;
+    background: #2fa4e7;
+  }
+  
+  .share-button a {
+    flex: 1;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: 0.3s linear;
+  }
+  
+  .share-button:hover a {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .share-button a:nth-of-type(1) {
+    transition-delay: 1s;
+  }
+  
+  .share-button a:nth-of-type(2) {
+    transition-delay: 0.8s;
+  }
+  
+  .share-button a:nth-of-type(3) {
+    transition-delay: 0.6s;
+  }
+  
+  .share-button a:nth-of-type(4) {
+    transition-delay: 0.4s;
+  }
+  
