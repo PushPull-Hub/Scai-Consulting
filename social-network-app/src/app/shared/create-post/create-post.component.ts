@@ -30,20 +30,27 @@ export class CreatePostComponent implements OnInit {
 
   sharePost() {
     const post = new Post();
-    post.userId = this.authService.loggedUser.id;
-    post.postId = uuidv4();
-    post.text = this.postText;
-    post.description = '';
-    post.comments = [{ commenterId: '', comment: '' }];
-    post.likes = 0;
-    post.image = [];
-    post.created_time = this.now;
-    post.location = '';
-    post.can_reply = true;
-    post.can_share = true;
-    post.is_hidden = false;
-    this.postText = '';
-    this.postService.createPost(post);
+    if (this.postText !== "" && this.postText.length > 0) {
+      // trim instead of !== ""
+      post.userId = this.authService.getLoggedUserId();
+      post.postId = uuidv4();
+      post.text = this.postText;
+      post.description = '';
+      post.comments = [{ commenterId: '', comment: '' }];
+      post.likes = 0;
+      post.image = [];
+      post.created_time = this.now;
+      post.location = '';
+      post.can_reply = true;
+      post.can_share = true;
+      post.is_hidden = false;
+      this.postText = '';
+      this.postService.createPost(post);
+    } else {
+      console.log("text vuoto")
+      // will change the button style or the button ability 
+    }
+
   }
 
   onLocationIconClick() {
