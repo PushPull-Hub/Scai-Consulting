@@ -14,17 +14,17 @@ export class IntroComponent implements OnInit {
 
   location: string =
     this.userService.getaUserProperty(
-      this.authService.loggedUser.id,
+      this.authService.getLoggedUserId(),
       'location'
     ) || '';
   hometown: string =
     this.userService.getaUserProperty(
-      this.authService.loggedUser.id,
+      this.authService.getLoggedUserId(),
       'hometown'
     ) || '';
   work_in: string =
     this.userService.getaUserProperty(
-      this.authService.loggedUser.id,
+      this.authService.getLoggedUserId(),
       'work_in'
     ) || '';
   birthdayObject: {
@@ -32,7 +32,7 @@ export class IntroComponent implements OnInit {
     month: string;
     day: string;
   } = this.userService.getaUserProperty(
-    this.authService.loggedUser.id,
+    this.authService.getLoggedUserId(),
     'birthday'
   );
   birthday: string = this.birthdayObject.year
@@ -42,9 +42,9 @@ export class IntroComponent implements OnInit {
   constructor(
     private userService: UserServices,
     private authService: AuthService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   showInputs = () => {
     this.EditButtonClicked = true;
@@ -61,22 +61,22 @@ export class IntroComponent implements OnInit {
     this.birthday = birthday;
 
     this.userService.updateUser(
-      this.authService.loggedUser.id,
+      this.authService.getLoggedUserId(),
       'location',
       location
     );
     this.userService.updateUser(
-      this.authService.loggedUser.id,
+      this.authService.getLoggedUserId(),
       'hometown',
       hometown
     );
     this.userService.updateUser(
-      this.authService.loggedUser.id,
+      this.authService.getLoggedUserId(),
       'work_in',
       work_in
     );
     this.userService.updateUser(
-      this.authService.loggedUser.id,
+      this.authService.getLoggedUserId(),
       'birthday',
       birthday
     );
