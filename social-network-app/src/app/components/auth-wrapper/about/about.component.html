@@ -1,16 +1,43 @@
-<app-header></app-header>
-<div class="container mt-5" style="margin-top: 60px;">
-  <div class="jumbotron" style="border-radius: 54px; height: 533px;">
-    <h1 class="display-4">Network App</h1>
-    <p class="lead">
-      This is a simple hero unit, a simple jumbotron-style component for calling
-      extra attention to featured content or information.
-    </p>
-    <hr class="my-4" />
-    <p>
-      It uses utility classes for typography and spacing to space content out
-      within the larger container.
-    </p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+<div>
+  <div class="sky-background"></div>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg my-nav">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav list ">
+        <a class="nav-link active" routerLink="/app"><span>Home </span></a>
+        <a class="nav-link" href="#"><span>Project </span></a>
+        <a class="nav-link" href="#"><span>Who? </span></a>
+      </div>
+    </div>
+    <div class="icons">
+      <a href="https://www.linkedin.com/in/hamza-dahhani-a631141b6" target="_blank">
+        <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+      </a>
+      <a href="https://github.com/PushPull-Hub/Scai-Consulting/tree/master/social-network-app" target="_blank">
+        <i class="fa fa-github" aria-hidden="true"></i>
+      </a>
+    </div>
+
+  </nav>
+
+  <section class="intro">
+    <!-- LOGO -->
+    <div class="logo">
+      <img src="./../../../../assets/images/scai-logo.png" alt="Scai Logo">
+    </div>
+  </section>
+  <div style="margin-left: 50px;">
+    <ul style="list-style: none;">
+      <li>
+        <a class="my-button" style="padding-right: 120px;" routerLink="/app/sign-in">
+          <p>Sign in</p>
+        </a>
+      </li>
+      <li>
+        <a class="my-button" style="padding-right: 175px;" routerLink="/app/sign-up">
+          <p>Sign up</p>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
