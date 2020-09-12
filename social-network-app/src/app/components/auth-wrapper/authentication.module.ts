@@ -12,6 +12,8 @@ import { HeaderComponent } from './header/header.component';
 import { AboutComponent } from './about/about.component';
 
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ProjectComponent } from './about/project/project.component';
+import { WhoComponent } from './about/who/who.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     VerifyEmailComponent,
     HeaderComponent,
     AboutComponent,
+    ProjectComponent,
+    WhoComponent,
   ],
   imports: [AuthenticationRoutingModule, CommonModule, SharedModule],
 })
