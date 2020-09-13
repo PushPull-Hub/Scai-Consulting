@@ -1,73 +1,40 @@
-<app-header></app-header>
-<div class="container mt-5" style="margin-top: 60px;">
-  <div class="jumbotron" style="border-radius: 54px; height: 533px;">
-    <div
-      class="container mt-5"
-      style="background-color: lightgray; width: 650px; border-radius: 10px;"
-    >
-      <form
-        style="padding: 15px; margin-top: 30px; margin-bottom: 30px;"
-        #f="ngForm"
-        (ngSubmit)="signIn(f)"
-      >
+<div class="row" style="margin: 0;">
+  <div class="sky-background"></div>
+  <app-header></app-header>
+  <section class="intro">
+    <!-- <div class="container" style=" width: 30%; margin: auto;">
+      <img src="../../../../assets/images/scai-logo-blue.png" style="height: 100px; width: 200px; " alt="">
+    </div> -->
+    <div class="container form-container" style="   margin: auto;; width:70%;">
+      <form #f="ngForm" (ngSubmit)="signIn(f)">
         <div class="form-group">
-          <label>Email address</label>
-          <input
-            type="email"
-            class="form-control"
-            id="InputEmail1"
-            name="email"
-            ngModel
-            required
-            #email="ngModel"
-          />
-          <small
-            id="emailHelp"
-            class="form-text text-muted"
-            style="color: #cc0000;"
-            *ngIf="combination"
-          >
+          <label style=" color:black ">Email address</label>
+          <input type="email" class="form-control" id="InputEmail1" name="email" ngModel required #email="ngModel" />
+          <small id="emailHelp" class="form-text text-muted" style="color: #cc0000;" *ngIf="combination">
             email and password combination isn't valid
           </small>
         </div>
         <div class="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="InputPassword1"
-            name="password"
-            ngModel
-            required
-            #password="ngModel"
-          />
+          <label style="color: black;">Password</label>
+          <input type="password" class="form-control" id="InputPassword1" name="password" ngModel required
+            #password="ngModel" />
         </div>
         <div class="form-group form-check">
-          <a
-            routerLink="/app/verify-email"
-            style="text-decoration: none; font-size: 16px;"
-            >forgot password
+          <a routerLink="/app/verify-email" style="text-decoration: none; font-size: 16px;">forgot password
           </a>
         </div>
         <button type="submit" class="btn btn-success" [disabled]="f.invalid">
           <i class="fa fa-sign-in" aria-hidden="true"></i>
           <span style="margin-left: 5px;"> Sign in</span>
         </button>
-        <button
-          type="button"
-          class="btn btn-info"
-          style="margin-left: 40px; background-color: #003e8f;"
-        >
+        <button type="button" class="btn btn-info" style="margin-left: 40px; background: #1976d2;;">
           <i class="fa fa-user-plus" aria-hidden="true"></i>
-          <span style="margin-left: 5px;"
-            ><a
-              routerLink="/app/sign-up"
-              style="text-decoration: none; color: white;"
-              >Sign up</a
-            ></span
-          >
+          <span style="margin-left: 5px;"><a routerLink="/app/sign-up" style="text-decoration: none; color: white;">Sign
+              up</a></span>
         </button>
       </form>
+
     </div>
-  </div>
+
+  </section>
 </div>
