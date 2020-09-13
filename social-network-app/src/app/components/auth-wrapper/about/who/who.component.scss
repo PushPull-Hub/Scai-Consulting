@@ -1,34 +1,47 @@
 .sky-background {
-    background-color: #1976d2;
-    background: linear-gradient(145deg,#0d47a1,#42a5f5);
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 100%;
-    min-height: 480px;
-    height: 80vh;
-    max-height: 560px;
-    box-sizing: border-box;
-    padding: 48px 48px 32px;
-    overflow: hidden;
-     transform: skewY(8deg); 
-    transform-origin: 100%
+  background-color: #1976d2;
+  background: linear-gradient(145deg, #0d47a1, #42a5f5);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  min-height: 480px;
+  height: 80vh;
+  max-height: 560px;
+  box-sizing: border-box;
+  padding: 48px 48px 32px;
+  overflow: hidden;
+  transform: skewY(8deg);
+  transform-origin: 100%;
 }
 
 section.intro {
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 900px;
-    height: 480px;
-    margin-top: 150px;
-    margin-left: 350px;
-    padding: 48px 0 0;
-    color: #fff;
-    box-shadow: 0 6px 6px rgba(10,16,20,.15), 0 0 52px rgba(10,16,20,.12);
-    background: #fff;
-    border-radius: 10px;
+  position: relative;
+  width: 900px;
+  height: 480px;
+  margin-top: 190px;
+  margin-left: 350px;
+  padding: 48px 0 0;
+  color: #fff;
+  box-shadow: 0 6px 6px rgba(10, 16, 20, 0.15), 0 0 52px rgba(10, 16, 20, 0.12);
+  background: #fff;
+  border-radius: 10px;
+}
+
+.image-container {
+  display: flex;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+.image-container img {
+  width: 150px;
+  height: 150px;
+}
+
+.full-name-container h1 {
+  margin: 40px 50px 0 0;
 }
