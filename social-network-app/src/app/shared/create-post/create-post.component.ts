@@ -12,23 +12,25 @@ import * as moment from 'moment';
   styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
+  now: number;
   postText: string;
-  date = new Date();
-  now = moment().format('Do MMMM YYYY');
-  locationIconClicked: boolean = false;
-  selectedFile: File = null;
+  locationIconClicked: boolean;
+  selectedFile: File;
 
   constructor(
     private postService: PostsService,
-    private authService: AuthService,
-    private userService: UserServices
+    private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.now = moment().valueOf();
+    this.locationIconClicked = false;
+    this.selectedFile = null;
+  }
 
   sharePost() {
     const post = new Post();
-    if (this.postText.trim() !== '') {
+    if (this.postText && this.postText.trim() !== '') {
       post.userId = this.authService.getLoggedUserId();
       post.postId = uuidv4();
       post.text = this.postText;
