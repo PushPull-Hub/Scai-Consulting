@@ -11,7 +11,7 @@
             <div class="container">
                 <div class="container component-body">
                     <img src="../../../assets/images/male-user.jpg" class="rounded-circle" />
-                    <input class="text-input" placeholder="What's on your mind " [(ngModel)]="postText" />
+                    <input class="text-input" placeholder="What's on your mind " [(ngModel)]="insertedText" />
                 </div>
             </div>
         </div>
@@ -32,7 +32,12 @@
                     </div>
                 </div>
                 <app-location-finder *ngIf="locationIconClicked"></app-location-finder>
-                <button class="btn btn-secondary" (click)="sharePost()">Share</button>
+                <ng-container *ngIf="insertedText ; else disabledButton">
+                    <button class="btn btn-secondary" (click)="sharePost()">Share</button>
+                </ng-container>
+                <ng-template #disabledButton>
+                    <button class="btn btn-secondary" [disabled]="true">Share</button>
+                </ng-template>
             </div>
         </div>
 

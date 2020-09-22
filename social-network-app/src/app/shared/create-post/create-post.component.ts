@@ -13,7 +13,7 @@ import * as moment from 'moment';
 })
 export class CreatePostComponent implements OnInit {
   now: number;
-  postText: string;
+  insertedText: string;
   locationIconClicked: boolean;
   selectedFile: File;
 
@@ -30,10 +30,10 @@ export class CreatePostComponent implements OnInit {
 
   sharePost() {
     const post = new Post();
-    if (this.postText && this.postText.trim() !== '') {
+    if (this.insertedText && this.insertedText.trim() !== '') {
       post.userId = this.authService.getLoggedUserId();
       post.postId = uuidv4();
-      post.text = this.postText;
+      post.text = this.insertedText;
       post.description = '';
       post.comments = [{ commenterId: '', comment: '' }];
       post.likes = 0;
@@ -43,7 +43,7 @@ export class CreatePostComponent implements OnInit {
       post.can_reply = true;
       post.can_share = true;
       post.is_hidden = false;
-      this.postText = '';
+      this.insertedText = '';
       this.postService.createPost(post);
     } else {
       console.log('text vuoto');
