@@ -32,7 +32,7 @@
     </div>
   </div>
 
-  <div class="container-fluid c-commetns">
+  <div class="container-fluid c-commetns" *ngIf="commentButtonClicked">
     <div class="container c-commetn">
       <div class="commenter-image-wrapper">
         <img class="rounded-circle" src="../../../assets/images/male-user.jpg" alt="">
@@ -55,7 +55,7 @@
         </button>
       </li>
       <li class="breadcrumb-item">
-        <button class="btn btn secondary">
+        <button class="btn btn secondary" (click)="whenCommentButtonClicked()">
           <i class="fa fa-comment"></i>
           20 comments
         </button>
