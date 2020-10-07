@@ -10,8 +10,8 @@
     <app-spinner *ngIf="loading"></app-spinner>
 
     <ng-container *ngIf="!loading">
-      <app-post *ngFor="let post of posts" [post]="post"></app-post>
-      <!-- <post *ngFor="let post of posts" [post]="post"></post> -->
+      <!-- <app-post *ngFor="let post of posts" [post]="post"></app-post> -->
+      <app-post (likeButtonClicked)="LikePost($event)" (addCommentButtonClicked)="addCommentOnPost($event)"></app-post>
     </ng-container>
   </div>
 </div>

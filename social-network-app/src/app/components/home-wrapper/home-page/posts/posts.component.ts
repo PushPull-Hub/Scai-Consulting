@@ -12,15 +12,9 @@ import { Post } from 'src/app/models/Post.model';
 export class PostsComponent implements OnInit {
   constructor(private postService: PostsService) {}
   posts: Post[];
-  loading: boolean = true;
+  loading: boolean = false;
 
-  ngOnInit(): void {
-    this.posts = this.postService.getUserFriendsPosts();
-    setTimeout(() => {
-      this.loading = false;
-    }, 800);
-    this.loading = true;
-  }
+  ngOnInit(): void {}
 
   getUserFriendPosts(): Post[] {
     return this.postService.getUserFriendsPosts();
@@ -28,4 +22,12 @@ export class PostsComponent implements OnInit {
 
   sortPosts = (a: Post, b: Post) =>
     new Date(b.created_time).getTime() - new Date(a.created_time).getTime();
+
+  LikePost(event: Event) {
+    console.log('the passed event is : ' + event);
+  }
+
+  addCommentOnPost(event) {
+    console.log('the passed event from child was :' + event);
+  }
 }

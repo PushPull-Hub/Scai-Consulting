@@ -49,7 +49,7 @@
   <div class="container-fluid c-actions">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <button class="btn btn secondary">
+        <button class="btn btn secondary" (click)="likeButtonClicked.emit('the id of the post hard coded')">
           <i class="fa fa-thumbs-up"></i>
           20 Likes
         </button>
@@ -68,9 +68,9 @@
     </ol>
     <!-- Input to add comment  -->
     <div class="input-group fluid">
-      <input type="text" placeholder="Add a Comment " class="form-control">
+      <input type="text" placeholder="Add a Comment " class="form-control" [(ngModel)]="comment">
       <div class="input-group-append">
-        <button type="button" class="btn btn-outline-primary">
+        <button type="button" class="btn btn-outline-primary" (click)="addCommentButtonClicked.emit(comment)">
           Comment
         </button>
       </div>
