@@ -11,7 +11,7 @@
       </div>
 
       <div class="c-created-time">
-        <span>12:00 PM</span>
+        <span>{{post.created_time}}</span>
       </div>
     </div>
   </div>
@@ -26,38 +26,44 @@
     <div class="container-fluid">
       <div class="container text-wrapper ">
         <div class=" c-post-description">
-          <p>this is the post description</p>
+          <p>{{ post.text }}</p>
         </div>
       </div>
     </div>
   </div>
 
   <div class="container-fluid c-commetns" *ngIf="commentButtonClicked">
-    <div class="container c-commetn">
-      <div class="commenter-image-wrapper">
-        <img class="rounded-circle" src="../../../assets/images/male-user.jpg" alt="">
+    <ng-container *ngFor="let comment of post.comments">
+      <div class="container c-commetn">
+        <div class="commenter-image-wrapper">
+          <img class="rounded-circle" src="../../../assets/images/male-user.jpg" alt="">
+        </div>
+        <div class="commenter-name-wrapper">
+          <h5> <a href="">commenter name</a> </h5>
+        </div>
+        <div class="commenter-comment-wrapper">
+          <p>{{ comment.comment }} </p>
+        </div>
       </div>
-      <div class="commenter-name-wrapper">
-        <h5> <a href="">commenter name</a> </h5>
-      </div>
-      <div class="commenter-comment-wrapper">
-        <p>thats a demo comment </p>
-      </div>
-    </div>
+    </ng-container>
   </div>
 
-  <div class="container-fluid c-actions">
+  <div class=" container-fluid c-actions">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <button class="btn btn secondary" (click)="likeButtonClicked.emit('the id of the post hard coded')">
+        <button class="btn btn secondary" (click)="likeButtonClicked.emit(post.postId)">
           <i class="fa fa-thumbs-up"></i>
-          20 Likes
+          {{post.likes}} Likes
         </button>
       </li>
       <li class="breadcrumb-item">
         <button class="btn btn secondary" (click)="whenCommentButtonClicked()">
           <i class="fa fa-comment"></i>
-          20 comments
+          {{
+            post.comments.length > 1
+              ? post.comments.length + " Comments"
+              : post.comments.length + " Comment"
+          }}
         </button>
       </li>
       <li class="breadcrumb-item">

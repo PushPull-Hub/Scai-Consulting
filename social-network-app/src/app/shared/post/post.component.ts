@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Post } from 'src/app/models/Post.model';
 
 @Component({
   selector: 'app-post',
@@ -8,6 +9,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class PostComponent implements OnInit {
   commentButtonClicked: boolean;
   comment: string;
+  @Input() post: Post;
   @Output() likeButtonClicked = new EventEmitter();
   @Output() addCommentButtonClicked = new EventEmitter();
 
