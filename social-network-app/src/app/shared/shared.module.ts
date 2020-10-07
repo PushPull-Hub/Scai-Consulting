@@ -39,7 +39,8 @@ import { CreatePostComponent } from './create-post/create-post.component';
     FriendsFinder,
     SpinnerComponent,
     MessageBoxComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    PostComponent,
   ],
 })
-export class SharedModule { }
+export class SharedModule {}

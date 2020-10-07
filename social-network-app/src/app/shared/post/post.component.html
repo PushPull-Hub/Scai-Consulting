@@ -1,75 +1,70 @@
-<!-- <div class="container" id="post">
-  <div class="row">
-    <div class="container col-12" style="
-        border: 1px solid rgba(0, 0, 0, 0.125);
-        padding: 0;
-        border-radius: 5px;
-        margin-bottom: 40px;
-      ">
-      <div class="container-fluid post-nav" style="padding: 0;">
-        <ol class="breadcrumb" style="margin-bottom: 0;">
-          <li class="breadcrumb-item">
-            <div>
-              <img src="../../../assets/images/man-user-empty-picture.jpg" style="height: 40px; width: 40px;"
-                class="rounded-circle" />
-            </div>
-          </li>
-          <li class="breadcrumb-item">
-            <a href="#"> {{ creatorName(post.userId) }} </a>
-          </li>
-          <li>
-            <p style="margin-left: 451px; margin-bottom: 0;">
-              {{ post.created_time }}
-            </p>
-          </li>
-        </ol>
-        <ol style="background: white; margin-bottom: 0px;">
-          <div class="container">
-            <p style="margin-bottom: 0px;">{{ post.text }}</p>
-          </div>
-        </ol>
-        <ol class="breadcrumb" style="margin-bottom: 0;">
-          <li class="breadcrumb-item">
-            <button class="btn btn secondary" (click)="onLikeButtonClick(post.postId)">
-              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-              {{ post.likes }} Likes
-            </button>
-          </li>
-          <li class="breadcrumb-item">
-            <button class="btn btn secondary" (click)="onCommentIconClick()">
-              <i class="fa fa-comment" aria-hidden="true"></i>
-              {{
-                post.comments.length > 1
-                  ? post.comments.length + " Comments"
-                  : post.comments.length + " Comment"
-              }}
-            </button>
-          </li>
-          <li class="breadcrumb-item">
-            <button class="btn btn secondary">
-              <i class="fa fa-share" aria-hidden="true"></i> Share
-            </button>
-          </li>
-        </ol>
-        <ol id="comments-container" *ngIf="commentButtonClicked">
-          <div class="container" *ngFor="let comment of post.comments">
-            <p>
-              {{ getCommenterName(comment.commenterId) }} :
-              {{ comment.comment }}
-            </p>
-          </div>
-        </ol>
-        <div class="input-group fluid">
-          <input type="text" class="form-control" style="border-bottom: 0;" placeholder="Add a Comment "
-            aria-label="Recipient's username" aria-describedby="button-addon2" [(ngModel)]="comment" />
-          <div class="input-group-append">
-            <button class="btn btn-outline-primary" type="button" id="button-addon2"
-              (click)="onCommentButtonClick(post.postId, comment)">
-              Comment
-            </button>
-          </div>
+<div class="container main-container">
+
+  <div class="container-fluid first-row-wrapper ">
+    <div class="container first-row">
+      <div class="c-user-image">
+        <img class="rounded-circle" src="../../../assets/images/male-user.jpg">
+      </div>
+
+      <div class="c-user-name">
+        <h5> <a href="#">firstname secondname</a> </h5>
+      </div>
+
+      <div class="c-created-time">
+        <span>12:00 PM</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="second-row">
+    <div class="container">
+      <div class="c-post-image">
+        <img src="../../../assets/images/male-user.jpg" alt="">
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="container text-wrapper ">
+        <div class=" c-post-description">
+          <p>this is the post description</p>
         </div>
       </div>
     </div>
   </div>
-</div> -->
+
+  <div class="container-fluid c-commetns">
+    <div class="container c-commetn">
+      <div class="commenter-image-wrapper">
+        <img class="rounded-circle" src="../../../assets/images/male-user.jpg" alt="">
+      </div>
+      <div class="commenter-name-wrapper">
+        <h5> <a href="">commenter name</a> </h5>
+      </div>
+      <div class="commenter-comment-wrapper">
+        <p>thats a demo comment </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid c-actions">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <button class="btn btn secondary">
+          <i class="fa fa-thumbs-up"></i>
+          20 Likes
+        </button>
+      </li>
+      <li class="breadcrumb-item">
+        <button class="btn btn secondary">
+          <i class="fa fa-comment"></i>
+          20 comments
+        </button>
+      </li>
+      <li class="breadcrumb-item">
+        <button class="btn btn secondary">
+          <i class="fa fa-share"></i> Share
+        </button>
+      </li>
+    </ol>
+  </div>
+</div>
