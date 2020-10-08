@@ -1,10 +1,12 @@
 .main-container {
-  padding: 0;
+  padding: 1rem 4rem 1rem 4rem;
   font-weight: 300;
 }
 
 .first-row-wrapper {
   display: inline-flex;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .first-row {
@@ -60,10 +62,10 @@
 }
 
 .text-wrapper {
-  background: #e9ecef;
+  background: white;
 }
 
-.text-wrapper .c-post-description p {
+.text-wrapper p {
   margin-bottom: 0px;
   padding: 10px;
 }
@@ -116,12 +118,23 @@
   font-weight: 300;
 }
 
-.c-actions ol {
-  margin-bottom: 0;
+.c-actions {
+  display: flex;
 }
 
-.c-actions ol li i {
+.c-actions > .comments-and-likes {
+  padding: 1rem;
+}
+
+.c-actions ol {
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.c-actions ol li i,
+.icon > i {
   color: #2fa4e7;
+  font-size: 1.5rem;
 }
 
 .c-actions ol li::before {

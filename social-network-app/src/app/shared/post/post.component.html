@@ -5,35 +5,58 @@
       <div class="c-user-image">
         <img class="rounded-circle" src="../../../assets/images/male-user.jpg">
       </div>
-
       <div class="c-user-name">
         <h5> <a href="#">firstname secondname</a> </h5>
       </div>
-
       <div class="c-created-time">
         <span>{{post.created_time}}</span>
       </div>
+      <button class="icon btn btn secondary float-right">
+        <i class="fa fa-share"></i>
+      </button>
     </div>
   </div>
 
-  <div class="second-row">
-    <div class="container">
-      <div class="c-post-image">
-        <img src="../../../assets/images/male-user.jpg" alt="">
-      </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="container text-wrapper ">
-        <div class=" c-post-description">
-          <p>{{ post.text }}</p>
-        </div>
-      </div>
-    </div>
+  <div class="container text-wrapper">
+    <p>{{ post.text }}</p>
   </div>
 
-  <div class="container-fluid c-commetns" *ngIf="commentButtonClicked">
+  <div class="c-post-image">
+    <img src="../../../assets/images/male-user.jpg" alt="">
+  </div>
+
+  <div class="c-actions">
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <button class="btn btn secondary" (click)="likeButtonClicked.emit(post.postId)">
+          <i class="fa fa-thumbs-up"></i>
+        </button>
+      </li>
+      <li class="breadcrumb-item">
+        <button class="btn btn secondary" (click)="whenCommentButtonClicked()">
+          <i class="fa fa-comment"></i>
+        </button>
+      </li>
+    </ol>
+
+    <div class="comments-and-likes float-right">
+      <a>
+        {{post.likes}} Likes
+        {{
+          post.comments.length > 1
+            ? post.comments.length + " Comments"
+            : post.comments.length + " Comment"
+          }}
+      </a>
+    </div>
+
+  </div>
+
+  <div class="c-commetns" *ngIf="commentButtonClicked">
+
     <ng-container *ngFor="let comment of post.comments">
+
       <div class="container c-commetn">
         <div class="commenter-image-wrapper">
           <img class="rounded-circle" src="../../../assets/images/male-user.jpg" alt="">
@@ -45,34 +68,9 @@
           <p>{{ comment.comment }} </p>
         </div>
       </div>
-    </ng-container>
-  </div>
 
-  <div class=" container-fluid c-actions">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <button class="btn btn secondary" (click)="likeButtonClicked.emit(post.postId)">
-          <i class="fa fa-thumbs-up"></i>
-          {{post.likes}} Likes
-        </button>
-      </li>
-      <li class="breadcrumb-item">
-        <button class="btn btn secondary" (click)="whenCommentButtonClicked()">
-          <i class="fa fa-comment"></i>
-          {{
-            post.comments.length > 1
-              ? post.comments.length + " Comments"
-              : post.comments.length + " Comment"
-          }}
-        </button>
-      </li>
-      <li class="breadcrumb-item">
-        <button class="btn btn secondary">
-          <i class="fa fa-share"></i> Share
-        </button>
-      </li>
-    </ol>
-    <!-- Input to add comment  -->
+    </ng-container>
+
     <div class="input-group fluid">
       <input type="text" placeholder="Add a Comment " class="form-control" [(ngModel)]="textInputed">
       <div class="input-group-append">
@@ -83,4 +81,5 @@
     </div>
 
   </div>
+
 </div>
