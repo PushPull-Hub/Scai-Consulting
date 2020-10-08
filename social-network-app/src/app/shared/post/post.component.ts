@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Post } from 'src/app/models/Post.model';
+type CustomComment = { postId: string; commentText: string };
 
 @Component({
   selector: 'app-post',
@@ -8,10 +9,10 @@ import { Post } from 'src/app/models/Post.model';
 })
 export class PostComponent implements OnInit {
   commentButtonClicked: boolean;
-  comment: string;
+  textInputed: string;
   @Input() post: Post;
   @Output() likeButtonClicked = new EventEmitter();
-  @Output() addCommentButtonClicked = new EventEmitter();
+  @Output() addCommentButtonClicked = new EventEmitter<CustomComment>();
 
   constructor() {}
 
@@ -21,5 +22,14 @@ export class PostComponent implements OnInit {
 
   whenCommentButtonClicked() {
     this.commentButtonClicked = !this.commentButtonClicked;
+  }
+
+  addComment() {
+    const _comment: CustomComment = {
+      postId: this.post.postId,
+      commentText: this.textInputed,
+    };
+    this.addCommentButtonClicked.emit(_comment);
+    this.textInputed = '';
   }
 }

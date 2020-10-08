@@ -97,6 +97,5 @@ export class PostsService {
     postComments.push(_comment);
     this.updatePost(post.postId, 'comments', postComments);
     return postComments;
-    // this.commenterName = this.userService.getaUserProperty(from, 'username');
   }
 }

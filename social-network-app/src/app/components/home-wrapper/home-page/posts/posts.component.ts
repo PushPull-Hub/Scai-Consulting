@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { PostsService } from '../../../../services/posts.service';
-
 import { Post } from 'src/app/models/Post.model';
+import { AuthService } from 'src/app/services/auth.service';
+type CustomComment = { postId: string; commentText: string };
 
 @Component({
   selector: 'app-posts',
@@ -10,24 +10,31 @@ import { Post } from 'src/app/models/Post.model';
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
-  constructor(private postService: PostsService) {}
   posts: Post[];
   loading: boolean = false;
 
-  ngOnInit(): void {}
+  constructor(
+    private postService: PostsService,
+    private authService: AuthService
+  ) {}
 
-  getUserFriendPosts(): Post[] {
-    return this.postService.getUserFriendsPosts();
+  ngOnInit(): void {
+    this.posts = this.postService.getUserFriendsPosts();
+    console.table(this.postService.getUserFriendsPosts());
   }
 
-  sortPosts = (a: Post, b: Post) =>
-    new Date(b.created_time).getTime() - new Date(a.created_time).getTime();
-
-  LikePost(event: Event) {
-    console.log('the passed event is : ' + event);
+  LikePost(id) {
+    this.postService.likePost(id);
   }
 
-  addCommentOnPost(event) {
-    console.log('the passed event from child was :' + event);
+  addCommentOnPost(comment: CustomComment) {
+    const index = this.posts.findIndex((post) => post.postId == comment.postId);
+    const loggedUserId: string = this.authService.loggedUser.id;
+    if (index != -1) {
+      this.posts[index].comments.push({
+        commenterId: loggedUserId,
+        comment: comment.commentText,
+      });
+    }
   }
 }
