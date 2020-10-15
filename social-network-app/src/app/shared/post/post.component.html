@@ -29,8 +29,8 @@
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <button class="btn btn secondary" (click)="likeButtonClicked.emit(post.postId)">
-          <i class="fa fa-thumbs-up"></i>
+        <button class="btn btn secondary" (click)="reactOnPost()">
+          <i [style.color]="isLikedByMe?'#2fa4e7':'#000'" class="fa fa-thumbs-up"></i>
         </button>
       </li>
       <li class="breadcrumb-item">
@@ -42,11 +42,11 @@
 
     <div class="comments-and-likes float-right">
       <a>
-        {{post.likes}} Likes
-        {{
+        {{ post.likes ? (post.likes.length > 1 ? post.likes.length + " Likes" : post.likes.length + " Like" ) : 0 + " Like" }}
+        {{ post.comments ? (
           post.comments.length > 1
             ? post.comments.length + " Comments"
-            : post.comments.length + " Comment"
+            : post.comments.length + " Comment") : 0 + " Comment"
           }}
       </a>
     </div>
