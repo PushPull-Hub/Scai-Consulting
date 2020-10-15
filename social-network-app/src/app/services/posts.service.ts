@@ -6,6 +6,7 @@ import { FriendsService } from './friends.service';
 import { Post } from '../models/Post.model';
 import { Friend } from '../models/Friend.model';
 import { UserServices } from './user.service';
+type Liker = { id: string };
 
 @Injectable({
   providedIn: 'root',
@@ -66,25 +67,53 @@ export class PostsService {
   updatePost(id: string, key: string, newValue: any) {
     const post = this.getPostById(id);
     post[`${key}`] = newValue;
-    const indexOfPost = this.posts.map((x) => x.postId).indexOf(id);
-    this.posts.splice(indexOfPost, 1, post);
+
     localStorage.setItem('Posts', JSON.stringify(this.posts));
   }
 
-  likePost(id: string): number {
-    const post = this.getPostById(id);
-    if (this.hasBeenLiked) {
-      if (post.likes > 0) {
-        this.updatePost(post.postId, 'likes', post.likes - 1);
-        this.hasBeenLiked = false;
-        post.likes - 1;
+  getPostLikers(id: string): Liker[] {
+    const _post = this.getPostById(id);
+    if (_post.likes) {
+      return _post.likes;
+    } else {
+      return new Array<Liker>();
+    }
+  }
+
+  reactOnPost(id: string): Liker[] {
+    if (this.getPostLikers(id).length > 0) {
+      const isLikedByMe = this.getPostLikers(id).find(
+        (liker) => liker.id == this.authService.loggedUser.id
+      );
+      if (isLikedByMe) {
+        return this.unlikePost(id);
+      } else {
+        return this.likePost(id);
       }
     } else {
-      this.updatePost(post.postId, 'likes', post.likes + 1);
-      this.hasBeenLiked = true;
-      post.likes + 1;
+      return this.likePost(id);
     }
-    return post.likes;
+  }
+
+  likePost(id: string): Liker[] {
+    const likers = this.getPostLikers(id);
+
+    const me = { id: this.authService.loggedUser.id };
+    likers.push(me);
+
+    this.updatePost(id, 'likes', likers);
+    return likers;
+  }
+
+  unlikePost(id: string): Liker[] {
+    const likers = this.getPostLikers(id);
+
+    const newArrayOflikers = likers.filter(
+      (liker) => liker.id != this.authService.loggedUser.id
+    );
+
+    this.updatePost(id, 'likes', newArrayOflikers);
+    return newArrayOflikers;
   }
 
   commentOnaPost(postId: string, comment: string) {

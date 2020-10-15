@@ -1,3 +1,4 @@
+type Liker = { id: string };
 export class Post extends Object {
   userId: string;
   postId: string;
@@ -5,7 +6,7 @@ export class Post extends Object {
   text: string;
   description: string;
   comments: Array<{ commenterId: string; comment: string }>;
-  likes: number;
+  likes: Liker[];
   image: [];
   can_reply: boolean;
   can_share: boolean;
