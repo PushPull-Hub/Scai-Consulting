@@ -24,7 +24,7 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     this.commentButtonClicked = false;
-    this.isLikedByMe = this.checkIfItsLikedByMe(this.post.postId);
+    this.isLikedByMe = this._checkIfItsLikedByMe(this.post.postId);
   }
 
   whenCommentButtonClicked() {
@@ -45,7 +45,7 @@ export class PostComponent implements OnInit {
     this.isLikedByMe = !this.isLikedByMe;
   }
 
-  checkIfItsLikedByMe(PostId: string): boolean {
+  private _checkIfItsLikedByMe(PostId: string): boolean {
     return this.postService
       .getPostLikers(PostId)
       .find((liker) => liker.id == this.authService.loggedUser.id)
