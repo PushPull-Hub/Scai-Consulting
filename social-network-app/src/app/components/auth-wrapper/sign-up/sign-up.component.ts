@@ -31,7 +31,6 @@ export class SignUpComponent implements OnInit {
     const firstName = f.value.firstname;
     const password = f.value.password;
     const secondName = f.value.secondname;
-    // const userName = f.value.username;
 
     let user: User = new User();
     let images: Images = new Images();
@@ -56,9 +55,6 @@ export class SignUpComponent implements OnInit {
 
     posts.userId = user.id;
     posts.postId = uuidv4();
-    // posts.description = '';
-    // posts.comments = new Array<{ commenterId: string; comment: string }>();
-    // posts.image = [];
     posts.created_time = this.now.toDateString();
     posts.text = `The ${posts.created_time}, ${user.username} signed up to SCAI  `;
 

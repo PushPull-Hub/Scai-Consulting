@@ -34,12 +34,7 @@ export class CreatePostComponent implements OnInit {
       post.userId = this.authService.getLoggedUserId();
       post.postId = uuidv4();
       post.text = this.insertedText;
-      post.description = '';
-      post.comments = [{ commenterId: '', comment: '' }];
-      post.likes = 0;
-      post.image = [];
       post.created_time = this.now;
-      post.location = '';
       post.can_reply = true;
       post.can_share = true;
       post.is_hidden = false;
