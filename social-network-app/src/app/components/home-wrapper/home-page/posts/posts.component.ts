@@ -3,6 +3,7 @@ import { PostsService } from '../../../../services/posts.service';
 import { Post } from 'src/app/models/Post.model';
 import { AuthService } from 'src/app/services/auth.service';
 type CustomComment = { postId: string; commentText: string };
+type Liker = { id: string };
 
 @Component({
   selector: 'app-posts',
@@ -23,8 +24,11 @@ export class PostsComponent implements OnInit {
     console.table(this.postService.getUserFriendsPosts());
   }
 
-  LikePost(id) {
-    this.postService.likePost(id);
+  reactOnPost(id) {
+    const index = this.posts.findIndex((post) => post.postId == id);
+    if (index != -1) {
+      this.posts[index].likes = this.postService.reactOnPost(id);
+    }
   }
 
   addCommentOnPost(comment: CustomComment) {

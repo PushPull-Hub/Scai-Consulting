@@ -5,7 +5,7 @@
     </h4>
     <app-spinner *ngIf="loading"></app-spinner>
     <ng-container *ngIf="!loading">
-      <app-post (likeButtonClicked)="LikePost($event)" (addCommentButtonClicked)="addCommentOnPost($event)"
+      <app-post (likeButtonClicked)="reactOnPost($event)" (addCommentButtonClicked)="addCommentOnPost($event)"
         *ngFor="let post of posts" [post]="post"></app-post>
     </ng-container>
   </div>
