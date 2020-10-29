@@ -8,6 +8,8 @@ import { MessagesService } from 'src/app/services/messages.service';
 import { Conversation } from 'src/app/models/Conversation.model';
 import { AuthService } from 'src/app/services/auth.service';
 
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-friends',
   templateUrl: './friends.component.html',
@@ -23,6 +25,7 @@ export class FriendsComponent implements OnInit {
   loggedUserId: string;
   conversation: Conversation;
   friendId: string;
+  male_avatar_photo_url: string;
 
   constructor(
     private friendsService: FriendsService,
@@ -36,6 +39,7 @@ export class FriendsComponent implements OnInit {
     this.friends = this.friendsService.getUserFriends();
     this.friendsSuggestion = this.friendsService.getTenFriendsSuggestion();
     this.loggedUserId = this.authService.loggedUser.id;
+    this.male_avatar_photo_url = environment.male_avatar_photo_url;
   }
 
   getFriendProperty = (id: string, property: string) =>

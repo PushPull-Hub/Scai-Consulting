@@ -1,27 +1,17 @@
-<div
-  class="container-fluid bg-secondary"
-  style="
+<div class="container-fluid bg-secondary" style="
     border-radius: 15px;
     max-height: 500px;
     border: 1px solid #dddfe2;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  "
->
-  <div
-    class="container-fluid"
-    style="margin-top: 20px; margin-bottom: 25px; padding-left: 0;"
-  >
+  ">
+  <div class="container-fluid" style="margin-top: 20px; margin-bottom: 25px; padding-left: 0;">
     <h4><i class="fa fa-search" aria-hidden="true"></i> &nbsp; suggestions</h4>
   </div>
   <ng-container *ngFor="let suggestedFriend of friendsSuggestion">
     <div class="row suggested-friend" style="margin-top: 10px;">
       <div class="col-2">
         <div>
-          <img
-            class="rounded-circle"
-            src="../../../../../assets/images/man-user-empty-picture.jpg"
-            style="width: 40px; height: 40px;"
-          />
+          <img class="rounded-circle" [src]=" male_avatar_photo_url" style="width: 40px; height: 40px;" />
         </div>
       </div>
 
@@ -31,11 +21,8 @@
         </h2>
       </div>
       <div>
-        <button
-          class="btn btn-info"
-          style="padding: 0 16px 0 15px; margin-top: 5px;"
-          (click)="addFriend(suggestedFriend)"
-        >
+        <button class="btn btn-info" style="padding: 0 16px 0 15px; margin-top: 5px;"
+          (click)="addFriend(suggestedFriend)">
           add
         </button>
       </div>

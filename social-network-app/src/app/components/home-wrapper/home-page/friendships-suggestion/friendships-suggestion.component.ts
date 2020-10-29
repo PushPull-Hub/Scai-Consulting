@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FriendsService } from 'src/app/services/friends.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserServices } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-friendships-suggestion',
@@ -11,6 +12,7 @@ import { UserServices } from 'src/app/services/user.service';
 export class FriendshipsSuggestionComponent implements OnInit {
   friendsSuggestion: string[];
   clicked = false;
+  male_avatar_photo_url: string;
   constructor(
     private friendsService: FriendsService,
     private authService: AuthService,
@@ -21,6 +23,7 @@ export class FriendshipsSuggestionComponent implements OnInit {
     this.friendsSuggestion = this.friendsService
       .getTenFriendsSuggestion()
       .slice(0, 5);
+    this.male_avatar_photo_url = environment.male_avatar_photo_url;
   }
 
   getFriendProperty = (id: string, property: string) =>

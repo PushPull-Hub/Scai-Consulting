@@ -3,8 +3,8 @@ import { PostsService } from 'src/app/services/posts.service';
 import { Post } from 'src/app/models/Post.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { v4 as uuidv4 } from 'uuid';
-import { UserServices } from 'src/app/services/user.service';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'create-post',
@@ -16,6 +16,7 @@ export class CreatePostComponent implements OnInit {
   insertedText: string;
   locationIconClicked: boolean;
   selectedFile: File;
+  male_avatar_photo_url: string;
 
   constructor(
     private postService: PostsService,
@@ -26,6 +27,7 @@ export class CreatePostComponent implements OnInit {
     this.now = moment().valueOf();
     this.locationIconClicked = false;
     this.selectedFile = null;
+    this.male_avatar_photo_url = environment.male_avatar_photo_url;
   }
 
   sharePost() {

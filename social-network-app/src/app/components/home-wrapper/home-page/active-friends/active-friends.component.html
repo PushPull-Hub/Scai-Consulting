@@ -2,41 +2,24 @@
   <div class="row justify-content-end">
     <div class="col-3 fixed-bottom offset-9">
       <div class="container">
-        <button
-          type="button"
-          (click)="showActiveFriends()"
-          class="btn btn-secondary btn-lg btn-block border-bottom-0"
+        <button type="button" (click)="showActiveFriends()" class="btn btn-secondary btn-lg btn-block border-bottom-0"
           style="
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
               0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          "
-        >
+          ">
           Active Friends &nbsp;
           <i class="fa fa-circle" aria-hidden="true" style="color: green;"></i>
         </button>
-        <div
-          *ngIf="clicked"
-          class="container"
-          style="height: 300px; background: white;"
-        >
+        <div *ngIf="clicked" class="container" style="height: 300px; background: white;">
           <table class="table table-sm table-hover">
             <tbody>
               <tr *ngFor="let ActiveFriend of ActiveFriends">
                 <th>
-                  <img
-                    src="../../../../../assets/images/man-user-empty-picture.jpg"
-                    class="rounded-circle"
-                    style="width: 40px; height: 40px;"
-                  />
+                  <img [src]=" male_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
                 </th>
                 <td>{{ showFriendUserName(ActiveFriend.id) }}</td>
                 <td>
-                  <i
-                    _ngcontent-jcl-c119=""
-                    aria-hidden="true"
-                    class="fa fa-circle"
-                    style="color: green;"
-                  ></i>
+                  <i _ngcontent-jcl-c119="" aria-hidden="true" class="fa fa-circle" style="color: green;"></i>
                 </td>
               </tr>
             </tbody>
