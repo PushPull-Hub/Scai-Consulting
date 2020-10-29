@@ -1,0 +1,43 @@
+<app-header></app-header>
+<div class="container mt-5" style="margin-top: 60px;">
+  <div class="jumbotron" style="border-radius: 54px; height: 533px;">
+    <div
+      class="container mt-5"
+      style="
+        background-color: lightgray;
+        width: 650px;
+        height: 250px;
+        border-radius: 10px;
+        margin-top: 50px;
+      "
+    >
+      <form
+        style="padding: 63px 10px 63px 10px;"
+        #f="ngForm"
+        (ngSubmit)="verifyEmail(f)"
+      >
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            name="email"
+            ngModel
+            required
+            #email="ngModel"
+          />
+
+          <small id="emailHelp" class="text-danger" *ngIf="unfoundedEmail">
+            this is a nonexistent email
+          </small>
+        </div>
+        <button type="submit" class="btn btn-info" [disabled]="f.invalid">
+          <i class="fa fa-envelope-o" aria-hidden="true"></i
+          ><span id="changepass">Verify mail</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

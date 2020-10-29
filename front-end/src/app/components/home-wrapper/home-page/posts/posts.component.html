@@ -1,0 +1,12 @@
+<div class="container-fluid bg-light c-main">
+  <div class="c-posts row-md-10">
+    <h4>
+      <i class="fa fa-paperclip"></i> Posts
+    </h4>
+    <app-spinner *ngIf="loading"></app-spinner>
+    <ng-container *ngIf="!loading">
+      <app-post (likeButtonClicked)="reactOnPost($event)" (addCommentButtonClicked)="addCommentOnPost($event)"
+        *ngFor="let post of posts" [post]="post"></app-post>
+    </ng-container>
+  </div>
+</div>

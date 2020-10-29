@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row justify-content-end">
+    <div class="col-3 fixed-bottom offset-9">
+      <div class="container">
+        <button
+          class="btn btn-secondary btn-lg btn-block border-bottom-0"
+          style="
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+              0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          "
+          (click)="showConversation()"
+        >
+          <i
+            *ngIf="getFriendProperty(friendId, 'isActive')"
+            _ngcontent-jcl-c119=""
+            aria-hidden="true"
+            class="fa fa-circle"
+            style="color: green;"
+          ></i>
+          <i
+            *ngIf="!getFriendProperty(friendId, 'isActive')"
+            _ngcontent-jcl-c119=""
+            aria-hidden="true"
+            class="fa fa-circle"
+            style="color: grey;"
+          ></i>
+          {{ getFriendProperty(friendId, "username") }}
+          <li
+            style="list-style: none; display: inline;"
+            (click)="hideMessageBox()"
+          >
+            <i class="fa fa-times" aria-hidden="true" style="color: red;"></i>
+          </li>
+        </button>
+
+        <div *ngIf="clicked">
+          <div
+            class="container-fluid"
+            style="height: 300px; background: white;"
+          >
+            <p>{{ conversation.id }}</p>
+            <p>{{ conversation.messages }}</p>
+          </div>
+
+          <div class="input-group fluid">
+            <input
+              type="text"
+              class="form-control"
+              style="border-bottom: 0;"
+              placeholder="Send a message  "
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+              [(ngModel)]="text"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                id="button-addon2"
+                (click)="sendMessage(friendId, text)"
+              >
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

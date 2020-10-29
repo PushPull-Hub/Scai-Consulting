@@ -1,0 +1,80 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid" style="background: #dfe3ee;">
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6" style="margin-top: 70px; margin-bottom: 50px;">
+      <div class="container-fluid bg-light" style="
+          border-radius: 15px;
+          border: 1px solid #dddfe2;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          height: 2000px;
+        ">
+        <h4 style="margin-top: 30px; margin-bottom: 30px;">
+          <ul class="navbar-nav">
+            <li>
+              <i class="fa fa-users" aria-hidden="true" (click)="onFriendsIconClick()"></i>
+              Friends
+            </li>
+            &nbsp;
+            <li>
+              <i class="fa fa-plus-circle" aria-hidden="true" (click)="onAddFriendsIconClick()"></i>
+              Add Friends
+            </li>
+          </ul>
+        </h4>
+        <!-- friends table  -->
+        <table class="table table-hover" id="friends" *ngIf="friendsIconClicked">
+          <tbody>
+            <tr *ngFor="let friend of friends">
+              <th scope="row">
+                <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
+              </th>
+              <th>
+                {{ getFriendProperty(friend.id, "username") }}
+              </th>
+              <td>
+                <li style="list-style: none;">
+                  <i class="fa fa-comments-o" aria-hidden="true" style="color: #2fa4e7;"
+                    (click)="getConversation(friend.id)"></i>
+                </li>
+              </td>
+
+              <td>
+                <i *ngIf="getFriendProperty(friend.id, 'isActive')" _ngcontent-jcl-c119="" aria-hidden="true"
+                  class="fa fa-circle" style="color: green;"></i>
+                <i *ngIf="!getFriendProperty(friend.id, 'isActive')" _ngcontent-jcl-c119="" aria-hidden="true"
+                  class="fa fa-circle" style="color: grey;"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Add friends  -->
+        <table id="add-friends" class="table table-hover" *ngIf="AddFriendIconClicked">
+          <tbody>
+            <ng-container *ngIf="added">
+              <tr *ngFor="let suggestedFriend of friendsSuggestion">
+                <th scope="row">
+                  <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
+                </th>
+                <th>{{ getFriendProperty(suggestedFriend, "username") }}</th>
+                <!-- to be modified  -->
+                <th>
+                  <button class="btn btn-info" (click)="addFriend(suggestedFriend)">
+                    add as friend
+                  </button>
+                </th>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-3"></div>
+      <ng-container *ngIf="messageIconClicked">
+        <app-message-box [conversation]="conversation" [friendId]="friendId"></app-message-box>
+      </ng-container>
+    </div>
+  </div>
+</div>
