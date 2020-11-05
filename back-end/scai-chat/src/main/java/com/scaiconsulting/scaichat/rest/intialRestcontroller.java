@@ -9,13 +9,8 @@ import java.time.LocalDateTime;
 public class intialRestcontroller {
 
     @GetMapping("/")
-    public String confirmFunctionalityOfTheApp () {
-        return "The Application is running correctly, time on server is : " + LocalDateTime.now() ;
-    }
-
-    @GetMapping("/home")
-    public String redirectToTheHome () {
-        return "yeah you've been redirected to home successfully ";
+    public String confirmFunctionalityOfTheApp() {
+        return "The Application is running correctly, time on server is : " + LocalDateTime.now();
     }
 
 }

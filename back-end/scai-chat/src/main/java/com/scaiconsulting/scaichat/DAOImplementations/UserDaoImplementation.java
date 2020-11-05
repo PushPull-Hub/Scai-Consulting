@@ -15,10 +15,16 @@ public class UserDaoImplementation implements UserDao {
 
     private EntityManager entityManager;
 
-
     @Autowired
     public UserDaoImplementation(EntityManager theEntityManager) {
         this.entityManager = theEntityManager;
+    }
+
+
+    @Override
+    public void createUser(User user) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(user);
     }
 
     @Override
@@ -28,5 +34,28 @@ public class UserDaoImplementation implements UserDao {
         List<User> users = theQuery.getResultList();
         return users;
     }
+
+    @Override
+    public User getUser(int id) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user = currentSession.get(User.class, id);
+        return user;
+    }
+
+    @Override
+    public User updateUser(User user) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(user);
+        return user;
+    }
+
+    @Override
+    public void deleteUser(int userId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<User> theQuery = currentSession.createQuery("delete from user where id=:userId");
+        theQuery.setParameter("userId", userId);
+        theQuery.executeUpdate();
+    }
+
 
 }
