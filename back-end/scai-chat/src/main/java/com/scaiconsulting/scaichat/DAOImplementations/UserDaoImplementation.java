@@ -1,6 +1,8 @@
 package com.scaiconsulting.scaichat.DAOImplementations;
 
 import com.scaiconsulting.scaichat.DAOs.UserDao;
+import com.scaiconsulting.scaichat.entities.InitialUser;
+import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -21,11 +23,21 @@ public class UserDaoImplementation implements UserDao {
     }
 
 
-    @Override
+  /*  @Override
     public void createUser(User user) {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(user);
+    } */
+
+    @Override
+    public void createUser(InitialUser initialUser) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user = initialUser.getUser();
+        Profile profile = initialUser.getProfile();
+        profile.setUser(user);
+        currentSession.saveOrUpdate(profile);
     }
+
 
     @Override
     public List<User> getUsers() {

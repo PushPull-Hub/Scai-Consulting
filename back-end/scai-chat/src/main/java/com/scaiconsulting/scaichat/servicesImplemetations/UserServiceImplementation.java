@@ -1,6 +1,8 @@
 package com.scaiconsulting.scaichat.servicesImplemetations;
 
 import com.scaiconsulting.scaichat.DAOs.UserDao;
+import com.scaiconsulting.scaichat.entities.InitialUser;
+import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,8 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     @Transactional
-    public void createUser(User user) {
-        userDao.createUser(user);
+    public void createUser(InitialUser initialUser ) {
+        userDao.createUser( initialUser);
     }
 
     @Override

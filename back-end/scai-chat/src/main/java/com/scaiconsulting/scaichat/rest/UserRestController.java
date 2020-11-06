@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.rest;
 
 
+import com.scaiconsulting.scaichat.entities.InitialUser;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,10 @@ public class UserRestController {
     // Create
 
     @PostMapping("/users")
-    public User createUser(@RequestBody User user) {
-        user.setId(0);
-        userService.createUser(user);
-        return user;
+    public InitialUser createUser(@RequestBody InitialUser initialUser) {
+        initialUser.setId(0);
+        userService.createUser(initialUser);
+        return initialUser;
     }
 
     // Read
