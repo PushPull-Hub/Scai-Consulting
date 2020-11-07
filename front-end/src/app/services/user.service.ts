@@ -1,8 +1,10 @@
 import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 import { User } from '../models/User.model';
 import { Post } from '../models/Post.model';
 import { Images } from '../models/Images.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Account } from '../models/Account.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +16,6 @@ export class UserServices implements OnInit {
   Images = JSON.parse(localStorage.getItem('Images')) || [];
   // not needed
   selectedUserId: string;
-  adminToken: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyLCJhYm91dCI6Ik1hcmsgWnVja2VyYmVyZyB0aGUgZmFjZWJvb2sgZm91bmRlciIsImFkcmVzcyI6ImhvbWUiLCJiaXJ0aGRheSI6IjE0LzA1LzE5ODQiLCJlbWFpbCI6Im1hcmtAZ21haWwuY29tIiwiZ2VuZGVyIjoibWFsZSIsImhvbWV0b3duIjoiTmV3IHlvcmsgIiwiaWQiOiI4MWU4MzkxZC1iYjVkLTQ0NDItYmMwMC00YTJlMjFhZTczZTgiLCJpc0FjdGl2ZSI6ZmFsc2UsImxvY2F0aW9uIjoiQ2FsaWZvcm5pYS9VU0EiLCJwYXNzd29yZCI6IjEyMyIsInJlbGF0aW9uc2hpcF9zdGF0dXMiOiJtYXJyaWVkIiwic2Vjb25kbmFtZSI6Ilp1Y2tlcmJlcmciLCJ1c2VybmFtZSI6Im1hcmtfdGhlX2FkbWluIiwid29ya19pbiI6IkZhY2Vib29rIn0.m1WlkdVOFeqHPyjGSFE0c98UHFGc7c7qVmkWLj0Cy-A';
 
   constructor(private http: HttpClient) {}
 
@@ -96,12 +96,24 @@ export class UserServices implements OnInit {
     return false;
   }
 
-  getUsersFromBackEnd = () => {
-    let headers = new HttpHeaders();
-    headers = headers.set('Access-Control-Allow-Origin', '*');
+  // calls to the Backend
 
-    this.http
+  getUsersFromBackEnd = () => {
+    return this.http
       .get('http://localhost:8080/api/users')
       .subscribe((res) => console.log(res));
   };
+
+  createAccount(account: Account) {
+    console.log(account);
+    this.http
+      .post(environment.rootUrl + `/api/users`, account)
+      .subscribe((res) => console.log(res));
+  }
+
+  getProfiles() {
+    return this.http
+      .get(environment.rootUrl + `/api/profiles`)
+      .subscribe((responseData) => console.log(responseData));
+  }
 }
