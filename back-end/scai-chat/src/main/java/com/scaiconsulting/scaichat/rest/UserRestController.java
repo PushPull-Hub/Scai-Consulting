@@ -1,7 +1,8 @@
 package com.scaiconsulting.scaichat.rest;
 
 
-import com.scaiconsulting.scaichat.entities.InitialUser;
+import com.scaiconsulting.scaichat.entities.Account;
+import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "http://localhost:4200")
 public class UserRestController {
 
     private UserService userService;
@@ -32,10 +33,10 @@ public class UserRestController {
     // Create
 
     @PostMapping("/users")
-    public InitialUser createUser(@RequestBody InitialUser initialUser) {
-        initialUser.setId(0);
-        userService.createUser(initialUser);
-        return initialUser;
+    public Account createUser(@RequestBody Account account) {
+        account.setId(0);
+        userService.createUser(account);
+        return account;
     }
 
     // Read
@@ -43,6 +44,11 @@ public class UserRestController {
     @GetMapping("/users")
     public List<User> getUsers() {
         return userService.getUsers();
+    }
+
+    @GetMapping("/profiles")
+    public List<Profile> getProfiles() {
+        return userService.getProfiles();
     }
 
     @GetMapping("/users/{userId}")
