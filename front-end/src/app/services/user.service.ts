@@ -98,22 +98,27 @@ export class UserServices implements OnInit {
 
   // calls to the Backend
 
-  getUsersFromBackEnd = () => {
-    return this.http
-      .get('http://localhost:8080/api/users')
-      .subscribe((res) => console.log(res));
-  };
-
   createAccount(account: Account) {
-    console.log(account);
     this.http
       .post(environment.rootUrl + `/api/users`, account)
-      .subscribe((res) => console.log(res));
+      .subscribe((responseData) => console.log(responseData));
+  }
+
+  getUser(id: string) {
+    this.http
+      .get(environment.rootUrl + `/api/users/` + id)
+      .subscribe((responseData) => console.log(responseData));
   }
 
   getProfiles() {
     return this.http
       .get(environment.rootUrl + `/api/profiles`)
+      .subscribe((responseData) => console.log(responseData));
+  }
+
+  getProfile(id: string) {
+    return this.http
+      .get(environment.rootUrl + `/api/profiles/` + id)
       .subscribe((responseData) => console.log(responseData));
   }
 }
