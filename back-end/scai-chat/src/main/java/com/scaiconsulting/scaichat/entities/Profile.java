@@ -24,24 +24,15 @@ public class Profile {
     @Column(name="is_active")
     private boolean isActive ;
 
-  /*  @Column(name="friends")
-    private List<String> friends ;*/
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
-    private User user ;
-
     public Profile() {
 
     }
 
-    public Profile(String firstName, String lastName, String gender, boolean isActive, List<String> friends, User user) {
+    public Profile(String firstName, String lastName, String gender, boolean isActive) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.isActive = isActive;
-//        this.friends = friends;
-        this.user = user;
     }
 
     public int getId() {
@@ -84,21 +75,4 @@ public class Profile {
         isActive = active;
     }
 
-  /*  public List<String> getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List<String> friends) {
-        this.friends = friends;
-    }
-
-   */
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

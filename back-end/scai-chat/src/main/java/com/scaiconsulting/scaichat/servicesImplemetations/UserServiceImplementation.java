@@ -1,7 +1,7 @@
 package com.scaiconsulting.scaichat.servicesImplemetations;
 
 import com.scaiconsulting.scaichat.DAOs.UserDao;
-import com.scaiconsulting.scaichat.entities.InitialUser;
+import com.scaiconsulting.scaichat.entities.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.UserService;
@@ -29,14 +29,21 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     @Transactional
-    public void createUser(InitialUser initialUser ) {
-        userDao.createUser( initialUser);
+    public void createUser(Account account) {
+        userDao.createUser(account);
     }
 
     @Override
     @Transactional
     public User getUser(int id) {
         return userDao.getUser(id);
+    }
+
+
+    @Override
+    @Transactional
+    public List<Profile> getProfiles() {
+        return userDao.getProfiles();
     }
 
     @Override

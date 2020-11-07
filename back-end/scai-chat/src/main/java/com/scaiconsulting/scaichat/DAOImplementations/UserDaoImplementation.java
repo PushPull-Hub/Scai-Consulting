@@ -1,7 +1,7 @@
 package com.scaiconsulting.scaichat.DAOImplementations;
 
 import com.scaiconsulting.scaichat.DAOs.UserDao;
-import com.scaiconsulting.scaichat.entities.InitialUser;
+import com.scaiconsulting.scaichat.entities.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import org.hibernate.Session;
@@ -30,12 +30,12 @@ public class UserDaoImplementation implements UserDao {
     } */
 
     @Override
-    public void createUser(InitialUser initialUser) {
+    public void createUser(Account account) {
         Session currentSession = entityManager.unwrap(Session.class);
-        User user = initialUser.getUser();
-        Profile profile = initialUser.getProfile();
-        profile.setUser(user);
-        currentSession.saveOrUpdate(profile);
+        User user = account.getUser();
+        Profile profile = account.getProfile();
+        user.setProfile(profile);
+        currentSession.saveOrUpdate(user);
     }
 
 
@@ -47,12 +47,24 @@ public class UserDaoImplementation implements UserDao {
         return users;
     }
 
+
+
     @Override
     public User getUser(int id) {
         Session currentSession = entityManager.unwrap(Session.class);
         User user = currentSession.get(User.class, id);
         return user;
     }
+
+    @Override
+    public List<Profile> getProfiles() {
+       Session currentSession = entityManager.unwrap(Session.class);
+       Query<Profile> theQuery = currentSession.createQuery("from Profile", Profile.class);
+       List<Profile> profiles = theQuery.getResultList();
+       return profiles ;
+    }
+
+
 
     @Override
     public User updateUser(User user) {

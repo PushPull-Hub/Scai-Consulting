@@ -1,6 +1,6 @@
 package com.scaiconsulting.scaichat.DAOs;
 
-import com.scaiconsulting.scaichat.entities.InitialUser;
+import com.scaiconsulting.scaichat.entities.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 
@@ -10,11 +10,13 @@ public interface UserDao {
 
 //    public void createUser(User user);
 
-    public void createUser(InitialUser initialUser);
+    public void createUser(Account account);
 
     public List<User> getUsers();
 
     public User getUser(int id);
+
+    public List<Profile> getProfiles ();
 
     public User updateUser(User user);
 

@@ -17,6 +17,10 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="profile_id")
+    private Profile profile ;
+
     public User() {
 
     }
@@ -24,6 +28,14 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -42,12 +54,13 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public Profile getProfile() {
+        return profile;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
+
 
 }
