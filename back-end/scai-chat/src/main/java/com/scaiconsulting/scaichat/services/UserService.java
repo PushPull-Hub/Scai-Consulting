@@ -12,11 +12,15 @@ public interface UserService {
 
     public User getUser(int id);
 
+    public User getUser(String email , String password);
+
     public List<Profile> getProfiles();
 
     public Profile getProfile(int id);
 
     public User updateUser(User user);
+
+    public Profile updateProfile(Profile profile);
 
 
 }

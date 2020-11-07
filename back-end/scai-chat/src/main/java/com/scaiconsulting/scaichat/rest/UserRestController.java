@@ -42,6 +42,17 @@ public class UserRestController {
         return theUser;
     }
 
+
+    @GetMapping("/users/{email}/{password}")
+    public User getUser(@PathVariable String email , @PathVariable String password) {
+        User theUser = userService.getUser(email,password);
+        if (theUser == null) {
+            throw new RuntimeException("the user with email "+ email +"isn't found ");
+        }
+        return theUser;
+    }
+
+
     @GetMapping("/profiles")
     public List<Profile> getProfiles() {
         return userService.getProfiles();
@@ -58,5 +69,12 @@ public class UserRestController {
     public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
+
+    @PutMapping("/profiles")
+    public Profile updateUserById(@RequestBody Profile profile) {
+        return userService.updateProfile(profile);
+
+    }
+
 
 }

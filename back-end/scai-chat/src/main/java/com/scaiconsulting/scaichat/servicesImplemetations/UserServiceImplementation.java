@@ -35,6 +35,11 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
+    public User getUser(String email, String password) {
+        return userDao.getUser(email,password);
+    }
+
+    @Override
     @Transactional
     public List<Profile> getProfiles() {
         return userDao.getProfiles();
@@ -42,13 +47,18 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public Profile getProfile(int id) {
-        return userDao.getProfile(id) ;
+        return userDao.getProfile(id);
     }
 
     @Override
     @Transactional
     public User updateUser(User user) {
         return userDao.updateUser(user);
+    }
+
+    @Override
+    public Profile updateProfile(Profile profile) {
+        return userDao.updateProfile(profile);
     }
 
 }

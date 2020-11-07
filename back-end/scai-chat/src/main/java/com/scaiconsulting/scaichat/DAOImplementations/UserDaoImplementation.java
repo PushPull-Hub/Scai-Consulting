@@ -39,6 +39,16 @@ public class UserDaoImplementation implements UserDao {
     }
 
     @Override
+    public User getUser(String email, String password) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<User> theQuery = currentSession.createQuery("from User user where user.email = :email and user.password = :password ")
+                .setParameter("email", email)
+                .setParameter("password", password);
+        User user = theQuery.getSingleResult();
+        return user;
+    }
+
+    @Override
     public List<Profile> getProfiles() {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Profile> theQuery = currentSession.createQuery("from Profile", Profile.class);
@@ -59,5 +69,13 @@ public class UserDaoImplementation implements UserDao {
         currentSession.saveOrUpdate(user);
         return user;
     }
+
+    @Override
+    public Profile updateProfile(Profile profile) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.update(profile);
+        return profile;
+    }
+
 
 }
