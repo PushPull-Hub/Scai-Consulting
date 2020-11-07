@@ -18,8 +18,8 @@ public class User {
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="profile_id")
-    private Profile profile ;
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
     public User() {
 

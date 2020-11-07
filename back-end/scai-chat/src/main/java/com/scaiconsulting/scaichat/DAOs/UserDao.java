@@ -10,9 +10,7 @@ public interface UserDao {
 
     public void createAccount(Account account);
 
-    public User getUser(int id);
-
-    public User getUser(String email, String password );
+    public User getUser(String email, String password);
 
     public List<Profile> getProfiles();
 

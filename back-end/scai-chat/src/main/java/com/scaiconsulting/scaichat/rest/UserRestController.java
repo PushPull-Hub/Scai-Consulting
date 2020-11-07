@@ -33,25 +33,14 @@ public class UserRestController {
 
     // Read
 
-    @GetMapping("/users/{userId}")
-    public User getUser(@PathVariable int userId) {
-        User theUser = userService.getUser(userId);
-        if (theUser == null) {
-            throw new RuntimeException("the user with the id : " + userId + " isn't found ");
-        }
-        return theUser;
-    }
-
-
     @GetMapping("/users/{email}/{password}")
-    public User getUser(@PathVariable String email , @PathVariable String password) {
-        User theUser = userService.getUser(email,password);
+    public User getUser(@PathVariable String email, @PathVariable String password) {
+        User theUser = userService.getUser(email, password);
         if (theUser == null) {
-            throw new RuntimeException("the user with email "+ email +"isn't found ");
+            throw new RuntimeException("the user with email " + email + "isn't found ");
         }
         return theUser;
     }
-
 
     @GetMapping("/profiles")
     public List<Profile> getProfiles() {

@@ -30,13 +30,8 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     @Transactional
-    public User getUser(int id) {
-        return userDao.getUser(id);
-    }
-
-    @Override
     public User getUser(String email, String password) {
-        return userDao.getUser(email,password);
+        return userDao.getUser(email, password);
     }
 
     @Override

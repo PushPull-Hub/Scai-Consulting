@@ -10,9 +10,7 @@ public interface UserService {
 
     public void createUser(Account account);
 
-    public User getUser(int id);
-
-    public User getUser(String email , String password);
+    public User getUser(String email, String password);
 
     public List<Profile> getProfiles();
 

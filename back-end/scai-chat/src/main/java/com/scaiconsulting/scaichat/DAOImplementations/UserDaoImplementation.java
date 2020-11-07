@@ -32,13 +32,6 @@ public class UserDaoImplementation implements UserDao {
     }
 
     @Override
-    public User getUser(int id) {
-        Session currentSession = entityManager.unwrap(Session.class);
-        User user = currentSession.get(User.class, id);
-        return user;
-    }
-
-    @Override
     public User getUser(String email, String password) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<User> theQuery = currentSession.createQuery("from User user where user.email = :email and user.password = :password ")
