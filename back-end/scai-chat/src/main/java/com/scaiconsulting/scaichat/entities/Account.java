@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Embeddable
-public class InitialUser {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,15 +12,13 @@ public class InitialUser {
     private User user ;
     private Profile profile ;
 
-    public InitialUser() {
+    public Account() {
 
     }
 
-    public InitialUser(User user, Profile profile) {
-        profile.setUser(user);
+    public Account(User user, Profile profile) {
         this.user = user;
         this.profile = profile;
-
     }
 
     public User getUser() {
