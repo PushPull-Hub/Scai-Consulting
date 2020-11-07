@@ -2,10 +2,13 @@ package com.scaiconsulting.scaichat.rest;
 
 
 import com.scaiconsulting.scaichat.entities.Account;
+import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "http://localhost:8080")
@@ -37,6 +40,16 @@ public class UserRestController {
             throw new RuntimeException("the user with the id : " + userId + " isn't found ");
         }
         return theUser;
+    }
+
+    @GetMapping("/profiles")
+    public List<Profile> getProfiles() {
+        return userService.getProfiles();
+    }
+
+    @GetMapping("/profiles/{profileId}")
+    public Profile getProfile(@PathVariable int profileId) {
+        return userService.getProfile(profileId);
     }
 
     // Update
