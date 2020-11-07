@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { v4 as uuidv4 } from 'uuid';
-import { User } from 'src/app/models/User.model';
-import { Post } from 'src/app/models/Post.model';
-import { Images } from 'src/app/models/Images.model';
+import { Account } from 'src/app/models/Account.model';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -21,9 +18,9 @@ export class SignUpComponent implements OnInit {
     { name: 'other', value: 'Other' },
   ];
   selectedOption: string;
-  now = new Date();
 
-  constructor(private user: UserServices, private router: Router) {}
+  constructor(private userService: UserServices, private router: Router) {}
+
   ngOnInit() {}
 
   signUp(f: NgForm) {
@@ -32,35 +29,21 @@ export class SignUpComponent implements OnInit {
     const password = f.value.password;
     const secondName = f.value.secondname;
 
-    let user: User = new User();
-    let images: Images = new Images();
-    let posts: Post = new Post();
+    let account: Account = new Account();
 
-    user.username = `${firstName} ${secondName}`;
-    user.email = email;
-    user.password = password;
-    user.firstname = firstName;
-    user.secondname = secondName;
-    user.id = uuidv4();
-    user.isActive = false;
-    (user.about = ''),
-      (user.gender = this.selectedOption),
-      (user.birthday = this.date),
-      (user.hometown = ''),
-      (user.adress = ''),
-      (user.location = ''),
-      (user.work_in = ''),
-      (user.relationship_status = '');
-    user.friends = [];
+    account.user = {
+      email: email,
+      password: password,
+    };
 
-    posts.userId = user.id;
-    posts.postId = uuidv4();
-    posts.created_time = this.now.toDateString();
-    posts.text = `The ${posts.created_time}, ${user.username} signed up to SCAI  `;
+    account.profile = {
+      firstName: firstName,
+      lastName: secondName,
+      gender: this.selectedOption,
+      active: 1,
+    };
 
-    images.id = user.id;
-    images.Images = [];
-    this.user.createUSer(user, posts, images);
+    this.userService.createAccount(account);
     this.router.navigate(['/sign-in']);
   }
 }

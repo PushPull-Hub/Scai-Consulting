@@ -24,7 +24,6 @@ export class FriendshipsSuggestionComponent implements OnInit {
       .getTenFriendsSuggestion()
       .slice(0, 5);
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
-    console.log(this.userService.getUsersFromBackEnd());
   }
 
   getFriendProperty = (id: string, property: string) =>
