@@ -110,6 +110,12 @@ export class UserServices implements OnInit {
       .subscribe((responseData) => console.log(responseData));
   }
 
+  getUserByEmailandPassword(email: string, password: string) {
+    return this.http
+      .get(environment.rootUrl + `/${email}/${password}`)
+      .subscribe((responseData) => console.log(responseData));
+  }
+
   getProfiles() {
     return this.http
       .get(environment.rootUrl + `/api/profiles`)
