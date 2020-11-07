@@ -105,7 +105,7 @@ export class UserServices implements OnInit {
   }
 
   getUser(id: string) {
-    this.http
+    return this.http
       .get(environment.rootUrl + `/api/users/` + id)
       .subscribe((responseData) => console.log(responseData));
   }
