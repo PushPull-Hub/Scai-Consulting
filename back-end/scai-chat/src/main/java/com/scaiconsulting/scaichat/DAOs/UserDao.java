@@ -8,18 +8,14 @@ import java.util.List;
 
 public interface UserDao {
 
-//    public void createUser(User user);
-
-    public void createUser(Account account);
-
-    public List<User> getUsers();
+    public void createAccount(Account account);
 
     public User getUser(int id);
 
-    public List<Profile> getProfiles ();
+    public List<Profile> getProfiles();
+
+    public Profile getProfile(int id);
 
     public User updateUser(User user);
-
-    public void deleteUser(int userId);
 
 }

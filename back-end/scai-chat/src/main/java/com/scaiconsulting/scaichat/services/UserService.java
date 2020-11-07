@@ -10,14 +10,13 @@ public interface UserService {
 
     public void createUser(Account account);
 
-    public List<User> getUsers();
+    public User getUser(int id);
 
     public List<Profile> getProfiles();
 
-    public User getUser(int id);
+    public Profile getProfile(int id);
 
     public User updateUser(User user);
 
-    public void deleteUser(int id);
 
 }

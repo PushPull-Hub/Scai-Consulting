@@ -21,16 +21,11 @@ public class UserServiceImplementation implements UserService {
         this.userDao = theUserDao;
     }
 
-    @Override
-    @Transactional
-    public List<User> getUsers() {
-        return userDao.getUsers();
-    }
 
     @Override
     @Transactional
     public void createUser(Account account) {
-        userDao.createUser(account);
+        userDao.createAccount(account);
     }
 
     @Override
@@ -39,7 +34,6 @@ public class UserServiceImplementation implements UserService {
         return userDao.getUser(id);
     }
 
-
     @Override
     @Transactional
     public List<Profile> getProfiles() {
@@ -47,15 +41,14 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
+    public Profile getProfile(int id) {
+        return userDao.getProfile(id) ;
+    }
+
+    @Override
     @Transactional
     public User updateUser(User user) {
         return userDao.updateUser(user);
     }
-
-    @Override
-    public void deleteUser(int userId) {
-        userDao.deleteUser(userId);
-    }
-
 
 }

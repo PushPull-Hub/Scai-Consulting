@@ -22,32 +22,14 @@ public class UserDaoImplementation implements UserDao {
         this.entityManager = theEntityManager;
     }
 
-
-  /*  @Override
-    public void createUser(User user) {
-        Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.saveOrUpdate(user);
-    } */
-
     @Override
-    public void createUser(Account account) {
+    public void createAccount(Account account) {
         Session currentSession = entityManager.unwrap(Session.class);
         User user = account.getUser();
         Profile profile = account.getProfile();
         user.setProfile(profile);
         currentSession.saveOrUpdate(user);
     }
-
-
-    @Override
-    public List<User> getUsers() {
-        Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> theQuery = currentSession.createQuery("from User", User.class);
-        List<User> users = theQuery.getResultList();
-        return users;
-    }
-
-
 
     @Override
     public User getUser(int id) {
@@ -58,13 +40,18 @@ public class UserDaoImplementation implements UserDao {
 
     @Override
     public List<Profile> getProfiles() {
-       Session currentSession = entityManager.unwrap(Session.class);
-       Query<Profile> theQuery = currentSession.createQuery("from Profile", Profile.class);
-       List<Profile> profiles = theQuery.getResultList();
-       return profiles ;
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Profile> theQuery = currentSession.createQuery("from Profile", Profile.class);
+        List<Profile> profiles = theQuery.getResultList();
+        return profiles;
     }
 
-
+    @Override
+    public Profile getProfile(int id) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Profile profile = currentSession.get(Profile.class, id);
+        return profile;
+    }
 
     @Override
     public User updateUser(User user) {
@@ -72,14 +59,5 @@ public class UserDaoImplementation implements UserDao {
         currentSession.saveOrUpdate(user);
         return user;
     }
-
-    @Override
-    public void deleteUser(int userId) {
-        Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> theQuery = currentSession.createQuery("delete from user where id=:userId");
-        theQuery.setParameter("userId", userId);
-        theQuery.executeUpdate();
-    }
-
 
 }
