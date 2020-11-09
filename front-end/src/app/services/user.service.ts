@@ -5,6 +5,7 @@ import { User } from '../models/User.model';
 import { Post } from '../models/Post.model';
 import { Images } from '../models/Images.model';
 import { Account } from '../models/Account.model';
+import { Profile } from '../models/Profile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -100,25 +101,25 @@ export class UserServices implements OnInit {
 
   createAccount(account: Account) {
     this.http
-      .post(environment.rootUrl + `/api/users`, account)
+      .post<Account>(environment.rootUrl + `/api/users`, account)
       .subscribe((responseData) => console.log(responseData));
   }
 
   getUser(email: string, password: string) {
     return this.http
-      .get(environment.rootUrl + `/api/users/${email}/${password}`)
+      .get<Account>(environment.rootUrl + `/api/users/${email}/${password}`)
       .subscribe((responseData) => console.log(responseData));
   }
 
   getProfiles() {
     return this.http
-      .get(environment.rootUrl + `/api/profiles`)
+      .get<Profile[]>(environment.rootUrl + `/api/profiles`)
       .subscribe((responseData) => console.log(responseData));
   }
 
   getProfile(id: string) {
     return this.http
-      .get(environment.rootUrl + `/api/profiles/` + id)
+      .get<Profile>(environment.rootUrl + `/api/profiles/` + id)
       .subscribe((responseData) => console.log(responseData));
   }
 }
