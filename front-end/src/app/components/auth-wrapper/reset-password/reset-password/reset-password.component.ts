@@ -16,7 +16,6 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.selectedUserId = this.user.selectedUserId;
-    console.log(this.selectedUserId);
   }
 
   resetPassword(f: NgForm) {

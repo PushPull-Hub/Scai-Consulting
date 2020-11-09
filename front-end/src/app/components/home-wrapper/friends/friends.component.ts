@@ -35,7 +35,6 @@ export class FriendsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.table(this.userService.getUsers());
     this.friends = this.friendsService.getUserFriends();
     this.friendsSuggestion = this.friendsService.getTenFriendsSuggestion();
     this.loggedUserId = this.authService.loggedUser.id;

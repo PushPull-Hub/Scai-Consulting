@@ -19,7 +19,7 @@ export class MessengerNavComponent implements OnInit {
     private authService: AuthService,
     private userService: UserServices,
     private messageService: MessagesService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.conversations = this.messageService.getUserConversations();
@@ -33,9 +33,7 @@ export class MessengerNavComponent implements OnInit {
   onClick(conversation): void {
     this.eventClicked.emit(conversation);
     if (conversation.messages.length > 0) {
-
       // this.messageService.updateMessage(conversation.id, conversation.messages.slice(-1)[0].id, "is_readed", true)
     }
-    // console.log(conversation.id)
   }
 }

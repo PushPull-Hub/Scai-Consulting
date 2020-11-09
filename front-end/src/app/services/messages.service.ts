@@ -19,7 +19,7 @@ export class MessagesService {
     private userService: UserServices,
     private friendsService: FriendsService,
     private authService: AuthService
-  ) { }
+  ) {}
 
   getMessages(): Conversation[] {
     return (this.messages = JSON.parse(localStorage.getItem('Messages')) || []);
@@ -68,16 +68,24 @@ export class MessagesService {
 
   // }
 
-
-  updateMessage(conversationId: string, messageId: string, property: string, newValue: any) {
-    const conversation: Conversation = this.getMessages().find(conversation => conversation.id === conversationId);
-    const message: Message = conversation.messages.find(msg => msg.id = messageId);
-    console.log("message", message)
+  updateMessage(
+    conversationId: string,
+    messageId: string,
+    property: string,
+    newValue: any
+  ) {
+    const conversation: Conversation = this.getMessages().find(
+      (conversation) => conversation.id === conversationId
+    );
+    const message: Message = conversation.messages.find(
+      (msg) => (msg.id = messageId)
+    );
     message[`${property}`] = newValue;
-    console.log("message", message)
-    const IndexOfConversation = this.messages.map(conversation => conversation.id).indexOf(conversationId);
-    this.messages.splice(IndexOfConversation, 1, conversation)
-    localStorage.setItem("Messages", JSON.stringify(this.messages))
+    const IndexOfConversation = this.messages
+      .map((conversation) => conversation.id)
+      .indexOf(conversationId);
+    this.messages.splice(IndexOfConversation, 1, conversation);
+    localStorage.setItem('Messages', JSON.stringify(this.messages));
   }
 
   sendMessage(reciever: string, text: string) {

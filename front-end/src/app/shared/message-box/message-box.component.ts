@@ -32,7 +32,6 @@ export class MessageBoxComponent implements OnInit {
   }
   hideMessageBox() {
     // this.messageIconClicked = false;
-    console.log('cancel button clicked ');
   }
 
   getFriendProperty = (id: string, property: string) => {

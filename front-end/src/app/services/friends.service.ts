@@ -94,6 +94,5 @@ export class FriendsService {
     conversation.messages = [];
     this.messages.push(conversation);
     localStorage.setItem('Messages', JSON.stringify(this.messages));
-    console.log('added');
   }
 }

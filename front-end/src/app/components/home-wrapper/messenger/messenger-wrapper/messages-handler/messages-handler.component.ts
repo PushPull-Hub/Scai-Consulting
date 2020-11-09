@@ -23,7 +23,6 @@ export class MessagesHandlerComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedUserId = this.authService.getLoggedUserId();
-    console.log(this.conversation);
   }
 
   getFriendUsername(conversationId: string): string {
