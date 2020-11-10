@@ -1,6 +1,6 @@
 package com.scaiconsulting.scaichat.servicesImplemetations;
 
-import com.scaiconsulting.scaichat.DAOs.UserDao;
+import com.scaiconsulting.scaichat.DAOs.UserDAO;
 import com.scaiconsulting.scaichat.entities.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
@@ -14,11 +14,11 @@ import java.util.List;
 @Service
 public class UserServiceImplementation implements UserService {
 
-    private UserDao userDao;
+    private UserDAO userDao;
 
     @Autowired
-    public UserServiceImplementation(UserDao theUserDao) {
-        this.userDao = theUserDao;
+    public UserServiceImplementation(UserDAO theUserDAO) {
+        this.userDao = theUserDAO;
     }
 
 

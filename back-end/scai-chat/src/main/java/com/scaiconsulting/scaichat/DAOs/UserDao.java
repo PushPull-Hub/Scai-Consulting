@@ -6,7 +6,7 @@ import com.scaiconsulting.scaichat.entities.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserDAO {
 
     public void createAccount(Account account);
 

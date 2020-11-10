@@ -1,6 +1,6 @@
 package com.scaiconsulting.scaichat.DAOImplementations;
 
-import com.scaiconsulting.scaichat.DAOs.UserDao;
+import com.scaiconsulting.scaichat.DAOs.UserDAO;
 import com.scaiconsulting.scaichat.entities.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
@@ -13,12 +13,12 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class UserDaoImplementation implements UserDao {
+public class UserDAOImplementation implements UserDAO {
 
     private EntityManager entityManager;
 
     @Autowired
-    public UserDaoImplementation(EntityManager theEntityManager) {
+    public UserDAOImplementation(EntityManager theEntityManager) {
         this.entityManager = theEntityManager;
     }
 
@@ -31,7 +31,7 @@ public class UserDaoImplementation implements UserDao {
         currentSession.saveOrUpdate(user);
     }
 
-    @Override
+@Override
     public User getUser(String email, String password) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<User> theQuery = currentSession.createQuery("from User user where user.email = :email and user.password = :password ")
