@@ -48,5 +48,20 @@ public class PostDAOImplementation implements PostDAO {
         return post;
     }
 
+    @Override
+    public Post updatePost(Post post) {
+        return null;
+    }
+
+    @Override
+    public String deletePost(int postId) {
+        return null;
+    }
+
+    @Override
+    public List<Post> getFriendsPosts() {
+        return null;
+    }
+
 
 }

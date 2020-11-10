@@ -12,4 +12,10 @@ public interface PostDAO {
 
     public Post getPost(int postId);
 
+    public Post updatePost( Post post );
+
+    public String deletePost( int postId );
+
+    public List<Post> getFriendsPosts();
+
 }
