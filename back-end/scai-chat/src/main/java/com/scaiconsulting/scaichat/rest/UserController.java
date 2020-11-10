@@ -13,12 +13,12 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "http://localhost:8080")
 @RequestMapping("/api")
-public class UserRestController {
+public class UserController {
 
     private UserService userService;
 
     @Autowired
-    public UserRestController(UserService theUserService) {
+    public UserController(UserService theUserService) {
         userService = theUserService;
     }
 
