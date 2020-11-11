@@ -3,10 +3,12 @@ package com.scaiconsulting.scaichat.rest;
 
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.services.PostService;
+import org.hibernate.type.AnyType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "http://localhost:8080")
@@ -28,6 +30,11 @@ public class PostController {
     @GetMapping("/posts/post/{postId}")
     public Post getPost(@PathVariable int postId) {
         return postService.getPost(postId);
+    }
+
+    @PutMapping("/posts")
+    public <T> Post updatePost(@RequestBody Post post) {
+        return postService.updatePost(post);
     }
 
 

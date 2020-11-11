@@ -32,7 +32,7 @@ public class PostDAOImplementation implements PostDAO {
     @Override
     public List<Post> getPosts(int profileId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Post> theQuery = currentSession.createQuery("from Post post where post.profile_id = : profileId", Post.class)
+        Query<Post> theQuery = currentSession.createQuery("from post where post.profile_id = : profileId", Post.class)
                 .setParameter("profileId", profileId);
         List<Post> posts = theQuery.getResultList();
         return posts;
@@ -50,7 +50,22 @@ public class PostDAOImplementation implements PostDAO {
 
     @Override
     public Post updatePost(Post post) {
-        return null;
+        Session currentSession = entityManager.unwrap(Session.class);
+       /* Query<Post> theQuery = currentSession.createQuery("from post where post.id=:postId")
+                .setParameter("postId",postId); */
+        currentSession.saveOrUpdate(post);
+        return post ;
+    }
+
+    @Override
+    public <T> Post updatePost(int postId, String field, T newValue) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        String queryString = "update post set "+field+"= "+ newValue.toString() +" where post.id = "+ postId  ;
+                Query<Post> theQuery = currentSession.createQuery(queryString);
+        theQuery.executeUpdate();
+        Post post = theQuery.getSingleResult();
+        currentSession.update(post);
+        return post;
     }
 
     @Override

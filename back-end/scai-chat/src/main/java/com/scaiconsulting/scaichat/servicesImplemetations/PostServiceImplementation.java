@@ -5,6 +5,7 @@ import com.scaiconsulting.scaichat.DAOs.UserDAO;
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.services.PostService;
+import org.hibernate.type.AnyType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +41,11 @@ public class PostServiceImplementation implements PostService {
     @Override
     public Post getPost(int postId) {
         return postDAO.getPost(postId);
+    }
+
+    @Override
+    public <T> Post updatePost(Post post ) {
+        return postDAO.updatePost(post);
     }
 
 
