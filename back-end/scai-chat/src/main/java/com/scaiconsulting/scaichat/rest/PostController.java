@@ -1,17 +1,14 @@
 package com.scaiconsulting.scaichat.rest;
 
-
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.services.PostService;
-import org.hibernate.type.AnyType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "http://localhost:8080")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api")
 public class PostController {
 
@@ -32,10 +29,20 @@ public class PostController {
         return postService.getPost(postId);
     }
 
+    @PostMapping("/posts")
+    public Post createPost(@RequestBody Post post) {
+        post.setId(0);
+        return postService.createPost(post);
+    }
+
     @PutMapping("/posts")
-    public <T> Post updatePost(@RequestBody Post post) {
+    public Post updatePost(@RequestBody Post post) {
         return postService.updatePost(post);
     }
 
+    @DeleteMapping("/posts/{postId}")
+    public void deletePost(@PathVariable int postId) {
+        postService.deletePost(postId);
+    }
 
 }

@@ -79,12 +79,4 @@ public class Profile {
         isActive = active;
     }
 
-    public void addPost (Post post ) {
-        if (posts == null) {
-            posts = new ArrayList<>();
-        }
-        posts.add(post);
-        post.setProfile(this);
-    }
-
 }

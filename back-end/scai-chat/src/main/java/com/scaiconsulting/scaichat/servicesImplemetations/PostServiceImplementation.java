@@ -1,11 +1,8 @@
 package com.scaiconsulting.scaichat.servicesImplemetations;
 
 import com.scaiconsulting.scaichat.DAOs.PostDAO;
-import com.scaiconsulting.scaichat.DAOs.UserDAO;
 import com.scaiconsulting.scaichat.entities.Post;
-import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.services.PostService;
-import org.hibernate.type.AnyType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,35 +14,40 @@ import java.util.List;
 public class PostServiceImplementation implements PostService {
 
     private PostDAO postDAO;
-    private UserDAO userDAO;
 
     @Autowired
-    public PostServiceImplementation(PostDAO postDAO, UserDAO userDAO) {
+    public PostServiceImplementation(PostDAO postDAO) {
         this.postDAO = postDAO;
-        this.userDAO = userDAO;
     }
 
     @Override
     @Transactional
-    public Profile createPost(Profile profile, Post post) {
-        profile.addPost(post);
-        userDAO.updateProfile(profile);
-        return profile;
+    public Post createPost(Post post) {
+        return postDAO.createPost(post);
     }
 
     @Override
+    @Transactional
     public List<Post> getPosts(int profileId) {
         return postDAO.getPosts(profileId);
     }
 
     @Override
+    @Transactional
     public Post getPost(int postId) {
         return postDAO.getPost(postId);
     }
 
     @Override
-    public <T> Post updatePost(Post post ) {
+    @Transactional
+    public Post updatePost(Post post) {
         return postDAO.updatePost(post);
+    }
+
+    @Override
+    @Transactional
+    public void deletePost(int postId) {
+        postDAO.deletePost(postId);
     }
 
 

@@ -33,7 +33,7 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "profile_id")
-    private Profile profile ;
+    private Profile profile;
 
     public Post() {
 

@@ -31,7 +31,7 @@ public class UserDAOImplementation implements UserDAO {
         currentSession.saveOrUpdate(user);
     }
 
-@Override
+    @Override
     public User getUser(String email, String password) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<User> theQuery = currentSession.createQuery("from User user where user.email = :email and user.password = :password ")
@@ -66,7 +66,7 @@ public class UserDAOImplementation implements UserDAO {
     @Override
     public Profile updateProfile(Profile profile) {
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.update(profile);
+        currentSession.saveOrUpdate(profile);
         return profile;
     }
 

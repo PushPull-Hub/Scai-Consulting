@@ -2,6 +2,7 @@ package com.scaiconsulting.scaichat.DAOImplementations;
 
 import com.scaiconsulting.scaichat.DAOs.PostDAO;
 import com.scaiconsulting.scaichat.entities.Post;
+import com.scaiconsulting.scaichat.entities.Profile;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,17 @@ public class PostDAOImplementation implements PostDAO {
     private EntityManager entityManager;
 
     @Autowired
-    public PostDAOImplementation(EntityManager theEntityManager) {
-        this.entityManager = theEntityManager;
+    public PostDAOImplementation(EntityManager entityManager) {
+        this.entityManager = entityManager;
+
     }
 
     @Override
     public Post createPost(Post post) {
+        Profile profile = new Profile();
+        profile.setId(post.getProfile().getId());
+        post.setProfile(profile);
         Session currentSession = entityManager.unwrap(Session.class);
-        Post thePost = post;
         currentSession.saveOrUpdate(post);
         return post;
     }
@@ -51,26 +55,16 @@ public class PostDAOImplementation implements PostDAO {
     @Override
     public Post updatePost(Post post) {
         Session currentSession = entityManager.unwrap(Session.class);
-       /* Query<Post> theQuery = currentSession.createQuery("from post where post.id=:postId")
-                .setParameter("postId",postId); */
-        currentSession.saveOrUpdate(post);
-        return post ;
-    }
-
-    @Override
-    public <T> Post updatePost(int postId, String field, T newValue) {
-        Session currentSession = entityManager.unwrap(Session.class);
-        String queryString = "update post set "+field+"= "+ newValue.toString() +" where post.id = "+ postId  ;
-                Query<Post> theQuery = currentSession.createQuery(queryString);
-        theQuery.executeUpdate();
-        Post post = theQuery.getSingleResult();
         currentSession.update(post);
         return post;
     }
 
     @Override
-    public String deletePost(int postId) {
-        return null;
+    public void deletePost(int postId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Post> theQuery = currentSession.createQuery("delete from Post where id = :postId")
+                .setParameter("postId", postId);
+        theQuery.executeUpdate();
     }
 
     @Override
