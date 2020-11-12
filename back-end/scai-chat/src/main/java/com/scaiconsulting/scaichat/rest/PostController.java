@@ -49,10 +49,7 @@ public class PostController {
            comment.setId(0);
            Post post = new Post() ;
            Profile profile = new Profile() ;
-           post.setId(postId);
-           profile.setId(comment.getProfile().getId());
-           comment.setPost(post);
-           comment.setProfile(profile);
+           comment.setProfileId(post.getProfile().getId());
            return postService.commentOnPost(comment) ;
 
     }

@@ -22,9 +22,12 @@ public class PostComment {
     @JoinColumn(name = "post_id")
     private Post post ;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @Column(name = "profile_id")
+    private int profileId ;
+   /* @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id")
-    private Profile profile;
+    private Profile profile; */
+
 
     public String getCreatedTime() {
         return createdTime;
@@ -50,13 +53,13 @@ public class PostComment {
         this.post = post;
     }
 
-    public Profile getProfile() {
+    /* public Profile getProfile() {
         return profile;
     }
 
     public void setProfile(Profile profile) {
         this.profile = profile;
-    }
+    } */
 
     public int getId() {
         return id;
@@ -66,6 +69,11 @@ public class PostComment {
         this.id = id;
     }
 
+    public int getProfileId() {
+        return profileId;
+    }
 
-
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
+    }
 }
