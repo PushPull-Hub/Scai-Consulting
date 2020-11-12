@@ -1,4 +1,4 @@
-package com.scaiconsulting.scaichat.rest;
+package com.scaiconsulting.scaichat.controllers;
 
 
 import com.scaiconsulting.scaichat.entities.Account;

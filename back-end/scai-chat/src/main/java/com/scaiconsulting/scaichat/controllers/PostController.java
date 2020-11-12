@@ -1,4 +1,4 @@
-package com.scaiconsulting.scaichat.rest;
+package com.scaiconsulting.scaichat.controllers;
 
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.entities.PostComment;
@@ -45,10 +45,9 @@ public class PostController {
     @PostMapping("/posts/{postId}")
     public PostComment commentOnPost(@RequestBody PostComment comment, @PathVariable int postId) {
         comment.setId(0);
-        Post post = new Post();
-        Profile profile = new Profile();
-        comment.setProfileId(post.getProfile().getId());
-        return postService.commentOnPost(comment);
+       /* Post post = new Post();
+        comment.setProfileId(post.getProfile().getId());*/
+        return comment;
 
     }
 
