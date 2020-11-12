@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public class UserDAOImplementation implements UserDAO {
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Autowired
     public UserDAOImplementation(EntityManager theEntityManager) {
@@ -37,23 +37,20 @@ public class UserDAOImplementation implements UserDAO {
         Query<User> theQuery = currentSession.createQuery("from User user where user.email = :email and user.password = :password ")
                 .setParameter("email", email)
                 .setParameter("password", password);
-        User user = theQuery.getSingleResult();
-        return user;
+        return theQuery.getSingleResult();
     }
 
     @Override
     public List<Profile> getProfiles() {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Profile> theQuery = currentSession.createQuery("from Profile", Profile.class);
-        List<Profile> profiles = theQuery.getResultList();
-        return profiles;
+        return theQuery.getResultList();
     }
 
     @Override
     public Profile getProfile(int id) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Profile profile = currentSession.get(Profile.class, id);
-        return profile;
+        return currentSession.get(Profile.class, id);
     }
 
     @Override

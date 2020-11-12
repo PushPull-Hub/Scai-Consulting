@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public class PostDAOImplementation implements PostDAO {
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Autowired
     public PostDAOImplementation(EntityManager entityManager) {
@@ -42,7 +42,6 @@ public class PostDAOImplementation implements PostDAO {
         List<Post> posts = theQuery.getResultList();
         return posts;
     }
-
 
     @Override
     public Post getPost(int postId) {
@@ -73,20 +72,18 @@ public class PostDAOImplementation implements PostDAO {
         return null;
     }
 
-
     @Override
     public PostComment commentOnPost(PostComment comment) {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(comment);
-        return comment ;
+        return comment;
     }
 
     @Override
     public List<PostComment> getPostComments(int postId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<PostComment> theQuery = currentSession.createQuery("from PostComment  ", PostComment.class);
-        List<PostComment> comments = theQuery.getResultList();
-        return comments ;
+        return theQuery.getResultList();
     }
 
 

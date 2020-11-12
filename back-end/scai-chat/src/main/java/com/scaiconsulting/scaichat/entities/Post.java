@@ -1,7 +1,6 @@
 package com.scaiconsulting.scaichat.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -49,7 +48,6 @@ public class Post {
         this.canShare = canShare;
         this.isPublic = isPublic;
     }
-
 
     public int getId() {
         return id;
@@ -123,11 +121,4 @@ public class Post {
         this.profile = profile;
     }
 
-  /*  public List<PostComment> getPostComments() {
-        return postComments;
-    }
-
-    public void setPostComments(List<PostComment> postComments) {
-        this.postComments = postComments;
-    }*/
 }

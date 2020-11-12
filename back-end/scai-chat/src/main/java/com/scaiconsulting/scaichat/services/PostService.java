@@ -13,11 +13,11 @@ public interface PostService {
 
     public Post getPost(int postId);
 
-    public Post  updatePost(Post post);
+    public Post updatePost(Post post);
 
-    public void deletePost( int postId );
+    public void deletePost(int postId);
 
-    public PostComment commentOnPost (PostComment comment) ;
+    public PostComment commentOnPost(PostComment comment);
 
-    public List<PostComment> getPostComments(int postId) ;
+    public List<PostComment> getPostComments(int postId);
 }

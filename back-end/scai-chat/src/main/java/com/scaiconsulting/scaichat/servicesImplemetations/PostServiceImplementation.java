@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class PostServiceImplementation implements PostService {
 
-    private PostDAO postDAO;
+    private final PostDAO postDAO;
 
     @Autowired
     public PostServiceImplementation(PostDAO postDAO) {

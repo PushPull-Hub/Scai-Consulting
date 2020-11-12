@@ -10,8 +10,6 @@ public class PostComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
-
     @Column(name = "created_time")
     private String createdTime;
 
@@ -20,14 +18,21 @@ public class PostComment {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id")
-    private Post post ;
+    private Post post;
+
+    public PostComment() {
+
+    }
+
+    public PostComment(String createdTime, String comment, Post post, int profileId) {
+        this.createdTime = createdTime;
+        this.comment = comment;
+        this.post = post;
+        this.profileId = profileId;
+    }
 
     @Column(name = "profile_id")
-    private int profileId ;
-   /* @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "profile_id")
-    private Profile profile; */
-
+    private int profileId;
 
     public String getCreatedTime() {
         return createdTime;
@@ -52,14 +57,6 @@ public class PostComment {
     public void setPost(Post post) {
         this.post = post;
     }
-
-    /* public Profile getProfile() {
-        return profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    } */
 
     public int getId() {
         return id;

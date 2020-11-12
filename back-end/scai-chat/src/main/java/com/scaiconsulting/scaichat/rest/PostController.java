@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class PostController {
 
-    private PostService postService;
+    private final PostService postService;
 
     @Autowired
     public PostController(PostService postService) {
@@ -31,12 +31,10 @@ public class PostController {
         return postService.getPost(postId);
     }
 
-
     @GetMapping("/posts/post/{postId}/comments")
-    public List<PostComment> getPostComments (@PathVariable int postId) {
-        return postService.getPostComments(postId) ;
+    public List<PostComment> getPostComments(@PathVariable int postId) {
+        return postService.getPostComments(postId);
     }
-
 
     @PostMapping("/posts")
     public Post createPost(@RequestBody Post post) {
@@ -45,12 +43,12 @@ public class PostController {
     }
 
     @PostMapping("/posts/{postId}")
-    public PostComment commentOnPost (@RequestBody PostComment comment, @PathVariable int postId) {
-           comment.setId(0);
-           Post post = new Post() ;
-           Profile profile = new Profile() ;
-           comment.setProfileId(post.getProfile().getId());
-           return postService.commentOnPost(comment) ;
+    public PostComment commentOnPost(@RequestBody PostComment comment, @PathVariable int postId) {
+        comment.setId(0);
+        Post post = new Post();
+        Profile profile = new Profile();
+        comment.setProfileId(post.getProfile().getId());
+        return postService.commentOnPost(comment);
 
     }
 

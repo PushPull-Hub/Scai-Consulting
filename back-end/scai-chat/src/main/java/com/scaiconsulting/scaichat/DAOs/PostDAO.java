@@ -21,6 +21,6 @@ public interface PostDAO {
 
     public PostComment commentOnPost (PostComment comment) ;
 
-    public List<PostComment> getPostComments(int postId) ;
+    public List<PostComment> getPostComments(int postId);
 
 }
