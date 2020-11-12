@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.services;
 
 import com.scaiconsulting.scaichat.entities.Post;
+import com.scaiconsulting.scaichat.entities.PostComment;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface PostService {
 
     public void deletePost( int postId );
 
+    public PostComment commentOnPost (PostComment comment) ;
+
+    public List<PostComment> getPostComments(int postId) ;
 }

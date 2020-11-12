@@ -2,6 +2,7 @@ package com.scaiconsulting.scaichat.DAOImplementations;
 
 import com.scaiconsulting.scaichat.DAOs.PostDAO;
 import com.scaiconsulting.scaichat.entities.Post;
+import com.scaiconsulting.scaichat.entities.PostComment;
 import com.scaiconsulting.scaichat.entities.Profile;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -62,14 +63,30 @@ public class PostDAOImplementation implements PostDAO {
     @Override
     public void deletePost(int postId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Post> theQuery = currentSession.createQuery("delete from Post where id = :postId")
-                .setParameter("postId", postId);
+        Query<Post> theQuery = currentSession.createQuery("delete from Post where id = :postId");
+        theQuery.setParameter("postId", postId);
         theQuery.executeUpdate();
     }
 
     @Override
     public List<Post> getFriendsPosts() {
         return null;
+    }
+
+
+    @Override
+    public PostComment commentOnPost(PostComment comment) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(comment);
+        return comment ;
+    }
+
+    @Override
+    public List<PostComment> getPostComments(int postId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<PostComment> theQuery = currentSession.createQuery("from PostComment  ", PostComment.class);
+        List<PostComment> comments = theQuery.getResultList();
+        return comments ;
     }
 
 

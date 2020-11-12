@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.DAOs;
 
 import com.scaiconsulting.scaichat.entities.Post;
+import com.scaiconsulting.scaichat.entities.PostComment;
 
 import java.util.List;
 
@@ -17,5 +18,9 @@ public interface PostDAO {
     public void deletePost(int postId);
 
     public List<Post> getFriendsPosts();
+
+    public PostComment commentOnPost (PostComment comment) ;
+
+    public List<PostComment> getPostComments(int postId) ;
 
 }

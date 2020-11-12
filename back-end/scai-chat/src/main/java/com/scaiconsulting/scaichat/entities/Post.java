@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -121,4 +122,12 @@ public class Post {
     public void setProfile(Profile profile) {
         this.profile = profile;
     }
+
+  /*  public List<PostComment> getPostComments() {
+        return postComments;
+    }
+
+    public void setPostComments(List<PostComment> postComments) {
+        this.postComments = postComments;
+    }*/
 }
