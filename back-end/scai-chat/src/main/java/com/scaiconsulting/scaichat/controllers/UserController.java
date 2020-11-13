@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @PutMapping("/profiles")
-    public Profile updateUserById(@RequestBody Profile profile) {
+    public Profile updateProfile(@RequestBody Profile profile) {
         return userService.updateProfile(profile);
 
     }
