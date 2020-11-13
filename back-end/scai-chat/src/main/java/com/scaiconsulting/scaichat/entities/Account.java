@@ -1,12 +1,8 @@
 package com.scaiconsulting.scaichat.entities;
 
-import javax.persistence.*;
-
-@Embeddable
+//DTO
 public class Account {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id ;
     private User user ;
     private Profile profile ;
