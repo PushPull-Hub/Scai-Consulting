@@ -39,17 +39,21 @@ public class PostDAOImplementation implements PostDAO {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Post> theQuery = currentSession.createQuery("from Post  where profile_id = :profileId", Post.class)
                 .setParameter("profileId", profileId);
-        List<Post> posts = theQuery.getResultList();
-        return posts;
+        return theQuery.getResultList();
     }
 
     @Override
     public Post getPost(int postId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Post> theQuery = currentSession.createQuery("from Post post where post.id = :postId")
+       /* Query<Post> theQuery = currentSession.createQuery("from Post post where post.id = :postId")
                 .setParameter("postId", postId);
         Post post = theQuery.getSingleResult();
-        return post;
+        return post; */
+        Query<Post> theQuery =  currentSession.createQuery("from Post p "
+                + "join fetch  p.profile "
+                + "where p.id=:postId", Post.class)
+                .setParameter("postId",postId );
+        return theQuery.getSingleResult();
     }
 
     @Override
@@ -82,7 +86,8 @@ public class PostDAOImplementation implements PostDAO {
     @Override
     public List<PostComment> getPostComments(int postId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<PostComment> theQuery = currentSession.createQuery("from PostComment  ", PostComment.class);
+        Query<PostComment> theQuery = currentSession.createQuery("from PostComment where post_id = :postId  ", PostComment.class)
+                .setParameter("postId", postId);
         return theQuery.getResultList();
     }
 

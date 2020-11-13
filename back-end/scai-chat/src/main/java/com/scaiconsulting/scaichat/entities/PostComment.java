@@ -28,12 +28,12 @@ public class PostComment {
 
     }
 
-    public PostComment( String createdTime, String comment, Post post, Profile profile) {
+  /*  public PostComment( String createdTime, String comment, Post post, Profile profile) {
         this.createdTime = createdTime;
         this.comment = comment;
         this.post = post;
         this.profile = profile;
-    }
+    }*/
 
     public PostComment(String createdTime, String comment, Post post) {
         this.createdTime = createdTime;

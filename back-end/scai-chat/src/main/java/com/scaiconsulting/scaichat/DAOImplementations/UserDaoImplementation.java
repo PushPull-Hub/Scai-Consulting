@@ -36,9 +36,9 @@ public class UserDAOImplementation implements UserDAO {
     @Override
     public User getUser(String email, String password) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> theQuery = currentSession.createQuery("from User user where user.email = :email and user.password = :password ")
-                .setParameter("email", email)
-                .setParameter("password", password);
+        Query<User> theQuery = currentSession.createQuery("from User user where user.email = :email and user.password = :password ");
+                theQuery.setParameter("email", email)
+                 .setParameter("password", password);
         return theQuery.getSingleResult();
     }
 

@@ -31,8 +31,8 @@ public class Post {
     @Column(name = "is_public")
     private boolean isPublic;
 
-    @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn(name = "profile_id" )
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id")
     private Profile profile;
 
     public Post() {
