@@ -20,24 +20,24 @@ export class PostsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.posts = this.postService.getUserFriendsPosts();
+    // this.posts = this.postService.getUserFriendsPosts();
   }
 
-  reactOnPost(id) {
-    const index = this.posts.findIndex((post) => post.postId == id);
-    if (index != -1) {
-      this.posts[index].likes = this.postService.reactOnPost(id);
-    }
-  }
+  // reactOnPost(id) {
+  //   const index = this.posts.findIndex((post) => post.postId == id);
+  //   if (index != -1) {
+  //     this.posts[index].likes = this.postService.reactOnPost(id);
+  //   }
+  // }
 
-  addCommentOnPost(comment: CustomComment) {
-    const index = this.posts.findIndex((post) => post.postId == comment.postId);
-    const loggedUserId: string = this.authService.loggedUser.id;
-    if (index != -1) {
-      this.posts[index].comments.push({
-        commenterId: loggedUserId,
-        comment: comment.commentText,
-      });
-    }
-  }
+  // addCommentOnPost(comment: CustomComment) {
+  //   const index = this.posts.findIndex((post) => post.postId == comment.postId);
+  //   const loggedUserId: string = this.authService.loggedUser.id;
+  //   if (index != -1) {
+  //     this.posts[index].comments.push({
+  //       commenterId: loggedUserId,
+  //       comment: comment.commentText,
+  //     });
+  //   }
+  // }
 }

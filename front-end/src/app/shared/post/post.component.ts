@@ -23,33 +23,33 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.commentButtonClicked = false;
-    this.isLikedByMe = this._checkIfItsLikedByMe(this.post.postId);
+    // this.commentButtonClicked = false;
+    // this.isLikedByMe = this._checkIfItsLikedByMe(this.post.postId);
   }
 
-  whenCommentButtonClicked() {
-    this.commentButtonClicked = !this.commentButtonClicked;
-  }
+  // whenCommentButtonClicked() {
+  //   this.commentButtonClicked = !this.commentButtonClicked;
+  // }
 
-  addComment() {
-    const _comment: CustomComment = {
-      postId: this.post.postId,
-      commentText: this.textInputed,
-    };
-    this.addCommentButtonClicked.emit(_comment);
-    this.textInputed = '';
-  }
+  // addComment() {
+  //   const _comment: CustomComment = {
+  //     postId: this.post.postId,
+  //     commentText: this.textInputed,
+  //   };
+  //   this.addCommentButtonClicked.emit(_comment);
+  //   this.textInputed = '';
+  // }
 
-  reactOnPost() {
-    this.likeButtonClicked.emit(this.post.postId);
-    this.isLikedByMe = !this.isLikedByMe;
-  }
+  // reactOnPost() {
+  //   this.likeButtonClicked.emit(this.post.postId);
+  //   this.isLikedByMe = !this.isLikedByMe;
+  // }
 
-  private _checkIfItsLikedByMe(PostId: string): boolean {
-    return this.postService
-      .getPostLikers(PostId)
-      .find((liker) => liker.id == this.authService.loggedUser.id)
-      ? true
-      : false;
-  }
+  // private _checkIfItsLikedByMe(PostId: string): boolean {
+  //   return this.postService
+  //     .getPostLikers(PostId)
+  //     .find((liker) => liker.id == this.authService.loggedUser.id)
+  //     ? true
+  //     : false;
+  // }
 }

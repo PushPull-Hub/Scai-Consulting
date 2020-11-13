@@ -12,7 +12,7 @@ import * as moment from 'moment';
   styleUrls: ['./timeline-posts.component.scss'],
 })
 export class TimelinePostsComponent implements OnInit {
-  Userposts: Post[] = this.postsService.getUserPost();
+  // Userposts: Post[] = this.postsService.getUserPost();
   userName: String = this.authService.loggedUser.username;
   commentButtonClicked: boolean = false;
   comments: string[];
@@ -22,18 +22,18 @@ export class TimelinePostsComponent implements OnInit {
   constructor(
     private postsService: PostsService,
     private authService: AuthService
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
-  onCommentButtonClicked() {
-    this.commentButtonClicked = !this.commentButtonClicked;
-  }
+  // onCommentButtonClicked() {
+  //   this.commentButtonClicked = !this.commentButtonClicked;
+  // }
 
-  onLikeButtonClicked(id: string) {
-    this.postsService.likePost(id);
-  }
+  // onLikeButtonClicked(id: string) {
+  //   this.postsService.likePost(id);
+  // }
 
-  sortPosts = (a: Post, b: Post) =>
-    new Date(a.created_time).getTime() - new Date(b.created_time).getTime();
+  // sortPosts = (a: Post, b: Post) =>
+  //   new Date(a.created_time).getTime() - new Date(b.created_time).getTime();
 }

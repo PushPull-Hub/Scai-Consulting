@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserServices } from './user.service';
 import { User } from '../models/User.model';
+import { Profile } from '../models/Profile.model';
+import { Account } from '../models/Account.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +11,7 @@ import { User } from '../models/User.model';
 export class AuthService {
   loggedUser: User;
   isLoggedIn: boolean = false;
+  loggedProfile: Profile;
 
   constructor(private router: Router, private userService: UserServices) {}
 
@@ -25,6 +28,19 @@ export class AuthService {
       }
       return false;
     }
+
+    // const testUser = this.userService.getUser(email, password)
+    // .subscribe((resp) => {
+    //   this.loggedProfile = resp.profile;
+
+    //    this.loggedProfile.active = 1;
+    //    this.userService.updateProfile(this.loggedProfile);
+    //    localStorage.setItem('loggedUserId', this.loggedProfile.id);
+    //   console.log('true the logged profile  is : ' + this.loggedProfile);
+    //   return true;
+    // }
+    // console.log('false');
+    // return false;
   };
 
   isAuthenticated() {

@@ -49,8 +49,15 @@ public class UserDAOImplementation implements UserDAO {
 
     @Override
     public Profile getProfile(int id) {
-        Session currentSession = entityManager.unwrap(Session.class);
+         Session currentSession = entityManager.unwrap(Session.class);
         return currentSession.get(Profile.class, id);
+        /*Session currentSession = entityManager.unwrap(Session.class);
+        Query<Profile> theQuery = currentSession.createQuery("from Profile p "
+                + "JOIN FETCH  p.posts "
+                + "where p.id=:profileId", Profile.class)
+                .setParameter("profileId",id );
+
+        return theQuery.getSingleResult();*/
     }
 
     @Override
