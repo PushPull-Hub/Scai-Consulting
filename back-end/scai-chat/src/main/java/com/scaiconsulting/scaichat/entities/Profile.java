@@ -1,7 +1,6 @@
 package com.scaiconsulting.scaichat.entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "profile")
@@ -23,9 +22,6 @@ public class Profile {
 
     @Column(name = "is_active")
     private boolean isActive;
-
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
-    private List<Post> posts;
 
     public Profile() {
 
@@ -70,7 +66,7 @@ public class Profile {
         this.gender = gender;
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return isActive;
     }
 

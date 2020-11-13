@@ -31,8 +31,8 @@ public class Post {
     @Column(name = "is_public")
     private boolean isPublic;
 
-    @ManyToOne
-    @JoinColumn(name = "profile_id")
+    @ManyToOne( fetch = FetchType.LAZY )
+    @JoinColumn(name = "profile_id" )
     private Profile profile;
 
     public Post() {
@@ -89,7 +89,7 @@ public class Post {
         this.place = place;
     }
 
-    public boolean isCanComment() {
+    public boolean getCanComment() {
         return canComment;
     }
 
@@ -97,7 +97,7 @@ public class Post {
         this.canComment = canComment;
     }
 
-    public boolean isCanShare() {
+    public boolean getCanShare() {
         return canShare;
     }
 
@@ -105,11 +105,11 @@ public class Post {
         this.canShare = canShare;
     }
 
-    public boolean isPublic() {
+    public boolean getIsPublic() {
         return isPublic;
     }
 
-    public void setPublic(boolean aPublic) {
+    public void setIsPublic(boolean aPublic) {
         isPublic = aPublic;
     }
 
