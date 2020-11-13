@@ -31,15 +31,15 @@ public class Post {
     @Column(name = "is_public")
     private boolean isPublic;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profile_id")
-    private Profile profile;
+    @Column(name = "profile_id")
+    private int profileId ;
+
 
     public Post() {
 
     }
 
-    public Post(String createdTime, String description, String objectId, String place, boolean canComment, boolean canShare, boolean isPublic) {
+    public Post(String createdTime, String description, String objectId, String place, boolean canComment, boolean canShare, boolean isPublic, int profileId) {
         this.createdTime = createdTime;
         this.description = description;
         this.objectId = objectId;
@@ -47,6 +47,7 @@ public class Post {
         this.canComment = canComment;
         this.canShare = canShare;
         this.isPublic = isPublic;
+        this.profileId = profileId;
     }
 
     public int getId() {
@@ -113,12 +114,11 @@ public class Post {
         isPublic = aPublic;
     }
 
-    public Profile getProfile() {
-        return profile;
+    public int getProfileId() {
+        return profileId;
     }
 
-    public void setProfile(Profile profile) {
-        this.profile = profile;
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
     }
-
 }

@@ -3,7 +3,6 @@ package com.scaiconsulting.scaichat.DAOImplementations;
 import com.scaiconsulting.scaichat.DAOs.PostDAO;
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.entities.PostComment;
-import com.scaiconsulting.scaichat.entities.Profile;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ public class PostDAOImplementation implements PostDAO {
 
     @Override
     public Post createPost(Post post) {
-        Profile profile = new Profile();
-        profile.setId(post.getProfile().getId());
-        post.setProfile(profile);
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(post);
         return post;
@@ -37,7 +33,7 @@ public class PostDAOImplementation implements PostDAO {
     @Override
     public List<Post> getPosts(int profileId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Post> theQuery = currentSession.createQuery("from Post  where profile_id = :profileId", Post.class)
+        Query<Post> theQuery = currentSession.createQuery(" from Post where profileId = :profileId", Post.class)
                 .setParameter("profileId", profileId);
         return theQuery.getResultList();
     }
@@ -45,15 +41,17 @@ public class PostDAOImplementation implements PostDAO {
     @Override
     public Post getPost(int postId) {
         Session currentSession = entityManager.unwrap(Session.class);
-       /* Query<Post> theQuery = currentSession.createQuery("from Post post where post.id = :postId")
+        Query<Post> theQuery = currentSession.createQuery("from Post post where post.id = :postId")
                 .setParameter("postId", postId);
-        Post post = theQuery.getSingleResult();
-        return post; */
-        Query<Post> theQuery =  currentSession.createQuery("from Post p "
+        return theQuery.getSingleResult();
+
+      /*Query<Post> theQuery =  currentSession.createQuery("from Post p "
                 + "join fetch  p.profile "
                 + "where p.id=:postId", Post.class)
                 .setParameter("postId",postId );
         return theQuery.getSingleResult();
+        */
+
     }
 
     @Override
