@@ -37,7 +37,7 @@ public class PostDAOImplementation implements PostDAO {
     @Override
     public List<Post> getPosts(int profileId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Post> theQuery = currentSession.createQuery("from post where post.profile_id = : profileId", Post.class)
+        Query<Post> theQuery = currentSession.createQuery("from Post  where profile_id = :profileId", Post.class)
                 .setParameter("profileId", profileId);
         List<Post> posts = theQuery.getResultList();
         return posts;
