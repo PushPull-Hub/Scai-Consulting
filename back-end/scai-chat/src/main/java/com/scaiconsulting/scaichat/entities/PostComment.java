@@ -16,23 +16,30 @@ public class PostComment {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id")
+    private Profile profile ;
 
     public PostComment() {
 
     }
 
-    public PostComment(String createdTime, String comment, Post post, int profileId) {
+    public PostComment( String createdTime, String comment, Post post, Profile profile) {
         this.createdTime = createdTime;
         this.comment = comment;
         this.post = post;
-        this.profileId = profileId;
+        this.profile = profile;
     }
 
-    @Column(name = "profile_id")
-    private int profileId;
+    public PostComment(String createdTime, String comment, Post post) {
+        this.createdTime = createdTime;
+        this.comment = comment;
+        this.post = post;
+    }
 
     public String getCreatedTime() {
         return createdTime;
@@ -66,11 +73,14 @@ public class PostComment {
         this.id = id;
     }
 
-    public int getProfileId() {
-        return profileId;
+     public Profile getProfile() {
+
+        return profile;
     }
 
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
+
+
 }
