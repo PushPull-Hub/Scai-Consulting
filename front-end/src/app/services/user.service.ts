@@ -106,9 +106,9 @@ export class UserServices implements OnInit {
   }
 
   getUser(email: string, password: string) {
-    return this.http
-      .get<Account>(environment.rootUrl + `/api/users/${email}/${password}`)
-      .subscribe((responseData) => console.log(responseData));
+    return this.http.get<Account>(
+      environment.rootUrl + `/api/users/${email}/${password}`
+    );
   }
 
   getProfiles() {
@@ -121,5 +121,9 @@ export class UserServices implements OnInit {
     return this.http
       .get<Profile>(environment.rootUrl + `/api/profiles/` + id)
       .subscribe((responseData) => console.log(responseData));
+  }
+
+  updateProfile(profile: Profile) {
+    return null;
   }
 }
