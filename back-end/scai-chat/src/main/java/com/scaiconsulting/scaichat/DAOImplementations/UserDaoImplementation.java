@@ -27,6 +27,8 @@ public class UserDAOImplementation implements UserDAO {
         Session currentSession = entityManager.unwrap(Session.class);
         User user = account.getUser();
         Profile profile = account.getProfile();
+        user.setId(0);
+        profile.setId(0);
         user.setProfile(profile);
         currentSession.saveOrUpdate(user);
     }

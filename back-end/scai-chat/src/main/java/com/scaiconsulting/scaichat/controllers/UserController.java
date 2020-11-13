@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "http://localhost:8080")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api")
 public class UserController {
 
@@ -26,7 +26,6 @@ public class UserController {
 
     @PostMapping("/users")
     public Account createUser(@RequestBody Account account) {
-        account.setId(0);
         userService.createUser(account);
         return account;
     }

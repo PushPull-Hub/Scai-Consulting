@@ -3,7 +3,6 @@ package com.scaiconsulting.scaichat.entities;
 //DTO
 public class Account {
 
-    private int id ;
     private User user ;
     private Profile profile ;
 
@@ -32,11 +31,4 @@ public class Account {
         this.profile = profile;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }
