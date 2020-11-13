@@ -37,6 +37,7 @@ export class SignUpComponent implements OnInit {
     };
 
     account.profile = {
+      id: 0,
       firstName: firstName,
       lastName: secondName,
       gender: this.selectedOption,
