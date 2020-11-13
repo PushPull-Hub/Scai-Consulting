@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { v4 as uuidv4 } from 'uuid';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
+import { Profile } from 'src/app/models/Profile.model';
 
 @Component({
   selector: 'create-post',
@@ -32,14 +33,17 @@ export class CreatePostComponent implements OnInit {
 
   sharePost() {
     const post = new Post();
+    const profile = new Profile();
     if (this.insertedText && this.insertedText.trim() !== '') {
-      post.userId = this.authService.getLoggedUserId();
-      post.postId = uuidv4();
-      post.text = this.insertedText;
-      post.created_time = this.now;
-      post.can_reply = true;
-      post.can_share = true;
-      post.is_hidden = false;
+      post.createdTime = this.now.toString();
+      post.description = this.insertedText;
+      post.canComment = 1;
+      post.canShare = 1;
+      post.ispublic = 1;
+      post.place = '';
+      post.objectId = null;
+      profile.id = 15; // temporary
+      post.profile = profile;
       this.insertedText = '';
       this.postService.createPost(post);
     } else {
