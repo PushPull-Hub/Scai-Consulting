@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from 'src/app/services/posts.service';
 import { Post } from 'src/app/models/Post.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { v4 as uuidv4 } from 'uuid';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
-import { Profile } from 'src/app/models/Profile.model';
 
 @Component({
   selector: 'create-post',
@@ -33,7 +31,6 @@ export class CreatePostComponent implements OnInit {
 
   sharePost() {
     const post = new Post();
-    const profile = new Profile();
     if (this.insertedText && this.insertedText.trim() !== '') {
       post.createdTime = this.now.toString();
       post.description = this.insertedText;
@@ -42,8 +39,7 @@ export class CreatePostComponent implements OnInit {
       post.ispublic = 1;
       post.place = '';
       post.objectId = null;
-      profile.id = 15; // temporary
-      post.profile = profile;
+      post.profileId = 15; // temporary
       this.insertedText = '';
       this.postService.createPost(post);
     } else {
