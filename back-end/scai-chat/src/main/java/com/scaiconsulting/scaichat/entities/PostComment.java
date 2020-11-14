@@ -16,29 +16,29 @@ public class PostComment {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @Column(name = "post_id")
+    private int postId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profile_id")
-    private Profile profile ;
+    @Column(name = "profile_id")
+    private int profileId ;
 
     public PostComment() {
 
     }
 
-  /*  public PostComment( String createdTime, String comment, Post post, Profile profile) {
+    public PostComment(String createdTime, String comment, int postId, int profileId) {
         this.createdTime = createdTime;
         this.comment = comment;
-        this.post = post;
-        this.profile = profile;
-    }*/
+        this.postId = postId;
+        this.profileId = profileId;
+    }
 
-    public PostComment(String createdTime, String comment, Post post) {
-        this.createdTime = createdTime;
-        this.comment = comment;
-        this.post = post;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCreatedTime() {
@@ -57,30 +57,19 @@ public class PostComment {
         this.comment = comment;
     }
 
-    public Post getPost() {
-        return post;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
-    public int getId() {
-        return id;
+    public int getProfileId() {
+        return profileId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProfileId(int profileId) {
+        this.profileId = profileId;
     }
-
-     public Profile getProfile() {
-
-        return profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
-
-
 }
