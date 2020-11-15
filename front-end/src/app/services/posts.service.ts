@@ -14,7 +14,7 @@ import { PostComment as Comment } from '../models/PostComment.model';
   providedIn: 'root',
 })
 export class PostsService {
-  posts: Post[] = JSON.parse(localStorage.getItem('Posts')) || [];
+  posts = this.getUserPosts(15); // temporary
 
   theUserFriendList: Friend[] = this.friendService.theUserFriendsList;
   UserFriendsPosts: Post[];
@@ -31,6 +31,12 @@ export class PostsService {
     this.http
       .get<Post>(environment.rootUrl + '/api/posts/post/' + postId)
       .subscribe((responseDate) => console.log(responseDate));
+  }
+
+  getUserPosts(userId: number) {
+    this.http
+      .get(environment.rootUrl + '/api/posts/' + userId)
+      .subscribe((responseDate) => responseDate);
   }
 
   createPost(post: Post) {
