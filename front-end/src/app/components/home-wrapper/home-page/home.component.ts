@@ -16,16 +16,5 @@ export class HomePageComponent implements OnInit {
     private postService: PostsService
   ) {}
 
-  ngOnInit(): void {
-    // this.postService.getPostById('22');
-    // this.postService.deletePost(32);
-    // this.postService.getPostComments(23);
-    // const comment = new PostComment();
-    // comment.comment = "that's a comment from Angular App";
-    // comment.createdTime = '123';
-    // const profile = new Profile();
-    // profile.id = 15;
-    // comment.profile = profile;
-    // this.postService.commentOnPost(comment);
-  }
+  ngOnInit(): void {}
 }
