@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface UserService {
 
-    public void createUser(Account account);
+    public void createAccount(Account account);
 
-    public User getUser(String email, String password);
-
-    public List<Profile> getProfiles();
-
-    public Profile getProfile(int id);
-
-    public User updateUser(User user);
+    public Profile getProfile(String email, String password);
 
     public Profile updateProfile(Profile profile);
+
+    public List<User> getUsers();
+
+    public User getUser(int id);
+
+    public User updateUser(User user);
 
 
 }

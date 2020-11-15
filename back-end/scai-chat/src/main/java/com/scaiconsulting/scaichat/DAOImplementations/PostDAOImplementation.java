@@ -31,10 +31,10 @@ public class PostDAOImplementation implements PostDAO {
     }
 
     @Override
-    public List<Post> getPosts(int profileId) {
+    public List<Post> getPosts(int userId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Post> theQuery = currentSession.createQuery(" from Post where profileId = :profileId", Post.class)
-                .setParameter("profileId", profileId);
+        Query<Post> theQuery = currentSession.createQuery(" from Post where userId = :userId", Post.class)
+                .setParameter("userId", userId);
         return theQuery.getResultList();
     }
 
@@ -44,14 +44,6 @@ public class PostDAOImplementation implements PostDAO {
         Query<Post> theQuery = currentSession.createQuery("from Post post where post.id = :postId")
                 .setParameter("postId", postId);
         return theQuery.getSingleResult();
-
-      /*Query<Post> theQuery =  currentSession.createQuery("from Post p "
-                + "join fetch  p.profile "
-                + "where p.id=:postId", Post.class)
-                .setParameter("postId",postId );
-        return theQuery.getSingleResult();
-        */
-
     }
 
     @Override

@@ -19,18 +19,18 @@ public class PostComment {
     @Column(name = "post_id")
     private int postId;
 
-    @Column(name = "profile_id")
-    private int profileId ;
+    @Column(name = "user_id")
+    private int userId;
 
     public PostComment() {
 
     }
 
-    public PostComment(String createdTime, String comment, int postId, int profileId) {
+    public PostComment(String createdTime, String comment, int postId, int userId) {
         this.createdTime = createdTime;
         this.comment = comment;
         this.postId = postId;
-        this.profileId = profileId;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -65,11 +65,11 @@ public class PostComment {
         this.postId = postId;
     }
 
-    public int getProfileId() {
-        return profileId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

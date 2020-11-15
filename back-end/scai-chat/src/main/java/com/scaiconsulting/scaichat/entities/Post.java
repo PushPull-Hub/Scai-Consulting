@@ -11,44 +11,44 @@ public class Post {
     private int id;
 
     @Column(name = "created_time")
-    private String createdTime;
+    private String created_time;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "object_id")
-    private String objectId;
+    private String object_id ;
 
-    @Column(name = "place")
-    private String place;
+    @Column(name = "location")
+    private String location;
 
     @Column(name = "can_comment")
-    private boolean canComment;
+    private boolean commentable;
 
     @Column(name = "can_share")
-    private boolean canShare;
+    private boolean shareable;
 
     @Column(name = "is_public")
-    private boolean isPublic;
+    private boolean pubblico;
 
-    @Column(name = "profile_id")
-    private int profileId ;
+    @Column(name = "user_id")
+    private int userId ;
 
 
     public Post() {
-
     }
 
-    public Post(String createdTime, String description, String objectId, String place, boolean canComment, boolean canShare, boolean isPublic, int profileId) {
-        this.createdTime = createdTime;
+    public Post(String created_time, String description, String object_id, String location, boolean commentable, boolean shareable, boolean pubblico, int userId) {
+        this.created_time = created_time;
         this.description = description;
-        this.objectId = objectId;
-        this.place = place;
-        this.canComment = canComment;
-        this.canShare = canShare;
-        this.isPublic = isPublic;
-        this.profileId = profileId;
+        this.object_id = object_id;
+        this.location = location;
+        this.commentable = commentable;
+        this.shareable = shareable;
+        this.pubblico = pubblico;
+        this.userId = userId;
     }
+
 
     public int getId() {
         return id;
@@ -58,12 +58,12 @@ public class Post {
         this.id = id;
     }
 
-    public String getCreatedTime() {
-        return createdTime;
+    public String getCreated_time() {
+        return created_time;
     }
 
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
+    public void setCreated_time(String created_time) {
+        this.created_time = created_time;
     }
 
     public String getDescription() {
@@ -74,51 +74,51 @@ public class Post {
         this.description = description;
     }
 
-    public String getObjectId() {
-        return objectId;
+    public String getObject_id() {
+        return object_id;
     }
 
-    public void setObjectId(String objectId) {
-        this.objectId = objectId;
+    public void setObject_id(String object_id) {
+        this.object_id = object_id;
     }
 
-    public String getPlace() {
-        return place;
+    public String getLocation() {
+        return location;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public boolean getCanComment() {
-        return canComment;
+    public boolean isCommentable() {
+        return commentable;
     }
 
-    public void setCanComment(boolean canComment) {
-        this.canComment = canComment;
+    public void setCommentable(boolean commentable) {
+        this.commentable = commentable;
     }
 
-    public boolean getCanShare() {
-        return canShare;
+    public boolean isShareable() {
+        return shareable;
     }
 
-    public void setCanShare(boolean canShare) {
-        this.canShare = canShare;
+    public void setShareable(boolean shareable) {
+        this.shareable = shareable;
     }
 
-    public boolean getIsPublic() {
-        return isPublic;
+    public boolean isPubblico() {
+        return pubblico;
     }
 
-    public void setIsPublic(boolean aPublic) {
-        isPublic = aPublic;
+    public void setPubblico(boolean pubblico) {
+        this.pubblico = pubblico;
     }
 
-    public int getProfileId() {
-        return profileId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

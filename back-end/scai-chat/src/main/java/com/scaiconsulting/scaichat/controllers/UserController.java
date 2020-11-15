@@ -24,31 +24,31 @@ public class UserController {
 
     // Create
 
-    @PostMapping("/users")
-    public Account createUser(@RequestBody Account account) {
-        userService.createUser(account);
+    @PostMapping("/profiles")
+    public Account createAccount(@RequestBody Account account) {
+        userService.createAccount(account);
         return account;
     }
 
     // Read
 
-    @GetMapping("/users/{email}/{password}")
-    public User getUser(@PathVariable String email, @PathVariable String password) {
-        User theUser = userService.getUser(email, password);
-        if (theUser == null) {
-            throw new RuntimeException("the user with email " + email + "isn't found ");
+    @GetMapping("/profiles/{email}/{password}")
+    public Profile getProfile(@PathVariable String email, @PathVariable String password) {
+        Profile theProfile = userService.getProfile(email, password);
+        if (theProfile == null) {
+            throw new RuntimeException("the Profile  with email " + email + "isn't found ");
         }
-        return theUser;
+        return theProfile ;
     }
 
-    @GetMapping("/profiles")
-    public List<Profile> getProfiles() {
-        return userService.getProfiles();
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return userService.getUsers();
     }
 
-    @GetMapping("/profiles/{profileId}")
-    public Profile getProfile(@PathVariable int profileId) {
-        return userService.getProfile(profileId);
+    @GetMapping("/users/{userId}")
+    public User getUserById(@PathVariable int userId) {
+        return userService.getUser(userId);
     }
 
     // Update

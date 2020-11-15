@@ -29,30 +29,30 @@ public class UserDAOImplementation implements UserDAO {
         Profile profile = account.getProfile();
         user.setId(0);
         profile.setId(0);
-        user.setProfile(profile);
-        currentSession.saveOrUpdate(user);
+        profile.setUser(user);
+        currentSession.saveOrUpdate(profile);
     }
 
     @Override
-    public User getUser(String email, String password) {
+    public Profile getProfile(String email, String password) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> theQuery = currentSession.createQuery("from User user where user.email = :email and user.password = :password ");
+        Query<Profile> theQuery = currentSession.createQuery("from Profile profile where profile.email = :email and profile.password = :password ");
                 theQuery.setParameter("email", email)
                  .setParameter("password", password);
         return theQuery.getSingleResult();
     }
 
     @Override
-    public List<Profile> getProfiles() {
+    public List<User> getUsers() {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Profile> theQuery = currentSession.createQuery("from Profile", Profile.class);
+        Query<User> theQuery = currentSession.createQuery("from User", User.class);
         return theQuery.getResultList();
     }
 
     @Override
-    public Profile getProfile(int id) {
+    public User getUser(int id) {
          Session currentSession = entityManager.unwrap(Session.class);
-        return currentSession.get(Profile.class, id);
+        return currentSession.get(User.class, id);
     }
 
     @Override

@@ -11,28 +11,26 @@ public class Profile {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name="email")
+    private String email;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name="password")
+    private String password;
 
-    @Column(name = "gender")
-    private String gender;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "is_active")
-    private boolean isActive;
 
     public Profile() {
-
     }
 
-    public Profile(String firstName, String lastName, String gender, boolean isActive) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.isActive = isActive;
+    public Profile(String email, String password, User user) {
+        this.email = email;
+        this.password = password;
+        this.user = user;
     }
+
 
     public int getId() {
         return id;
@@ -42,36 +40,27 @@ public class Profile {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getGender() {
-        return gender;
+    public User getUser() {
+        return user;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setUser(User user) {
+        this.user = user;
     }
-
-    public boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
 }

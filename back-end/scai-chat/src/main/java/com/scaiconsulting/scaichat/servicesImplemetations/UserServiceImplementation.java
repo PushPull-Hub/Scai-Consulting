@@ -21,27 +21,35 @@ public class UserServiceImplementation implements UserService {
         this.userDao = theUserDAO;
     }
 
+
     @Override
     @Transactional
-    public void createUser(Account account) {
-        userDao.createAccount(account);
+    public void createAccount(Account account) {
+         userDao.createAccount(account);
     }
 
     @Override
     @Transactional
-    public User getUser(String email, String password) {
-        return userDao.getUser(email, password);
+    public Profile getProfile(String email, String password) {
+        return userDao.getProfile(email,password);
     }
 
     @Override
     @Transactional
-    public List<Profile> getProfiles() {
-        return userDao.getProfiles();
+    public Profile updateProfile(Profile profile) {
+        return userDao.updateProfile(profile) ;
     }
 
     @Override
-    public Profile getProfile(int id) {
-        return userDao.getProfile(id);
+    @Transactional
+    public List<User> getUsers() {
+        return userDao.getUsers() ;
+    }
+
+    @Override
+    @Transactional
+    public User getUser(int id) {
+        return userDao.getUser(id);
     }
 
     @Override
@@ -49,10 +57,4 @@ public class UserServiceImplementation implements UserService {
     public User updateUser(User user) {
         return userDao.updateUser(user);
     }
-
-    @Override
-    public Profile updateProfile(Profile profile) {
-        return userDao.updateProfile(profile);
-    }
-
 }

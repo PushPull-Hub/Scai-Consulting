@@ -10,14 +10,15 @@ public interface UserDAO {
 
     public void createAccount(Account account);
 
-    public User getUser(String email, String password);
+    public Profile getProfile(String email, String password);
 
-    public List<Profile> getProfiles();
+    public Profile updateProfile(Profile profile);
 
-    public Profile getProfile(int id);
+    public List<User> getUsers();
+
+    public User getUser(int id);
 
     public User updateUser(User user);
 
-    public Profile updateProfile(Profile profile);
 
 }
