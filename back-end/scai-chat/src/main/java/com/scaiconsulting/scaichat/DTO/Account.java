@@ -1,4 +1,7 @@
-package com.scaiconsulting.scaichat.entities;
+package com.scaiconsulting.scaichat.DTO;
+
+import com.scaiconsulting.scaichat.entities.Profile;
+import com.scaiconsulting.scaichat.entities.User;
 
 //DTO
 public class Account {

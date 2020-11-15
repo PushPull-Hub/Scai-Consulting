@@ -1,7 +1,7 @@
 package com.scaiconsulting.scaichat.DAOImplementations;
 
 import com.scaiconsulting.scaichat.DAOs.UserDAO;
-import com.scaiconsulting.scaichat.entities.Account;
+import com.scaiconsulting.scaichat.DTO.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import org.hibernate.Session;
@@ -53,13 +53,6 @@ public class UserDAOImplementation implements UserDAO {
     public Profile getProfile(int id) {
          Session currentSession = entityManager.unwrap(Session.class);
         return currentSession.get(Profile.class, id);
-        /*Session currentSession = entityManager.unwrap(Session.class);
-        Query<Profile> theQuery = currentSession.createQuery("from Profile p "
-                + "JOIN FETCH  p.posts "
-                + "where p.id=:profileId", Profile.class)
-                .setParameter("profileId",id );
-
-        return theQuery.getSingleResult();*/
     }
 
     @Override

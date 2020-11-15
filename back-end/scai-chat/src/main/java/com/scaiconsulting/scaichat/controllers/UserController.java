@@ -1,7 +1,7 @@
 package com.scaiconsulting.scaichat.controllers;
 
 
-import com.scaiconsulting.scaichat.entities.Account;
+import com.scaiconsulting.scaichat.DTO.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.UserService;
