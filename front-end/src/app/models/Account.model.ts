@@ -1,9 +1,7 @@
 import { Profile } from './Profile.model';
+import { User } from './User.model';
 
 export class Account extends Object {
-  user: {
-    email: string;
-    password: string;
-  };
   profile: Profile;
+  user: User;
 }

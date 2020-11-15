@@ -1,26 +1,20 @@
-import { Friend } from './Friend.model';
+import { Gender } from './Gender.model';
 
 export class User extends Object {
-  id: string;
-  username: string;
-  email: string;
-  password: string;
-  firstname: string;
-  secondname: string;
-  isActive: boolean;
+  id: number;
+  firstName: string;
+  lastName: string;
+  gender: Gender;
+  active: boolean;
   about: string;
-  gender: string;
   birthday: {
     year: number;
     month: number;
     day: number;
   };
-  hometown: string;
-  adress: string;
+  hometown;
+  address: string;
   location: string;
-  work_in: string;
-  relationship_status: string;
-  friends: Friend[];
-  profile_picture: string;
-  private: [];
+  workIn: string;
+  relationshipStatus: string;
 }
