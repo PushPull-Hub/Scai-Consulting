@@ -7,14 +7,16 @@ export class User extends Object {
   gender: Gender;
   active: boolean;
   about: string;
-  birthday: {
-    year: number;
-    month: number;
-    day: number;
-  };
-  hometown;
+  birthday: Birthday;
+  hometown: string;
   address: string;
   location: string;
   workIn: string;
   relationshipStatus: string;
+}
+
+export class Birthday extends Object {
+  year: number;
+  month: number;
+  day: number;
 }
