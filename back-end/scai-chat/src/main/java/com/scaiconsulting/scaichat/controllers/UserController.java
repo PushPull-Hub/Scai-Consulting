@@ -32,11 +32,11 @@ public class UserController {
 
     // Read
 
-    @GetMapping("/profiles/{email}/{password}")
-    public Profile getProfile(@PathVariable String email, @PathVariable String password) {
-        Profile theProfile = userService.getProfile(email, password);
+    @PostMapping("/profiles/profile")
+    public Profile getProfile(@RequestBody Profile profile ) {
+        Profile theProfile = userService.getProfile(profile.getEmail(), profile.getPassword());
         if (theProfile == null) {
-            throw new RuntimeException("the Profile  with email " + email + "isn't found ");
+            throw new RuntimeException("the Profile  with email " + profile.getEmail() + "isn't found ");
         }
         return theProfile ;
     }
