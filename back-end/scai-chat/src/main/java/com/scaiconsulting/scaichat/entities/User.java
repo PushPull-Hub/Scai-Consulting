@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -43,6 +44,10 @@ public class User {
 
     @Column(name = "relationship_status")
     private String relationshipStatus;
+
+    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false, nullable = false)
+    private List<Post> posts;
 
 
     public User() {
