@@ -11,6 +11,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { PostComponent } from './post/post.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
     PostComponent,
     MessageBoxComponent,
     CreatePostComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,
