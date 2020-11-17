@@ -4,12 +4,14 @@ import com.scaiconsulting.scaichat.DAOs.UserDAO;
 import com.scaiconsulting.scaichat.DTO.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
+import com.scaiconsulting.scaichat.error_handlers.NotFoundException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
@@ -35,11 +37,18 @@ public class UserDAOImplementation implements UserDAO {
 
     @Override
     public Profile getProfile(String email, String password) {
+        Profile theProfile = null ;
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Profile> theQuery = currentSession.createQuery("from Profile profile where profile.email = :email and profile.password = :password ");
                 theQuery.setParameter("email", email)
                  .setParameter("password", password);
-        return theQuery.getSingleResult();
+        try{
+            theProfile =  theQuery.getSingleResult();
+        }
+        catch (NoResultException nre ) {
+            throw new NotFoundException("bad credentials");
+        }
+        return theProfile;
     }
 
     @Override

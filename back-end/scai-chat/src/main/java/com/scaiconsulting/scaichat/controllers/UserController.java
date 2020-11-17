@@ -4,8 +4,12 @@ package com.scaiconsulting.scaichat.controllers;
 import com.scaiconsulting.scaichat.DTO.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
+import com.scaiconsulting.scaichat.error_handlers.ErrorResponse;
+import com.scaiconsulting.scaichat.error_handlers.NotFoundException;
 import com.scaiconsulting.scaichat.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +40,7 @@ public class UserController {
     public Profile getProfile(@RequestBody Profile profile ) {
         Profile theProfile = userService.getProfile(profile.getEmail(), profile.getPassword());
         if (theProfile == null) {
-            throw new RuntimeException("the Profile  with email " + profile.getEmail() + "isn't found ");
+            throw new NotFoundException("bad_credentials");
         }
         return theProfile ;
     }
@@ -64,5 +68,17 @@ public class UserController {
 
     }
 
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleException(NotFoundException exception) {
+        ErrorResponse error = new ErrorResponse();
+
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessage(exception.getMessage());
+        error.setTimestamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+
+    }
 
 }
