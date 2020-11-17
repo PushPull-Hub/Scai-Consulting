@@ -68,17 +68,4 @@ public class UserController {
 
     }
 
-
-    @ExceptionHandler
-    public ResponseEntity<ErrorResponse> handleException(NotFoundException exception) {
-        ErrorResponse error = new ErrorResponse();
-
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setMessage(exception.getMessage());
-        error.setTimestamp(System.currentTimeMillis());
-
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-
-    }
-
 }
