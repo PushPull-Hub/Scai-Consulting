@@ -4,14 +4,19 @@ package com.scaiconsulting.scaichat.controllers;
 import com.scaiconsulting.scaichat.DTO.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
-import com.scaiconsulting.scaichat.error_handlers.ErrorResponse;
 import com.scaiconsulting.scaichat.error_handlers.NotFoundException;
+import com.scaiconsulting.scaichat.repos.ProfileRepository;
 import com.scaiconsulting.scaichat.services.UserService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -26,6 +31,31 @@ public class UserController {
         userService = theUserService;
     }
 
+    @Autowired
+    ProfileRepository profileRepository;
+
+    @PostMapping("/sign-in")
+    public ResponseEntity<Profile> getProfile(@RequestBody Profile profile) {
+        // Profile theProfile = userService.getProfile(profile.getEmail(), profile.getPassword());
+        Profile AuthenticatedProfile = profileRepository.getAuthenticatedProfile(profile.getEmail(),profile.getPassword());
+        if (AuthenticatedProfile != null) {
+            HttpHeaders headers = new HttpHeaders();
+            HashMap<String, Object> addedValues = new HashMap<String, Object>();
+            addedValues.put("id",AuthenticatedProfile.getId());
+            String token = Jwts.builder()
+                    .addClaims(addedValues)
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
+                    .signWith(SignatureAlgorithm.HS512, "ciao").compact();
+            headers.add("Authentication","Bearer"+token);
+            return ResponseEntity.ok().headers(headers).build();
+        }else {
+            // throw new NotFoundException("bad_credentials");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+
     // Create
 
     @PostMapping("/profiles")
@@ -36,14 +66,6 @@ public class UserController {
 
     // Read
 
-    @PostMapping("/profiles/profile")
-    public Profile getProfile(@RequestBody Profile profile ) {
-        Profile theProfile = userService.getProfile(profile.getEmail(), profile.getPassword());
-        if (theProfile == null) {
-            throw new NotFoundException("bad_credentials");
-        }
-        return theProfile ;
-    }
 
     @GetMapping("/users")
     public List<User> getUsers() {
