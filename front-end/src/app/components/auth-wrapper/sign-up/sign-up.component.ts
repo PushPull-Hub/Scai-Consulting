@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserServices } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-import { Account } from 'src/app/models/Account.model';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Profile } from 'src/app/models/Profile.model';
 import { User } from 'src/app/models/User.model';
 import { Gender } from 'src/app/models/Gender.model';
+import { Subscription, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
   date: NgbDateStruct;
   options = [
     { name: 'Male', value: Gender[0] },
@@ -21,6 +21,7 @@ export class SignUpComponent implements OnInit {
     { name: 'other', value: Gender[2] },
   ];
   selectedOption: Gender;
+  signingUp: Subscription;
 
   constructor(private userService: UserServices, private router: Router) {}
 
@@ -47,7 +48,16 @@ export class SignUpComponent implements OnInit {
 
     profile.user = user;
 
-    this.userService.createAccount(profile);
-    this.router.navigate(['/sign-in']);
+    this.signingUp = this.userService
+      .createAccount(profile)
+      .subscribe((responseData) => {
+        if (responseData.id) {
+          this.router.navigate(['/sign-in']);
+        } else throw new Error('something went wrong');
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.signingUp.unsubscribe();
   }
 }
