@@ -4,6 +4,9 @@ import { UserServices } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { Account } from 'src/app/models/Account.model';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { Profile } from 'src/app/models/Profile.model';
+import { User } from 'src/app/models/User.model';
+import { Gender } from 'src/app/models/Gender.model';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,11 +16,11 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 export class SignUpComponent implements OnInit {
   date: NgbDateStruct;
   options = [
-    { name: 'Male', value: 'Male' },
-    { name: 'Female', value: 'Female' },
-    { name: 'other', value: 'Other' },
+    { name: 'Male', value: Gender[0] },
+    { name: 'Female', value: Gender[1] },
+    { name: 'other', value: Gender[2] },
   ];
-  selectedOption: string;
+  selectedOption: Gender;
 
   constructor(private userService: UserServices, private router: Router) {}
 
@@ -29,22 +32,22 @@ export class SignUpComponent implements OnInit {
     const password = f.value.password;
     const secondName = f.value.secondname;
 
-    let account: Account = new Account();
+    let profile = new Profile();
+    let user = new User();
 
-    account.user = {
-      email: email,
-      password: password,
-    };
+    profile.id = 0;
+    profile.email = email;
+    profile.password = password;
 
-    account.profile = {
-      id: 0,
-      firstName: firstName,
-      lastName: secondName,
-      gender: this.selectedOption,
-      active: 1,
-    };
+    user.id = 0;
+    user.firstName = firstName;
+    user.lastName = secondName;
+    user.gender = this.selectedOption;
+    user.active = false;
 
-    this.userService.createAccount(account);
+    profile.user = user;
+
+    this.userService.createAccount(profile);
     this.router.navigate(['/sign-in']);
   }
 }
