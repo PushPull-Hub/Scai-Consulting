@@ -5,10 +5,16 @@ import com.scaiconsulting.scaichat.DTO.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.UserService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -24,14 +30,28 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     @Transactional
-    public void createAccount(Account account) {
-         userDao.createAccount(account);
+    public User signUp(Profile profile) {
+         return  userDao.createProfile(profile)   ;
     }
 
     @Override
     @Transactional
-    public Profile getProfile(String email, String password) {
-        return userDao.getProfile(email,password);
+    public ResponseEntity<User> getProfile(String email, String password) {
+        Profile AuthenticatedProfile = userDao.getProfile(email,password);
+        if (AuthenticatedProfile != null) {
+            HttpHeaders headers = new HttpHeaders();
+            HashMap<String, Object> addedValues = new HashMap<String, Object>();
+            addedValues.put("id", AuthenticatedProfile.getId());
+            String token = Jwts.builder()
+                    .addClaims(addedValues)
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
+                    .signWith(SignatureAlgorithm.HS512, "ciao").compact();
+            headers.add("Authentication", "Bearer" + token);
+            return ResponseEntity.ok().headers(headers).body(AuthenticatedProfile.getUser());
+        }else {
+            return null ;
+        }
     }
 
     @Override

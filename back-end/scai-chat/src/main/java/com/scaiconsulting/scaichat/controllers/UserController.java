@@ -1,22 +1,14 @@
 package com.scaiconsulting.scaichat.controllers;
 
-
-import com.scaiconsulting.scaichat.DTO.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.error_handlers.NotFoundException;
-import com.scaiconsulting.scaichat.repos.ProfileRepository;
 import com.scaiconsulting.scaichat.services.UserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -31,42 +23,27 @@ public class UserController {
         userService = theUserService;
     }
 
-    @Autowired
-    ProfileRepository profileRepository;
+    @GetMapping("/test")
+    public String confirmFunctionalityOfTheApp () {
+        return "Get Request Received Every Thing is working Fine , time on server is : " + LocalDateTime.now() ;
+    }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<Profile> getProfile(@RequestBody Profile profile) {
-        // Profile theProfile = userService.getProfile(profile.getEmail(), profile.getPassword());
-        Profile AuthenticatedProfile = profileRepository.getAuthenticatedProfile(profile.getEmail(),profile.getPassword());
+    public ResponseEntity<User> signIn(@RequestBody Profile profile) {
+        ResponseEntity<User> AuthenticatedProfile = userService.getProfile(profile.getEmail(), profile.getPassword());
         if (AuthenticatedProfile != null) {
-            HttpHeaders headers = new HttpHeaders();
-            HashMap<String, Object> addedValues = new HashMap<String, Object>();
-            addedValues.put("id",AuthenticatedProfile.getId());
-            String token = Jwts.builder()
-                    .addClaims(addedValues)
-                    .setIssuedAt(new Date(System.currentTimeMillis()))
-                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
-                    .signWith(SignatureAlgorithm.HS512, "ciao").compact();
-            headers.add("Authentication","Bearer"+token);
-            return ResponseEntity.ok().headers(headers).build();
-        }else {
-            // throw new NotFoundException("bad_credentials");
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return AuthenticatedProfile;
+        } else {
+            throw new NotFoundException("bad_credentials");
         }
     }
 
-
-    // Create
-
-    @PostMapping("/profiles")
-    public Account createAccount(@RequestBody Account account) {
-        userService.createAccount(account);
-        return account;
+    @PostMapping("/sign-up")
+    public User signUp(@RequestBody Profile profile) {
+        return userService.signUp(profile);
     }
 
     // Read
-
-
     @GetMapping("/users")
     public List<User> getUsers() {
         return userService.getUsers();
@@ -78,7 +55,6 @@ public class UserController {
     }
 
     // Update
-
     @PutMapping("/users")
     public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
