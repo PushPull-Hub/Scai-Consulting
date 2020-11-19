@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserDAO {
 
-    public void createAccount(Account account);
+    public User createProfile(Profile profile);
 
     public Profile getProfile(String email, String password);
 

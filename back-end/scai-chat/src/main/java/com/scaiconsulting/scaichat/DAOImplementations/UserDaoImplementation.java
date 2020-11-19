@@ -8,6 +8,7 @@ import com.scaiconsulting.scaichat.error_handlers.NotFoundException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -25,30 +26,36 @@ public class UserDAOImplementation implements UserDAO {
     }
 
     @Override
-    public void createAccount(Account account) {
+    public User createProfile(Profile profile) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Session currentSession = entityManager.unwrap(Session.class);
-        User user = account.getUser();
-        Profile profile = account.getProfile();
-        user.setId(0);
         profile.setId(0);
-        profile.setUser(user);
+        profile.getUser().setId(0);
+        profile.setPassword(encoder.encode(profile.getPassword()));
         currentSession.saveOrUpdate(profile);
+        return profile.getUser();
     }
 
     @Override
     public Profile getProfile(String email, String password) {
-        Profile theProfile = null ;
+        Profile profile = null;
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<Profile> theQuery = currentSession.createQuery("from Profile profile where profile.email = :email and profile.password = :password ");
-                theQuery.setParameter("email", email)
-                 .setParameter("password", password);
-        try{
-            theProfile =  theQuery.getSingleResult();
-        }
-        catch (NoResultException nre ) {
+        Query<Profile> theQuery = currentSession.createQuery("from Profile profile where profile.email = :email")
+                .setParameter("email", email);
+
+        try {
+            Profile testedProfile = theQuery.getSingleResult();
+            boolean isPasswordMatch = encoder.matches(password, testedProfile.getPassword());
+            if (!isPasswordMatch) {
+                profile = testedProfile ;
+            }
+        } catch (NoResultException nre) {
             throw new NotFoundException("bad credentials");
         }
-        return theProfile;
+
+        return profile;
     }
 
     @Override
@@ -60,7 +67,7 @@ public class UserDAOImplementation implements UserDAO {
 
     @Override
     public User getUser(int id) {
-         Session currentSession = entityManager.unwrap(Session.class);
+        Session currentSession = entityManager.unwrap(Session.class);
         return currentSession.get(User.class, id);
     }
 
