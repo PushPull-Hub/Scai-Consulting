@@ -27,10 +27,20 @@ public class AuthFilter extends OncePerRequestFilter {
             return;
         }
 
+        if ("/sign-up".equalsIgnoreCase(httpServletRequest.getRequestURI())) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
+
+        if ("/testing".equalsIgnoreCase(httpServletRequest.getRequestURI())) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
+
+
         String header = httpServletRequest.getHeader("Authentication");
         if (header == null || !header.startsWith("Bearer")) {
             throw new IllegalArgumentException("Header not found");
-
         }
         Jwts.parser().setSigningKey("scaiconsulting").parseClaimsJws(header.replace("Bearer ", "")).getBody();
         filterChain.doFilter(httpServletRequest, httpServletResponse);
