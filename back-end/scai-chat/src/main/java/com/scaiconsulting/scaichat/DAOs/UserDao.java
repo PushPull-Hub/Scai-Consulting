@@ -1,6 +1,5 @@
 package com.scaiconsulting.scaichat.DAOs;
 
-import com.scaiconsulting.scaichat.DTO.Account;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 
