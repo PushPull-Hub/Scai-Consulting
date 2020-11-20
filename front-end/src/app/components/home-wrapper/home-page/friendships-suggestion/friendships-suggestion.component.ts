@@ -20,21 +20,21 @@ export class FriendshipsSuggestionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.friendsSuggestion = this.friendsService
-      .getTenFriendsSuggestion()
-      .slice(0, 5);
-    this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    // this.friendsSuggestion = this.friendsService
+    //   .getTenFriendsSuggestion()
+    //   .slice(0, 5);
+    // this.male_avatar_photo_url = environment.male_avatar_photo_url;
   }
 
-  getFriendProperty = (id: string, property: string) =>
-    this.userService.getaUserProperty(id, property);
+  // getFriendProperty = (id: string, property: string) =>
+  //   this.userService.getaUserProperty(id, property);
 
-  addFriend(addedId) {
-    this.friendsService.addFriend(addedId);
-    setTimeout(() => {
-      this.friendsSuggestion = this.friendsSuggestion.filter(
-        (suggested) => suggested !== addedId
-      );
-    }, 500);
-  }
+  // addFriend(addedId) {
+  //   this.friendsService.addFriend(addedId);
+  //   setTimeout(() => {
+  //     this.friendsSuggestion = this.friendsSuggestion.filter(
+  //       (suggested) => suggested !== addedId
+  //     );
+  //   }, 500);
+  // }
 }

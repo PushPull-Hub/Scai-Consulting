@@ -42,9 +42,9 @@ export class IntroComponent implements OnInit {
   constructor(
     private userService: UserServices,
     private authService: AuthService
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   showInputs = () => {
     this.EditButtonClicked = true;

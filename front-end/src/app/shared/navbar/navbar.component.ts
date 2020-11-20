@@ -12,9 +12,9 @@ export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.urlParam = `${this.authService.getLoggedUser().username}/${
-      this.authService.getLoggedUser().id
-    }`;
+    // this.urlParam = `${this.authService.getLoggedUser().username}/${
+    // this.authService.getLoggedUser().id
+    // }`;
   }
 
   logOut = () => this.authService.logOut();

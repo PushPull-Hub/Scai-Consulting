@@ -24,22 +24,22 @@ export class MessageBoxComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loggedUserId = this.authService.loggedUser.id;
+    // this.loggedUserId = this.authService.loggedUser.id;
   }
 
-  showConversation() {
-    this.clicked = !this.clicked;
-  }
-  hideMessageBox() {
-    // this.messageIconClicked = false;
-  }
+  // showConversation() {
+  //   this.clicked = !this.clicked;
+  // }
+  // hideMessageBox() {
+  //   // this.messageIconClicked = false;
+  // }
 
-  getFriendProperty = (id: string, property: string) => {
-    return this.friendsService.getaFriendProperty(id, property);
-  };
+  // getFriendProperty = (id: string, property: string) => {
+  //   return this.friendsService.getaFriendProperty(id, property);
+  // };
 
-  sendMessage(reciever: string, text: string) {
-    this.messagesService.sendMessage(reciever, text);
-    this.text = '';
-  }
+  // sendMessage(reciever: string, text: string) {
+  //   this.messagesService.sendMessage(reciever, text);
+  //   this.text = '';
+  // }
 }
