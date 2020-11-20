@@ -5,39 +5,48 @@ import { environment } from '../../environments/environment';
 import { Account } from '../models/Account.model';
 import { Profile } from '../models/Profile.model';
 import { User } from '../models/User.model';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserServices implements OnInit {
-  usersList: User[] = JSON.parse(localStorage.getItem('Users')) || [];
+  usersList = new Subject<User[]>();
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {}
 
-  createAccount(account: Account) {
-    this.http
-      .post<Account>(environment.rootUrl + `/api/profiles`, account)
-      .subscribe((responseData) => console.log(responseData));
+  createAccount(profile: Profile) {
+    return this.http.post<User>(environment.rootUrl + `/api/sign-up`, profile);
   }
 
-  getProfile(email: string, password: string) {
-    return this.http.get<Account>(
-      environment.rootUrl + `/api/profiles/${email}/${password}`
-    );
+  getProfile(email: string, password: string): Observable<Profile> {
+    const profile = new Profile();
+    profile.email = email;
+    profile.password = password;
+
+    return this.http
+      .post<Profile>(environment.rootUrl + `/api/profiles/profile`, profile)
+      .pipe(
+        map((responseData) => {
+          if (responseData.user) {
+            return responseData;
+          }
+          return null;
+        })
+      );
   }
 
   getUsers() {
     return this.http
       .get<User[]>(environment.rootUrl + `/api/users`)
-      .subscribe((responseData) => console.log(responseData));
+      .subscribe((responseData) => this.usersList.next(responseData));
   }
 
   getUserById(id: string) {
-    return this.http
-      .get<User>(environment.rootUrl + `/api/users/` + id)
-      .subscribe((responseData) => console.log(responseData));
+    return this.http.get<User>(environment.rootUrl + `/api/users/` + id);
   }
 
   updateUser(user: User) {
