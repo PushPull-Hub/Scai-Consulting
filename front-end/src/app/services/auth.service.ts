@@ -7,43 +7,34 @@ import { UserServices } from './user.service';
 import { User } from '../models/User.model';
 import { Profile } from '../models/Profile.model';
 
+import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class AuthService {
-
-  private loggedUserSubject : BehaviorSubject<User> ;
-  public loggedUser : Observable<User>;
+  private loggedUserSubject: BehaviorSubject<User>;
+  loggedUser = new Subject<User>();
   isLoggedIn: boolean = false;
 
-  constructor( private http: HttpClient , private router: Router, private userService: UserServices) {
-    this.loggedUser = this.loggedUserSubject.asObservable();
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userService: UserServices
+  ) {}
+
+  logIn(email: string, password: string) {
+    const profile = new Profile();
+    profile.email = email;
+    profile.password = password;
+    return this.http.post<User>(environment.rootUrl + `/api/sign-in`, profile, {
+      observe: 'response',
+    });
   }
 
-  logIn (email: string, password: string): boolean {
-
-    const profile = new Profile();
-    profile.email = email ;
-    profile.password = password ;
-
-    this.http.post<Profile>(
-        environment.rootUrl + `/api/profiles/profile`, profile 
-      ).subscribe( responseData => {
-        this.loggedUserSubject.next(responseData.user);
-        localStorage.setItem('loggedUserId', this.loggedUser.subscribe(user=> user.id).toString() );
-        // set user to active 
-      })
-      // return false;
-      return true;
-    }
-  };
-
-  isAuthenticated ( ) : void  {
-    this.isLoggedIn = localStorage.getItem('loggedUserId') ? true : false;
+  isAuthenticated() {
+    this.isLoggedIn = localStorage.getItem('token') ? true : false;
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(this.isLoggedIn);
@@ -51,14 +42,20 @@ export class AuthService {
     });
   }
 
-  logOut () {
-    this.loggedUserSubject.next(null);
+  logOut() {
+    this.loggedUser.next(null);
     this.isLoggedIn = false;
-    // update user to desactived 
-    localStorage.removeItem("loggedUserId")
+    // update user to desactived
+    localStorage.removeItem('loggedUserId');
+    localStorage.removeItem('token');
     this.router.navigate(['/app/sign-in']);
   }
 
-
-
+  getLoggedUser(): User {
+    if (!this.loggedUser) {
+      if (!localStorage.getItem('token')) return null;
+      this.userService.getUserById(localStorage.getItem('loggedUserId'));
+    }
+    this.loggedUser.subscribe((user) => user);
+  }
 }
