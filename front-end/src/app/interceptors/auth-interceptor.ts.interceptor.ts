@@ -25,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (this.token) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.token}`,
+          Authentication: `Bearer ${this.token}`,
         },
       });
     }
@@ -38,6 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         const error = err.error.message || err.statusText;
         this.alertService.error(error);
+        // this.authService.logOut();
         return throwError(error);
       })
     );
