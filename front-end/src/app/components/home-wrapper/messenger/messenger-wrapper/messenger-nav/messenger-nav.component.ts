@@ -22,8 +22,8 @@ export class MessengerNavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.conversations = this.messageService.getUserConversations();
-    this.loggedUserId = this.authService.getLoggedUserId();
+    // this.conversations = this.messageService.getUserConversations();
+    // this.loggedUserId = this.authService.getLoggedUserId();
   }
 
   getFriendUsername(conversationId: string): string {

@@ -20,11 +20,11 @@ export class ActiveFriendsComponent implements OnInit {
   }
 
   showActiveFriends = () => {
-    this.clicked = !this.clicked;
-    this.ActiveFriends = this.friendsService.getActiveFriendsList();
+    //  this.clicked = !this.clicked;
+    //this.ActiveFriends = this.friendsService.getActiveFriendsList();
   };
 
   showFriendUserName(id: string) {
-    return this.friendsService.getaFriendProperty(id, 'username');
+    //return this.friendsService.getaFriendProperty(id, 'username');
   }
 }
