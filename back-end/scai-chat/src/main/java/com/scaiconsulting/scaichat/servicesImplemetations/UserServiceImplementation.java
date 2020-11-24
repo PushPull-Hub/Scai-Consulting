@@ -40,12 +40,12 @@ public class UserServiceImplementation implements UserService {
         if (AuthenticatedProfile != null) {
             HttpHeaders headers = new HttpHeaders();
             HashMap<String, Object> addedValues = new HashMap<String, Object>();
-            addedValues.put("id", AuthenticatedProfile.getId());
+            addedValues.put("id", AuthenticatedProfile.getUser().getId());
             String token = Jwts.builder()
                     .addClaims(addedValues)
                     .setIssuedAt(new Date(System.currentTimeMillis()))
                     .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
-                    .signWith(SignatureAlgorithm.HS512, "ciao").compact();
+                    .signWith(SignatureAlgorithm.HS512, "scaiconsulting").compact();
             headers.add("Authentication", "Bearer" + token);
             return ResponseEntity.ok().headers(headers).body(AuthenticatedProfile.getUser());
         }else {
