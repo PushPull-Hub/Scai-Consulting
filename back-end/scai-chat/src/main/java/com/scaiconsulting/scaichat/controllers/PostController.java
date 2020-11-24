@@ -38,21 +38,14 @@ public class PostController {
     }
 
     @PostMapping("/posts")                                 //  works fine
-    public Post createPost(@RequestHeader("Authentication") String token,  @RequestBody Post post) {
+    public Post createPost(@RequestHeader("Authentication") String token, @RequestBody Post post) {
         post.setId(0);
         post.setUserId(new IdExtractor(token).getAuthenticatedUserId());
         return postService.createPost(post);
     }
 
-    @PostMapping("/posts/{postId}")                        //  works fine
-    public PostComment commentOnPost(@RequestBody PostComment comment, @PathVariable int postId) {
-        comment.setId(0);
-        comment.setPostId(postId);
-        return postService.commentOnPost(comment) ;
-    }
-
     @PutMapping("/posts")                                 //  works fine
-    public Post updatePost(@RequestHeader("Authentication") String token,@RequestBody Post post) {
+    public Post updatePost(@RequestHeader("Authentication") String token, @RequestBody Post post) {
         post.setUserId(new IdExtractor(token).getAuthenticatedUserId());
         return postService.updatePost(post);
     }
@@ -61,6 +54,27 @@ public class PostController {
     public void deletePost(@PathVariable int postId) {
         postService.deletePost(postId);
     }
+
+
+    @PostMapping("/posts/{postId}/comments")                        //  works fine
+    public PostComment addComment(@RequestHeader("Authentication") String token,
+                                  @RequestBody PostComment comment,
+                                  @PathVariable int postId) {
+        Post post = postService.getPost(postId);
+        if (post != null) {
+            comment.setPost(post);
+            comment.setId(0);
+            comment.setUserId(new IdExtractor(token).getAuthenticatedUserId());
+        }
+        return postService.commentOnPost(comment);
+    }
+
+    /*   @DeleteMapping("/posts/{postId}/comments/{commentId}")
+    public ResponseEntity<?> deleteComment(@PathVariable (value = "postId") int postId,
+                                           @PathVariable (value = "commentId") int commentId){
+
+
+    }*/
 
 
 }

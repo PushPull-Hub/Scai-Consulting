@@ -1,5 +1,6 @@
 package com.scaiconsulting.scaichat.controllers;
 
+import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
@@ -52,6 +53,11 @@ public class UserController {
     @GetMapping("/users/{userId}")
     public User getUserById(@PathVariable int userId) {
         return userService.getUser(userId);
+    }
+
+    @GetMapping("/user")
+    public User getAuthenticatedUser (@RequestHeader("Authentication") String token ) {
+        return this.userService.getUser(new IdExtractor(token).getAuthenticatedUserId());
     }
 
     // Update
