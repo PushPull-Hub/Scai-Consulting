@@ -1,7 +1,8 @@
 package com.scaiconsulting.scaichat.entities;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "post")
@@ -18,7 +19,7 @@ public class Post {
     private String description;
 
     @Column(name = "object_id")
-    private String object_id ;
+    private String object_id;
 
     @Column(name = "location")
     private String location;
@@ -33,11 +34,17 @@ public class Post {
     private boolean pubblico;
 
     @Column(name = "user_id")
-    private int userId ;
+    private int userId;
 
-    @OneToMany( mappedBy = "post_id",cascade = CascadeType.ALL)
-    private List<PostComment> commentList ;
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "post")
+    private Set<PostComment> comments = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "post")
+    private Set<PostLike> likersIds = new HashSet<>();
 
     public Post() {
     }
@@ -124,5 +131,22 @@ public class Post {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public Set<PostComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<PostComment> comments) {
+        this.comments = comments;
+    }
+
+
+    public Set<PostLike> getLikersIds() {
+        return likersIds;
+    }
+
+    public void setLikersIds(Set<PostLike> likersIds) {
+        this.likersIds = likersIds;
     }
 }

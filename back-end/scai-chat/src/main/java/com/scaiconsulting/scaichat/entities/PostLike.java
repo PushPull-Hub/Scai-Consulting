@@ -1,5 +1,9 @@
 package com.scaiconsulting.scaichat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,19 +14,22 @@ public class PostLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "likers_ids")
-    private int likersIds;
+    @Column(name = "likers_ids",nullable = true)
+    private int likersId;
 
-    @Column(name = "post_id")
-    private int postId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "post_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Post post;
 
 
     public PostLike() {
     }
 
-    public PostLike(int likersIds, int postId) {
-        this.likersIds = likersIds;
-        this.postId = postId;
+    public PostLike(int likersId, Post post) {
+        this.likersId = likersId;
+        this.post = post;
     }
 
     public int getId() {
@@ -33,19 +40,21 @@ public class PostLike {
         this.id = id;
     }
 
-    public int getLikersIds() {
-        return likersIds;
+    public int getLikersId() {
+        return likersId;
     }
 
-    public void setLikersIds(int likersIds) {
-        this.likersIds = likersIds;
+    public void setLikersId(int likersId) {
+        this.likersId = likersId;
     }
 
-    public int getPostId() {
-        return postId;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    public void setPost(Post post) {
+        this.post = post;
     }
+
+
 }

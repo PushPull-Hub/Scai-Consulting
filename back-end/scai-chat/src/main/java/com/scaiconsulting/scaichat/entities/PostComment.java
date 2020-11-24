@@ -1,5 +1,9 @@
 package com.scaiconsulting.scaichat.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,8 +20,13 @@ public class PostComment {
     @Column(name = "comment")
     private String comment;
 
-    @Column(name = "post_id")
-    private int postId;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "post_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Post post;
+
 
     @Column(name = "user_id")
     private int userId;
@@ -26,10 +35,10 @@ public class PostComment {
 
     }
 
-    public PostComment(String createdTime, String comment, int postId, int userId) {
+    public PostComment(String createdTime, String comment, int userId) {
         this.createdTime = createdTime;
         this.comment = comment;
-        this.postId = postId;
+        // this.postId = postId;
         this.userId = userId;
     }
 
@@ -57,19 +66,19 @@ public class PostComment {
         this.comment = comment;
     }
 
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }
