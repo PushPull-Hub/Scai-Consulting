@@ -3,7 +3,7 @@ package com.scaiconsulting.scaichat.DAOImplementations;
 import com.scaiconsulting.scaichat.DAOs.UserDAO;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
-import com.scaiconsulting.scaichat.error_handlers.NotFoundException;
+import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;

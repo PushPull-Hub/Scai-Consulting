@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -33,6 +34,9 @@ public class Post {
 
     @Column(name = "user_id")
     private int userId ;
+
+    @OneToMany( mappedBy = "post_id",cascade = CascadeType.ALL)
+    private List<PostComment> commentList ;
 
 
     public Post() {

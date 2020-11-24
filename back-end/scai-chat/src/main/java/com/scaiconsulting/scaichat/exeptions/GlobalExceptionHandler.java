@@ -1,4 +1,4 @@
-package com.scaiconsulting.scaichat.error_handlers;
+package com.scaiconsulting.scaichat.exeptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

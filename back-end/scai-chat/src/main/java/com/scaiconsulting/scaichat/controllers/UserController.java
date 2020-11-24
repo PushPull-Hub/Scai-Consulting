@@ -2,7 +2,7 @@ package com.scaiconsulting.scaichat.controllers;
 
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
-import com.scaiconsulting.scaichat.error_handlers.NotFoundException;
+import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

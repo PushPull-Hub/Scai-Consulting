@@ -1,4 +1,4 @@
-package com.scaiconsulting.scaichat.error_handlers;
+package com.scaiconsulting.scaichat.exeptions;
 
 public class NotFoundException extends  RuntimeException {
 
