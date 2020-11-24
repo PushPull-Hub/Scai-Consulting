@@ -32,8 +32,8 @@ export class SignInComponent implements OnInit, OnDestroy {
             'token',
             responseData.headers.get('Authentication')
           );
-          localStorage.setItem('loggedUserId', responseData.body.id.toString());
-          this.authService.loggedUser.next(responseData.body);
+          //          localStorage.setItem('loggedUserId', responseData.body.id.toString());
+          this.authService.authenticatedUser.next(responseData.body);
           this.combination = false;
           this.router.navigate(['/home']);
         } else {
