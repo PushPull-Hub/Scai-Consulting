@@ -1,5 +1,6 @@
 package com.scaiconsulting.scaichat.controllers;
 
+import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.entities.PostComment;
 import com.scaiconsulting.scaichat.services.PostService;
@@ -20,25 +21,26 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/posts/{profileId}")                        //works fine
-    public List<Post> getPosts(@PathVariable int profileId) {
-        return postService.getPosts(profileId);
-
+    @GetMapping("/posts")                        //works fine
+    public List<Post> getPosts(@RequestHeader("Authentication") String token) {
+        int userId = new IdExtractor(token).getAuthenticatedUserId();
+        return postService.getPosts(userId);
     }
 
-    @GetMapping("/posts/post/{postId}")                     // works fine
+    @GetMapping("/posts/{postId}")                     // works fine
     public Post getPost(@PathVariable int postId) {
         return postService.getPost(postId);
     }
 
-    @GetMapping("/posts/post/{postId}/comments")            //  works fine
+    @GetMapping("/posts/{postId}/comments")            //  works fine
     public List<PostComment> getPostComments(@PathVariable int postId) {
         return postService.getPostComments(postId);
     }
 
     @PostMapping("/posts")                                 //  works fine
-    public Post createPost(@RequestBody Post post) {
+    public Post createPost(@RequestHeader("Authentication") String token,  @RequestBody Post post) {
         post.setId(0);
+        post.setUserId(new IdExtractor(token).getAuthenticatedUserId());
         return postService.createPost(post);
     }
 
@@ -50,7 +52,8 @@ public class PostController {
     }
 
     @PutMapping("/posts")                                 //  works fine
-    public Post updatePost(@RequestBody Post post) {
+    public Post updatePost(@RequestHeader("Authentication") String token,@RequestBody Post post) {
+        post.setUserId(new IdExtractor(token).getAuthenticatedUserId());
         return postService.updatePost(post);
     }
 
