@@ -8,24 +8,24 @@ import javax.persistence.*;
 public class FriendShip {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private int id ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column(name="friend")
-    private int friend ;
+    @Column(name = "user_id_1")
+        private int firstUserId;
 
-    @Column(name="user_id")
-    private int userId ;
+    @Column(name = "user_id_2")
+    private int secondUserId;
 
-    @Column(name="type")
-    private String type ;
+    @Column(name = "type")
+    private String type;
 
     public FriendShip() {
     }
 
-    public FriendShip(int friend, int userId, String type) {
-        this.friend = friend;
-        this.userId = userId;
+    public FriendShip(int firstUserId, int secondUserId, String type) {
+        this.firstUserId = firstUserId;
+        this.secondUserId = secondUserId;
         this.type = type;
     }
 
@@ -37,20 +37,20 @@ public class FriendShip {
         this.id = id;
     }
 
-    public int getFriend() {
-        return friend;
+    public int getFirstUserId() {
+        return firstUserId;
     }
 
-    public void setFriend(int friend) {
-        this.friend = friend;
+    public void setFirstUserId(int firstUserId) {
+        this.firstUserId = firstUserId;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getSecondUserId() {
+        return secondUserId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setSecondUserId(int secondUserId) {
+        this.secondUserId = secondUserId;
     }
 
     public String getType() {
@@ -60,4 +60,6 @@ public class FriendShip {
     public void setType(String type) {
         this.type = type;
     }
+
+
 }
