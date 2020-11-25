@@ -16,12 +16,13 @@ export class AuthInterceptor implements HttpInterceptor {
     private authService: AuthService,
     private alertService: AlertService
   ) {}
-  token: string = localStorage.getItem('token');
+  token: string;
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    this.token = localStorage.getItem('token');
     if (this.token) {
       request = request.clone({
         setHeaders: {
@@ -33,12 +34,15 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         if (err.status === 401) {
+          console.log('From Interceptor, Unauthorized ');
           this.authService.logOut();
-          window.location.reload();
+          // window.location.reload();
         }
         const error = err.error.message || err.statusText;
+        console.log(err);
+        console.log('From Interceptor ' + err.error.message);
         this.alertService.error(error);
-        // this.authService.logOut();
+        this.authService.logOut();
         return throwError(error);
       })
     );
