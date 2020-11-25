@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Friend } from 'src/app/models/Friend.model';
-
 import { FriendsService } from 'src/app/services/friends.service';
 import { UserServices } from 'src/app/services/user.service';
 import { MessagesService } from 'src/app/services/messages.service';
@@ -16,7 +14,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./friends.component.scss'],
 })
 export class FriendsComponent implements OnInit {
-  friends: Friend[];
+  //friends: Friend[];
   friendsSuggestion: string[];
   friendsIconClicked: boolean = true;
   AddFriendIconClicked: boolean = false;
@@ -35,37 +33,40 @@ export class FriendsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.friends = this.friendsService.getUserFriends();
-    this.friendsSuggestion = this.friendsService.getTenFriendsSuggestion();
-    this.loggedUserId = this.authService.loggedUser.id;
+    // this.friends = this.friendsService.getUserFriends();
+    // this.friendsSuggestion = this.friendsService.getTenFriendsSuggestion();
+    // this.loggedUserId = this.authService.loggedUser.id;
+    this.friendsService
+      .getFriendShipList()
+      .subscribe((data) => console.log(data));
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
   }
 
-  getFriendProperty = (id: string, property: string) =>
-    this.userService.getaUserProperty(id, property);
+  // getFriendProperty = (id: string, property: string) =>
+  //   this.userService.getaUserProperty(id, property);
 
-  onFriendsIconClick() {
-    this.friends = this.friendsService.getUserFriends();
-    this.friendsIconClicked = true;
-    this.AddFriendIconClicked = false;
-  }
+  // onFriendsIconClick() {
+  //   this.friends = this.friendsService.getUserFriends();
+  //   this.friendsIconClicked = true;
+  //   this.AddFriendIconClicked = false;
+  // }
 
-  onAddFriendsIconClick() {
-    this.AddFriendIconClicked = true;
-    this.friendsIconClicked = false;
-  }
+  // onAddFriendsIconClick() {
+  //   this.AddFriendIconClicked = true;
+  //   this.friendsIconClicked = false;
+  // }
 
-  addFriend(addedId) {
-    this.friendsService.addFriend(addedId);
-    this.friends = this.friendsService.getUserFriends();
-    this.friendsSuggestion = this.friendsSuggestion.filter(
-      (id) => id !== addedId
-    );
-  }
+  // addFriend(addedId) {
+  //   this.friendsService.addFriend(addedId);
+  //   this.friends = this.friendsService.getUserFriends();
+  //   this.friendsSuggestion = this.friendsSuggestion.filter(
+  //     (id) => id !== addedId
+  //   );
+  // }
 
-  getConversation(friendId) {
-    this.messageIconClicked = true;
-    this.conversation = this.messagesService.getConversation(friendId);
-    this.friendId = friendId;
-  }
+  // getConversation(friendId) {
+  //   this.messageIconClicked = true;
+  //   this.conversation = this.messagesService.getConversation(friendId);
+  //   this.friendId = friendId;
+  // }
 }

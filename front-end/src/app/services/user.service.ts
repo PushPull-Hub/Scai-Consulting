@@ -1,8 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-
-import { Account } from '../models/Account.model';
 import { Profile } from '../models/Profile.model';
 import { User } from '../models/User.model';
 import { Observable, Subject } from 'rxjs';
