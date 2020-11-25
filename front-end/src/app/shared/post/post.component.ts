@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Post } from 'src/app/models/Post.model';
+import { PostComment } from 'src/app/models/PostComment.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostsService } from 'src/app/services/posts.service';
-type CustomComment = { postId: string; commentText: string };
+// type CustomComment = { postId: string; commentText: string };
 
 @Component({
   selector: 'app-post',
@@ -14,7 +15,7 @@ export class PostComponent implements OnInit {
   textInputed: string;
   @Input() post: Post;
   @Output() likeButtonClicked = new EventEmitter();
-  @Output() addCommentButtonClicked = new EventEmitter<CustomComment>();
+  @Output() addCommentButtonClicked = new EventEmitter<PostComment>();
   isLikedByMe: boolean;
 
   constructor(
@@ -23,32 +24,36 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.commentButtonClicked = false;
+    this.commentButtonClicked = false;
     // this.isLikedByMe = this._checkIfItsLikedByMe(this.post.postId);
   }
 
-  // whenCommentButtonClicked() {
-  //   this.commentButtonClicked = !this.commentButtonClicked;
-  // }
+  whenCommentButtonClicked() {
+    this.commentButtonClicked = !this.commentButtonClicked;
+  }
 
-  // addComment() {
-  //   const _comment: CustomComment = {
-  //     postId: this.post.postId,
-  //     commentText: this.textInputed,
-  //   };
-  //   this.addCommentButtonClicked.emit(_comment);
-  //   this.textInputed = '';
-  // }
+  addComment() {
+    const _comment = new PostComment();
+    _comment.createdTime = '123456789';
+    _comment.postId = this.post.id;
+    _comment.comment = this.textInputed;
+    this.addCommentButtonClicked.emit(_comment);
+    this.textInputed = '';
+  }
 
-  // reactOnPost() {
-  //   this.likeButtonClicked.emit(this.post.postId);
-  //   this.isLikedByMe = !this.isLikedByMe;
-  // }
+  reactOnPost() {
+    this.likeButtonClicked.emit(this.post.id);
+    this.isLikedByMe = !this.isLikedByMe;
+  }
 
   // private _checkIfItsLikedByMe(PostId: string): boolean {
   //   return this.postService
   //     .getPostLikers(PostId)
-  //     .find((liker) => liker.id == this.authService.loggedUser.id)
+  //     .find(
+  //       (liker) =>
+  //         liker.id ==
+  //         this.authService.authenticatedUser.subscribe((user) => user.id)
+  //     )
   //     ? true
   //     : false;
   // }

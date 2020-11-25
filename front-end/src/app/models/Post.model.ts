@@ -1,3 +1,5 @@
+import { PostComment } from './PostComment.model';
+
 export class Post extends Object {
   id: number;
   createdTime: string;
@@ -7,5 +9,7 @@ export class Post extends Object {
   canComment: number;
   canShare: number;
   ispublic: number;
-  profileId: number;
+  userId: number;
+  comments: PostComment[];
+  likerIds: { id: number; likersId: number }[];
 }

@@ -3,5 +3,5 @@ export class PostComment extends Object {
   createdTime: string;
   comment: string;
   postId: number;
-  profileId: number;
+  userId: number;
 }

@@ -18,7 +18,7 @@
   </div>
 
   <div class="container text-wrapper">
-    <p>{{ post.text }}</p>
+    <p>{{ post.description }}</p>
   </div>
 
   <div class="c-post-image">
@@ -42,7 +42,7 @@
 
     <div class="comments-and-likes float-right">
       <a>
-        {{ post.likes ? (post.likes.length > 1 ? post.likes.length + " Likes" : post.likes.length + " Like" ) : 0 + " Like" }}
+        {{ post.likersIds ? (post.likersIds.length > 1 ? post.likersIds.length + " Likes" : post.likersIds.length + " Like" ) : 0 + " Like" }}
         {{ post.comments ? (
           post.comments.length > 1
             ? post.comments.length + " Comments"

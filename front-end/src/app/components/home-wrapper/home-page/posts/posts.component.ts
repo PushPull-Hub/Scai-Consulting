@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostsService } from '../../../../services/posts.service';
 import { Post } from 'src/app/models/Post.model';
 import { AuthService } from 'src/app/services/auth.service';
-type CustomComment = { postId: string; commentText: string };
-type Liker = { id: string };
+import { PostComment } from 'src/app/models/PostComment.model';
 
 @Component({
   selector: 'app-posts',
@@ -20,24 +19,25 @@ export class PostsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.posts = this.postService.getUserFriendsPosts();
+    this.postService.getUserPosts().subscribe((posts) => {
+      console.log(posts);
+      this.posts = posts;
+    });
   }
 
   // reactOnPost(id) {
-  //   const index = this.posts.findIndex((post) => post.postId == id);
+  //   const index = this.posts.findIndex((post) => post.id == id);
   //   if (index != -1) {
   //     this.posts[index].likes = this.postService.reactOnPost(id);
   //   }
   // }
 
-  // addCommentOnPost(comment: CustomComment) {
-  //   const index = this.posts.findIndex((post) => post.postId == comment.postId);
-  //   const loggedUserId: string = this.authService.loggedUser.id;
-  //   if (index != -1) {
-  //     this.posts[index].comments.push({
-  //       commenterId: loggedUserId,
-  //       comment: comment.commentText,
-  //     });
-  //   }
-  // }
+  addCommentOnPost(comment: PostComment) {
+    const index = this.posts.findIndex((post) => post.id == comment.postId);
+    if (index != -1) {
+      this.postService.commentOnPost(comment).subscribe((responseData) => {
+        if (responseData.id) this.posts[index].comments.push(responseData);
+      });
+    }
+  }
 }
