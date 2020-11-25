@@ -14,7 +14,7 @@ public class PostLike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "likers_ids",nullable = true)
+    @Column(name = "likers_ids")
     private int likersId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
