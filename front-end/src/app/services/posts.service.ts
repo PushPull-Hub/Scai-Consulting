@@ -7,16 +7,14 @@ import { FriendsService } from './friends.service';
 import { UserServices } from './user.service';
 
 import { Post } from '../models/Post.model';
-import { Friend } from '../models/Friend.model';
 import { PostComment as Comment } from '../models/PostComment.model';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostsService {
-  posts = this.getUserPosts(15); // temporary
-
-  theUserFriendList: Friend[] = this.friendService.theUserFriendsList;
+  // theUserFriendList: Friend[] = this.friendService.theUserFriendsList;
   UserFriendsPosts: Post[];
   hasBeenLiked: boolean = false;
 
@@ -33,10 +31,8 @@ export class PostsService {
       .subscribe((responseDate) => console.log(responseDate));
   }
 
-  getUserPosts(userId: number) {
-    this.http
-      .get(environment.rootUrl + '/api/posts/' + userId)
-      .subscribe((responseDate) => responseDate);
+  getUserPosts() {
+    return this.http.get<Post[]>(environment.rootUrl + '/api/posts');
   }
 
   createPost(post: Post) {
@@ -58,14 +54,9 @@ export class PostsService {
   }
 
   commentOnPost(comment: Comment) {
-    this.http
-      .post(environment.rootUrl + '/api/posts/' + 23, comment)
-      .subscribe((responseDate) => console.log(responseDate));
-  }
-
-  getPostComments(postId: number) {
-    this.http
-      .get(environment.rootUrl + '/api/posts/' + postId)
-      .subscribe((responseDate) => console.log(responseDate));
+    return this.http.post<Comment>(
+      environment.rootUrl + `{/api/posts/${comment.postId}/comments}`,
+      comment
+    );
   }
 }
