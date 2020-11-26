@@ -2,6 +2,7 @@ package com.scaiconsulting.scaichat.servicesImplemetations;
 
 
 import com.scaiconsulting.scaichat.DAOs.FriendShipDAO;
+import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 import com.scaiconsulting.scaichat.services.FriendShipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class FriendShipServiceImplementation  implements FriendShipService {
+public class FriendShipServiceImplementation implements FriendShipService {
 
-    private final FriendShipDAO friendShipDAO ;
+    private final FriendShipDAO friendShipDAO;
 
     @Autowired
     public FriendShipServiceImplementation(FriendShipDAO friendShipDAO) {
@@ -26,7 +27,28 @@ public class FriendShipServiceImplementation  implements FriendShipService {
         return friendShipDAO.getFriendShipList(userId);
     }
 
+    @Override
+    @Transactional
+    public FriendShip getFriendShipByItsId(int id) {
+        return friendShipDAO.getFriendShipByItsId(id);
+    }
 
+    @Override
+    @Transactional
+    public FriendShip getFriendShipByFriendId(int friendId) {
+        return friendShipDAO.getFriendShipByFriendId(friendId);
+    }
+
+    @Override
+    @Transactional
+    public FriendShip createFriendShip(String token, int userId2) {
+        FriendShip friendShip = new FriendShip();
+        friendShip.setId(0);
+        friendShip.setFirstUserId(new IdExtractor(token).getAuthenticatedUserId());
+        friendShip.setSecondUserId(userId2);
+        friendShip.setType("friends");
+        return friendShipDAO.createFriendShip(friendShip);
+    }
 
 
 }

@@ -28,5 +28,29 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
         return theQuery.getResultList();
     }
 
+    @Override
+    public FriendShip getFriendShipByItsId(int id) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip f where f.id =:id", FriendShip.class)
+                .setParameter("id",id);
+        return theQuery.getSingleResult();
+    }
+
+    @Override
+    public FriendShip getFriendShipByFriendId(int friendId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip f where f.firstUserId =:friendId or secondUserId =:friendId",FriendShip.class)
+                .setParameter("friendId",friendId);
+        return theQuery.getSingleResult();
+
+    }
+
+    @Override
+    public FriendShip createFriendShip(FriendShip friendShip) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        currentSession.saveOrUpdate(friendShip);
+        return friendShip;
+    }
+
 
 }

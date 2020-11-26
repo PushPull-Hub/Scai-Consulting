@@ -7,4 +7,10 @@ import java.util.List;
 public interface FriendShipService {
 
     public List<FriendShip> getFriendShipList(int userId);
+
+    FriendShip getFriendShipByItsId (int id) ;
+
+    FriendShip getFriendShipByFriendId (int friend) ;
+
+    FriendShip createFriendShip ( String token , int userId2 ) ;
 }
