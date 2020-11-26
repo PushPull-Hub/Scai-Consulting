@@ -6,11 +6,14 @@ import java.util.List;
 
 public interface FriendShipService {
 
-    public List<FriendShip> getFriendShipList(int userId);
+    List<FriendShip> getFriendShipList(int userId);
 
-    FriendShip getFriendShipByItsId (int id) ;
+    FriendShip getFriendShipByItsId(int id);
 
-    FriendShip getFriendShipByFriendId (int friend) ;
+    FriendShip getFriendShipByFriendId(int friend);
 
-    FriendShip createFriendShip ( String token , int userId2 ) ;
+    FriendShip createFriendShip(String token, int userId2);
+
+    List<FriendShip> getTenFriendsSuggestion(String token );
+
 }

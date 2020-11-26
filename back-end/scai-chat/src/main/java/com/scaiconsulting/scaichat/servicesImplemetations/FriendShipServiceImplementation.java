@@ -50,5 +50,11 @@ public class FriendShipServiceImplementation implements FriendShipService {
         return friendShipDAO.createFriendShip(friendShip);
     }
 
+    @Override
+    @Transactional
+    public List<FriendShip> getTenFriendsSuggestion(String token) {
+        return friendShipDAO.getTenFriendsSuggestion(new IdExtractor(token).getAuthenticatedUserId());
+    }
+
 
 }

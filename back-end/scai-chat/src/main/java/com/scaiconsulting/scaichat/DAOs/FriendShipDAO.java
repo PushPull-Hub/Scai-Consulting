@@ -14,4 +14,6 @@ public interface FriendShipDAO {
 
     FriendShip createFriendShip ( FriendShip friendShip ) ;
 
+    List<FriendShip>  getTenFriendsSuggestion(int userId);
+
 }

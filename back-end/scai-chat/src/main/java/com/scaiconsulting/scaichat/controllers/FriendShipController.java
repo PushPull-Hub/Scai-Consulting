@@ -32,7 +32,7 @@ public class FriendShipController {
     }
 
 
-    @GetMapping("/friendships/friend")
+    @PostMapping("/friendships/friend")
     public FriendShip getFriendShipByFriendId(@RequestBody int friendId) {
         return friendShipService.getFriendShipByFriendId(friendId);
     }
@@ -42,5 +42,9 @@ public class FriendShipController {
         return this.friendShipService.createFriendShip(token, friendId);
     }
 
+    @GetMapping("/friendships/suggestions")
+    public List<FriendShip> getTenFriendsSuggestion(@RequestHeader("Authentication") String token) {
+        return this.friendShipService.getTenFriendsSuggestion(token);
+    }
 
 }

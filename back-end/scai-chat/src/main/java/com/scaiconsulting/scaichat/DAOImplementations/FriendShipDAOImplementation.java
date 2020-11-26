@@ -52,5 +52,13 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
         return friendShip;
     }
 
+    @Override
+    public List<FriendShip> getTenFriendsSuggestion(int userId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<FriendShip> theQuery =  currentSession.createQuery("from FriendShip f where f.firstUserId !=:userId and secondUserId !=:userId", FriendShip.class)
+                .setParameter("userId",userId).setMaxResults(10);
+        return theQuery.getResultList();
+    }
+
 
 }
