@@ -4,6 +4,7 @@ package com.scaiconsulting.scaichat.servicesImplemetations;
 import com.scaiconsulting.scaichat.DAOs.FriendShipDAO;
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.FriendShip;
+import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.FriendShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,8 +53,8 @@ public class FriendShipServiceImplementation implements FriendShipService {
 
     @Override
     @Transactional
-    public List<FriendShip> getTenFriendsSuggestion(String token) {
-        return friendShipDAO.getTenFriendsSuggestion(new IdExtractor(token).getAuthenticatedUserId());
+    public List<User> getTenFriendsSuggestion(String token) {
+        return friendShipDAO.getTenFriendsSuggestion(new IdExtractor(token).getAuthenticatedUserId() );
     }
 
 

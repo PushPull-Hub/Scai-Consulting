@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.services;
 
 import com.scaiconsulting.scaichat.entities.FriendShip;
+import com.scaiconsulting.scaichat.entities.User;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface FriendShipService {
 
     FriendShip createFriendShip(String token, int userId2);
 
-    List<FriendShip> getTenFriendsSuggestion(String token );
+    List<User> getTenFriendsSuggestion(String token );
 
 }

@@ -2,12 +2,14 @@ package com.scaiconsulting.scaichat.DAOImplementations;
 
 import com.scaiconsulting.scaichat.DAOs.FriendShipDAO;
 import com.scaiconsulting.scaichat.entities.FriendShip;
+import com.scaiconsulting.scaichat.entities.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -32,15 +34,15 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
     public FriendShip getFriendShipByItsId(int id) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip f where f.id =:id", FriendShip.class)
-                .setParameter("id",id);
+                .setParameter("id", id);
         return theQuery.getSingleResult();
     }
 
     @Override
     public FriendShip getFriendShipByFriendId(int friendId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip f where f.firstUserId =:friendId or secondUserId =:friendId",FriendShip.class)
-                .setParameter("friendId",friendId);
+        Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip f where f.firstUserId =:friendId or secondUserId =:friendId", FriendShip.class)
+                .setParameter("friendId", friendId);
         return theQuery.getSingleResult();
 
     }
@@ -53,12 +55,20 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
     }
 
     @Override
-    public List<FriendShip> getTenFriendsSuggestion(int userId) {
+    public List<User> getTenFriendsSuggestion(int userId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<FriendShip> theQuery =  currentSession.createQuery("from FriendShip f where f.firstUserId !=:userId and secondUserId !=:userId", FriendShip.class)
-                .setParameter("userId",userId).setMaxResults(10);
-        return theQuery.getResultList();
+        List<FriendShip> userFriendShips = this.getFriendShipList(userId);
+        ArrayList<Integer> friendsId = new ArrayList<>();
+        for (FriendShip friendShip : userFriendShips) {
+            if (friendShip.getFirstUserId() == userId) {
+                friendsId.add(friendShip.getSecondUserId());
+            } else {
+                friendsId.add(friendShip.getFirstUserId());
+            }
+        }
+        Query<User> theNotFriendsQuery = currentSession.createQuery("select  from User u where u.id NOT IN (:friendsId) ", User.class);
+        theNotFriendsQuery.setParameter("friendsId", friendsId).setMaxResults(10);
+        return theNotFriendsQuery.getResultList();
     }
-
 
 }

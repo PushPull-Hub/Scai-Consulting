@@ -2,6 +2,7 @@ package com.scaiconsulting.scaichat.controllers;
 
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.FriendShip;
+import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.FriendShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class FriendShipController {
     }
 
     @GetMapping("/friendships/suggestions")
-    public List<FriendShip> getTenFriendsSuggestion(@RequestHeader("Authentication") String token) {
+    public List<User> getTenFriendsSuggestion(@RequestHeader("Authentication") String token) {
         return this.friendShipService.getTenFriendsSuggestion(token);
     }
 

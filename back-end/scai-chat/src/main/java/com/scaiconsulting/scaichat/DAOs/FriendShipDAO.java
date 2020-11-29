@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.DAOs;
 
 import com.scaiconsulting.scaichat.entities.FriendShip;
+import com.scaiconsulting.scaichat.entities.User;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ public interface FriendShipDAO {
 
     FriendShip createFriendShip ( FriendShip friendShip ) ;
 
-    List<FriendShip>  getTenFriendsSuggestion(int userId);
+    List<User> getTenFriendsSuggestion(int userId);
 
 }
