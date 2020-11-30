@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface UserService {
 
-    public User signUp(Profile profile);
+    User signUp(Profile profile);
 
-    public ResponseEntity<User> getProfile(String email, String password);
+    ResponseEntity<User> getProfile(String email, String password);
 
-    public Profile updateProfile(Profile profile);
+    Profile updateProfile(Profile profile);
 
-    public List<User> getUsers();
+    List<User> getUsers();
 
-    public User getUser(int id);
+    User getUser(int id);
 
-    public User updateUser(User user);
+    User updateUser(User user);
 
 
 }

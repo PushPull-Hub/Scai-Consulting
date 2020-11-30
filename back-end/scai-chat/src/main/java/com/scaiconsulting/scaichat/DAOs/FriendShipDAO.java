@@ -9,11 +9,11 @@ public interface FriendShipDAO {
 
     List<FriendShip> getFriendShipList(int userId);
 
-    FriendShip getFriendShipByItsId (int id) ;
+    FriendShip getFriendShipByItsId(int id);
 
-    FriendShip getFriendShipByFriendId (int friendId) ;
+    FriendShip getFriendShipByFriendId(int friendId);
 
-    FriendShip createFriendShip ( FriendShip friendShip ) ;
+    FriendShip createFriendShip(FriendShip friendShip);
 
     List<User> getTenFriendsSuggestion(int userId);
 

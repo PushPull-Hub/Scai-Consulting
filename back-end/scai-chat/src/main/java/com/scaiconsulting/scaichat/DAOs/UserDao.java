@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface UserDAO {
 
-    public User createProfile(Profile profile);
+    User createProfile(Profile profile);
 
-    public Profile getProfile(String email, String password);
+    Profile getProfile(String email, String password);
 
-    public Profile updateProfile(Profile profile);
+    Profile updateProfile(Profile profile);
 
-    public List<User> getUsers();
+    List<User> getUsers();
 
-    public User getUser(int id);
+    User getUser(int id);
 
-    public User updateUser(User user);
+    User updateUser(User user);
 
 
 }
