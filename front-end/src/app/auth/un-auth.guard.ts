@@ -21,7 +21,7 @@ export class UnAuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (localStorage.getItem('loggedUserId')) {
+    if (localStorage.getItem('token')) {
       this.router.navigate(['/home']);
       return false;
     } else {
