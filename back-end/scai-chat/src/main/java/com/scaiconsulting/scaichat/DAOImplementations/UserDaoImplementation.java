@@ -47,7 +47,7 @@ public class UserDAOImplementation implements UserDAO {
         try {
             Profile testedProfile = theQuery.getSingleResult();
             boolean isPasswordMatch = encoder.matches(password, testedProfile.getPassword());
-            if (!isPasswordMatch) {
+            if (isPasswordMatch) {
                 profile = testedProfile ;
             }
         } catch (NoResultException nre) {
