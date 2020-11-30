@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../models/User.model';
 import { Profile } from '../models/Profile.model';
@@ -12,8 +12,9 @@ import { Profile } from '../models/Profile.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedUserSubject: BehaviorSubject<User>;
-  authenticatedUser = new Subject<User>();
+  private _authenticatedUser: BehaviorSubject<User> = new BehaviorSubject<User>(
+    null
+  );
   isLoggedIn: boolean = false;
   token: string;
 
@@ -38,20 +39,36 @@ export class AuthService {
   }
 
   logOut() {
-    this.authenticatedUser.next(null);
+    this._authenticatedUser.next(null);
     this.isLoggedIn = false;
-    // update user to desactived
     localStorage.removeItem('token');
     this.router.navigate(['/app/sign-in']);
   }
 
-  getAuthenticatedUser(): Observable<User> {
-    if (!this.authenticatedUser) {
-      if (!localStorage.getItem('token')) return null;
+  getAuthenticatedUser(): Promise<User> {
+    return new Promise((res, rej) => {
+      this._authenticatedUser.subscribe(async (user: User) => {
+        let authenticatedUser: User;
+        if (user) {
+          authenticatedUser = user;
+        } else {
+          authenticatedUser = await this._getAuthenticatedUserFromBE();
+          this._authenticatedUser.next(authenticatedUser);
+        }
+        res(authenticatedUser);
+      });
+    });
+  }
+
+  private _getAuthenticatedUserFromBE(): Promise<User> {
+    return new Promise((res, rej) => {
       this.http
         .get<User>(environment.rootUrl + '/api/user')
-        .subscribe((user) => this.authenticatedUser.next(user));
-    }
-    return this.authenticatedUser;
+        .subscribe((data) => {
+          if (data.id) {
+            res(data);
+          } else res(null);
+        });
+    });
   }
 }
