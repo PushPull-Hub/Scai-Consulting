@@ -1,14 +1,17 @@
 package com.scaiconsulting.scaichat.servicesImplemetations;
 
 import com.scaiconsulting.scaichat.DAOs.PostDAO;
+import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.entities.PostComment;
+import com.scaiconsulting.scaichat.entities.PostLike;
 import com.scaiconsulting.scaichat.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 
 @Service
@@ -59,6 +62,11 @@ public class PostServiceImplementation implements PostService {
     @Override
     public List<PostComment> getPostComments(int postId) {
         return postDAO.getPostComments(postId);
+    }
+
+    @Override
+    public Set<PostLike> likePost( String token , int postId) {
+        return  postDAO.likePost(new IdExtractor(token).getAuthenticatedUserId(),postId) ;
     }
 
 

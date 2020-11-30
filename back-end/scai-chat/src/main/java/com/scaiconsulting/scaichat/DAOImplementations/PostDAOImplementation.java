@@ -3,6 +3,7 @@ package com.scaiconsulting.scaichat.DAOImplementations;
 import com.scaiconsulting.scaichat.DAOs.PostDAO;
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.entities.PostComment;
+import com.scaiconsulting.scaichat.entities.PostLike;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Set;
 
 
 @Repository
@@ -79,6 +81,18 @@ public class PostDAOImplementation implements PostDAO {
         Query<PostComment> theQuery = currentSession.createQuery("from PostComment where post_id = :postId  ", PostComment.class)
                 .setParameter("postId", postId);
         return theQuery.getResultList();
+    }
+
+    @Override
+    public Set<PostLike> likePost (int likerId , int postId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Post post = new Post();
+        PostLike postLike = new PostLike();
+        post.setId(postId);
+        postLike.setLikersId(likerId);
+        postLike.setPost(post);
+        currentSession.saveOrUpdate(post);
+        return post.getLikersIds();
     }
 
 

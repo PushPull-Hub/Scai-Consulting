@@ -3,11 +3,13 @@ package com.scaiconsulting.scaichat.controllers;
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.entities.PostComment;
+import com.scaiconsulting.scaichat.entities.PostLike;
 import com.scaiconsulting.scaichat.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*",  exposedHeaders = "Authentication")
@@ -67,6 +69,14 @@ public class PostController {
             comment.setUserId(new IdExtractor(token).getAuthenticatedUserId());
         }
         return postService.commentOnPost(comment);
+    }
+
+
+    @PostMapping("/posts/like")
+    public Set<PostLike> likePost (@RequestHeader("Authentication") String token,
+                                   @RequestBody int postId ) {
+        return postService.likePost(token , postId);
+
     }
 
     /*   @DeleteMapping("/posts/{postId}/comments/{commentId}")
