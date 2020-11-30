@@ -12,7 +12,7 @@ public class FriendShip {
     private int id;
 
     @Column(name = "user_id_1")
-        private int firstUserId;
+    private int firstUserId;
 
     @Column(name = "user_id_2")
     private int secondUserId;

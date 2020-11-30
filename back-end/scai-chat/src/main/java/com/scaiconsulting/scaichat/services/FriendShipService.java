@@ -15,6 +15,6 @@ public interface FriendShipService {
 
     FriendShip createFriendShip(String token, int userId2);
 
-    List<User> getTenFriendsSuggestion(String token );
+    List<User> getTenFriendsSuggestion(String token);
 
 }
