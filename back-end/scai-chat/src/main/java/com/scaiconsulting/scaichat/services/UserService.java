@@ -1,5 +1,6 @@
 package com.scaiconsulting.scaichat.services;
 
+import com.scaiconsulting.scaichat.configurations.MiniUserProfile;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import org.springframework.http.ResponseEntity;
@@ -20,5 +21,6 @@ public interface UserService {
 
     User updateUser(User user);
 
+    MiniUserProfile getMiniUserProfile(int id);
 
 }

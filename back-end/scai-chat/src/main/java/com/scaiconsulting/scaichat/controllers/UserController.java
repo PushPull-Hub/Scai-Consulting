@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.controllers;
 
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
+import com.scaiconsulting.scaichat.configurations.MiniUserProfile;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @GetMapping("/test")
-    public String confirmFunctionalityOfTheApp () {
-        return "Get Request Received Every Thing is working Fine , time on server is : " + LocalDateTime.now() ;
+    public String confirmFunctionalityOfTheApp() {
+        return "Get Request Received Every Thing is working Fine , time on server is : " + LocalDateTime.now();
     }
 
     @PostMapping("/sign-in")
@@ -56,8 +57,13 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public User getAuthenticatedUser (@RequestHeader("Authentication") String token ) {
+    public User getAuthenticatedUser(@RequestHeader("Authentication") String token) {
         return this.userService.getUser(new IdExtractor(token).getAuthenticatedUserId());
+    }
+
+    @GetMapping("/user/microprofile")
+    public MiniUserProfile getMiniUserProfile(@RequestBody int id) {
+        return userService.getMiniUserProfile(id);
     }
 
     // Update

@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.DAOImplementations;
 
 import com.scaiconsulting.scaichat.DAOs.UserDAO;
+import com.scaiconsulting.scaichat.configurations.MiniUserProfile;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
@@ -48,7 +49,7 @@ public class UserDAOImplementation implements UserDAO {
             Profile testedProfile = theQuery.getSingleResult();
             boolean isPasswordMatch = encoder.matches(password, testedProfile.getPassword());
             if (isPasswordMatch) {
-                profile = testedProfile ;
+                profile = testedProfile;
             }
         } catch (NoResultException nre) {
             throw new NotFoundException("bad credentials");
@@ -82,6 +83,15 @@ public class UserDAOImplementation implements UserDAO {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(profile);
         return profile;
+    }
+
+    @Override
+    public MiniUserProfile getMiniUserProfile(int id) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<User> theQuery = currentSession.createQuery("from User where id=:id ", User.class)
+                .setParameter("id", id);
+        User user = theQuery.getSingleResult();
+        return new MiniUserProfile(user.getId(), user.getFirstName(), user.getLastName(), user.getGender(), user.isActive());
     }
 
 

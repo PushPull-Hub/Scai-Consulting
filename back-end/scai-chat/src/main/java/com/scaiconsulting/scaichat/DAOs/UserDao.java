@@ -1,5 +1,6 @@
 package com.scaiconsulting.scaichat.DAOs;
 
+import com.scaiconsulting.scaichat.configurations.MiniUserProfile;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 
@@ -18,6 +19,8 @@ public interface UserDAO {
     User getUser(int id);
 
     User updateUser(User user);
+
+    MiniUserProfile getMiniUserProfile(int id);
 
 
 }

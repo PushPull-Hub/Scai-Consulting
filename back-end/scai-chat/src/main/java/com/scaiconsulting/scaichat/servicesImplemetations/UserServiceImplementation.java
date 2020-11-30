@@ -1,6 +1,7 @@
 package com.scaiconsulting.scaichat.servicesImplemetations;
 
 import com.scaiconsulting.scaichat.DAOs.UserDAO;
+import com.scaiconsulting.scaichat.configurations.MiniUserProfile;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.services.UserService;
@@ -30,13 +31,13 @@ public class UserServiceImplementation implements UserService {
     @Override
     @Transactional
     public User signUp(Profile profile) {
-         return  userDao.createProfile(profile)   ;
+        return userDao.createProfile(profile);
     }
 
     @Override
     @Transactional
     public ResponseEntity<User> getProfile(String email, String password) {
-        Profile AuthenticatedProfile = userDao.getProfile(email,password);
+        Profile AuthenticatedProfile = userDao.getProfile(email, password);
         if (AuthenticatedProfile != null) {
             HttpHeaders headers = new HttpHeaders();
             HashMap<String, Object> addedValues = new HashMap<String, Object>();
@@ -48,21 +49,21 @@ public class UserServiceImplementation implements UserService {
                     .signWith(SignatureAlgorithm.HS512, "scaiconsulting").compact();
             headers.add("Authentication", "Bearer" + token);
             return ResponseEntity.ok().headers(headers).body(AuthenticatedProfile.getUser());
-        }else {
-            return null ;
+        } else {
+            return null;
         }
     }
 
     @Override
     @Transactional
     public Profile updateProfile(Profile profile) {
-        return userDao.updateProfile(profile) ;
+        return userDao.updateProfile(profile);
     }
 
     @Override
     @Transactional
     public List<User> getUsers() {
-        return userDao.getUsers() ;
+        return userDao.getUsers();
     }
 
     @Override
@@ -75,5 +76,10 @@ public class UserServiceImplementation implements UserService {
     @Transactional
     public User updateUser(User user) {
         return userDao.updateUser(user);
+    }
+
+    @Override
+    public MiniUserProfile getMiniUserProfile(int id) {
+        return userDao.getMiniUserProfile(id);
     }
 }
