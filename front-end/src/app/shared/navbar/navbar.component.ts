@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/User.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,14 +9,19 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   urlParam: string;
+  authenticatedUser: User;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // this.urlParam = `${this.authService.getLoggedUser().username}/${
-    // this.authService.getLoggedUser().id
-    // }`;
+    this.authService.getAuthenticatedUser().then((user: User) => {
+      this.authenticatedUser = user;
+      this.urlParam = `${this.authenticatedUser.firstName}.${this.authenticatedUser.lastName}/${this.authenticatedUser.id}`;
+    });
   }
 
-  logOut = () => this.authService.logOut();
+  logOut = () => {
+    this.urlParam = null;
+    this.authService.logOut();
+  };
 }
