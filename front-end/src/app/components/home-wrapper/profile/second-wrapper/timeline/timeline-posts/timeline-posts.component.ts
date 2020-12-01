@@ -13,7 +13,7 @@ import * as moment from 'moment';
 })
 export class TimelinePostsComponent implements OnInit {
   // Userposts: Post[] = this.postsService.getUserPost();
-  userName: String = this.authService.loggedUser.username;
+  // userName: String = this.authService.loggedUser.username;
   commentButtonClicked: boolean = false;
   comments: string[];
 
