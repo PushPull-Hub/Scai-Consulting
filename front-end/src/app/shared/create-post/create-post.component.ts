@@ -39,7 +39,6 @@ export class CreatePostComponent implements OnInit {
       post.ispublic = 1;
       post.place = '';
       post.objectId = null;
-      post.profileId = 15; // temporary
       this.insertedText = '';
       this.postService.createPost(post);
     } else {
