@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit, OnDestroy {
             'token',
             responseData.headers.get('Authentication')
           );
-          this.authService.authenticatedUser.next(responseData.body);
+          this.authService._authenticatedUser.next(responseData.body);
           this.authService.token = responseData.headers.get('Authentication');
           this.combination = false;
           this.router.navigate(['/home']);

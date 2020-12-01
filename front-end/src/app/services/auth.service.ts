@@ -12,9 +12,7 @@ import { Profile } from '../models/Profile.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private _authenticatedUser: BehaviorSubject<User> = new BehaviorSubject<User>(
-    null
-  );
+  _authenticatedUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   isLoggedIn: boolean = false;
   token: string;
 
