@@ -61,7 +61,7 @@ public class UserController {
         return this.userService.getUser(new IdExtractor(token).getAuthenticatedUserId());
     }
 
-    @GetMapping("/user/microprofile")
+    @PostMapping("/user/microprofile")
     public MiniUserProfile getMiniUserProfile(@RequestBody int id) {
         return userService.getMiniUserProfile(id);
     }
