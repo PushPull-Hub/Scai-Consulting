@@ -1,0 +1,15 @@
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<ng-container *ngIf="!isLoading">
+    <div class="container c-commetn" *ngIf="commenter">
+        <div class="commenter-image-wrapper">
+            <img class="rounded-circle" src="../../../../assets/images/male-user.jpg" alt="">
+        </div>
+        <div class="commenter-name-wrapper">
+            <h5> <a href="">{{commenter.firstName}} {{commenter.lastName}}</a> </h5>
+        </div>
+        <div class="commenter-comment-wrapper">
+            <p>{{comment.comment }}</p>
+        </div>
+    </div>
+</ng-container>

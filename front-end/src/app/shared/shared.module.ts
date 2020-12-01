@@ -12,6 +12,7 @@ import { PostComponent } from './post/post.component';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { AlertComponent } from './alert/alert.component';
+import { CommentContainerComponent } from './post/comment-container/comment-container.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AlertComponent } from './alert/alert.component';
     MessageBoxComponent,
     CreatePostComponent,
     AlertComponent,
+    CommentContainerComponent,
   ],
   imports: [
     CommonModule,
