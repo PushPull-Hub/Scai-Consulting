@@ -59,4 +59,11 @@ export class PostsService {
       comment
     );
   }
+
+  likePost(postId) {
+    return this.http.post<{ id: number; likersId: number }[]>(
+      environment.rootUrl + '/api/posts/like',
+      postId
+    );
+  }
 }
