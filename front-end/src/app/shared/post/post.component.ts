@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Post } from 'src/app/models/Post.model';
-import { PostComment } from 'src/app/models/PostComment.model';
+
 import { AuthService } from 'src/app/services/auth.service';
-import { PostsService } from 'src/app/services/posts.service';
-// type CustomComment = { postId: string; commentText: string };
+import { UserServices } from 'src/app/services/user.service';
+
+import { Post } from 'src/app/models/Post.model';
+import { MiniProfile } from 'src/app/models/MiniProfile.model';
+import { PostComment } from 'src/app/models/PostComment.model';
 
 @Component({
   selector: 'app-post',
@@ -11,21 +13,28 @@ import { PostsService } from 'src/app/services/posts.service';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  commentButtonClicked: boolean;
-  textInputed: string;
   @Input() post: Post;
   @Output() likeButtonClicked = new EventEmitter();
   @Output() addCommentButtonClicked = new EventEmitter<PostComment>();
+
+  commentButtonClicked: boolean;
+  textInputed: string;
+
   isLikedByMe: boolean;
+  owner: MiniProfile = null;
+  commenters: MiniProfile[] = null;
 
   constructor(
-    private postService: PostsService,
+    private userService: UserServices,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.commentButtonClicked = false;
-    // this.isLikedByMe = this._checkIfItsLikedByMe(this.post.postId);
+    this.isLikedByMe = this._checkIfItsLikedByMe();
+    this._getPostOwnerProfile(this.post.userId).then(
+      (profile) => (this.owner = profile)
+    );
   }
 
   whenCommentButtonClicked() {
@@ -46,15 +55,27 @@ export class PostComponent implements OnInit {
     this.isLikedByMe = !this.isLikedByMe;
   }
 
-  // private _checkIfItsLikedByMe(PostId: string): boolean {
-  //   return this.postService
-  //     .getPostLikers(PostId)
-  //     .find(
-  //       (liker) =>
-  //         liker.id ==
-  //         this.authService.authenticatedUser.subscribe((user) => user.id)
-  //     )
-  //     ? true
-  //     : false;
-  // }
+  private _checkIfItsLikedByMe(): boolean {
+    if (this.post.likerIds) {
+      let authenticatedUserId: number;
+      this.authService
+        .getAuthenticatedUser()
+        .then((user) => (user.id = authenticatedUserId));
+      return this.post.likerIds.find((likerObject) => {
+        likerObject.likersId == authenticatedUserId;
+      })
+        ? true
+        : false;
+    } else return false;
+  }
+
+  private _getPostOwnerProfile(OwnerId: number): Promise<MiniProfile> {
+    return new Promise((resolve, reject) => {
+      this.userService
+        .getMiniProfile(OwnerId)
+        .subscribe((profile) => resolve(profile));
+    }).then((profile: MiniProfile) => {
+      return profile;
+    });
+  }
 }
