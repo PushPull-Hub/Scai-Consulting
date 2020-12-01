@@ -1,10 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Profile } from '../models/Profile.model';
-import { User } from '../models/User.model';
+
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+
+import { Profile } from '../models/Profile.model';
+import { User } from '../models/User.model';
+import { MiniProfile } from '../models/MiniProfile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -53,5 +56,12 @@ export class UserServices implements OnInit {
 
   updateProfile(profile: Profile) {
     return null;
+  }
+
+  getMiniProfile(profileId: number): Observable<MiniProfile> {
+    return this.http.post<MiniProfile>(
+      environment.rootUrl + '/api/user/microprofile',
+      profileId
+    );
   }
 }
