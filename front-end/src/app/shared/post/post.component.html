@@ -1,4 +1,4 @@
-<div class="container main-container">
+<div class="container main-container" *ngIf="owner">
 
   <div class="container-fluid first-row-wrapper ">
     <div class="container first-row">
@@ -6,7 +6,7 @@
         <img class="rounded-circle" src="../../../assets/images/male-user.jpg">
       </div>
       <div class="c-user-name">
-        <h5> <a href="#">firstname secondname</a> </h5>
+        <h5> <a href="#">{{ owner.firstName }} {{owner.lastName}} </a> </h5>
       </div>
       <div class="c-created-time">
         <span>{{post.created_time}}</span>
@@ -55,20 +55,8 @@
 
   <div class="c-commetns" *ngIf="commentButtonClicked">
 
-    <ng-container *ngFor="let comment of post.comments">
-
-      <div class="container c-commetn">
-        <div class="commenter-image-wrapper">
-          <img class="rounded-circle" src="../../../assets/images/male-user.jpg" alt="">
-        </div>
-        <div class="commenter-name-wrapper">
-          <h5> <a href="">commenter name</a> </h5>
-        </div>
-        <div class="commenter-comment-wrapper">
-          <p>{{ comment.comment }} </p>
-        </div>
-      </div>
-
+    <ng-container *ngIf="post.comments">
+      <app-comment-container *ngFor="let comment of post.comments" [comment]="comment"></app-comment-container>
     </ng-container>
 
     <div class="input-group fluid">
@@ -81,5 +69,4 @@
     </div>
 
   </div>
-
 </div>
