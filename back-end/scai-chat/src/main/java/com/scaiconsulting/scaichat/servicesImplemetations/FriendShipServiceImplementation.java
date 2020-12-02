@@ -3,6 +3,7 @@ package com.scaiconsulting.scaichat.servicesImplemetations;
 import com.scaiconsulting.scaichat.DAOs.FriendShipDAO;
 import com.scaiconsulting.scaichat.DAOs.UserDAO;
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
+import com.scaiconsulting.scaichat.configurations.RelationShips;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.FriendShipService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,7 +25,6 @@ public class FriendShipServiceImplementation implements FriendShipService {
         this.friendShipDAO = friendShipDAO;
         this.userDAO = userDAO;
     }
-
 
     @Override
     @Transactional
@@ -71,6 +72,101 @@ public class FriendShipServiceImplementation implements FriendShipService {
         } else {
             throw new NotFoundException("there's no such user with the id: " + friendId);
         }
+    }
+
+
+    @Override
+    @Transactional
+    public FriendShip acceptFriendRequest(String token, int requesterId) {
+
+        if (this.userDAO.getUser(requesterId) != null) {
+            FriendShip friendShip = this.getFriendShip(token, requesterId);
+            if (friendShip.getStatus() != 0) {
+                int userId = new IdExtractor(token).getAuthenticatedUserId();
+                friendShip.setStatus(1);
+                friendShip.setActionUserId(userId);
+                return this.friendShipDAO.acceptFriendRequest(friendShip);
+            } else {
+                throw new NotFoundException(_getStatus(friendShip.getStatus()));
+            }
+
+        } else {
+            throw new NotFoundException("there's no such user with id: " + requesterId);
+        }
+
+
+    }
+
+    @Override
+    @Transactional
+    public List<FriendShip> getPendingFriendRequests(String token) {
+        int userId = new IdExtractor(token).getAuthenticatedUserId();
+        return friendShipDAO.getPendingFriendRequests(userId);
+    }
+
+    @Override
+    @Transactional
+    public FriendShip updateFriendShip(FriendShip friendShip) {
+        return friendShipDAO.updateFriendShip(friendShip);
+    }
+
+    @Override
+    @Transactional
+    public boolean blockFriend(String token, int friendId) {
+        if (userDAO.getUser(friendId) != null) {
+            int userId = new IdExtractor(token).getAuthenticatedUserId();
+            if (userId != friendId) {
+                FriendShip friendShip = friendShipDAO.getFriendShip(userId, friendId);
+                if (friendShip.getStatus() != 3) {
+                    friendShip.setStatus(3);
+                    friendShip.setActionUserId(userId);
+                    FriendShip theNewFriendshipModel = friendShipDAO.updateFriendShip(friendShip);
+                    return theNewFriendshipModel.getStatus() == 3;
+                } else if (friendShip.getStatus() == 3 && friendShip.getActionUserId() == friendId) {
+                    throw new NotFoundException(_getStatus(friendShip.getStatus()));
+                } else throw new NotFoundException("you've already blocked the user with id: " + friendId);
+            } else throw new NotFoundException("scai-chat users can't block themselves ");
+        } else throw new NotFoundException("there's no such a user with the id: " + friendId);
+    }
+
+
+    @Override
+    @Transactional
+    public RelationShips getRelationShips(String token) {
+        int userId = new IdExtractor(token).getAuthenticatedUserId();
+        List<FriendShip> allUserRelationShips = getFriendShipList(token);
+        RelationShips relationShipsWrapper = new RelationShips();
+        relationShipsWrapper.setMyFriends(new ArrayList<>());
+        relationShipsWrapper.setPendingRequests(new ArrayList<>());
+        relationShipsWrapper.setBlockedMe(new ArrayList<>());
+        relationShipsWrapper.setBlockedBy(new ArrayList<>());
+        relationShipsWrapper.setDeclinedRequests(new ArrayList<>());
+
+        for (FriendShip allUserRelationShip : allUserRelationShips) {
+            int status = allUserRelationShip.getStatus();
+            switch (status) {
+                case 0:
+                    relationShipsWrapper.getPendingRequests().add(allUserRelationShip);
+                    break;
+                case 1:
+                    relationShipsWrapper.getMyFriends().add(allUserRelationShip);
+                    break;
+                case 2:
+                    relationShipsWrapper.getDeclinedRequests().add(allUserRelationShip);
+                    break;
+                case 3:
+                    if (allUserRelationShip.getActionUserId() == userId) {
+                        relationShipsWrapper.getBlockedBy().add(allUserRelationShip);
+                    } else if (allUserRelationShip.getActionUserId() != userId)
+                        relationShipsWrapper.getBlockedMe().add(allUserRelationShip);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + status);
+            }
+        }
+
+
+        return relationShipsWrapper;
     }
 
 
