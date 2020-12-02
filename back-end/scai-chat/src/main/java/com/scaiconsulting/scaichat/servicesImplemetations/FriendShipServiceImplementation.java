@@ -1,6 +1,5 @@
 package com.scaiconsulting.scaichat.servicesImplemetations;
 
-
 import com.scaiconsulting.scaichat.DAOs.FriendShipDAO;
 import com.scaiconsulting.scaichat.DAOs.UserDAO;
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
@@ -10,6 +9,8 @@ import com.scaiconsulting.scaichat.services.FriendShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class FriendShipServiceImplementation implements FriendShipService {
@@ -28,6 +29,12 @@ public class FriendShipServiceImplementation implements FriendShipService {
     @Transactional
     public FriendShip getFriendShip(String token, int user_id_two) {
         return friendShipDAO.getFriendShip(new IdExtractor(token).getAuthenticatedUserId(), user_id_two);
+    }
+
+    @Override
+    @Transactional
+    public List<FriendShip> getFriendShipList(String token) {
+        return friendShipDAO.getFriendShipList(new IdExtractor(token).getAuthenticatedUserId());
     }
 
     @Override
@@ -66,7 +73,7 @@ public class FriendShipServiceImplementation implements FriendShipService {
 
 
     private String _getStatus(int status) {
-    //0	Pending  //1 Accepted  // 2 Declined // 3Blocked
+        //0	Pending  //1 Accepted  // 2 Declined // 3Blocked
         String message;
         switch (status) {
             case 0:
