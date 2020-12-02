@@ -11,7 +11,7 @@ import { PostComment } from 'src/app/models/PostComment.model';
 })
 export class PostsComponent implements OnInit {
   posts: Post[];
-  loading: boolean = false;
+  loading: boolean = true;
 
   constructor(
     private postService: PostsService,
@@ -20,17 +20,22 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.postService.getUserPosts().subscribe((posts) => {
-      console.log(posts);
-      this.posts = posts;
+      setTimeout(() => {
+        this.posts = posts;
+        this.loading = false;
+      }, 600);
     });
   }
 
-  // reactOnPost(id) {
-  //   const index = this.posts.findIndex((post) => post.id == id);
-  //   if (index != -1) {
-  //     this.posts[index].likes = this.postService.reactOnPost(id);
-  //   }
-  // }
+  reactOnPost(id) {
+    const index = this.posts.findIndex((post) => post.id == id);
+    if (index != -1) {
+      // this.posts[index].likerIds = this.postService.likePost(id);
+      this.postService
+        .likePost(id)
+        .subscribe((likerIds) => (this.posts[index].likerIds = likerIds));
+    }
+  }
 
   addCommentOnPost(comment: PostComment) {
     const index = this.posts.findIndex((post) => post.id == comment.postId);

@@ -7,6 +7,7 @@ import com.scaiconsulting.scaichat.entities.PostComment;
 import com.scaiconsulting.scaichat.entities.PostLike;
 import com.scaiconsulting.scaichat.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,9 +66,19 @@ public class PostServiceImplementation implements PostService {
     }
 
     @Override
-    public Set<PostLike> likePost( String token , int postId) {
-        return  postDAO.likePost(new IdExtractor(token).getAuthenticatedUserId(),postId) ;
+    public Set<PostLike> likePost(String token, int postId) {
+        return postDAO.likePost(new IdExtractor(token).getAuthenticatedUserId(), postId);
     }
+
+  /*  @Override
+    public ResponseEntity<String> unlikePost(String token, int postId) {
+        int deleteResult = postDAO.unlike(new IdExtractor(token).getAuthenticatedUserId(), postId);
+        if (deleteResult > 0) {
+            return "not finished yet ";
+        }
+
+
+    }*/
 
 
 }

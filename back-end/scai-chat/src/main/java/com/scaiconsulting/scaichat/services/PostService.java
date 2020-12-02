@@ -3,6 +3,7 @@ package com.scaiconsulting.scaichat.services;
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.entities.PostComment;
 import com.scaiconsulting.scaichat.entities.PostLike;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Set;
@@ -24,5 +25,7 @@ public interface PostService {
     List<PostComment> getPostComments(int postId);
 
     Set<PostLike> likePost(String token, int postId);
+
+//    ResponseEntity<String> unlikePost(String token, int postId);
 
 }

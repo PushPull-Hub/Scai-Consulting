@@ -84,7 +84,7 @@ public class PostDAOImplementation implements PostDAO {
     }
 
     @Override
-    public Set<PostLike> likePost (int likerId , int postId) {
+    public Set<PostLike> likePost(int likerId, int postId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Post post = new Post();
         PostLike postLike = new PostLike();
@@ -93,6 +93,15 @@ public class PostDAOImplementation implements PostDAO {
         postLike.setPost(post);
         currentSession.saveOrUpdate(post);
         return post.getLikersIds();
+    }
+
+    @Override
+    public int unlike(int unlikerId, int postId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query theQuery = currentSession.createQuery("delete from PostComment where likersId=:unlikerId and post.id=:postId");
+        theQuery.setParameter("unlikerId", unlikerId);
+        theQuery.setParameter("postId", postId);
+        return theQuery.executeUpdate();
     }
 
 
