@@ -12,5 +12,10 @@ public interface FriendShipDAO {
 
     List<FriendShip> getFriendShipList(int userId);
 
+    FriendShip acceptFriendRequest(FriendShip friendShip);
+
+    List<FriendShip> getPendingFriendRequests(int userId);
+
+    FriendShip updateFriendShip(FriendShip friendShip);
 
 }
