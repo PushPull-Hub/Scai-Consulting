@@ -36,7 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (err.status === 401) {
           console.log('From Interceptor, Unauthorized ');
           this.authService.logOut();
-          window.location.reload();
+          // window.location.reload();
         }
         const error = err.error.message || err.statusText;
         console.log(err);
