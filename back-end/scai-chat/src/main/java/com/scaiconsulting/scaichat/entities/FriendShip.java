@@ -17,17 +17,23 @@ public class FriendShip {
     @Column(name = "user_id_2")
     private int secondUserId;
 
-    @Column(name = "type")
-    private String type;
+    @Column(name = "status")
+    private int status;
+
+    @Column(name = "action_user_id")
+    private int actionUserId;
 
     public FriendShip() {
     }
 
-    public FriendShip(int firstUserId, int secondUserId, String type) {
+
+    public FriendShip(int firstUserId, int secondUserId, int status, int actionUserId) {
         this.firstUserId = firstUserId;
         this.secondUserId = secondUserId;
-        this.type = type;
+        this.status = status;
+        this.actionUserId = actionUserId;
     }
+
 
     public int getId() {
         return id;
@@ -53,13 +59,19 @@ public class FriendShip {
         this.secondUserId = secondUserId;
     }
 
-    public String getType() {
-        return type;
+    public int getStatus() {
+        return status;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
+    public int getActionUserId() {
+        return actionUserId;
+    }
 
+    public void setActionUserId(int actionUserId) {
+        this.actionUserId = actionUserId;
+    }
 }
