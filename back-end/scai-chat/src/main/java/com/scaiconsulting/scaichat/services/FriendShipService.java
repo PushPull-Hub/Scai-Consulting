@@ -1,10 +1,13 @@
 package com.scaiconsulting.scaichat.services;
 
+import com.scaiconsulting.scaichat.configurations.RelationShips;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 
 import java.util.List;
 
 public interface FriendShipService {
+
+    RelationShips getRelationShips(String token);
 
     FriendShip getFriendShip(String token, int user_id_two);
 
@@ -12,4 +15,11 @@ public interface FriendShipService {
 
     List<FriendShip> getFriendShipList(String token);
 
+    FriendShip acceptFriendRequest(String token, int requesterId);
+
+    List<FriendShip> getPendingFriendRequests(String token);
+
+    FriendShip updateFriendShip(FriendShip friendShip);
+
+    boolean blockFriend(String token, int friendId);
 }
