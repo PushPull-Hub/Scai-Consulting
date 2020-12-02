@@ -1,6 +1,5 @@
 package com.scaiconsulting.scaichat.entities;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -26,7 +25,6 @@ public class FriendShip {
     public FriendShip() {
     }
 
-
     public FriendShip(int firstUserId, int secondUserId, int status, int actionUserId) {
         this.firstUserId = firstUserId;
         this.secondUserId = secondUserId;
@@ -34,6 +32,13 @@ public class FriendShip {
         this.actionUserId = actionUserId;
     }
 
+    public FriendShip(int id, int firstUserId, int secondUserId, int status, int actionUserId) {
+        this.id = id;
+        this.firstUserId = firstUserId;
+        this.secondUserId = secondUserId;
+        this.status = status;
+        this.actionUserId = actionUserId;
+    }
 
     public int getId() {
         return id;
