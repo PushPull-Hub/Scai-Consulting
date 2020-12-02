@@ -1,6 +1,3 @@
-import { Friend } from './Friend.model';
-import { User } from './User.model';
-
 export class Message extends Object {
   id: string; // id of this message
   created_time: string;
