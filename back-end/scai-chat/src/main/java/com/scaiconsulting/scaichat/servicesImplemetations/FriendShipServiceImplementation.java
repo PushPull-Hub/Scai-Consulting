@@ -50,12 +50,14 @@ public class FriendShipServiceImplementation implements FriendShipService {
                 int userId = new IdExtractor(token).getAuthenticatedUserId();
                 FriendShip friendShip = new FriendShip();
                 if (userId < friendId) {
+                    friendShip.setId(0);
                     friendShip.setFirstUserId(userId);
                     friendShip.setSecondUserId(friendId);
                     friendShip.setStatus(0);
                     friendShip.setActionUserId(userId);
                     result = this.friendShipDAO.sendFriendRequest(friendShip);
                 } else if (friendId < userId) {
+                    friendShip.setId(0);
                     friendShip.setFirstUserId(friendId);
                     friendShip.setSecondUserId(userId);
                     friendShip.setStatus(0);
