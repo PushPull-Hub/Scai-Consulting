@@ -6,6 +6,8 @@ import com.scaiconsulting.scaichat.services.FriendShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "Authentication")
 @RequestMapping("/api")
@@ -21,6 +23,12 @@ public class FriendShipController {
     @GetMapping("/friendship")
     public FriendShip getFriendShipBy(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
         return friendShipService.getFriendShip(token, friendId);
+    }
+
+
+    @GetMapping("/friendships")
+    public List<FriendShip> getFriendshipList(@RequestHeader("Authentication") String token) {
+        return friendShipService.getFriendShipList(token);
     }
 
 
