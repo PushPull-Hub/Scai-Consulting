@@ -1,5 +1,6 @@
 package com.scaiconsulting.scaichat.controllers;
 
+import com.scaiconsulting.scaichat.configurations.RelationShips;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.FriendShipService;
@@ -25,15 +26,13 @@ public class FriendShipController {
         return friendShipService.getFriendShip(token, friendId);
     }
 
-
     @GetMapping("/friendships")
     public List<FriendShip> getFriendshipList(@RequestHeader("Authentication") String token) {
         return friendShipService.getFriendShipList(token);
     }
 
-
-    @GetMapping("/requestFriendship")
-    public FriendShip addFriend(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
+    @GetMapping("/friend-request")
+    public FriendShip sendFriendRequest(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
         FriendShip friendShip = friendShipService.sendFriendRequest(token, friendId);
         if (friendShip != null) {
             return friendShip;
@@ -42,4 +41,24 @@ public class FriendShipController {
         }
     }
 
+    @PostMapping("/friend-request")
+    public FriendShip acceptFriendRequest(@RequestHeader("Authentication") String token, @RequestBody int requester) {
+        return friendShipService.acceptFriendRequest(token, requester);
+    }
+
+
+    @GetMapping("/friend-request/pending")
+    public List<FriendShip> getPendingFriendRequests(@RequestHeader("Authentication") String token) {
+        return friendShipService.getPendingFriendRequests(token);
+    }
+
+    @PutMapping("/friendship/block")
+    public boolean blockFriend(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
+        return friendShipService.blockFriend(token, friendId);
+    }
+
+    @GetMapping("/relationships")
+    public RelationShips getUserRelationShips(@RequestHeader("Authentication") String token) {
+        return friendShipService.getRelationShips(token);
+    }
 }
