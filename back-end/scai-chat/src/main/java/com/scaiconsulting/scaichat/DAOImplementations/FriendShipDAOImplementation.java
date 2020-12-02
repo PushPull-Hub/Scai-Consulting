@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 public class FriendShipDAOImplementation implements FriendShipDAO {
@@ -36,6 +37,14 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
             friendShipResult = theQuery.uniqueResult();
         }
         return friendShipResult;
+    }
+
+    @Override
+    public List<FriendShip> getFriendShipList(int userId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:userId or secondUserId=:userId ", FriendShip.class);
+        theQuery.setParameter("userId", userId);
+        return theQuery.getResultList();
     }
 
     @Override
