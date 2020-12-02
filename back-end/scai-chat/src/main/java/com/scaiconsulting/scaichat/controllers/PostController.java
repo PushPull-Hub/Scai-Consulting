@@ -79,12 +79,11 @@ public class PostController {
 
     }
 
-    /*   @DeleteMapping("/posts/{postId}/comments/{commentId}")
-    public ResponseEntity<?> deleteComment(@PathVariable (value = "postId") int postId,
-                                           @PathVariable (value = "commentId") int commentId){
-
-
-    }*/
+    @PostMapping("/posts/unlike")
+    public Set<PostLike> unlikePost (@RequestHeader("Authentication") String token,
+                                   @RequestBody int postId ) {
+        return null;
+    }
 
 
 }
