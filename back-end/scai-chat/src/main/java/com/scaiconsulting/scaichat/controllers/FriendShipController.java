@@ -1,13 +1,10 @@
 package com.scaiconsulting.scaichat.controllers;
 
-import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.FriendShip;
-import com.scaiconsulting.scaichat.entities.User;
+import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.FriendShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "Authentication")
@@ -21,31 +18,20 @@ public class FriendShipController {
         this.friendShipService = friendShipService;
     }
 
-    @GetMapping("/friendships")
-    public List<FriendShip> getFriendshipList(@RequestHeader("Authentication") String token) {
-        return friendShipService.getFriendShipList(new IdExtractor(token).getAuthenticatedUserId());
-
-    }
-
-    @GetMapping("/friendships/{friendShipId}")
-    public FriendShip getFriendShipByItsId(@PathVariable int friendShipId) {
-        return friendShipService.getFriendShipByItsId(friendShipId);
+    @GetMapping("/friendship")
+    public FriendShip getFriendShipBy(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
+        return friendShipService.getFriendShip(token, friendId);
     }
 
 
-    @PostMapping("/friendships/friend")
-    public FriendShip getFriendShipByFriendId(@RequestBody int friendId) {
-        return friendShipService.getFriendShipByFriendId(friendId);
-    }
-
-    @PostMapping("/friendships")
+    @GetMapping("/requestFriendship")
     public FriendShip addFriend(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
-        return this.friendShipService.createFriendShip(token, friendId);
-    }
-
-    @GetMapping("/friendships/suggestions")
-    public List<User> getTenFriendsSuggestion(@RequestHeader("Authentication") String token) {
-        return this.friendShipService.getTenFriendsSuggestion(token);
+        FriendShip friendShip = friendShipService.sendFriendRequest(token, friendId);
+        if (friendShip != null) {
+            return friendShip;
+        } else {
+            throw new NotFoundException("problem detected");
+        }
     }
 
 }
