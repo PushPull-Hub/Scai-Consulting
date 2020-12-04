@@ -45,7 +45,7 @@ public class UserServiceImplementation implements UserService {
             String token = Jwts.builder()
                     .addClaims(addedValues)
                     .setIssuedAt(new Date(System.currentTimeMillis()))
-                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
+                    .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24000))
                     .signWith(SignatureAlgorithm.HS512, "scaiconsulting").compact();
             headers.add("Authentication", "Bearer" + token);
             return ResponseEntity.ok().headers(headers).body(AuthenticatedProfile.getUser());

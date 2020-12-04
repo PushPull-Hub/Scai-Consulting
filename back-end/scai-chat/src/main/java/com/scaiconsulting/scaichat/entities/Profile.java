@@ -11,10 +11,10 @@ public class Profile {
     @Column(name = "id")
     private int id;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
