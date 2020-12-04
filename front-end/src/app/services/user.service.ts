@@ -46,7 +46,7 @@ export class UserServices implements OnInit {
       .subscribe((responseData) => this.usersList.next(responseData));
   }
 
-  getUserById(id: string) {
+  getUserById(id: number) {
     return this.http.get<User>(environment.rootUrl + `/api/users/` + id);
   }
 
