@@ -15,7 +15,7 @@ export class ResetPasswordComponent implements OnInit {
   constructor(private user: UserServices, private route: Router) {}
 
   ngOnInit() {
-    this.selectedUserId = this.user.selectedUserId;
+    //  this.selectedUserId = this.user.selectedUserId;
   }
 
   resetPassword(f: NgForm) {
@@ -27,7 +27,7 @@ export class ResetPasswordComponent implements OnInit {
       console.log(`Incorrect Password !!`);
     } else if (newPass === newPassConfirmation) {
       const newPassword = newPass.toString();
-      this.user.updateUser(this.selectedUserId, 'password', newPassword);
+      //     this.user.updateUser(this.selectedUserId, 'password', newPassword);
       this.route.navigate(['/app/sign-in']);
     }
   }

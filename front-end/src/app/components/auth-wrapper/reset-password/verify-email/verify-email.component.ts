@@ -17,11 +17,11 @@ export class VerifyEmailComponent implements OnInit {
   verifyEmail = (f: NgForm) => {
     const inputedEmail = f.value.email;
 
-    if (this.userService.verifyEmail(inputedEmail)) {
-      this.unfoundedEmail = false;
-      this.router.navigate(['/app/reset-password']);
-    } else {
-      this.unfoundedEmail = true;
-    }
+    // if (this.userService.verifyEmail(inputedEmail)) {
+    //   this.unfoundedEmail = false;
+    //   this.router.navigate(['/app/reset-password']);
+    // } else {
+    //   this.unfoundedEmail = true;
+    // }
   };
 }

@@ -25,43 +25,43 @@ export class MessagesService {
     return (this.messages = JSON.parse(localStorage.getItem('Messages')) || []);
   }
 
-  getConversation(friendId: string): Conversation {
-    const stConversationId = `${this.authService.getLoggedUserId()}${friendId}`;
-    const ndConversationId = `${friendId}${this.authService.getLoggedUserId()}`;
-    return this.messages.find(
-      (conversation) =>
-        conversation.id === stConversationId ||
-        conversation.id === ndConversationId
-    );
-  }
+  // getConversation(friendId: string): Conversation {
+  //   const stConversationId = `${this.authService.getLoggedUserId()}${friendId}`;
+  //   const ndConversationId = `${friendId}${this.authService.getLoggedUserId()}`;
+  //   return this.messages.find(
+  //     (conversation) =>
+  //       conversation.id === stConversationId ||
+  //       conversation.id === ndConversationId
+  //   );
+  // }
 
-  getUserConversations(): Conversation[] {
-    return this.getMessages().filter((conversation) =>
-      conversation.id.includes(this.authService.getLoggedUserId())
-    );
-  }
+  // getUserConversations(): Conversation[] {
+  //   return this.getMessages().filter((conversation) =>
+  //     conversation.id.includes(this.authService.getLoggedUserId())
+  //   );
+  // }
 
-  getTheFriendId(conversationId: string) {
-    return this.authService.getLoggedUserId()
-      ? conversationId.replace(this.authService.getLoggedUserId(), '')
-      : undefined;
-  }
+  // getTheFriendId(conversationId: string) {
+  //   return this.authService.getLoggedUserId()
+  //     ? conversationId.replace(this.authService.getLoggedUserId(), '')
+  //     : undefined;
+  // }
 
-  getTheFriend(conversationId: string) {
-    return this.userService.getUserVersion2(
-      this.getTheFriendId(conversationId)
-    );
-  }
+  // getTheFriend(conversationId: string) {
+  //   return this.userService.getUserVersion2(
+  //     this.getTheFriendId(conversationId)
+  //   );
+  // }
 
-  updateConversationMessagesArray(id: string, messagesArray: Message[]) {
-    const conversation: Conversation = this.messages.find(
-      (conversation) => conversation.id === id
-    );
-    conversation.messages = messagesArray;
-    const IndexOfConversation = this.messages.map((x) => x.id).indexOf(id);
-    this.messages.splice(IndexOfConversation, 1, conversation);
-    localStorage.setItem('Messages', JSON.stringify(this.messages));
-  }
+  // updateConversationMessagesArray(id: string, messagesArray: Message[]) {
+  //   const conversation: Conversation = this.messages.find(
+  //     (conversation) => conversation.id === id
+  //   );
+  //   conversation.messages = messagesArray;
+  //   const IndexOfConversation = this.messages.map((x) => x.id).indexOf(id);
+  //   this.messages.splice(IndexOfConversation, 1, conversation);
+  //   localStorage.setItem('Messages', JSON.stringify(this.messages));
+  // }
 
   // setLastMessageToReaded (ConversationId:string) {
   //  this.getUserConversations.filter(conversation => conversation.id === ConversationId )
@@ -88,18 +88,18 @@ export class MessagesService {
     localStorage.setItem('Messages', JSON.stringify(this.messages));
   }
 
-  sendMessage(reciever: string, text: string) {
-    const conversation: Conversation = this.getConversation(reciever);
-    const messages = conversation.messages;
-    const message = new Message();
-    message.id = uuidv4();
-    message.sender = this.authService.getLoggedUserId();
-    message.reciever = reciever;
-    message.text = text;
-    message.is_readed = false;
+  // sendMessage(reciever: string, text: string) {
+  //   const conversation: Conversation = this.getConversation(reciever);
+  //   const messages = conversation.messages;
+  //   const message = new Message();
+  //   message.id = uuidv4();
+  //   // message.sender = this.authService.getLoggedUserId();
+  //   message.reciever = reciever;
+  //   message.text = text;
+  //   message.is_readed = false;
 
-    messages.push(message);
+  //   messages.push(message);
 
-    this.updateConversationMessagesArray(conversation.id, messages);
-  }
+  //   // this.updateConversationMessagesArray(conversation.id, messages);
+  // }
 }
