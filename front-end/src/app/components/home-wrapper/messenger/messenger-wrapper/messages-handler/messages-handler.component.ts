@@ -23,20 +23,20 @@ export class MessagesHandlerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getFriendUsername(conversationId: string): string {
-    return this.messageService.getTheFriend(conversationId).username;
-  }
+  // getFriendUsername(conversationId: string): string {
+  //   return this.messageService.getTheFriend(conversationId).username;
+  // }
 
-  getFriendId(id: string): string {
-    return this.messageService.getTheFriendId(id);
-  }
-  sendMessage(reciever: string, text: string) {
-    if (text !== '') {
-      this.messageService.sendMessage(reciever, text);
-      this.conversation = this.messageService.getConversation(reciever);
-      this.text = '';
-    } else {
-      console.log('emptry input');
-    }
-  }
+  // getFriendId(id: string): string {
+  //   return this.messageService.getTheFriendId(id);
+  // }
+  // sendMessage(reciever: string, text: string) {
+  //   if (text !== '') {
+  //     this.messageService.sendMessage(reciever, text);
+  //     this.conversation = this.messageService.getConversation(reciever);
+  //     this.text = '';
+  //   } else {
+  //     console.log('emptry input');
+  //   }
+  // }
 }

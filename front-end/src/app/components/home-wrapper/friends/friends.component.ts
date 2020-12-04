@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FriendsService } from 'src/app/services/friends.service';
-import { UserServices } from 'src/app/services/user.service';
-import { MessagesService } from 'src/app/services/messages.service';
-import { Conversation } from 'src/app/models/Conversation.model';
-import { AuthService } from 'src/app/services/auth.service';
 
 import { environment } from 'src/environments/environment';
+import { RelationShips } from 'src/app/models/RelationShips.model';
+import { MiniProfile } from 'src/app/models/MiniProfile.model';
+import { FriendShip } from 'src/app/models/FriendShip.model';
 
 @Component({
   selector: 'app-friends',
@@ -14,59 +13,87 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./friends.component.scss'],
 })
 export class FriendsComponent implements OnInit {
-  //friends: Friend[];
-  friendsSuggestion: string[];
-  friendsIconClicked: boolean = true;
-  AddFriendIconClicked: boolean = false;
-  added: boolean = true;
-  messageIconClicked: boolean = false;
-  loggedUserId: string;
-  conversation: Conversation;
-  friendId: string;
-  male_avatar_photo_url: string;
+  myRelationShips: RelationShips;
+  allProfiles: MiniProfile[];
 
-  constructor(
-    private friendsService: FriendsService,
-    private userService: UserServices,
-    private messagesService: MessagesService,
-    private authService: AuthService
-  ) {}
+  myFriends: FriendShip[];
+  myFriendsProfiles: MiniProfile[];
+
+  pendingRequests: FriendShip[];
+  blockedBy: FriendShip[];
+
+  doIhaveFriends: boolean;
+  doIhavePendingRequests: boolean;
+  doIhaveBlockedMeList: boolean;
+  doIhaveBlockedByMeList: boolean;
+
+  loading: boolean;
+  isThereAnErrorToLoadProfiles: boolean;
+  male_avatar_photo_url: string;
+  myId: number;
+
+  constructor(private friendsService: FriendsService) {}
 
   ngOnInit(): void {
-    // this.friends = this.friendsService.getUserFriends();
-    // this.friendsSuggestion = this.friendsService.getTenFriendsSuggestion();
-    // this.loggedUserId = this.authService.loggedUser.id;
-    this.friendsService
-      .getFriendShipList()
-      .subscribe((data) => console.log(data));
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    this.loading = true;
+    // this._loadProfiles();
+    this.testMethod();
   }
 
-  // getFriendProperty = (id: string, property: string) =>
-  //   this.userService.getaUserProperty(id, property);
-
-  // onFriendsIconClick() {
-  //   this.friends = this.friendsService.getUserFriends();
-  //   this.friendsIconClicked = true;
-  //   this.AddFriendIconClicked = false;
-  // }
-
-  // onAddFriendsIconClick() {
-  //   this.AddFriendIconClicked = true;
-  //   this.friendsIconClicked = false;
-  // }
-
-  // addFriend(addedId) {
-  //   this.friendsService.addFriend(addedId);
-  //   this.friends = this.friendsService.getUserFriends();
-  //   this.friendsSuggestion = this.friendsSuggestion.filter(
-  //     (id) => id !== addedId
-  //   );
-  // }
-
-  // getConversation(friendId) {
-  //   this.messageIconClicked = true;
-  //   this.conversation = this.messagesService.getConversation(friendId);
-  //   this.friendId = friendId;
+  private async testMethod() {
+    try {
+      const values = await this.friendsService.getRelationShips().toPromise();
+      console.log(values);
+      const result = this.friendsService._getMyFriendsProfiles(values, 12);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      console.log('FINISHED');
+      this.loading = false;
+    }
+  }
+  // private _loadProfiles() {
+  //   this.friendsService
+  //     .getAllRelationsShipsProfiles()
+  //     .then((data: MiniProfile[]) => {
+  //       if (data && data.length > 0) {
+  //         console.log(data);
+  //         this.myId = this.friendsService.myId;
+  //         this.myRelationShips = this.friendsService.UserRelationShips;
+  //         this.allProfiles = data;
+  //         this.myFriends = this.myRelationShips.myFriends;
+  //         console.log(this.myFriends);
+  //         let res = this.myFriends.map((friendShip: FriendShip) => {
+  //           let FriendsProfiles: MiniProfile[] = [];
+  //           if (friendShip.firstUserId == this.myId) {
+  //             let profile = this.allProfiles.find((profile: MiniProfile) => {
+  //               profile.Id == friendShip.secondUserId;
+  //             });
+  //             console.log(profile);
+  //             FriendsProfiles.push(profile);
+  //           } else if (friendShip.secondUserId == this.myId) {
+  //             let profile = this.allProfiles.find((profile: MiniProfile) => {
+  //               profile.Id == friendShip.firstUserId;
+  //             });
+  //             console.log(profile);
+  //             FriendsProfiles.push(profile);
+  //           }
+  //           return FriendsProfiles;
+  //         });
+  //         console.log(res);
+  //         this.pendingRequests = this.myRelationShips.pendingRequests;
+  //         this.blockedBy = this.myRelationShips.blockedBy;
+  //         this.isThereAnErrorToLoadProfiles = false;
+  //         this.loading = false;
+  //         console.log(this.myFriendsProfiles);
+  //         this.isThereAnErrorToLoadProfiles = false;
+  //         console.log(data);
+  //       } else {
+  //         this.loading = false;
+  //         this.isThereAnErrorToLoadProfiles = true;
+  //       }
+  //     });
   // }
 }

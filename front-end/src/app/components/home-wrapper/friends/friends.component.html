@@ -20,39 +20,34 @@
             &nbsp;
             <li>
               <i class="fa fa-plus-circle" aria-hidden="true" (click)="onAddFriendsIconClick()"></i>
-              Add Friends
+              Add
+            </li>
+            <li>
+              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+              Pending
+            </li>
+            <li>
+              <i class="fa fa-ban" aria-hidden="true"></i>
+              Blocked
             </li>
           </ul>
         </h4>
         <!-- friends table  -->
-        <table class="table table-hover" id="friends" *ngIf="friendsIconClicked">
-          <tbody>
-            <tr *ngFor="let friend of friends">
-              <th scope="row">
-                <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
-              </th>
-              <th>
-                {{ getFriendProperty(friend.id, "username") }}
-              </th>
-              <td>
-                <li style="list-style: none;">
-                  <i class="fa fa-comments-o" aria-hidden="true" style="color: #2fa4e7;"
-                    (click)="getConversation(friend.id)"></i>
-                </li>
-              </td>
+        <app-spinner *ngIf="loading"></app-spinner>
+        <p *ngIf="isThereAnErrorToLoadProfiles">There's an error in loading profiles </p>
 
-              <td>
-                <i *ngIf="getFriendProperty(friend.id, 'isActive')" _ngcontent-jcl-c119="" aria-hidden="true"
-                  class="fa fa-circle" style="color: green;"></i>
-                <i *ngIf="!getFriendProperty(friend.id, 'isActive')" _ngcontent-jcl-c119="" aria-hidden="true"
-                  class="fa fa-circle" style="color: grey;"></i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <ng-container *ngIf="!loading && !isThereAnErrorToLoadProfiles && allProfiles ">
+          <app-my-friends *ngFor="let friendProfile of  myFriendsProfiles" [friendProfile]="friendProfile">
+          </app-my-friends>
+        </ng-container>
+
+
+
+
+
 
         <!-- Add friends  -->
-        <table id="add-friends" class="table table-hover" *ngIf="AddFriendIconClicked">
+        <!-- <table id="add-friends" class="table table-hover" *ngIf="AddFriendIconClicked">
           <tbody>
             <ng-container *ngIf="added">
               <tr *ngFor="let suggestedFriend of friendsSuggestion">
@@ -60,7 +55,7 @@
                   <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
                 </th>
                 <th>{{ getFriendProperty(suggestedFriend, "username") }}</th>
-                <!-- to be modified  -->
+                // to be modified
                 <th>
                   <button class="btn btn-info" (click)="addFriend(suggestedFriend)">
                     add as friend
@@ -69,12 +64,13 @@
               </tr>
             </ng-container>
           </tbody>
-        </table>
+        </table> -->
+
       </div>
       <div class="col-sm-3"></div>
-      <ng-container *ngIf="messageIconClicked">
+      <!-- <ng-container *ngIf="messageIconClicked">
         <app-message-box [conversation]="conversation" [friendId]="friendId"></app-message-box>
-      </ng-container>
+      </ng-container> -->
     </div>
   </div>
 </div>
