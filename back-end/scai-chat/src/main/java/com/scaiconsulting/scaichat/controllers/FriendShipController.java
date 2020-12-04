@@ -21,8 +21,8 @@ public class FriendShipController {
         this.friendShipService = friendShipService;
     }
 
-    @GetMapping("/friendship")
-    public FriendShip getFriendShipBy(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
+    @PostMapping("/friendship")
+    public FriendShip getFriendShip(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
         return friendShipService.getFriendShip(token, friendId);
     }
 
@@ -31,7 +31,7 @@ public class FriendShipController {
         return friendShipService.getFriendShipList(token);
     }
 
-    @GetMapping("/friend-request")
+    @PostMapping("/friend-request")
     public FriendShip sendFriendRequest(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
         FriendShip friendShip = friendShipService.sendFriendRequest(token, friendId);
         if (friendShip != null) {
@@ -41,7 +41,7 @@ public class FriendShipController {
         }
     }
 
-    @PostMapping("/friend-request")
+    @PutMapping("/friend-request")
     public FriendShip acceptFriendRequest(@RequestHeader("Authentication") String token, @RequestBody int requester) {
         return friendShipService.acceptFriendRequest(token, requester);
     }
@@ -52,7 +52,7 @@ public class FriendShipController {
         return friendShipService.getPendingFriendRequests(token);
     }
 
-    @PutMapping("/friendship/block")
+    @PutMapping("/friendship")
     public boolean blockFriend(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
         return friendShipService.blockFriend(token, friendId);
     }
