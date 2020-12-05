@@ -13,19 +13,17 @@ import { FriendShip } from 'src/app/models/FriendShip.model';
   styleUrls: ['./friends.component.scss'],
 })
 export class FriendsComponent implements OnInit {
-  myRelationShips: RelationShips;
-  allProfiles: MiniProfile[];
-
+  doIhaveFriends: boolean;
   myFriends: FriendShip[];
   myFriendsProfiles: MiniProfile[];
 
+  doIhavePendingFriendRequests: boolean;
   pendingRequests: FriendShip[];
-  blockedBy: FriendShip[];
+  pendingRequestsProfile: MiniProfile[];
 
-  doIhaveFriends: boolean;
-  doIhavePendingRequests: boolean;
-  doIhaveBlockedMeList: boolean;
   doIhaveBlockedByMeList: boolean;
+  BlockedByMeList: FriendShip[];
+  BlockedByMeListProfiles: MiniProfile[];
 
   loading: boolean;
   isThereAnErrorToLoadProfiles: boolean;
@@ -37,63 +35,45 @@ export class FriendsComponent implements OnInit {
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
     this.loading = true;
-    // this._loadProfiles();
-    this.testMethod();
+    this.loadmyFriendsProfiles();
   }
 
-  private async testMethod() {
-    try {
-      const values = await this.friendsService.getRelationShips().toPromise();
-      console.log(values);
-      const result = this.friendsService._getMyFriendsProfiles(values, 12);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      console.log('FINISHED');
-      this.loading = false;
-    }
+  private async loadmyFriendsProfiles() {
+    this.friendsService
+      .getRelationShips()
+      .subscribe(async (response: RelationShips) => {
+        try {
+          if (response && response.hasOwnProperty) {
+            if (
+              response.pendingRequests &&
+              response.pendingRequests.length > 0
+            ) {
+              this.pendingRequests = response.pendingRequests;
+              this.doIhavePendingFriendRequests = true;
+            }
+            if (response.blockedBy && response.blockedBy.length > 0) {
+              this.BlockedByMeList = response.blockedBy;
+              this.doIhaveBlockedByMeList = true;
+            }
+            if (response.myFriends && response.myFriends.length > 0) {
+              this.myFriends = response.myFriends;
+              this.doIhaveFriends = true;
+            }
+            this.myFriendsProfiles = await this.friendsService._getMyFriendsProfiles(
+              response
+            );
+            this.isThereAnErrorToLoadProfiles = false;
+            this.loading = false;
+            console.log(response);
+          } else {
+            console.log(
+              'in else , check provided conditions in loadmyFriendsProfiles friends.component.ts'
+            );
+          }
+        } catch (error) {
+          console.log(error);
+          this.isThereAnErrorToLoadProfiles = true;
+        }
+      });
   }
-  // private _loadProfiles() {
-  //   this.friendsService
-  //     .getAllRelationsShipsProfiles()
-  //     .then((data: MiniProfile[]) => {
-  //       if (data && data.length > 0) {
-  //         console.log(data);
-  //         this.myId = this.friendsService.myId;
-  //         this.myRelationShips = this.friendsService.UserRelationShips;
-  //         this.allProfiles = data;
-  //         this.myFriends = this.myRelationShips.myFriends;
-  //         console.log(this.myFriends);
-  //         let res = this.myFriends.map((friendShip: FriendShip) => {
-  //           let FriendsProfiles: MiniProfile[] = [];
-  //           if (friendShip.firstUserId == this.myId) {
-  //             let profile = this.allProfiles.find((profile: MiniProfile) => {
-  //               profile.Id == friendShip.secondUserId;
-  //             });
-  //             console.log(profile);
-  //             FriendsProfiles.push(profile);
-  //           } else if (friendShip.secondUserId == this.myId) {
-  //             let profile = this.allProfiles.find((profile: MiniProfile) => {
-  //               profile.Id == friendShip.firstUserId;
-  //             });
-  //             console.log(profile);
-  //             FriendsProfiles.push(profile);
-  //           }
-  //           return FriendsProfiles;
-  //         });
-  //         console.log(res);
-  //         this.pendingRequests = this.myRelationShips.pendingRequests;
-  //         this.blockedBy = this.myRelationShips.blockedBy;
-  //         this.isThereAnErrorToLoadProfiles = false;
-  //         this.loading = false;
-  //         console.log(this.myFriendsProfiles);
-  //         this.isThereAnErrorToLoadProfiles = false;
-  //         console.log(data);
-  //       } else {
-  //         this.loading = false;
-  //         this.isThereAnErrorToLoadProfiles = true;
-  //       }
-  //     });
-  // }
 }
