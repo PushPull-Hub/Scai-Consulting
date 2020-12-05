@@ -26,9 +26,9 @@ export class MessengerNavComponent implements OnInit {
     // this.loggedUserId = this.authService.getLoggedUserId();
   }
 
-  getFriendUsername(conversationId: string): string {
-    return this.messageService.getTheFriend(conversationId).username;
-  }
+  // getFriendUsername(conversationId: string): string {
+  //   return this.messageService.getTheFriend(conversationId).username;
+  // }
 
   onClick(conversation): void {
     this.eventClicked.emit(conversation);
