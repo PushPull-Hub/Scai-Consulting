@@ -16,6 +16,7 @@ import { User } from '../models/User.model';
 export class FriendsService {
   UserRelationShips: RelationShips;
   allNeededProfiles: MiniProfile[];
+  myId: number;
 
   constructor(
     private http: HttpClient,
@@ -29,21 +30,91 @@ export class FriendsService {
     );
   }
 
-  getFriendshipList() {
-    return this.http.get<FriendShip[]>(
-      environment.rootUrl + '/api/friendships'
-    );
+  private _getMyFriendsFromRelationShipArray(
+    myRelationShips: RelationShips
+  ): FriendShip[] {
+    return myRelationShips.myFriends;
   }
 
-  getFriendShip(friend_id: number) {
-    return this.http.post<FriendShip>(
-      environment.rootUrl + '/api/friendship',
-      friend_id
-    );
+  private _getMyPendingRequest(myRelationShips: RelationShips): FriendShip[] {
+    return myRelationShips.pendingRequests;
   }
 
-  getPendingFriendRequests() {
-    return this.http.get(environment.rootUrl + '/api/friend-request/pending');
+  private _getMyBlockList(myRelationShips: RelationShips): FriendShip[] {
+    return myRelationShips.blockedBy;
+  }
+
+  private _getMyId(): Promise<number> {
+    return new Promise((resolve, reject) => {
+      this.authService
+        .getAuthenticatedUser()
+        .then((user: User) => {
+          resolve(user.id);
+          reject(Error('getAuthenticatedUser get Rejected'));
+        })
+        .catch((error) => console.log(error));
+    });
+  }
+
+  _getMyFriendsProfiles(relationShip: RelationShips): Promise<MiniProfile[]> {
+    return new Promise(async (resolve, reject) => {
+      const myId = await this._getMyId();
+      this.myId = myId;
+      let myFriendsProfiles: MiniProfile[] = [];
+      for (const friendship of this._getMyFriendsFromRelationShipArray(
+        relationShip
+      )) {
+        const profile: MiniProfile = await this.userService
+          .getMiniProfile(
+            friendship.firstUserId == myId
+              ? friendship.secondUserId
+              : friendship.firstUserId
+          )
+          .toPromise();
+        myFriendsProfiles.push(profile);
+      }
+      resolve(myFriendsProfiles);
+    });
+  }
+
+  _getMyPendingRequestsProfile(
+    relationShip: RelationShips,
+    myId: number
+  ): MiniProfile[] {
+    let myPendingRequestsProfile: MiniProfile[] = [];
+    this._getMyPendingRequest(relationShip).map(
+      async (friendship: FriendShip) => {
+        const profile: MiniProfile = await this.userService
+          .getMiniProfile(
+            friendship.firstUserId == myId
+              ? friendship.secondUserId
+              : friendship.firstUserId
+          )
+          .toPromise();
+        myPendingRequestsProfile.push(profile);
+      }
+    );
+    return myPendingRequestsProfile;
+  }
+
+  _getBlockedByMeListProfiles(
+    relationShip: RelationShips,
+    myId: number
+  ): MiniProfile[] {
+    let BlockedByMeList: MiniProfile[] = [];
+    this._getMyPendingRequest(relationShip).map(
+      async (friendship: FriendShip) => {
+        const profile: MiniProfile = await this.userService
+          .getMiniProfile(
+            friendship.firstUserId == myId
+              ? friendship.secondUserId
+              : friendship.firstUserId
+          )
+          .toPromise();
+        BlockedByMeList.push(profile);
+      }
+    );
+    return BlockedByMeList;
   }
 
   sendFriendRequest(requested_user_Id: number) {
@@ -67,184 +138,20 @@ export class FriendsService {
     );
   }
 
-  // async getActiveFriendsList() {
-  //   let activeFriendsIds: number[] = [];
-  //   let userId: number;
-  //   await this.authService
-  //     .getAuthenticatedUser()
-  //     .then((user) => (user.id = userId));
-  //   this.getFriendshipList().subscribe((data) => {
-  //     data.map((friendship) => {
-  //       if (friendship.firstUserId == userId) {
-  //         this.userService
-  //           .getMiniProfile(friendship.secondUserId)
-  //           .subscribe((user) => {
-  //             if (user.active) activeFriendsIds.push(user.Id);
-  //           });
-  //       } else {
-  //         this.userService
-  //           .getMiniProfile(friendship.firstUserId)
-  //           .subscribe((user) => {
-  //             if (user.active) activeFriendsIds.push(user.Id);
-  //           });
-  //       }
-  //     });
-  //   });
-  // }
-
-  // async getAllRelationsShipsProfiles() {
-  //   return await this.getRelationShips()
-  //     .toPromise()
-  //     .then(async (relationShip: RelationShips) => {
-  //       if (relationShip && relationShip.hasOwnProperty) {
-  //         this.UserRelationShips = relationShip;
-  //         let allNeededProfiles: MiniProfile[] = [];
-  //         await new Promise((resolve, reject) => {
-  //           this.authService
-  //             .getAuthenticatedUser()
-  //             .then((user: User) => resolve(user.id))
-  //             .catch((error) => console.log(error));
-  //         }).then(async (id: number) => {
-  //           let myId = id;
-  //           await new Promise((resolve, reject) => {
-  //             this._getMyFriends(relationShip).map(
-  //               async (friendship: FriendShip) => {
-  //                 if (friendship.firstUserId == myId) {
-  //                   await this.userService
-  //                     .getMiniProfile(friendship.secondUserId)
-  //                     .toPromise()
-  //                     .then((profile) => {
-  //                       allNeededProfiles.push(profile);
-  //                     });
-  //                 } else if (friendship.secondUserId == myId) {
-  //                   await this.userService
-  //                     .getMiniProfile(friendship.firstUserId)
-  //                     .toPromise()
-  //                     .then((profile) => {
-  //                       allNeededProfiles.push(profile);
-  //                     });
-  //                 }
-  //               }
-  //             );
-
-  //             this._getMyPendingRequest(relationShip).map(
-  //               async (friendShip: FriendShip) => {
-  //                 if (!friendShip.hasOwnProperty) {
-  //                   console.log('friendShip has No OwnProperty');
-  //                 } else {
-  //                   if (friendShip.firstUserId == myId) {
-  //                     await this.userService
-  //                       .getMiniProfile(friendShip.secondUserId)
-  //                       .toPromise()
-  //                       .then((profile) => {
-  //                         allNeededProfiles.push(profile);
-  //                       });
-  //                   } else if (friendShip.secondUserId == myId) {
-  //                     await this.userService
-  //                       .getMiniProfile(friendShip.firstUserId)
-  //                       .toPromise()
-  //                       .then((profile) => {
-  //                         allNeededProfiles.push(profile);
-  //                       });
-  //                   }
-  //                 }
-  //               }
-  //             );
-
-  //             this._getMyBlockList(relationShip).map(
-  //               async (friendShip: FriendShip) => {
-  //                 if (!friendShip.hasOwnProperty) {
-  //                   console.log('friendShip has No OwnProperty');
-  //                 } else {
-  //                   if (friendShip.firstUserId == myId) {
-  //                     await this.userService
-  //                       .getMiniProfile(friendShip.secondUserId)
-  //                       .toPromise()
-  //                       .then((profile) => {
-  //                         allNeededProfiles.push(profile);
-  //                       });
-  //                   } else if (friendShip.secondUserId == myId) {
-  //                     await this.userService
-  //                       .getMiniProfile(friendShip.firstUserId)
-  //                       .toPromise()
-  //                       .then((profile) => {
-  //                         allNeededProfiles.push(profile);
-  //                       });
-  //                   }
-  //                 }
-  //               }
-  //             );
-  //             resolve(allNeededProfiles);
-  //           }).then((data: MiniProfile[]) => {
-  //             allNeededProfiles = data;
-  //           });
-  //         });
-
-  //         return allNeededProfiles;
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       return null;
-  //     });
-  // }
-
-  async getMyFriendsProfiles() {
-    return await this.getRelationShips()
-      .toPromise()
-      .then(async (relationShip: RelationShips) => {
-        let myFriendsProfiles: MiniProfile[] = [];
-        const myId = await new Promise((resolve, reject) => {
-          this.authService.getAuthenticatedUser().then((user: User) => {
-            resolve(user.id);
-          });
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  getFriendshipList() {
+    return this.http.get<FriendShip[]>(
+      environment.rootUrl + '/api/friendships'
+    );
   }
 
-  private _getMyFriends(myRelationShips: RelationShips): FriendShip[] {
-    return myRelationShips.myFriends;
+  getFriendShip(friend_id: number) {
+    return this.http.post<FriendShip>(
+      environment.rootUrl + '/api/friendship',
+      friend_id
+    );
   }
 
-  private _getMyPendingRequest(myRelationShips: RelationShips): FriendShip[] {
-    return myRelationShips.pendingRequests;
-  }
-
-  private _getMyBlockList(myRelationShips: RelationShips): FriendShip[] {
-    return myRelationShips.blockedBy;
-  }
-
-  private async _getMyId() {
-    return await new Promise((resolve, reject) => {
-      this.authService
-        .getAuthenticatedUser()
-        .then((user: User) => {
-          resolve(user.id);
-          reject(Error('getAuthenticatedUser get Rejected'));
-        })
-        .catch((error) => console.log(error));
-    });
-  }
-
-  _getMyFriendsProfiles(
-    relationShip: RelationShips,
-    myId: number
-  ): MiniProfile[] {
-    let myFriendsProfiles: MiniProfile[] = [];
-    this._getMyFriends(relationShip).map(async (friendship: FriendShip) => {
-      console.log(friendship);
-      const profile: MiniProfile = await this.userService
-        .getMiniProfile(
-          friendship.firstUserId == myId
-            ? friendship.secondUserId
-            : friendship.firstUserId
-        )
-        .toPromise();
-      myFriendsProfiles.push(profile);
-    });
-    return myFriendsProfiles;
+  getPendingFriendRequests() {
+    return this.http.get(environment.rootUrl + '/api/friend-request/pending');
   }
 }
