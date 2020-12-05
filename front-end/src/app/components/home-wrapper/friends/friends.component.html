@@ -23,7 +23,9 @@
               Add
             </li>
             <li>
-              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+
+
+              <i class="fa fa-paper-plane" aria-hidden="true" [routerLink]="[ '/relation-ships/pending-requests']"></i>
               Pending
             </li>
             <li>
@@ -34,13 +36,22 @@
         </h4>
         <!-- friends table  -->
         <app-spinner *ngIf="loading"></app-spinner>
-        <p *ngIf="isThereAnErrorToLoadProfiles">There's an error in loading profiles </p>
 
-        <ng-container *ngIf="!loading && !isThereAnErrorToLoadProfiles && allProfiles ">
-          <app-my-friends *ngFor="let friendProfile of  myFriendsProfiles" [friendProfile]="friendProfile">
-          </app-my-friends>
+        <p *ngIf="isThereAnErrorToLoadProfiles">There's an error in loading profiles </p>
+        <p *ngIf="!loading && !doIhaveFriends"> You have no friends </p>
+        <ng-container *ngIf="!loading && !isThereAnErrorToLoadProfiles && doIhaveFriends">
+          <!-- <app-my-friends *ngFor="let friendProfile of  myFriendsProfiles" [friendProfile]="friendProfile">
+          </app-my-friends> -->
+          <router-outlet></router-outlet>
+
         </ng-container>
 
+        <!-- <p *ngIf="isThereAnErrorToLoadProfiles">There's an error in loading profiles </p>
+        <p *ngIf="!doIhavePendingFriendRequests"> You have no pending friends's requests </p>
+        <ng-container *ngIf="!loading && !isThereAnErrorToLoadProfiles && doIhavePendingFriendRequests">
+          <app-pending-requests *ngFor="let pendingRequestsProfile of pendingRequestsProfile"
+            [pendingRequestsProfile]="pendingRequestsProfile"></app-pending-requests>
+        </ng-container> -->
 
 
 

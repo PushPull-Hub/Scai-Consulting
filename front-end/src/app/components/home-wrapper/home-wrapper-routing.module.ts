@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomePageComponent } from './home-page/home.component';
 import { FriendsComponent } from './friends/friends.component';
+import { MyFriendsComponent } from './friends/my-friends/my-friends.component';
+import { PendingRequestsComponent } from './friends/pending-requests/pending-requests.component';
+import { BlockedComponent } from './friends/blocked/blocked.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -12,7 +15,16 @@ const routes: Routes = [
     loadChildren: () =>
       import('./profile/profile.module').then((m) => m.ProfileModule),
   },
-  { path: 'friends', component: FriendsComponent },
+  { path: 'relations', redirectTo: '/relation-ships/friends' },
+  {
+    path: 'relation-ships',
+    component: FriendsComponent,
+    children: [
+      { path: 'friends', component: MyFriendsComponent },
+      { path: 'pending-requests', component: PendingRequestsComponent },
+      { path: 'block-list', component: BlockedComponent },
+    ],
+  },
   {
     path: 'messenger',
     loadChildren: () =>
