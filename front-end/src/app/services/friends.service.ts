@@ -56,14 +56,12 @@ export class FriendsService {
     });
   }
 
-  _getMyFriendsProfiles(relationShip: RelationShips): Promise<MiniProfile[]> {
+  _getMyFriendsProfiles(myFriends: FriendShip[]): Promise<MiniProfile[]> {
     return new Promise(async (resolve, reject) => {
       const myId = await this._getMyId();
       this.myId = myId;
       let myFriendsProfiles: MiniProfile[] = [];
-      for (const friendship of this._getMyFriendsFromRelationShipArray(
-        relationShip
-      )) {
+      for (const friendship of myFriends) {
         const profile: MiniProfile = await this.userService
           .getMiniProfile(
             friendship.firstUserId == myId
@@ -77,13 +75,15 @@ export class FriendsService {
     });
   }
 
-  _getMyPendingRequestsProfile(
-    relationShip: RelationShips,
-    myId: number
-  ): MiniProfile[] {
-    let myPendingRequestsProfile: MiniProfile[] = [];
-    this._getMyPendingRequest(relationShip).map(
-      async (friendship: FriendShip) => {
+  _getMyPendingRequestsProfiles(
+    myPendingRequests: FriendShip[]
+  ): Promise<MiniProfile[]> {
+    return new Promise(async (resolve, reject) => {
+      const myId = await this._getMyId();
+      this.myId = myId;
+      let myPendingRequestsProfile: MiniProfile[] = [];
+
+      for (const friendship of myPendingRequests) {
         const profile: MiniProfile = await this.userService
           .getMiniProfile(
             friendship.firstUserId == myId
@@ -93,17 +93,16 @@ export class FriendsService {
           .toPromise();
         myPendingRequestsProfile.push(profile);
       }
-    );
-    return myPendingRequestsProfile;
+      resolve(myPendingRequestsProfile);
+    });
   }
 
-  _getBlockedByMeListProfiles(
-    relationShip: RelationShips,
-    myId: number
-  ): MiniProfile[] {
-    let BlockedByMeList: MiniProfile[] = [];
-    this._getMyPendingRequest(relationShip).map(
-      async (friendship: FriendShip) => {
+  _getBlockedByMeListProfiles(blockList: FriendShip[]): Promise<MiniProfile[]> {
+    return new Promise(async (resolve, reject) => {
+      const myId = await this._getMyId();
+      this.myId = myId;
+      let blockedByMeList: MiniProfile[] = [];
+      for (const friendship of blockList) {
         const profile: MiniProfile = await this.userService
           .getMiniProfile(
             friendship.firstUserId == myId
@@ -111,10 +110,10 @@ export class FriendsService {
               : friendship.firstUserId
           )
           .toPromise();
-        BlockedByMeList.push(profile);
+        blockedByMeList.push(profile);
       }
-    );
-    return BlockedByMeList;
+      resolve(blockedByMeList);
+    });
   }
 
   sendFriendRequest(requested_user_Id: number) {
