@@ -1,87 +1,47 @@
 <app-navbar></app-navbar>
 
-<div class="container-fluid" style="background: #dfe3ee;">
+<div class="container-fluid c-main">
   <div class="row">
     <div class="col-sm-3"></div>
-    <div class="col-sm-6" style="margin-top: 70px; margin-bottom: 50px;">
-      <div class="container-fluid bg-light" style="
-          border-radius: 15px;
-          border: 1px solid #dddfe2;
-          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-            0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          height: 2000px;
-        ">
-        <h4 style="margin-top: 30px; margin-bottom: 30px;">
+    <div class="col-sm-6 midlle-row ">
+      <div class="container-fluid bg-light c-relations-handler">
+        <h4>
           <ul class="navbar-nav">
             <li>
-              <i class="fa fa-users" aria-hidden="true" (click)="onFriendsIconClick()"></i>
-              Friends
-            </li>
-            &nbsp;
-            <li>
-              <i class="fa fa-plus-circle" aria-hidden="true" (click)="onAddFriendsIconClick()"></i>
-              Add
+              <a [routerLink]="[ '/relation-ships/friends']">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                Friends
+              </a>
             </li>
             <li>
-
-
-              <i class="fa fa-paper-plane" aria-hidden="true" [routerLink]="[ '/relation-ships/pending-requests']"></i>
-              Pending
+              <a [routerLink]="[ '/relation-ships/pending-requests'] ">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                Pending
+              </a>
             </li>
             <li>
-              <i class="fa fa-ban" aria-hidden="true"></i>
-              Blocked
+              <a [routerLink]="[ '/relation-ships/block-list']">
+                <i class="fa fa-ban" aria-hidden="true"></i>
+                Blocked
+              </a>
+            </li>
+            <li>
+              <a [routerLink]="[ '/relation-ships/search']">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                Search
+              </a>
             </li>
           </ul>
         </h4>
-        <!-- friends table  -->
         <app-spinner *ngIf="loading"></app-spinner>
-
         <p *ngIf="isThereAnErrorToLoadProfiles">There's an error in loading profiles </p>
-        <p *ngIf="!loading && !doIhaveFriends"> You have no friends </p>
-        <ng-container *ngIf="!loading && !isThereAnErrorToLoadProfiles && doIhaveFriends">
-          <!-- <app-my-friends *ngFor="let friendProfile of  myFriendsProfiles" [friendProfile]="friendProfile">
-          </app-my-friends> -->
-          <router-outlet></router-outlet>
 
+        <!-- RelationShips -->
+        <ng-container *ngIf="!loading && !isThereAnErrorToLoadProfiles">
+          <router-outlet (activate)="onActivate($event)"></router-outlet>
         </ng-container>
 
-        <!-- <p *ngIf="isThereAnErrorToLoadProfiles">There's an error in loading profiles </p>
-        <p *ngIf="!doIhavePendingFriendRequests"> You have no pending friends's requests </p>
-        <ng-container *ngIf="!loading && !isThereAnErrorToLoadProfiles && doIhavePendingFriendRequests">
-          <app-pending-requests *ngFor="let pendingRequestsProfile of pendingRequestsProfile"
-            [pendingRequestsProfile]="pendingRequestsProfile"></app-pending-requests>
-        </ng-container> -->
-
-
-
-
-
-        <!-- Add friends  -->
-        <!-- <table id="add-friends" class="table table-hover" *ngIf="AddFriendIconClicked">
-          <tbody>
-            <ng-container *ngIf="added">
-              <tr *ngFor="let suggestedFriend of friendsSuggestion">
-                <th scope="row">
-                  <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
-                </th>
-                <th>{{ getFriendProperty(suggestedFriend, "username") }}</th>
-                // to be modified
-                <th>
-                  <button class="btn btn-info" (click)="addFriend(suggestedFriend)">
-                    add as friend
-                  </button>
-                </th>
-              </tr>
-            </ng-container>
-          </tbody>
-        </table> -->
-
       </div>
-      <div class="col-sm-3"></div>
-      <!-- <ng-container *ngIf="messageIconClicked">
-        <app-message-box [conversation]="conversation" [friendId]="friendId"></app-message-box>
-      </ng-container> -->
     </div>
   </div>
 </div>
