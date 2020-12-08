@@ -1,3 +1,8 @@
+.profile-picture {
+  width: 40px;
+  height: 40px;
+}
+
 ul {
   list-style: none;
   overflow: hidden;
@@ -7,4 +12,12 @@ ul {
 ul li {
   float: left;
   margin-left: 20px;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.unblock-button {
+  float: right;
 }

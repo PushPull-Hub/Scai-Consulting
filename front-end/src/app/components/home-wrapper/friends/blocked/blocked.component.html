@@ -1,1 +1,19 @@
-<p>blocked works!</p>
+<app-spinner *ngIf="loading"></app-spinner>
+<p *ngIf="!loading && !doIhaveBlockedUsersByMe"> You have no friends </p>
+<ng-container *ngFor="let blockedProfile of BlockedByMeListProfiles">
+    <table class="table table-hover" id="friends">
+        <tbody>
+            <tr>
+                <th scope="row">
+                    <img [src]="male_avatar_photo_url" class="rounded-circle profile-picture" />
+                </th>
+                <th>
+                    {{blockedProfile.firstName}} {{blockedProfile.lastName}}
+                </th>
+                <td>
+                    <button class="btn btn-info unblock-button "> Unblock </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
