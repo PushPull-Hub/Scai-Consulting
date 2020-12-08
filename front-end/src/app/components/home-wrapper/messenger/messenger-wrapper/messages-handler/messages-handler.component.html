@@ -1,4 +1,4 @@
-<!-- header  -->
+<!-- header 
 <div class="row">
   <div class="container-fluid header" style="height: 70px; border-bottom: 2px solid #efefef;">
     <ul class="header-list" *ngIf="conversation">
@@ -10,8 +10,8 @@
       </li>
       <li>
         <span style="margin: 4px 0 0 20px;">
-          <h3>{{ getFriendUsername(conversation.id) }}</h3>
-          <!-- to be modified -->
+        <h3>{{ getFriendUsername(conversation.id) }}</h3> -->
+<!-- to be modified 
         </span>
       </li>
       <li style="float: right;">
@@ -22,17 +22,17 @@
     </ul>
   </div>
 </div>
-<!--   handler  -->
+ handler  
 <div class="row">
   <div class="container col-8" style="height: 631px; border-right: 2px solid #efefef;">
-    <!-- chat wrapper -->
+   chat wrapper 
     <div class="row">
       <div class="container">
         <div class="chat-page">
           <div class="msg-inbox">
             <div class="chats">
               <div class="msg-page">
-                <!-- income chat  -->
+                 income chat 
                 <ng-container *ngFor="let message of conversation.messages">
                   <ng-container *ngIf="
                       message.sender === getFriendId(conversation.id);
@@ -53,9 +53,9 @@
                       </div>
                     </div>
                   </ng-container>
-                  <!-- income chat  -->
+               income chat 
 
-                  <!-- outgoing chat  -->
+               - outgoing chat 
                   <ng-template #outgoingChat>
                     <div class="outgoing-chats">
                       <div class="outgoing-chats-msg">
@@ -70,7 +70,7 @@
                       </div>
                     </div>
                   </ng-template>
-                  <!-- outgoing chat  -->
+               outgoing chat 
                 </ng-container>
               </div>
             </div>
@@ -78,19 +78,19 @@
         </div>
       </div>
     </div>
-    <!-- input -->
+ input 
     <div class="row">
       <div class="input-group fluid" style="position: absolute; bottom: 15px; left: 0;">
-        <!-- Icon for uploading  Image  -->
+     Icon for uploading  Image  
 
-        <!-- <div class="image-upload" style="position: absolute;">
+        <div class="image-upload" style="position: absolute;">
           <label for="file-input">
             <i class="fa fa-picture-o" aria-hidden="true"></i>
           </label>
           <input id="file-input" type="file" />
-        </div> -->
+        </div> 
 
-        <!-- Icon for uploading  Image  -->
+       Icon for uploading  Image  
 
         <input type="text" class="form-control" placeholder="Type a message... " aria-label="Recipient's username"
           aria-describedby="button-addon2" style="border-radius: 20px; margin: 0 20px 0 20px;" [(ngModel)]="text" />
@@ -112,4 +112,4 @@
     </div>
   </div>
   <div class="container col-4"></div>
-</div>
+</div> -->
