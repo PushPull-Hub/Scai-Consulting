@@ -1,3 +1,8 @@
+.profile-picture {
+  width: 40px;
+  height: 40px;
+}
+
 ul {
   list-style: none;
   overflow: hidden;
@@ -7,4 +12,25 @@ ul {
 ul li {
   float: left;
   margin-left: 20px;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+tbody tr td:nth-child(3),
+td:nth-child(4) {
+  text-align: center;
+}
+
+tbody > tr > td:nth-child(3) > li {
+  color: #2fa4e7;
+}
+
+.online-button {
+  color: green;
+}
+
+.offline-button {
+  color: grey;
 }
