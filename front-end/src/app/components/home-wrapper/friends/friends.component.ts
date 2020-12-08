@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { MyFriendsComponent } from './my-friends/my-friends.component';
+import { PendingRequestsComponent } from './pending-requests/pending-requests.component';
+import { SuggestionsComponent } from './suggestions/suggestions.component';
+import { BlockedComponent } from './blocked/blocked.component';
 
 import { FriendsService } from 'src/app/services/friends.service';
 
-import { environment } from 'src/environments/environment';
 import { RelationShips } from 'src/app/models/RelationShips.model';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { FriendShip } from 'src/app/models/FriendShip.model';
@@ -13,27 +18,22 @@ import { FriendShip } from 'src/app/models/FriendShip.model';
   styleUrls: ['./friends.component.scss'],
 })
 export class FriendsComponent implements OnInit {
-  doIhaveFriends: boolean;
   myFriends: FriendShip[];
   myFriendsProfiles: MiniProfile[];
 
-  doIhavePendingFriendRequests: boolean;
   pendingRequests: FriendShip[];
   pendingRequestsProfile: MiniProfile[];
 
-  doIhaveBlockedByMeList: boolean;
   BlockedByMeList: FriendShip[];
   BlockedByMeListProfiles: MiniProfile[];
 
   loading: boolean;
   isThereAnErrorToLoadProfiles: boolean;
-  male_avatar_photo_url: string;
   myId: number;
 
-  constructor(private friendsService: FriendsService) {}
+  constructor(private friendsService: FriendsService, private router: Router) {}
 
   ngOnInit(): void {
-    this.male_avatar_photo_url = environment.male_avatar_photo_url;
     this.loading = true;
     this.loadmyFriendsProfiles();
   }
@@ -49,31 +49,69 @@ export class FriendsComponent implements OnInit {
               response.pendingRequests.length > 0
             ) {
               this.pendingRequests = response.pendingRequests;
-              this.doIhavePendingFriendRequests = true;
             }
             if (response.blockedBy && response.blockedBy.length > 0) {
               this.BlockedByMeList = response.blockedBy;
-              this.doIhaveBlockedByMeList = true;
             }
             if (response.myFriends && response.myFriends.length > 0) {
               this.myFriends = response.myFriends;
-              this.doIhaveFriends = true;
             }
-            this.myFriendsProfiles = await this.friendsService._getMyFriendsProfiles(
-              response
-            );
             this.isThereAnErrorToLoadProfiles = false;
             this.loading = false;
-            console.log(response);
           } else {
+            this.loading = false;
             console.log(
               'in else , check provided conditions in loadmyFriendsProfiles friends.component.ts'
             );
           }
         } catch (error) {
           console.log(error);
+          this.loading = false;
           this.isThereAnErrorToLoadProfiles = true;
         }
       });
+  }
+
+  async onActivate(componentReference) {
+    await this.loadmyFriendsProfiles().then(async () => {
+      if (componentReference instanceof MyFriendsComponent) {
+        this.myFriendsProfiles = await this.friendsService._getMyFriendsProfiles(
+          this.myFriends
+        );
+        componentReference.loadProfiles(
+          this.myFriendsProfiles && this.myFriendsProfiles.length > 0
+            ? this.myFriendsProfiles
+            : null
+        );
+      } else if (componentReference instanceof PendingRequestsComponent) {
+        this.pendingRequestsProfile = await this.friendsService._getMyPendingRequestsProfiles(
+          this.pendingRequests
+        );
+        componentReference.loadProfiles(
+          this.pendingRequestsProfile && this.pendingRequestsProfile.length > 0
+            ? this.pendingRequestsProfile
+            : null
+        );
+      } else if (componentReference instanceof BlockedComponent) {
+        this.BlockedByMeListProfiles = await this.friendsService._getBlockedByMeListProfiles(
+          this.BlockedByMeList
+        );
+        componentReference.loadProfiles(
+          this.BlockedByMeListProfiles &&
+            this.BlockedByMeListProfiles.length > 0
+            ? this.BlockedByMeListProfiles
+            : null
+        );
+      } else if (componentReference instanceof SuggestionsComponent) {
+        componentReference.loadProfiles(
+          this.BlockedByMeListProfiles &&
+            this.BlockedByMeListProfiles.length > 0
+            ? this.BlockedByMeListProfiles
+            : null
+        );
+      } else {
+        console.log('check the conditions ');
+      }
+    });
   }
 }
