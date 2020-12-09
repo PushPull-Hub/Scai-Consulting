@@ -23,5 +23,7 @@ public interface FriendShipService {
 
     boolean blockFriend(String token, int friendId);
 
+    boolean unblockFriend(String token, int friendId);
+
     boolean cancelFriendRequest (String token , int friendShipId);
 }

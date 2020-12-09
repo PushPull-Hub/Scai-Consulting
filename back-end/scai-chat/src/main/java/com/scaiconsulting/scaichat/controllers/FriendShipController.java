@@ -57,6 +57,11 @@ public class FriendShipController {
         return friendShipService.blockFriend(token, friendId);
     }
 
+    @PutMapping("/friendship/friend")
+    public boolean unblockFriend(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
+        return friendShipService.unblockFriend(token, friendId);
+    }
+
     @GetMapping("/relationships")
     public RelationShips getUserRelationShips(@RequestHeader("Authentication") String token) {
         return friendShipService.getRelationShips(token);

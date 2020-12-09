@@ -74,7 +74,7 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
     @Override
     public FriendShip updateFriendShip(FriendShip friendShip) {
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.update(friendShip);
+        currentSession.saveOrUpdate(friendShip);
         return friendShip;
     }
 

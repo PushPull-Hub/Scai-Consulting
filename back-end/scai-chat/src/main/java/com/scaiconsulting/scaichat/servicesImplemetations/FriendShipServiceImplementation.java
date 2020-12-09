@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class FriendShipServiceImplementation implements FriendShipService {
 
     private final FriendShipDAO friendShipDAO;
@@ -140,6 +141,24 @@ public class FriendShipServiceImplementation implements FriendShipService {
                     FriendShip theNewFriendshipModel = friendShipDAO.updateFriendShip(friendShip);
                     return theNewFriendshipModel.getStatus() == 3;
                 } else if (friendShip.getStatus() == 3 && friendShip.getActionUserId() == friendId) {
+                    throw new NotFoundException(_getStatus(friendShip.getStatus()));
+                } else throw new NotFoundException("you've already blocked the user with id: " + friendId);
+            } else throw new NotFoundException("scai-chat users can't block themselves ");
+        } else throw new NotFoundException("there's no such a user with the id: " + friendId);
+    }
+
+    @Override
+    public boolean unblockFriend(String token, int friendId) {
+        if (userDAO.getUser(friendId) != null) {
+            int userId = new IdExtractor(token).getAuthenticatedUserId();
+            if (userId != friendId) {
+                FriendShip friendShip = friendShipDAO.getFriendShip(userId, friendId);
+                if (friendShip.getStatus() == 3) {
+                    friendShip.setStatus(1);
+                    friendShip.setActionUserId(userId);
+                    FriendShip theNewFriendshipModel = friendShipDAO.updateFriendShip(friendShip);
+                    return theNewFriendshipModel.getStatus() == 1;
+                } else if (friendShip.getStatus() == 5 && friendShip.getActionUserId() == friendId) {
                     throw new NotFoundException(_getStatus(friendShip.getStatus()));
                 } else throw new NotFoundException("you've already blocked the user with id: " + friendId);
             } else throw new NotFoundException("scai-chat users can't block themselves ");
