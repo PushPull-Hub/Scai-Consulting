@@ -72,7 +72,7 @@ public class FriendShipController {
         return friendShipService.cancelFriendRequest(token, friendId);
     }
 
-    @DeleteMapping("/relationships")
+    @PostMapping("/relationships/decline")
     public boolean declineFriendRequest(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
         return this.friendShipService.DeclineFriendRequest(token, friendId);
     }
