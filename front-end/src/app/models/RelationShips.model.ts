@@ -6,4 +6,5 @@ export class RelationShips extends Object {
   blockedMe: FriendShip[];
   declinedRequests: FriendShip[];
   blockedBy: FriendShip[];
+  requests: FriendShip[];
 }
