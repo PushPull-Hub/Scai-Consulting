@@ -16,15 +16,18 @@ public class RelationShips {
 
     ArrayList<FriendShip> blockedBy;
 
+    ArrayList<FriendShip> Requests ;
+
     public RelationShips() {
     }
 
-    public RelationShips(ArrayList<FriendShip> myFriends, ArrayList<FriendShip> pendingRequests, ArrayList<FriendShip> blockedMe, ArrayList<FriendShip> declinedRequests, ArrayList<FriendShip> blockedBy) {
+    public RelationShips(ArrayList<FriendShip> myFriends, ArrayList<FriendShip> pendingRequests, ArrayList<FriendShip> blockedMe, ArrayList<FriendShip> declinedRequests, ArrayList<FriendShip> blockedBy, ArrayList<FriendShip> requests) {
         this.myFriends = myFriends;
         PendingRequests = pendingRequests;
         this.blockedMe = blockedMe;
         DeclinedRequests = declinedRequests;
         this.blockedBy = blockedBy;
+        Requests = requests;
     }
 
     public ArrayList<FriendShip> getMyFriends() {
@@ -65,5 +68,13 @@ public class RelationShips {
 
     public void setBlockedBy(ArrayList<FriendShip> blockedBy) {
         this.blockedBy = blockedBy;
+    }
+
+    public ArrayList<FriendShip> getRequests() {
+        return Requests;
+    }
+
+    public void setRequests(ArrayList<FriendShip> requests) {
+        Requests = requests;
     }
 }
