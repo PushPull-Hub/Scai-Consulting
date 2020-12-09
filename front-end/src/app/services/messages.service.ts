@@ -1,29 +1,17 @@
 import { Injectable } from '@angular/core';
-
-import { UserServices } from './user.service';
-import { FriendsService } from './friends.service';
-
 import { Conversation } from '../models/Conversation.model';
-import { Message } from '../models/Message.model';
-
-import { v4 as uuidv4 } from 'uuid';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MessagesService {
-  messages: Conversation[] = JSON.parse(localStorage.getItem('Messages')) || [];
+  messages: Conversation[];
 
-  constructor(
-    private userService: UserServices,
-    private friendsService: FriendsService,
-    private authService: AuthService
-  ) {}
+  constructor() {}
 
-  getMessages(): Conversation[] {
-    return (this.messages = JSON.parse(localStorage.getItem('Messages')) || []);
-  }
+  // getMessages(): Conversation[] {
+  //   return (this.messages = JSON.parse(localStorage.getItem('Messages')) || []);
+  // }
 
   // getConversation(friendId: string): Conversation {
   //   const stConversationId = `${this.authService.getLoggedUserId()}${friendId}`;
@@ -68,25 +56,25 @@ export class MessagesService {
 
   // }
 
-  updateMessage(
-    conversationId: string,
-    messageId: string,
-    property: string,
-    newValue: any
-  ) {
-    const conversation: Conversation = this.getMessages().find(
-      (conversation) => conversation.id === conversationId
-    );
-    const message: Message = conversation.messages.find(
-      (msg) => (msg.id = messageId)
-    );
-    message[`${property}`] = newValue;
-    const IndexOfConversation = this.messages
-      .map((conversation) => conversation.id)
-      .indexOf(conversationId);
-    this.messages.splice(IndexOfConversation, 1, conversation);
-    localStorage.setItem('Messages', JSON.stringify(this.messages));
-  }
+  // updateMessage(
+  //   conversationId: string,
+  //   messageId: string,
+  //   property: string,
+  //   newValue: any
+  // ) {
+  //   const conversation: Conversation = this.getMessages().find(
+  //     (conversation) => conversation.id === conversationId
+  //   );
+  //   const message: Message = conversation.messages.find(
+  //     (msg) => (msg.id = messageId)
+  //   );
+  //   message[`${property}`] = newValue;
+  //   const IndexOfConversation = this.messages
+  //     .map((conversation) => conversation.id)
+  //     .indexOf(conversationId);
+  //   this.messages.splice(IndexOfConversation, 1, conversation);
+  //   localStorage.setItem('Messages', JSON.stringify(this.messages));
+  // }
 
   // sendMessage(reciever: string, text: string) {
   //   const conversation: Conversation = this.getConversation(reciever);
