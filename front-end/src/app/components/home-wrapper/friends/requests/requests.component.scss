@@ -1,0 +1,27 @@
+.profile-picture {
+  width: 40px;
+  height: 40px;
+}
+
+ul {
+  list-style: none;
+  overflow: hidden;
+  display: inline-block;
+}
+
+ul li {
+  float: left;
+  margin-left: 20px;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.my-button {
+  float: right;
+}
+
+.btn-success {
+  margin-right: 10px;
+}
