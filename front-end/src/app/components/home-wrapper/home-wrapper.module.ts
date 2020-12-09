@@ -11,9 +11,18 @@ import { MyFriendsComponent } from './friends/my-friends/my-friends.component';
 import { SuggestionsComponent } from './friends/suggestions/suggestions.component';
 import { PendingRequestsComponent } from './friends/pending-requests/pending-requests.component';
 import { BlockedComponent } from './friends/blocked/blocked.component';
+import { RequestsComponent } from './friends/requests/requests.component';
 
 @NgModule({
-  declarations: [HomeWrapperComponent, FriendsComponent, MyFriendsComponent, SuggestionsComponent, PendingRequestsComponent, BlockedComponent],
+  declarations: [
+    HomeWrapperComponent,
+    FriendsComponent,
+    MyFriendsComponent,
+    SuggestionsComponent,
+    PendingRequestsComponent,
+    BlockedComponent,
+    RequestsComponent,
+  ],
   imports: [
     CommonModule,
     HomeWrapperRoutingModule,
