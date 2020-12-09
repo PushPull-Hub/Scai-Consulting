@@ -12,9 +12,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
     @Column(name = "created_time")
     private String created_time;
-
     @Column(name = "description")
     private String description;
 

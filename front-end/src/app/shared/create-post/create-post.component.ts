@@ -32,14 +32,16 @@ export class CreatePostComponent implements OnInit {
   sharePost() {
     const post = new Post();
     if (this.insertedText && this.insertedText.trim() !== '') {
-      post.createdTime = this.now.toString();
+      post.created_time = this.now.toString();
       post.description = this.insertedText;
       post.canComment = 1;
       post.canShare = 1;
-      post.ispublic = 1;
+      post.pubblico = 1;
       post.place = '';
       post.objectId = null;
       this.insertedText = '';
+      console.log(post);
+
       this.postService.createPost(post);
     } else {
       console.log('text vuoto');
