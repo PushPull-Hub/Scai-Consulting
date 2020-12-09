@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
+import { FriendsService } from 'src/app/services/friends.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,7 +14,7 @@ export class BlockedComponent implements OnInit {
   BlockedByMeListProfiles: MiniProfile[];
   doIhaveBlockedUsersByMe: boolean = true;
 
-  constructor() {}
+  constructor(private friendService: FriendsService) {}
 
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
@@ -30,5 +31,20 @@ export class BlockedComponent implements OnInit {
         this.doIhaveBlockedUsersByMe = false;
       }
     }, 400);
+  }
+
+  unblockFriend(blockedUserId: number) {
+    this.friendService
+      .unblockFriend(blockedUserId)
+      .subscribe((result: boolean) => {
+        if (result) {
+          setTimeout(() => {
+            const p = this.BlockedByMeListProfiles.filter(
+              (profile: MiniProfile) => profile.id !== blockedUserId
+            );
+            this.BlockedByMeListProfiles = p;
+          }, 500);
+        } else console.log('check conditions ');
+      });
   }
 }

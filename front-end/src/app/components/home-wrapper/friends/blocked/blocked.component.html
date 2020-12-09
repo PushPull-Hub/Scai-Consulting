@@ -11,7 +11,8 @@
                     {{blockedProfile.firstName}} {{blockedProfile.lastName}}
                 </th>
                 <td>
-                    <button class="btn btn-info unblock-button "> Unblock </button>
+                    <button class="btn btn-info unblock-button" (click)="unblockFriend(blockedProfile.id)"> Unblock
+                    </button>
                 </td>
             </tr>
         </tbody>

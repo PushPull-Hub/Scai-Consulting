@@ -134,4 +134,11 @@ export class FriendsService {
       blocked_user_id
     );
   }
+
+  unblockFriend(blocked_user_id: number) {
+    return this.http.put<boolean>(
+      environment.rootUrl + '/api/friendship/friend',
+      blocked_user_id
+    );
+  }
 }
