@@ -86,6 +86,27 @@ export class FriendsService {
     });
   }
 
+  _getRequesterProfiles(requests: FriendShip[]): Promise<MiniProfile[]> {
+    return new Promise(async (resolve, reject) => {
+      const myId = await this._getMyId();
+      this.myId = myId;
+      let requesterProfiles: MiniProfile[] = [];
+      if (requests && requests.length > 0) {
+        for (const friendship of requests) {
+          const profile: MiniProfile = await this.userService
+            .getMiniProfile(
+              friendship.firstUserId == myId
+                ? friendship.secondUserId
+                : friendship.firstUserId
+            )
+            .toPromise();
+          requesterProfiles.push(profile);
+        }
+        resolve(requesterProfiles);
+      } else resolve(null);
+    });
+  }
+
   _getBlockedByMeListProfiles(blockList: FriendShip[]): Promise<MiniProfile[]> {
     return new Promise(async (resolve, reject) => {
       const myId = await this._getMyId();
@@ -114,17 +135,24 @@ export class FriendsService {
     );
   }
 
-  cancelFriendRequest(requestedFriendId: number) {
-    return this.http.post<boolean>(
-      environment.rootUrl + '/api/cancel-request',
-      requestedFriendId
+  acceptFriendRequest(requestorId: number) {
+    return this.http.put<FriendShip>(
+      environment.rootUrl + '/api/friend-request',
+      requestorId
     );
   }
 
-  acceptFriendRequest(requester_user_Id: number) {
-    return this.http.put(
-      environment.rootUrl + '/api/friend-request',
-      requester_user_Id
+  declineFriendRequest(requestorId: number) {
+    return this.http.post<boolean>(
+      environment.rootUrl + '/api/relationships/decline',
+      requestorId
+    );
+  }
+
+  cancelFriendRequest(requestedId: number) {
+    return this.http.post<boolean>(
+      environment.rootUrl + '/api/cancel-request',
+      requestedId
     );
   }
 
