@@ -68,8 +68,13 @@ public class FriendShipController {
     }
 
     @PostMapping("/cancel-request")
-    public boolean cancelFriendRequest(@RequestHeader("Authentication") String token,@RequestBody int friendId) {
-        return friendShipService.cancelFriendRequest(token,friendId);
+    public boolean cancelFriendRequest(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
+        return friendShipService.cancelFriendRequest(token, friendId);
+    }
+
+    @DeleteMapping("/relationships")
+    public boolean declineFriendRequest(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
+        return this.friendShipService.DeclineFriendRequest(token, friendId);
     }
 
 

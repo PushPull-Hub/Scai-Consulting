@@ -99,7 +99,7 @@ public class FriendShipServiceImplementation implements FriendShipService {
 
         if (this.userDAO.getUser(requesterId) != null) {
             FriendShip friendShip = this.getFriendShip(token, requesterId);
-            if (friendShip.getStatus() != 0) {
+            if (friendShip.getStatus() == 0) {
                 int userId = new IdExtractor(token).getAuthenticatedUserId();
                 friendShip.setStatus(1);
                 friendShip.setActionUserId(userId);
@@ -113,6 +113,15 @@ public class FriendShipServiceImplementation implements FriendShipService {
         }
 
 
+    }
+
+    @Override
+    @Transactional
+    public boolean DeclineFriendRequest(String token, int requesterId) {
+        FriendShip friendShip = this.getFriendShip(token, requesterId);
+        if (friendShip != null) {
+            return this.friendShipDAO.deleteFriendShip(friendShip.getId()) > 0;
+        } else throw new NotFoundException("can't find such a relation between you and user Id :" + requesterId);
     }
 
     @Override
@@ -177,12 +186,17 @@ public class FriendShipServiceImplementation implements FriendShipService {
         relationShipsWrapper.setBlockedMe(new ArrayList<>());
         relationShipsWrapper.setBlockedBy(new ArrayList<>());
         relationShipsWrapper.setDeclinedRequests(new ArrayList<>());
+        relationShipsWrapper.setRequests(new ArrayList<>());
 
         for (FriendShip allUserRelationShip : allUserRelationShips) {
             int status = allUserRelationShip.getStatus();
             switch (status) {
                 case 0:
-                    relationShipsWrapper.getPendingRequests().add(allUserRelationShip);
+                    if (allUserRelationShip.getActionUserId() != userId) {
+                        relationShipsWrapper.getRequests().add(allUserRelationShip);
+                    } else if (allUserRelationShip.getActionUserId() == userId) {
+                        relationShipsWrapper.getPendingRequests().add(allUserRelationShip);
+                    }
                     break;
                 case 1:
                     relationShipsWrapper.getMyFriends().add(allUserRelationShip);

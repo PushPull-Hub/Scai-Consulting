@@ -17,6 +17,8 @@ public interface FriendShipService {
 
     FriendShip acceptFriendRequest(String token, int requesterId);
 
+    boolean DeclineFriendRequest (String token, int requesterId);
+
     List<FriendShip> getPendingFriendRequests(String token);
 
     FriendShip updateFriendShip(FriendShip friendShip);
