@@ -1,10 +1,9 @@
 export class Message extends Object {
-  id: string; // id of this message
-  created_time: string;
-  sender: string; // userSecondVersionb in order to protect user privacy.
+  id: number;
+  createdTime: string;
+  sender: number;
+  reciever: number;
   text: string;
-  subject: string;
-  tags: object[]; //  tags indicating the message
-  reciever: string; //  list of recipients of the message.
-  is_readed: boolean;
+  body: any;
+  isSeen: boolean;
 }
