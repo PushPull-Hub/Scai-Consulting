@@ -61,4 +61,11 @@ public class FriendShipController {
     public RelationShips getUserRelationShips(@RequestHeader("Authentication") String token) {
         return friendShipService.getRelationShips(token);
     }
+
+    @PostMapping("/cancel-request")
+    public boolean cancelFriendRequest(@RequestHeader("Authentication") String token,@RequestBody int friendId) {
+        return friendShipService.cancelFriendRequest(token,friendId);
+    }
+
+
 }

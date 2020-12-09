@@ -78,6 +78,13 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
         return friendShip;
     }
 
+    @Override
+    public int deleteFriendShip(int id) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        return  currentSession.createQuery("delete from FriendShip where id=:id").setParameter("id",id).executeUpdate() ;
+
+    }
+
 
 // Status Codes
 //0	Pending

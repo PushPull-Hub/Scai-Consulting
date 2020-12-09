@@ -18,4 +18,6 @@ public interface FriendShipDAO {
 
     FriendShip updateFriendShip(FriendShip friendShip);
 
+    int deleteFriendShip (int id );
+
 }

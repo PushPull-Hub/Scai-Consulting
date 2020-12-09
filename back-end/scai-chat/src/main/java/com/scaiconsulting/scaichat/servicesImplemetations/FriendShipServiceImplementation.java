@@ -77,6 +77,23 @@ public class FriendShipServiceImplementation implements FriendShipService {
 
     @Override
     @Transactional
+    public boolean cancelFriendRequest(String token, int friendId) {
+        FriendShip theRelationShip = this.getFriendShip(token, friendId);
+        if (theRelationShip != null) {
+            int userId = new IdExtractor(token).getAuthenticatedUserId();
+            if (theRelationShip.getFirstUserId() == userId || theRelationShip.getSecondUserId() == userId) {
+                return this.friendShipDAO.deleteFriendShip(theRelationShip.getId()) > 0;
+
+            } else {
+                throw new NotFoundException("you're not allow to perform such a operation ");
+            }
+        } else {
+            throw new NotFoundException("from cancelFriendRequest method : relation with friend id of " + friendId + " not found ");
+        }
+    }
+
+    @Override
+    @Transactional
     public FriendShip acceptFriendRequest(String token, int requesterId) {
 
         if (this.userDAO.getUser(requesterId) != null) {
