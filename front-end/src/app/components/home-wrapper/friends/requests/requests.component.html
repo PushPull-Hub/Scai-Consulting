@@ -11,7 +11,7 @@
                     {{requestor.firstName}} {{requestor.lastName}}
                 </th>
                 <td>
-                    <button class="btn btn-danger my-button">Decline
+                    <button class="btn btn-danger my-button" (click)="declineFriendRequest(requestor.id)">Decline
                     </button>
                     <button class="btn btn-success my-button" (click)="acceptFriendRequest(requestor.id)"> Accept
                     </button>

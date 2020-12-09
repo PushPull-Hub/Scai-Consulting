@@ -53,5 +53,16 @@ export class RequestsComponent implements OnInit {
       });
   }
 
-  declineFriendRequest() {}
+  declineFriendRequest(requestorId: number) {
+    this.friendService.declineFriendRequest(requestorId).subscribe((result) => {
+      if (result) {
+        setTimeout(() => {
+          const p = this.requesterProfiles.filter(
+            (profile: MiniProfile) => profile.id !== requestorId
+          );
+          this.requesterProfiles = p;
+        }, 500);
+      } else console.log('check the conditions ');
+    });
+  }
 }
