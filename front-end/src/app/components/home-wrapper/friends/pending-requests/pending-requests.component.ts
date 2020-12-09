@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { FriendsService } from 'src/app/services/friends.service';
 import { environment } from 'src/environments/environment';
@@ -14,6 +14,7 @@ export class PendingRequestsComponent implements OnInit {
   loading: boolean = true;
   male_avatar_photo_url: string;
   requested: boolean = true;
+  @Output() friendShipEmitter: EventEmitter<any> = new EventEmitter();
 
   constructor(private friendService: FriendsService) {}
 
@@ -38,13 +39,15 @@ export class PendingRequestsComponent implements OnInit {
     this.friendService
       .cancelFriendRequest(requestedUserId)
       .subscribe((result: boolean) => {
-        setTimeout(() => {
-          const p = this.pendingRequestsProfiles.filter(
-            (profile) => profile.id !== requestedUserId
-          );
-          this.pendingRequestsProfiles = p;
-        }, 500);
-        this.requested = !result;
+        if (result) {
+          this.friendShipEmitter.emit(result);
+          setTimeout(() => {
+            const p = this.pendingRequestsProfiles.filter(
+              (profile) => profile.id !== requestedUserId
+            );
+            this.pendingRequestsProfiles = p;
+          }, 500);
+        } else console.log('check conditions ');
       });
   }
 }

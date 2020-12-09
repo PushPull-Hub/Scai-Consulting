@@ -17,6 +17,7 @@ export class RequestsComponent implements OnInit {
   doIhaveRequests: boolean = true;
 
   @Output() friendShipEmitter: EventEmitter<any> = new EventEmitter();
+  @Output() rejectEmitter: EventEmitter<any> = new EventEmitter();
 
   constructor(private friendService: FriendsService) {}
 
@@ -56,6 +57,7 @@ export class RequestsComponent implements OnInit {
   declineFriendRequest(requestorId: number) {
     this.friendService.declineFriendRequest(requestorId).subscribe((result) => {
       if (result) {
+        this.rejectEmitter.emit(result);
         setTimeout(() => {
           const p = this.requesterProfiles.filter(
             (profile: MiniProfile) => profile.id !== requestorId

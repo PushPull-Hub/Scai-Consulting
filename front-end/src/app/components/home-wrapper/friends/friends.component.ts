@@ -46,7 +46,6 @@ export class FriendsComponent implements OnInit {
     this.friendsService
       .getRelationShips()
       .subscribe(async (response: RelationShips) => {
-        console.log(response);
         try {
           if (response && response.hasOwnProperty) {
             if (
@@ -100,6 +99,14 @@ export class FriendsComponent implements OnInit {
             ? this.pendingRequestsProfile
             : null
         );
+        componentReference.friendShipEmitter.subscribe(
+          (friendShip: FriendShip) => {
+            const p = this.pendingRequests.filter((request) => {
+              request.id !== friendShip.id;
+            });
+            this.pendingRequests = p;
+          }
+        );
       } else if (componentReference instanceof BlockedComponent) {
         this.BlockedByMeListProfiles = await this.friendsService._getBlockedByMeListProfiles(
           this.BlockedByMeList
@@ -109,6 +116,11 @@ export class FriendsComponent implements OnInit {
             this.BlockedByMeListProfiles.length > 0
             ? this.BlockedByMeListProfiles
             : null
+        );
+        componentReference.friendShipEmitter.subscribe(
+          (friendShip: FriendShip) => {
+            this.myFriends.push(friendShip);
+          }
         );
       } else if (componentReference instanceof SuggestionsComponent) {
         console.log('Search Area ');
@@ -126,6 +138,12 @@ export class FriendsComponent implements OnInit {
             this.myFriends.push(friendShip);
           }
         );
+        componentReference.rejectEmitter.subscribe((friendShip: FriendShip) => {
+          const p = this.requests.filter((request) => {
+            request.id !== friendShip.id;
+          });
+          this.requests = p;
+        });
       } else {
         console.log('check the conditions ');
       }

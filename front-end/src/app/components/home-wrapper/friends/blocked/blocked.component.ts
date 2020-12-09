@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { FriendsService } from 'src/app/services/friends.service';
 import { environment } from 'src/environments/environment';
@@ -13,6 +13,7 @@ export class BlockedComponent implements OnInit {
   loading: boolean = true;
   BlockedByMeListProfiles: MiniProfile[];
   doIhaveBlockedUsersByMe: boolean = true;
+  @Output() friendShipEmitter: EventEmitter<any> = new EventEmitter();
 
   constructor(private friendService: FriendsService) {}
 
@@ -38,6 +39,7 @@ export class BlockedComponent implements OnInit {
       .unblockFriend(blockedUserId)
       .subscribe((result: boolean) => {
         if (result) {
+          this.friendShipEmitter.emit(result);
           setTimeout(() => {
             const p = this.BlockedByMeListProfiles.filter(
               (profile: MiniProfile) => profile.id !== blockedUserId
