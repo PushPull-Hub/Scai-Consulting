@@ -7,6 +7,7 @@ import { MyFriendsComponent } from './friends/my-friends/my-friends.component';
 import { PendingRequestsComponent } from './friends/pending-requests/pending-requests.component';
 import { BlockedComponent } from './friends/blocked/blocked.component';
 import { SuggestionsComponent } from './friends/suggestions/suggestions.component';
+import { RequestsComponent } from './friends/requests/requests.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'pending-requests', component: PendingRequestsComponent },
       { path: 'block-list', component: BlockedComponent },
       { path: 'search', component: SuggestionsComponent },
+      { path: 'requests', component: RequestsComponent },
     ],
   },
   {
