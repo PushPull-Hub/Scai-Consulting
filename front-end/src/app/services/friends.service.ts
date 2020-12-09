@@ -30,20 +30,6 @@ export class FriendsService {
     );
   }
 
-  private _getMyFriendsFromRelationShipArray(
-    myRelationShips: RelationShips
-  ): FriendShip[] {
-    return myRelationShips.myFriends;
-  }
-
-  private _getMyPendingRequest(myRelationShips: RelationShips): FriendShip[] {
-    return myRelationShips.pendingRequests;
-  }
-
-  private _getMyBlockList(myRelationShips: RelationShips): FriendShip[] {
-    return myRelationShips.blockedBy;
-  }
-
   private _getMyId(): Promise<number> {
     return new Promise((resolve, reject) => {
       this.authService
@@ -61,17 +47,19 @@ export class FriendsService {
       const myId = await this._getMyId();
       this.myId = myId;
       let myFriendsProfiles: MiniProfile[] = [];
-      for (const friendship of myFriends) {
-        const profile: MiniProfile = await this.userService
-          .getMiniProfile(
-            friendship.firstUserId == myId
-              ? friendship.secondUserId
-              : friendship.firstUserId
-          )
-          .toPromise();
-        myFriendsProfiles.push(profile);
-      }
-      resolve(myFriendsProfiles);
+      if (myFriends && myFriends.length > 0) {
+        for (const friendship of myFriends) {
+          const profile: MiniProfile = await this.userService
+            .getMiniProfile(
+              friendship.firstUserId == myId
+                ? friendship.secondUserId
+                : friendship.firstUserId
+            )
+            .toPromise();
+          myFriendsProfiles.push(profile);
+        }
+        resolve(myFriendsProfiles);
+      } else resolve(null);
     });
   }
 
@@ -82,18 +70,19 @@ export class FriendsService {
       const myId = await this._getMyId();
       this.myId = myId;
       let myPendingRequestsProfile: MiniProfile[] = [];
-
-      for (const friendship of myPendingRequests) {
-        const profile: MiniProfile = await this.userService
-          .getMiniProfile(
-            friendship.firstUserId == myId
-              ? friendship.secondUserId
-              : friendship.firstUserId
-          )
-          .toPromise();
-        myPendingRequestsProfile.push(profile);
-      }
-      resolve(myPendingRequestsProfile);
+      if (myPendingRequests && myPendingRequests.length > 0) {
+        for (const friendship of myPendingRequests) {
+          const profile: MiniProfile = await this.userService
+            .getMiniProfile(
+              friendship.firstUserId == myId
+                ? friendship.secondUserId
+                : friendship.firstUserId
+            )
+            .toPromise();
+          myPendingRequestsProfile.push(profile);
+        }
+        resolve(myPendingRequestsProfile);
+      } else resolve(null);
     });
   }
 
@@ -102,17 +91,19 @@ export class FriendsService {
       const myId = await this._getMyId();
       this.myId = myId;
       let blockedByMeList: MiniProfile[] = [];
-      for (const friendship of blockList) {
-        const profile: MiniProfile = await this.userService
-          .getMiniProfile(
-            friendship.firstUserId == myId
-              ? friendship.secondUserId
-              : friendship.firstUserId
-          )
-          .toPromise();
-        blockedByMeList.push(profile);
-      }
-      resolve(blockedByMeList);
+      if (blockList && blockList.length > 0) {
+        for (const friendship of blockList) {
+          const profile: MiniProfile = await this.userService
+            .getMiniProfile(
+              friendship.firstUserId == myId
+                ? friendship.secondUserId
+                : friendship.firstUserId
+            )
+            .toPromise();
+          blockedByMeList.push(profile);
+        }
+        resolve(blockedByMeList);
+      } else resolve(null);
     });
   }
 
@@ -120,6 +111,13 @@ export class FriendsService {
     return this.http.post<FriendShip>(
       environment.rootUrl + '/api/friend-request',
       requested_user_Id
+    );
+  }
+
+  cancelFriendRequest(requestedFriendId: number) {
+    return this.http.post<boolean>(
+      environment.rootUrl + '/api/cancel-request',
+      requestedFriendId
     );
   }
 
@@ -135,22 +133,5 @@ export class FriendsService {
       environment.rootUrl + '/api/friendship',
       blocked_user_id
     );
-  }
-
-  getFriendshipList() {
-    return this.http.get<FriendShip[]>(
-      environment.rootUrl + '/api/friendships'
-    );
-  }
-
-  getFriendShip(friend_id: number) {
-    return this.http.post<FriendShip>(
-      environment.rootUrl + '/api/friendship',
-      friend_id
-    );
-  }
-
-  getPendingFriendRequests() {
-    return this.http.get(environment.rootUrl + '/api/friend-request/pending');
   }
 }
