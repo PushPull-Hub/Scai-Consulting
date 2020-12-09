@@ -40,8 +40,6 @@ export class CreatePostComponent implements OnInit {
       post.place = '';
       post.objectId = null;
       this.insertedText = '';
-      console.log(post);
-
       this.postService.createPost(post);
     } else {
       console.log('text vuoto');
