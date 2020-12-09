@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
+import { FriendsService } from 'src/app/services/friends.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,8 +13,9 @@ export class PendingRequestsComponent implements OnInit {
   doIhavePendingFriendRequests: boolean = true;
   loading: boolean = true;
   male_avatar_photo_url: string;
+  requested: boolean = true;
 
-  constructor() {}
+  constructor(private friendService: FriendsService) {}
 
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
@@ -30,5 +32,20 @@ export class PendingRequestsComponent implements OnInit {
         this.loading = false;
       }
     }, 400);
+  }
+
+  cancelFriendRequest(friendId) {
+    console.log(friendId);
+    this.friendService
+      .cancelFriendRequest(friendId)
+      .subscribe((result: boolean) => {
+        console.log(result);
+        setTimeout(() => {
+          this.pendingRequestsProfiles = this.pendingRequestsProfiles.filter(
+            (user) => user !== friendId
+          );
+        }, 500);
+        this.requested = !result;
+      });
   }
 }

@@ -14,7 +14,8 @@
                         {{pendingRequestsProfile.firstName}} {{pendingRequestsProfile.lastName}}
                     </th>
                     <td>
-                        <button class="btn btn-info cancel-friend-req-button">Cancel Request</button>
+                        <button class="btn btn-info cancel-friend-req-button"
+                            (click)="cancelFriendRequest(pendingRequestsProfile.id)">Cancel Request</button>
                     </td>
                 </tr>
             </tbody>
