@@ -34,16 +34,15 @@ export class PendingRequestsComponent implements OnInit {
     }, 400);
   }
 
-  cancelFriendRequest(friendId) {
-    console.log(friendId);
+  cancelFriendRequest(requestedUserId) {
     this.friendService
-      .cancelFriendRequest(friendId)
+      .cancelFriendRequest(requestedUserId)
       .subscribe((result: boolean) => {
-        console.log(result);
         setTimeout(() => {
-          this.pendingRequestsProfiles = this.pendingRequestsProfiles.filter(
-            (user) => user !== friendId
+          const p = this.pendingRequestsProfiles.filter(
+            (profile) => profile.id !== requestedUserId
           );
+          this.pendingRequestsProfiles = p;
         }, 500);
         this.requested = !result;
       });
