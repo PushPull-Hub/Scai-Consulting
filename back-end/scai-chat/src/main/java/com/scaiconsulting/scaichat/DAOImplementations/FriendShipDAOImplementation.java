@@ -64,12 +64,23 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
     @Override
     public List<FriendShip> getPendingFriendRequests(int userId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:userId and status =:Pending  and actionUserId=:userId" +
+        Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:userId and status =:Pending  and actionUserId !=:userId" +
+                " or secondUserId=:userId and status =:Pending  and actionUserId!=:userId ", FriendShip.class);
+        theQuery.setParameter("userId", userId);
+        theQuery.setParameter("Pending", 0);
+        return theQuery.getResultList();
+    }
+
+    @Override
+    public List<FriendShip> getFriendRequests(int userId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:userId and status=:Pending and actionUserId =:userId" +
                 " or secondUserId=:userId and status =:Pending  and actionUserId=:userId ", FriendShip.class);
         theQuery.setParameter("userId", userId);
         theQuery.setParameter("Pending", 0);
         return theQuery.getResultList();
     }
+
 
     @Override
     public FriendShip updateFriendShip(FriendShip friendShip) {
