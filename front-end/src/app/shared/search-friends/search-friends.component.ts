@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -15,28 +16,43 @@ import { UserServices } from 'src/app/services/user.service';
   templateUrl: './search-friends.component.html',
   styleUrls: ['./search-friends.component.scss'],
 })
-export class FriendsFinder {
+export class FriendsFinder implements OnInit {
+  users: User[];
+  male_avatar_photo_url: string;
+
   constructor(private userService: UserServices) {}
 
-  // users: User[] = this.userService.usersList;
+  ngOnInit(): void {
+    this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    this.userService.getUsers();
+    this.userService.usersList.subscribe((users) => {
+      this.users = users;
+    });
+  }
 
-  // public model: User;
-  // formatter = (user: User): string =>
-  //   this.userService.getaUserProperty(user.id, 'username');
+  public model: User;
+  formatter = (user: User): string => {
+    return ` ${user.firstName} ${user.lastName} `;
+  };
 
-  // search = (text$: Observable<string>) =>
-  //   text$.pipe(
-  //     debounceTime(200),
-  //     distinctUntilChanged(),
-  //     filter((term) => term.length >= 2),
-  //     map((term) =>
-  //       this.users
-  //         .filter((user) =>
-  //           new RegExp(term, 'mi').test(
-  //             this.userService.getaUserProperty(user.id, 'username')
-  //           )
-  //         )
-  //         .slice(0, 10)
-  //     )
-  //   );
+  resultFormat = (user: User) => {
+    return `<img src="${environment.male_avatar_photo_url}"> ${user.firstName} ${user.lastName} `;
+  };
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      filter((term) => term.length >= 2),
+      map((term) =>
+        this.users
+          .filter(async (user) => {
+            const profile = await this.userService
+              .getMiniProfile(user.id)
+              .toPromise();
+            new RegExp(term, 'mi').test(profile.firstName);
+          })
+          .slice(0, 10)
+      )
+    );
 }
