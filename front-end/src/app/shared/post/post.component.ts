@@ -55,7 +55,7 @@ export class PostComponent implements OnInit {
     this.isLikedByMe = !this.isLikedByMe;
   }
 
-  private _checkIfItsLikedByMe(): boolean {
+  _checkIfItsLikedByMe(): boolean {
     if (this.post.likerIds) {
       let authenticatedUserId: number;
       this.authService
@@ -69,7 +69,7 @@ export class PostComponent implements OnInit {
     } else return false;
   }
 
-  private _getPostOwnerProfile(OwnerId: number): Promise<MiniProfile> {
+  _getPostOwnerProfile(OwnerId: number): Promise<MiniProfile> {
     return new Promise((resolve, reject) => {
       this.userService
         .getMiniProfile(OwnerId)
