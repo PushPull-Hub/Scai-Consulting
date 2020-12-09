@@ -13,10 +13,10 @@ public class Conversation {
     private int id;
 
     @Column(name = "first_user")
-    private String firstUserId;
+    private int  firstUserId;
 
     @Column(name = "second_user")
-    private String secondUserId;
+    private int secondUserId;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
@@ -26,9 +26,17 @@ public class Conversation {
     public Conversation() {
     }
 
-    public Conversation(String firstUserId, String secondUserId) {
+    public Conversation(int firstUserId, int secondUserId, Set<Message> messages) {
         this.firstUserId = firstUserId;
         this.secondUserId = secondUserId;
+        this.messages = messages;
+    }
+
+    public Conversation(int id, int firstUserId, int secondUserId, Set<Message> messages) {
+        this.id = id;
+        this.firstUserId = firstUserId;
+        this.secondUserId = secondUserId;
+        this.messages = messages;
     }
 
     public int getId() {
@@ -39,19 +47,19 @@ public class Conversation {
         this.id = id;
     }
 
-    public String getFirstUserId() {
+    public int getFirstUserId() {
         return firstUserId;
     }
 
-    public void setFirstUserId(String firstUserId) {
+    public void setFirstUserId(int firstUserId) {
         this.firstUserId = firstUserId;
     }
 
-    public String getSecondUserId() {
+    public int getSecondUserId() {
         return secondUserId;
     }
 
-    public void setSecondUserId(String secondUserId) {
+    public void setSecondUserId(int secondUserId) {
         this.secondUserId = secondUserId;
     }
 
