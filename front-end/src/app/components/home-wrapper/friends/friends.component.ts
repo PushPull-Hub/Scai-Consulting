@@ -11,6 +11,7 @@ import { FriendsService } from 'src/app/services/friends.service';
 import { RelationShips } from 'src/app/models/RelationShips.model';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { FriendShip } from 'src/app/models/FriendShip.model';
+import { RequestsComponent } from './requests/requests.component';
 
 @Component({
   selector: 'app-friends',
@@ -27,6 +28,9 @@ export class FriendsComponent implements OnInit {
   BlockedByMeList: FriendShip[];
   BlockedByMeListProfiles: MiniProfile[];
 
+  requests: FriendShip[];
+  requesterProfiles: MiniProfile[];
+
   loading: boolean;
   isThereAnErrorToLoadProfiles: boolean;
   myId: number;
@@ -42,6 +46,7 @@ export class FriendsComponent implements OnInit {
     this.friendsService
       .getRelationShips()
       .subscribe(async (response: RelationShips) => {
+        console.log(response);
         try {
           if (response && response.hasOwnProperty) {
             if (
@@ -55,6 +60,9 @@ export class FriendsComponent implements OnInit {
             }
             if (response.myFriends && response.myFriends.length > 0) {
               this.myFriends = response.myFriends;
+            }
+            if (response.requests && response.requests.length > 0) {
+              this.requests = response.requests;
             }
             this.isThereAnErrorToLoadProfiles = false;
             this.loading = false;
@@ -103,11 +111,20 @@ export class FriendsComponent implements OnInit {
             : null
         );
       } else if (componentReference instanceof SuggestionsComponent) {
+        console.log('Search Area ');
+      } else if (componentReference instanceof RequestsComponent) {
+        this.requesterProfiles = await this.friendsService._getRequesterProfiles(
+          this.requests
+        );
         componentReference.loadProfiles(
-          this.BlockedByMeListProfiles &&
-            this.BlockedByMeListProfiles.length > 0
-            ? this.BlockedByMeListProfiles
+          this.requesterProfiles && this.requesterProfiles.length > 0
+            ? this.requesterProfiles
             : null
+        );
+        componentReference.friendShipEmitter.subscribe(
+          (friendShip: FriendShip) => {
+            this.myFriends.push(friendShip);
+          }
         );
       } else {
         console.log('check the conditions ');
