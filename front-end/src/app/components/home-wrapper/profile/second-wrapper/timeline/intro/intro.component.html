@@ -1,13 +1,10 @@
-<!-- <div class="row">
-  <div
-    class="container"
-    style="
+<div class="row">
+  <div class="container" style="
       padding: 0;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
       border-radius: 15px;
-    "
-  >
+    ">
     <form #f="ngForm" (ngSubmit)="editUserInfos(f)">
       <div class="card bg-secondary" style="border-radius: 15px;">
         <div class="card-body">
@@ -26,16 +23,8 @@
                   <div class="form-group">
                     <td>
                       <span *ngIf="!EditButtonClicked">{{ location }}</span>
-                      <input
-                        class="form-control"
-                        type="text"
-                        *ngIf="EditButtonClicked"
-                        name="location"
-                        ngModel
-                        #location="ngModel"
-                        placeholder="Edit..."
-                        id="location"
-                      />
+                      <input class="form-control" type="text" *ngIf="EditButtonClicked" name="location" ngModel
+                        #location="ngModel" placeholder="Edit..." id="location" />
                     </td>
                   </div>
                 </tr>
@@ -46,15 +35,8 @@
                   <div class="form-group">
                     <td>
                       <span *ngIf="!EditButtonClicked">{{ hometown }} </span>
-                      <input
-                        class="form-control"
-                        type="text"
-                        *ngIf="EditButtonClicked"
-                        placeholder="Edit..."
-                        name="hometown"
-                        ngModel
-                        #hometown="ngModel"
-                      />
+                      <input class="form-control" type="text" *ngIf="EditButtonClicked" placeholder="Edit..."
+                        name="hometown" ngModel #hometown="ngModel" />
                     </td>
                   </div>
                 </tr>
@@ -65,15 +47,8 @@
                   <div class="form-group">
                     <td>
                       <span *ngIf="!EditButtonClicked">{{ work_in }} </span>
-                      <input
-                        class="form-control"
-                        type="text"
-                        *ngIf="EditButtonClicked"
-                        placeholder="Edit..."
-                        name="work_in"
-                        ngModel
-                        #work_in="ngModel"
-                      />
+                      <input class="form-control" type="text" *ngIf="EditButtonClicked" placeholder="Edit..."
+                        name="work_in" ngModel #work_in="ngModel" />
                     </td>
                   </div>
                 </tr>
@@ -83,16 +58,9 @@
                   </th>
                   <div class="form-group">
                     <td>
-                      <span *ngIf="!EditButtonClicked">{{ birthday }} </span>
-                      <input
-                        class="form-control"
-                        type="text"
-                        *ngIf="EditButtonClicked"
-                        placeholder="Edit..."
-                        name="birthday"
-                        ngModel
-                        #birthday="ngModel"
-                      />
+                      <span *ngIf="!EditButtonClicked">{{ birthdayObject }} </span>
+                      <input class="form-control" type="text" *ngIf="EditButtonClicked" placeholder="Edit..."
+                        name="birthday" ngModel #birthday="ngModel" />
                     </td>
                   </div>
                 </tr>
@@ -100,25 +68,15 @@
             </table>
           </div>
 
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            style="margin-left: 336px;"
-            *ngIf="!EditButtonClicked"
-            (click)="showInputs()"
-          >
+          <button type="button" class="btn btn-outline-primary" style="margin-left: 336px;" *ngIf="!EditButtonClicked"
+            (click)="showInputs()">
             Edit Infos
           </button>
-          <button
-            type="submit"
-            *ngIf="EditButtonClicked"
-            class="btn btn-outline-primary"
-            style="margin-left: 336px;"
-          >
+          <button type="submit" *ngIf="EditButtonClicked" class="btn btn-outline-primary" style="margin-left: 336px;">
             Done
           </button>
         </div>
       </div>
     </form>
   </div>
-</div> -->
+</div>
