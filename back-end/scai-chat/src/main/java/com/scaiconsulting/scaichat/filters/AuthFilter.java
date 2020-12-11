@@ -37,6 +37,16 @@ public class AuthFilter extends OncePerRequestFilter {
             return;
         }
 
+        if ("/verify-email".equalsIgnoreCase(httpServletRequest.getRequestURI())) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
+
+        if ("/reset-password".equalsIgnoreCase(httpServletRequest.getRequestURI())) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
+
 
         String header = httpServletRequest.getHeader("Authentication");
         if (header == null || !header.startsWith("Bearer")) {
