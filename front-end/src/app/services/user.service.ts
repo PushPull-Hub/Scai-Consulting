@@ -14,6 +14,7 @@ import { MiniProfile } from '../models/MiniProfile.model';
 })
 export class UserServices implements OnInit {
   usersList = new Subject<User[]>();
+  passwordReseter: Profile;
 
   constructor(private http: HttpClient) {}
 
@@ -62,6 +63,20 @@ export class UserServices implements OnInit {
     return this.http.post<MiniProfile>(
       environment.rootUrl + '/api/user/microprofile',
       profileId
+    );
+  }
+
+  verifyEmail(email: string) {
+    return this.http.post<Profile>(
+      environment.rootUrl + '/api/verify-email',
+      email
+    );
+  }
+
+  resetPassword(profile: Profile) {
+    return this.http.post<Profile>(
+      environment.rootUrl + '/api/reset-password',
+      profile
     );
   }
 }
