@@ -51,7 +51,7 @@ export class UserServices implements OnInit {
   }
 
   updateUser(user: User) {
-    return null;
+    return this.http.put<User>(environment.rootUrl + '/api/users', user);
   }
 
   updateProfile(profile: Profile) {
