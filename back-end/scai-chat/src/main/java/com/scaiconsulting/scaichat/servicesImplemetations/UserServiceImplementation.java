@@ -82,4 +82,12 @@ public class UserServiceImplementation implements UserService {
     public MiniUserProfile getMiniUserProfile(int id) {
         return userDao.getMiniUserProfile(id);
     }
+
+    @Override
+    public Profile verifyEmail(String email) {
+        Profile repoProfile = this.userDao.verifyEmail(email);
+        if(repoProfile != null) {
+            return repoProfile ;
+        }else return null ;
+    }
 }

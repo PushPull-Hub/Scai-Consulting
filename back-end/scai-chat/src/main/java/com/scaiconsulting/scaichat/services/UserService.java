@@ -23,4 +23,6 @@ public interface UserService {
 
     MiniUserProfile getMiniUserProfile(int id);
 
+    Profile verifyEmail(String email);
+
 }
