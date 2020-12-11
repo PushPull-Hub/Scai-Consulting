@@ -22,6 +22,11 @@ public class AuthFilter extends OncePerRequestFilter {
             return;
         }
 
+        if ("/".equalsIgnoreCase(httpServletRequest.getRequestURI())) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
+
         if ("/sign-in".equalsIgnoreCase(httpServletRequest.getRequestURI())) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;
