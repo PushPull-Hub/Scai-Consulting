@@ -42,7 +42,7 @@
 
     <div class="comments-and-likes float-right">
       <a>
-        {{ post.likersIds ? (post.likersIds.length > 1 ? post.likersIds.length + " Likes" : post.likersIds.length + " Like" ) : 0 + " Like" }}
+        {{ post.likerIds ? (post.likerIds.length > 1 ? post.likerIds.length + " Likes" : post.likerIds.length + " Like" ) : 0 + " Like" }}
         {{ post.comments ? (
           post.comments.length > 1
             ? post.comments.length + " Comments"
