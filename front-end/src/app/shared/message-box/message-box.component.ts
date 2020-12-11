@@ -25,6 +25,7 @@ export class MessageBoxComponent implements OnInit {
 
   ngOnInit(): void {
     // this.loggedUserId = this.authService.loggedUser.id;
+    console.log('Hello world ');
   }
 
   // showConversation() {

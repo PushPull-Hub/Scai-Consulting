@@ -11,7 +11,7 @@ export class MessagefilterPipe implements PipeTransform {
     if (!messages || !filter) {
       return messages;
     }
-
-    return messages.filter((message) => message.sender === filter);
+    return null;
+    // return messages.filter((message) => message.sender === filter);
   }
 }
