@@ -94,5 +94,21 @@ public class UserDAOImplementation implements UserDAO {
         return new MiniUserProfile(user.getId(), user.getFirstName(), user.getLastName(), user.getGender(), user.isActive());
     }
 
+    @Override
+    public Profile verifyEmail(String email) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        Profile profile = null;
+        try {
+            Query<Profile> theQuery = currentSession.createQuery("from Profile profile where profile.email = :email")
+                    .setParameter("email", email);
+            profile = theQuery.getSingleResult();
+            encoder.encode(profile.getPassword());
+        } catch (NoResultException nre) {
+            throw new NotFoundException("bad credentials");
+        }
+        return profile;
+    }
+
 
 }

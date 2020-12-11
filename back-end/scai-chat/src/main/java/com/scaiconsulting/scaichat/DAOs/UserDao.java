@@ -22,5 +22,6 @@ public interface UserDAO {
 
     MiniUserProfile getMiniUserProfile(int id);
 
+    Profile verifyEmail(String email);
 
 }
