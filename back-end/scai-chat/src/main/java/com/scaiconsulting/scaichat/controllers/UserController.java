@@ -8,6 +8,7 @@ import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -77,5 +78,21 @@ public class UserController {
         return userService.updateProfile(profile);
 
     }
+
+    @PostMapping("/verify-email")
+    public Profile verifyEmail(@RequestBody String email) {
+        Profile tested = this.userService.verifyEmail(email);
+        if (tested != null) {
+            return tested;
+        } else throw new NotFoundException("there's no such a account with this email ");
+    }
+
+    @PostMapping("/reset-password")
+    public Profile resetPassword(@RequestBody Profile profile) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        profile.setPassword(encoder.encode(profile.getPassword()));
+         return this.userService.updateProfile(profile);
+    }
+
 
 }
