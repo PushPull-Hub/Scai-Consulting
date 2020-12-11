@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./reset-password.component.css'],
 })
 export class ResetPasswordComponent implements OnInit {
-  incorrectConfirmedPass = false;
-  selectedUserId: string;
+  incorrectConfirmedPass: boolean;
+  error;
 
-  constructor(private user: UserServices, private route: Router) {}
+  constructor(private userService: UserServices, private route: Router) {}
 
   ngOnInit() {
-    //  this.selectedUserId = this.user.selectedUserId;
+    this.incorrectConfirmedPass = false;
   }
 
   resetPassword(f: NgForm) {
@@ -27,8 +27,21 @@ export class ResetPasswordComponent implements OnInit {
       console.log(`Incorrect Password !!`);
     } else if (newPass === newPassConfirmation) {
       const newPassword = newPass.toString();
-      //     this.user.updateUser(this.selectedUserId, 'password', newPassword);
-      this.route.navigate(['/app/sign-in']);
+      this.userService.passwordReseter.password = newPassword;
+      this.userService
+        .resetPassword(this.userService.passwordReseter)
+        .toPromise()
+        .then((result) => {
+          console.log(result);
+          if (result.password) {
+            this.route.navigate(['/app/sign-in']);
+          } else {
+            this.error = 'probably a server problem, try later ';
+          }
+        })
+        .catch((err) => {
+          this.error = err.message;
+        });
     }
   }
 }

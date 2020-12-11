@@ -14,14 +14,20 @@ export class VerifyEmailComponent implements OnInit {
 
   ngOnInit() {}
 
-  verifyEmail = (f: NgForm) => {
+  verifyEmail = async (f: NgForm) => {
     const inputedEmail = f.value.email;
-
-    // if (this.userService.verifyEmail(inputedEmail)) {
-    //   this.unfoundedEmail = false;
-    //   this.router.navigate(['/app/reset-password']);
-    // } else {
-    //   this.unfoundedEmail = true;
-    // }
+    await this.userService
+      .verifyEmail(inputedEmail)
+      .toPromise()
+      .then((result) => {
+        console.log(result);
+        if (result.email) {
+          this.userService.passwordReseter = result;
+          this.unfoundedEmail = false;
+          this.router.navigate(['/app/reset-password']);
+        } else {
+          this.unfoundedEmail = true;
+        }
+      });
   };
 }
