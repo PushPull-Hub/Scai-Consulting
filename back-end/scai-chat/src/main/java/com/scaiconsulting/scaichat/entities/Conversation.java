@@ -1,8 +1,6 @@
 package com.scaiconsulting.scaichat.entities;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "conversation")
@@ -12,31 +10,30 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "first_user")
-    private int  firstUserId;
+    @Column(name = "first_user_id")
+    private int firstUserId;
 
-    @Column(name = "second_user")
+    @Column(name = "second_user_id")
     private int secondUserId;
 
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            mappedBy = "message")
-    private Set<Message> messages = new HashSet<>();
+    @Column(name = "is_last_message_seen")
+    private int isLastMessageSeen;
+
 
     public Conversation() {
     }
 
-    public Conversation(int firstUserId, int secondUserId, Set<Message> messages) {
+    public Conversation(int firstUserId, int secondUserId, int isLastMessageSeen) {
         this.firstUserId = firstUserId;
         this.secondUserId = secondUserId;
-        this.messages = messages;
+        this.isLastMessageSeen = isLastMessageSeen;
     }
 
-    public Conversation(int id, int firstUserId, int secondUserId, Set<Message> messages) {
+    public Conversation(int id, int firstUserId, int secondUserId, int isLastMessageSeen) {
         this.id = id;
         this.firstUserId = firstUserId;
         this.secondUserId = secondUserId;
-        this.messages = messages;
+        this.isLastMessageSeen = isLastMessageSeen;
     }
 
     public int getId() {
@@ -63,11 +60,11 @@ public class Conversation {
         this.secondUserId = secondUserId;
     }
 
-    public Set<Message> getMessages() {
-        return messages;
+    public int getIsLastMessageSeen() {
+        return isLastMessageSeen;
     }
 
-    public void setMessages(Set<Message> messages) {
-        this.messages = messages;
+    public void setIsLastMessageSeen(int isLastMessageSeen) {
+        this.isLastMessageSeen = isLastMessageSeen;
     }
 }

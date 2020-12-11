@@ -5,6 +5,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "message")
@@ -15,22 +17,16 @@ public class Message {
     private int id;
 
     @Column(name = "created_time")
-    private int createTime;
+    private Date createdTime;
 
-    @Column(name = "sender")
-    private int sender;
+    @Column(name = "sender_id")
+    private int senderId;
 
-    @Column(name = "receiver")
-    private int receiver;
+    @Column(name = "receiver_id")
+    private int receiverId;
 
     @Column(name = "text")
     private String text;
-
-    @Column(name = "body")
-    private String body;
-
-    @Column(name = "seen")
-    private boolean seen;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "conversation_id", nullable = false)
@@ -41,13 +37,21 @@ public class Message {
     public Message() {
     }
 
-    public Message(int createTime, int sender, int receiver, String text, String body, boolean seen) {
-        this.createTime = createTime;
-        this.sender = sender;
-        this.receiver = receiver;
+    public Message(Date createdTime, int senderId, int receiverId, String text, Conversation conversation) {
+        this.createdTime = createdTime;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
         this.text = text;
-        this.body = body;
-        this.seen = seen;
+        this.conversation = conversation;
+    }
+
+    public Message(int id, Date createdTime, int senderId, int receiverId, String text, Conversation conversation) {
+        this.id = id;
+        this.createdTime = createdTime;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.text = text;
+        this.conversation = conversation;
     }
 
     public int getId() {
@@ -58,28 +62,28 @@ public class Message {
         this.id = id;
     }
 
-    public int getCreateTime() {
-        return createTime;
+    public Date   getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreateTime(int createTime) {
-        this.createTime = createTime;
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public int getSender() {
-        return sender;
+    public int getSenderId() {
+        return senderId;
     }
 
-    public void setSender(int sender) {
-        this.sender = sender;
+    public void setSenderId(int senderId) {
+        this.senderId = senderId;
     }
 
-    public int getReceiver() {
-        return receiver;
+    public int getReceiverId() {
+        return receiverId;
     }
 
-    public void setReceiver(int receiver) {
-        this.receiver = receiver;
+    public void setReceiverId(int receiverId) {
+        this.receiverId = receiverId;
     }
 
     public String getText() {
@@ -90,19 +94,11 @@ public class Message {
         this.text = text;
     }
 
-    public String getBody() {
-        return body;
+    public Conversation getConversation() {
+        return conversation;
     }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public boolean isSeen() {
-        return seen;
-    }
-
-    public void setSeen(boolean seen) {
-        this.seen = seen;
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
     }
 }
