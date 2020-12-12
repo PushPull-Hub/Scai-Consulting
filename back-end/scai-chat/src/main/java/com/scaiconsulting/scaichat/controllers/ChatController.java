@@ -29,6 +29,11 @@ public class ChatController {
         return this.chatService.getChats(token);
     }
 
+    @PostMapping("/conversation/messages")
+    List<Message> getMessagesByConversationId(@RequestHeader("Authentication") String token, @RequestBody int conversationId) {
+        return this.chatService.getMessagesByConversationId(conversationId);
+    }
+
 //    @GetMapping("/conversations")
 //    public List<Conversation> getConversations(@RequestHeader("Authentication") String token) {
 //        return this.chatService.getConversations(token);
@@ -48,7 +53,7 @@ public class ChatController {
 
 
     @PostMapping("/conversation")
-    public Chat getConversationByUsersIds(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
+    public Chat getChatByUsersIds(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
         if (this.chatService.getConversationByUsersIds(token, friendId) != null) {
             return this.chatService.getConversationByUsersIds(token, friendId);
         } else throw new NotFoundException("can't find user with id :" + friendId);
@@ -66,9 +71,6 @@ public class ChatController {
     }
 
 
-    @PostMapping("/conversation/messages")
-    List<Message> getMessagesByConversationId(@RequestHeader("Authentication") String token, @RequestBody int conversationId) {
-        return this.chatService.getMessagesByConversationId(conversationId);
-    }
+
 
 }
