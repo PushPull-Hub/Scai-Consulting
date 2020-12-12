@@ -1,6 +1,6 @@
 package com.scaiconsulting.scaichat.controllers;
 
-import com.scaiconsulting.scaichat.configurations.RelationShips;
+import com.scaiconsulting.scaichat.DTOs.RelationShips;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.FriendShipService;

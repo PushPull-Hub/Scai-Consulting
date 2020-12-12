@@ -3,7 +3,7 @@ package com.scaiconsulting.scaichat.servicesImplemetations;
 import com.scaiconsulting.scaichat.DAOs.FriendShipDAO;
 import com.scaiconsulting.scaichat.DAOs.UserDAO;
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
-import com.scaiconsulting.scaichat.configurations.RelationShips;
+import com.scaiconsulting.scaichat.DTOs.RelationShips;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.FriendShipService;

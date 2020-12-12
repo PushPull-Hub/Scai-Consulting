@@ -1,7 +1,7 @@
 package com.scaiconsulting.scaichat.controllers;
 
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
-import com.scaiconsulting.scaichat.configurations.MiniUserProfile;
+import com.scaiconsulting.scaichat.DTOs.MiniUserProfile;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;

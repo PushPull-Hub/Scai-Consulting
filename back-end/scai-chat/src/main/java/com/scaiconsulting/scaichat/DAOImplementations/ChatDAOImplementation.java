@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
@@ -87,20 +88,34 @@ public class ChatDAOImplementation implements ChatDao {
 
     @Override
     public Message getLastMessage(int conversation_id) {
+        Message lastMessage = null;
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Message> theQuery = currentSession.createQuery("from Message where conversation_id=:conversation_id order by createdTime DESC", Message.class);
         theQuery.setParameter("conversation_id", conversation_id);
         theQuery.setMaxResults(1);
-        return theQuery.getSingleResult();
+
+        try {
+            lastMessage = theQuery.getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+        return lastMessage;
+
     }
 
 
     @Override
     public List<Message> getMessagesByConversationId(int conversationId) {
+        List<Message> myMessages = null;
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Message> theQuery = currentSession.createQuery("from Message where conversation_id=:conversationId", Message.class);
         theQuery.setParameter("conversationId", conversationId);
-        return theQuery.getResultList();
+        try {
+            myMessages = theQuery.getResultList();
+        } catch (NoResultException nre) {
+            return null;
+        }
+        return myMessages;
     }
 
     @Override

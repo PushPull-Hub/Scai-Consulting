@@ -1,7 +1,7 @@
 package com.scaiconsulting.scaichat.services;
 
-import com.scaiconsulting.scaichat.configurations.Chat;
-import com.scaiconsulting.scaichat.configurations.MessageDTO;
+import com.scaiconsulting.scaichat.DTOs.Chat;
+import com.scaiconsulting.scaichat.DTOs.MessageDTO;
 import com.scaiconsulting.scaichat.entities.Conversation;
 import com.scaiconsulting.scaichat.entities.Message;
 
@@ -9,11 +9,15 @@ import java.util.List;
 
 public interface ChatService {
 
+    List<Chat> getChats(String token ) ;
+
+    Chat getChatByItsId(String token , int conversationId);
+
+    List<Message> getMessagesByConversationId(int conversationId);
+
     Conversation createConversation(String token, int secondUserId);
 
     Chat getConversationByUsersIds(String token, int secondUserId);
-
-    Chat getConversationByItsId(String token , int conversationId);
 
     List<Conversation> getConversations(String token);
 
