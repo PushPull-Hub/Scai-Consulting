@@ -2,18 +2,20 @@ package com.scaiconsulting.scaichat.servicesImplemetations;
 
 import com.scaiconsulting.scaichat.DAOs.ChatDao;
 import com.scaiconsulting.scaichat.DAOs.UserDAO;
-import com.scaiconsulting.scaichat.configurations.Chat;
+import com.scaiconsulting.scaichat.DTOs.Chat;
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
-import com.scaiconsulting.scaichat.configurations.MessageDTO;
-import com.scaiconsulting.scaichat.configurations.MiniUserProfile;
+import com.scaiconsulting.scaichat.DTOs.MessageDTO;
+import com.scaiconsulting.scaichat.DTOs.MiniUserProfile;
 import com.scaiconsulting.scaichat.entities.Conversation;
 import com.scaiconsulting.scaichat.entities.Message;
+import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +28,22 @@ public class ChatServiceImplementation implements ChatService {
     public ChatServiceImplementation(ChatDao chatDao, UserDAO userDAO) {
         this.chatDao = chatDao;
         this.userDAO = userDAO;
+    }
+
+    @Override
+    @Transactional
+    public List<Chat> getChats(String token) {
+
+        List<Conversation> myConversations = this.getConversations(token);
+
+        ArrayList<Chat> myChats = new ArrayList<>();
+
+        for (Conversation conversation : myConversations) {
+            int conversationId = conversation.getId();
+            Chat aChat = this.getChatByItsId(token, conversationId);
+            myChats.add(aChat);
+        }
+        return myChats;
     }
 
     @Override
@@ -63,7 +81,7 @@ public class ChatServiceImplementation implements ChatService {
                 }
 
             } else if (conversation.getFirstUserId() != userId) {
-                myFriendProfile = this.userDAO.getMiniUserProfile(userId);
+                myFriendProfile = this.userDAO.getMiniUserProfile(secondUserId);
                 chat.setId(conversation.getId());
                 chat.setMyId(conversation.getSecondUserId());
                 chat.setSecondUser(myFriendProfile);
@@ -80,7 +98,7 @@ public class ChatServiceImplementation implements ChatService {
 
     @Override
     @Transactional
-    public Chat getConversationByItsId(String token, int conversationId) {
+    public Chat getChatByItsId(String token, int conversationId) {
         int userId = new IdExtractor(token).getAuthenticatedUserId();
         Chat chat = new Chat();
         if (this.chatDao.getConversationByItsId(conversationId) != null) {
@@ -115,6 +133,15 @@ public class ChatServiceImplementation implements ChatService {
             return chat;
 
         } else return null;
+    }
+
+    @Override
+    @Transactional
+    public List<Message> getMessagesByConversationId(int conversationId) {
+        List<Message> myMessages = this.chatDao.getMessagesByConversationId(conversationId);
+        if (myMessages.size() != 0) {
+            return myMessages;
+        } else throw new NotFoundException("no messages found for the conversation with the id : " + conversationId);
     }
 
     @Override
