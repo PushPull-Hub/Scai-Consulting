@@ -1,4 +1,4 @@
-package com.scaiconsulting.scaichat.configurations;
+package com.scaiconsulting.scaichat.DTOs;
 
 public class MiniUserProfile {
 
