@@ -1,6 +1,6 @@
 package com.scaiconsulting.scaichat.services;
 
-import com.scaiconsulting.scaichat.configurations.RelationShips;
+import com.scaiconsulting.scaichat.DTOs.RelationShips;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 
 import java.util.List;
