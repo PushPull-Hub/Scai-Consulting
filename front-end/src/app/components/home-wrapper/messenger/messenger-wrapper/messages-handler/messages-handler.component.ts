@@ -1,42 +1,86 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Conversation } from 'src/app/models/Conversation.model';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserServices } from 'src/app/services/user.service';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+
 import { MessagesService } from 'src/app/services/messages.service';
+import { environment } from 'src/environments/environment';
 import { Message } from 'src/app/models/Message.model';
-import { v4 as uuidv4 } from 'uuid';
+import { ChatDTO } from 'src/app/models/ChatDTO.model';
+import { MessageDTO } from 'src/app/models/MessageDTO.model';
 
 @Component({
   selector: 'app-messages-handler',
   templateUrl: './messages-handler.component.html',
   styleUrls: ['./messages-handler.component.scss'],
 })
-export class MessagesHandlerComponent implements OnInit {
-  @Input() conversation: Conversation;
-  loggedUserId: string;
+export class MessagesHandlerComponent implements OnInit, OnChanges {
+  male_avatar_photo_url: string;
+  messages: Message[];
+  doIhaveMessages: boolean;
+
+  @Input() chat: ChatDTO;
   text: string;
-  constructor(
-    private authService: AuthService,
-    private userService: UserServices,
-    private messageService: MessagesService
-  ) {}
 
-  ngOnInit(): void {}
+  constructor(private messageService: MessagesService) {}
 
-  // getFriendUsername(conversationId: string): string {
-  //   return this.messageService.getTheFriend(conversationId).username;
-  // }
+  ngOnInit(): void {
+    this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    this.doIhaveMessages = true;
+    this.messages = [];
+    this.loadMessages();
+  }
 
-  // getFriendId(id: string): string {
-  //   return this.messageService.getTheFriendId(id);
-  // }
-  // sendMessage(reciever: string, text: string) {
-  //   if (text !== '') {
-  //     this.messageService.sendMessage(reciever, text);
-  //     this.conversation = this.messageService.getConversation(reciever);
-  //     this.text = '';
-  //   } else {
-  //     console.log('emptry input');
-  //   }
-  // }
+  private loadMessages() {
+    this.messageService
+      .getMessagesByConversationId(this.chat.id)
+      .toPromise()
+      .then((result: Message[]) => {
+        if (result) {
+          this.doIhaveMessages = true;
+          this.messages = result;
+        } else {
+          this.doIhaveMessages = false;
+        }
+      });
+  }
+
+  sendMessage() {
+    if (this.text && this.text.trim() !== '') {
+      let myMessage = new MessageDTO();
+      myMessage.conversionId = this.chat.id;
+      myMessage.receiverId = this.chat.secondUser.id;
+      myMessage.text = this.text;
+      this.messageService
+        .sendMessage(myMessage)
+        .toPromise()
+        .then((result: Message) => {
+          if (result) {
+            this.chat.lastMessage = result;
+            this.chat.isLastMessageSeen = 0;
+            this.messages.push(result);
+            this.doIhaveMessages = true;
+            this.text = '';
+          } else {
+            console.log('check conditions ');
+          }
+        })
+        .catch((err) => console.log(err));
+    } else
+      console.log(
+        'messaggio vuoto, " message will pop up as a notification to the user " '
+      );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.chat.lastMessage) {
+      this.loadMessages();
+    } else {
+      this.messages = [];
+      this.doIhaveMessages = false;
+    }
+  }
 }
