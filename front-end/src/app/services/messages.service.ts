@@ -1,5 +1,14 @@
+import { HttpClient } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
+
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+
+import { ChatDTO } from '../models/ChatDTO.model';
 import { Conversation } from '../models/Conversation.model';
+import { Message } from '../models/Message.model';
+import { MessageDTO } from '../models/MessageDTO.model';
 
 @Injectable({
   providedIn: 'root',
@@ -7,87 +16,50 @@ import { Conversation } from '../models/Conversation.model';
 export class MessagesService {
   messages: Conversation[];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  // getMessages(): Conversation[] {
-  //   return (this.messages = JSON.parse(localStorage.getItem('Messages')) || []);
-  // }
+  getMyChats(): Observable<ChatDTO[]> {
+    return this.http.get<ChatDTO[]>(environment.rootUrl + '/api/my-chats');
+  }
 
-  // getConversation(friendId: string): Conversation {
-  //   const stConversationId = `${this.authService.getLoggedUserId()}${friendId}`;
-  //   const ndConversationId = `${friendId}${this.authService.getLoggedUserId()}`;
-  //   return this.messages.find(
-  //     (conversation) =>
-  //       conversation.id === stConversationId ||
-  //       conversation.id === ndConversationId
-  //   );
-  // }
+  getMessagesByConversationId(conversationId: number): Observable<Message[]> {
+    return this.http.post<Message[]>(
+      environment.rootUrl + '/api/conversation/messages',
+      conversationId
+    );
+  }
 
-  // getUserConversations(): Conversation[] {
-  //   return this.getMessages().filter((conversation) =>
-  //     conversation.id.includes(this.authService.getLoggedUserId())
-  //   );
-  // }
+  getChatByItsId(chatId: number): Observable<ChatDTO> {
+    return this.http.get<ChatDTO>(environment.rootUrl + 'api/chat/' + chatId);
+  }
 
-  // getTheFriendId(conversationId: string) {
-  //   return this.authService.getLoggedUserId()
-  //     ? conversationId.replace(this.authService.getLoggedUserId(), '')
-  //     : undefined;
-  // }
+  getChatByUsersIds(friendId: number): Observable<ChatDTO> {
+    return this.http.post<ChatDTO>(
+      environment.rootUrl + '/api/conversation',
+      friendId
+    );
+  }
 
-  // getTheFriend(conversationId: string) {
-  //   return this.userService.getUserVersion2(
-  //     this.getTheFriendId(conversationId)
-  //   );
-  // }
+  createConversation(friendId: number): Observable<ChatDTO> {
+    return this.http.post<ChatDTO>(
+      environment.rootUrl + '/api/chats',
+      friendId
+    );
+  }
 
-  // updateConversationMessagesArray(id: string, messagesArray: Message[]) {
-  //   const conversation: Conversation = this.messages.find(
-  //     (conversation) => conversation.id === id
-  //   );
-  //   conversation.messages = messagesArray;
-  //   const IndexOfConversation = this.messages.map((x) => x.id).indexOf(id);
-  //   this.messages.splice(IndexOfConversation, 1, conversation);
-  //   localStorage.setItem('Messages', JSON.stringify(this.messages));
-  // }
+  sendMessage(message: MessageDTO) {
+    return this.http.post<Message>(
+      environment.rootUrl + '/api/messages/message',
+      message
+    );
+  }
 
-  // setLastMessageToReaded (ConversationId:string) {
-  //  this.getUserConversations.filter(conversation => conversation.id === ConversationId )
-
-  // }
-
-  // updateMessage(
-  //   conversationId: string,
-  //   messageId: string,
-  //   property: string,
-  //   newValue: any
-  // ) {
-  //   const conversation: Conversation = this.getMessages().find(
-  //     (conversation) => conversation.id === conversationId
-  //   );
-  //   const message: Message = conversation.messages.find(
-  //     (msg) => (msg.id = messageId)
-  //   );
-  //   message[`${property}`] = newValue;
-  //   const IndexOfConversation = this.messages
-  //     .map((conversation) => conversation.id)
-  //     .indexOf(conversationId);
-  //   this.messages.splice(IndexOfConversation, 1, conversation);
-  //   localStorage.setItem('Messages', JSON.stringify(this.messages));
-  // }
-
-  // sendMessage(reciever: string, text: string) {
-  //   const conversation: Conversation = this.getConversation(reciever);
-  //   const messages = conversation.messages;
-  //   const message = new Message();
-  //   message.id = uuidv4();
-  //   // message.sender = this.authService.getLoggedUserId();
-  //   message.reciever = reciever;
-  //   message.text = text;
-  //   message.is_readed = false;
-
-  //   messages.push(message);
-
-  //   // this.updateConversationMessagesArray(conversation.id, messages);
-  // }
+  setConversationLastMessageToSeen(
+    conversationId: number
+  ): Observable<Conversation> {
+    return this.http.post<Conversation>(
+      environment.rootUrl + '/api/see-last-message',
+      conversationId
+    );
+  }
 }
