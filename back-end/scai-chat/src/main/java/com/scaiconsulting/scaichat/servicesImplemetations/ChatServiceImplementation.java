@@ -141,7 +141,7 @@ public class ChatServiceImplementation implements ChatService {
         List<Message> myMessages = this.chatDao.getMessagesByConversationId(conversationId);
         if (myMessages.size() != 0) {
             return myMessages;
-        } else throw new NotFoundException("no messages found for the conversation with the id : " + conversationId);
+        } else return null;
     }
 
     @Override
@@ -179,9 +179,11 @@ public class ChatServiceImplementation implements ChatService {
         theMessage.setId(0);
         theMessage.setSenderId(userId);
         theMessage.setCreatedTime(now);
-        theMessage.setConversation(conversation);
         theMessage.setReceiverId(message.getReceiverId());
         theMessage.setText(message.getText());
+        conversation.setIsLastMessageSeen(0);
+        theMessage.setConversation(conversation);
+
         return this.chatDao.createMessage(theMessage);
     }
 
