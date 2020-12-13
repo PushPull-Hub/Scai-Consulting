@@ -1,8 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserServices } from 'src/app/services/user.service';
 import { MessagesService } from 'src/app/services/messages.service';
-import { Conversation } from 'src/app/models/Conversation.model';
+import { ChatDTO } from 'src/app/models/ChatDTO.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-messenger-nav',
@@ -10,30 +9,47 @@ import { Conversation } from 'src/app/models/Conversation.model';
   styleUrls: ['./messenger-nav.component.scss'],
 })
 export class MessengerNavComponent implements OnInit {
-  isMessageReaded: boolean = false;
-  loggedUserId: string;
-  conversations: Conversation[];
-  @Output() eventClicked = new EventEmitter<Event>();
+  male_avatar_photo_url: string;
+  loading: boolean;
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserServices,
-    private messageService: MessagesService
-  ) {}
+  myChats: ChatDTO[];
+
+  @Output() eventClicked = new EventEmitter<ChatDTO>();
+
+  constructor(private messageService: MessagesService) {}
 
   ngOnInit(): void {
-    // this.conversations = this.messageService.getUserConversations();
-    // this.loggedUserId = this.authService.getLoggedUserId();
+    this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    this.loading = true;
+    this.messageService
+      .getMyChats()
+      .toPromise()
+      .then((response) => {
+        this.myChats = response;
+        this.loading = false;
+      });
   }
 
-  // getFriendUsername(conversationId: string): string {
-  //   return this.messageService.getTheFriend(conversationId).username;
-  // }
+  onClick(chat: ChatDTO): void {
+    if (
+      chat.lastMessage &&
+      chat.lastMessage.senderId == chat.secondUser.id &&
+      chat.isLastMessageSeen == 0
+    ) {
+      this.messageService
+        .setConversationLastMessageToSeen(chat.id)
+        .toPromise()
+        .then((result) => {
+          if (result) {
+            let indexOfChat = this.myChats.findIndex((x) => x.id == chat.id);
+            this.myChats[indexOfChat].isLastMessageSeen = 1;
+            console.log(this.myChats[indexOfChat].isLastMessageSeen);
 
-  onClick(conversation): void {
-    this.eventClicked.emit(conversation);
-    if (conversation.messages.length > 0) {
-      // this.messageService.updateMessage(conversation.id, conversation.messages.slice(-1)[0].id, "is_readed", true)
+            this.eventClicked.emit(chat);
+          } else console.log('check the conditions ');
+        });
+    } else {
+      this.eventClicked.emit(chat);
     }
   }
 }
