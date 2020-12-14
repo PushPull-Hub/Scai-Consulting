@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { User } from '../models/User.model';
 import { Profile } from '../models/Profile.model';
@@ -68,5 +68,9 @@ export class AuthService {
           } else res(null);
         });
     });
+  }
+
+  test(): Observable<string> {
+    return this.http.get<string>(environment.rootUrl);
   }
 }
