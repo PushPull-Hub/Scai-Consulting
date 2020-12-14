@@ -15,7 +15,9 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.test().subscribe((res) => console.log(res));
+  }
 
   signIn(f: NgForm) {
     const email = f.value.email;
