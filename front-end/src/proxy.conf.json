@@ -1,0 +1,7 @@
+{
+  "/": {
+    "target": "https://glacial-badlands-58060.herokuapp.com",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}
