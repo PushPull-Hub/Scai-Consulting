@@ -85,9 +85,6 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public Profile verifyEmail(String email) {
-        Profile repoProfile = this.userDao.verifyEmail(email);
-        if(repoProfile != null) {
-            return repoProfile ;
-        }else return null ;
+        return this.userDao.verifyEmail(email);
     }
 }
