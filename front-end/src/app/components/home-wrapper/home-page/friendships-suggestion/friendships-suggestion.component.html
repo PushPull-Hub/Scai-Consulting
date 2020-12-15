@@ -1,4 +1,4 @@
-<!-- <div class="container-fluid bg-secondary" style="
+<div class="container-fluid bg-secondary" style="
     border-radius: 15px;
     max-height: 500px;
     border: 1px solid #dddfe2;
@@ -7,7 +7,8 @@
   <div class="container-fluid" style="margin-top: 20px; margin-bottom: 25px; padding-left: 0;">
     <h4><i class="fa fa-search" aria-hidden="true"></i> &nbsp; suggestions</h4>
   </div>
-  <ng-container *ngFor="let suggestedFriend of friendsSuggestion">
+  <app-spinner *ngIf="loading"></app-spinner>
+  <ng-container *ngFor="let profile of profiles">
     <div class="row suggested-friend" style="margin-top: 10px;">
       <div class="col-2">
         <div>
@@ -17,16 +18,16 @@
 
       <div class="col-7">
         <h2 class="friend-name">
-          {{ getFriendProperty(suggestedFriend, "username") }}
+          {{ profile.firstName }} {{profile.lastName }}
         </h2>
       </div>
       <div>
         <button class="btn btn-info" style="padding: 0 16px 0 15px; margin-top: 5px;"
-          (click)="addFriend(suggestedFriend)">
+          (click)="sendFriendRequest(profile.id)">
           add
         </button>
       </div>
     </div>
     <hr style="border-top: 1px solid #dfe3ee; margin: 5px 0 5px 0;" />
   </ng-container>
-</div> -->
+</div>
