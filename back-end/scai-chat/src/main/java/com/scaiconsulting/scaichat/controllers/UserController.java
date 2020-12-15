@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<User> signIn(@RequestBody Profile profile) {
+    public ResponseEntity<User> signIn(@org.jetbrains.annotations.NotNull @RequestBody Profile profile) {
         ResponseEntity<User> AuthenticatedProfile = userService.getProfile(profile.getEmail(), profile.getPassword());
         try {
             if (AuthenticatedProfile != null) {
