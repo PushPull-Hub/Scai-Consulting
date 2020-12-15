@@ -9,6 +9,7 @@ import { UserServices } from './user.service';
 import { AuthService } from './auth.service';
 import { MiniProfile } from '../models/MiniProfile.model';
 import { User } from '../models/User.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class FriendsService {
   UserRelationShips: RelationShips;
   allNeededProfiles: MiniProfile[];
   myId: number;
+  Suggestions: MiniProfile[];
 
   constructor(
     private http: HttpClient,
@@ -128,7 +130,7 @@ export class FriendsService {
     });
   }
 
-  sendFriendRequest(requested_user_Id: number) {
+  sendFriendRequest(requested_user_Id: number): Observable<FriendShip> {
     return this.http.post<FriendShip>(
       environment.rootUrl + '/api/friend-request',
       requested_user_Id
@@ -167,6 +169,12 @@ export class FriendsService {
     return this.http.put<boolean>(
       environment.rootUrl + '/api/friendship/friend',
       blocked_user_id
+    );
+  }
+
+  getTenSuggestions(): Observable<MiniProfile[]> {
+    return this.http.get<MiniProfile[]>(
+      environment.rootUrl + '/api/suggestions'
     );
   }
 }
