@@ -69,8 +69,4 @@ export class AuthService {
         });
     });
   }
-
-  test(): Observable<string> {
-    return this.http.get<string>(environment.rootUrl);
-  }
 }
