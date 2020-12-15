@@ -2,9 +2,11 @@ package com.scaiconsulting.scaichat.servicesImplemetations;
 
 import com.scaiconsulting.scaichat.DAOs.FriendShipDAO;
 import com.scaiconsulting.scaichat.DAOs.UserDAO;
-import com.scaiconsulting.scaichat.configurations.IdExtractor;
+import com.scaiconsulting.scaichat.DTOs.MiniUserProfile;
 import com.scaiconsulting.scaichat.DTOs.RelationShips;
+import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.FriendShip;
+import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.FriendShipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +93,20 @@ public class FriendShipServiceImplementation implements FriendShipService {
         } else {
             throw new NotFoundException("from cancelFriendRequest method : relation with friend id of " + friendId + " not found ");
         }
+    }
+
+    @Override
+    @Transactional
+    public List<MiniUserProfile> getTenSuggestions(String token) {
+        int userId = new IdExtractor(token).getAuthenticatedUserId();
+        List<User> users = this.friendShipDAO.getTenFriendsSuggestions(userId);
+        ArrayList<MiniUserProfile> suggestedProfiles = new ArrayList<>();
+        if (users != null) {
+            for (User user : users) {
+                suggestedProfiles.add(this.userDAO.getMiniUserProfile(user.getId()));
+            }
+        }
+        return suggestedProfiles ;
     }
 
     @Override

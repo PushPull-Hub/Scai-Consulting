@@ -1,5 +1,6 @@
 package com.scaiconsulting.scaichat.services;
 
+import com.scaiconsulting.scaichat.DTOs.MiniUserProfile;
 import com.scaiconsulting.scaichat.DTOs.RelationShips;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 
@@ -28,4 +29,7 @@ public interface FriendShipService {
     boolean unblockFriend(String token, int friendId);
 
     boolean cancelFriendRequest (String token , int friendShipId);
+
+    List<MiniUserProfile> getTenSuggestions (String token ) ;
+
 }
