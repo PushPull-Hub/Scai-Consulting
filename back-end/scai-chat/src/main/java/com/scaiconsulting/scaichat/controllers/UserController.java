@@ -34,10 +34,15 @@ public class UserController {
     @PostMapping("/sign-in")
     public ResponseEntity<User> signIn(@RequestBody Profile profile) {
         ResponseEntity<User> AuthenticatedProfile = userService.getProfile(profile.getEmail(), profile.getPassword());
-        if (AuthenticatedProfile != null) {
-            return AuthenticatedProfile;
-        } else {
-            throw new NotFoundException("bad_credentials");
+        try {
+            if (AuthenticatedProfile != null) {
+                return AuthenticatedProfile;
+            } else {
+                throw new NotFoundException("bad_credentials");
+            }
+        } catch ( Exception e ) {
+            e.getStackTrace();
+            return null ;
         }
     }
 

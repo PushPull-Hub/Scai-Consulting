@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class TestController {
     @GetMapping("")
     public String confirmFunctionalityOfTheApp () {
-        return "The Application is running correctly, time on server is : " + LocalDateTime.now() ;
+        return "After Updating The Application is running correctly, time on server is : " + LocalDateTime.now() ;
     }
 
 }
