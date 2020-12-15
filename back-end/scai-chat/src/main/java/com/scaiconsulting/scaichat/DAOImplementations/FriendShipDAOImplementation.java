@@ -2,12 +2,14 @@ package com.scaiconsulting.scaichat.DAOImplementations;
 
 import com.scaiconsulting.scaichat.DAOs.FriendShipDAO;
 import com.scaiconsulting.scaichat.entities.FriendShip;
+import com.scaiconsulting.scaichat.entities.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -92,7 +94,44 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
     @Override
     public int deleteFriendShip(int id) {
         Session currentSession = entityManager.unwrap(Session.class);
-        return  currentSession.createQuery("delete from FriendShip where id=:id").setParameter("id",id).executeUpdate() ;
+        return currentSession.createQuery("delete from FriendShip where id=:id").setParameter("id", id).executeUpdate();
+
+    }
+
+    @Override
+    public List<User> getTenFriendsSuggestions(int userId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        ArrayList<Integer> friendsIds = new ArrayList<>();
+        try {
+            List<FriendShip> userFriendShips = this.getFriendShipList(userId);
+            if (userFriendShips.size() > 0) {
+                for (FriendShip friendShip : userFriendShips) {
+                    if (friendShip.getFirstUserId() == userId) {
+                        friendsIds.add(friendShip.getSecondUserId());
+                    } else {
+                        friendsIds.add(friendShip.getFirstUserId());
+                    }
+                }
+                try {
+                    Query<User> theNotFriendQuery = currentSession.createQuery("from User u where u.id NOT IN (:friendsIds)", User.class);
+                    theNotFriendQuery.setParameter("friendsIds", friendsIds);
+                    theNotFriendQuery.setMaxResults(10);
+                    return theNotFriendQuery.getResultList();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            } else {
+                Query<User> theQuery = currentSession.createQuery("from User where id != userId",User.class);
+                theQuery.setParameter("userId",userId);
+                theQuery.setMaxResults(10);
+                        return theQuery.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 
     }
 
