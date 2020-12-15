@@ -1,5 +1,6 @@
 package com.scaiconsulting.scaichat.controllers;
 
+import com.scaiconsulting.scaichat.DTOs.MiniUserProfile;
 import com.scaiconsulting.scaichat.DTOs.RelationShips;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
@@ -77,5 +78,9 @@ public class FriendShipController {
         return this.friendShipService.DeclineFriendRequest(token, friendId);
     }
 
+    @GetMapping("/suggestions")
+    public List<MiniUserProfile> getTenFriendsSuggestions(@RequestHeader("Authentication") String token) {
+        return this.friendShipService.getTenSuggestions(token);
+    }
 
 }
