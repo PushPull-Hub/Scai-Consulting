@@ -48,19 +48,16 @@ export class FriendsComponent implements OnInit {
       .subscribe(async (response: RelationShips) => {
         try {
           if (response && response.hasOwnProperty) {
-            if (
-              response.pendingRequests &&
-              response.pendingRequests.length > 0
-            ) {
+            if (response.pendingRequests) {
               this.pendingRequests = response.pendingRequests;
             }
-            if (response.blockedBy && response.blockedBy.length > 0) {
+            if (response.blockedBy) {
               this.BlockedByMeList = response.blockedBy;
             }
-            if (response.myFriends && response.myFriends.length > 0) {
+            if (response.myFriends) {
               this.myFriends = response.myFriends;
             }
-            if (response.requests && response.requests.length > 0) {
+            if (response.requests) {
               this.requests = response.requests;
             }
             this.isThereAnErrorToLoadProfiles = false;
