@@ -1,9 +1,11 @@
 package com.scaiconsulting.scaichat.controllers;
 
+import com.scaiconsulting.scaichat.DTOs.Chat;
 import com.scaiconsulting.scaichat.DTOs.MiniUserProfile;
 import com.scaiconsulting.scaichat.DTOs.RelationShips;
 import com.scaiconsulting.scaichat.entities.FriendShip;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
+import com.scaiconsulting.scaichat.services.ChatService;
 import com.scaiconsulting.scaichat.services.FriendShipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,12 @@ import java.util.List;
 public class FriendShipController {
 
     private final FriendShipService friendShipService;
+    private final ChatService chatService;
 
     @Autowired
-    public FriendShipController(FriendShipService friendShipService) {
+    public FriendShipController(FriendShipService friendShipService, ChatService chatService) {
         this.friendShipService = friendShipService;
+        this.chatService = chatService;
     }
 
     @PostMapping("/friendship")
@@ -44,7 +48,11 @@ public class FriendShipController {
 
     @PutMapping("/friend-request")
     public FriendShip acceptFriendRequest(@RequestHeader("Authentication") String token, @RequestBody int requester) {
-        return friendShipService.acceptFriendRequest(token, requester);
+        FriendShip result = friendShipService.acceptFriendRequest(token, requester);
+        if (result != null) {
+            this.chatService.createConversation(token, requester);
+        }
+        return result;
     }
 
 
@@ -55,7 +63,12 @@ public class FriendShipController {
 
     @PutMapping("/friendship")
     public boolean blockFriend(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
-        return friendShipService.blockFriend(token, friendId);
+        boolean result = friendShipService.blockFriend(token, friendId);
+        if (result) {
+            Chat usersChat = this.chatService.getConversationByUsersIds(token, friendId);
+            this.chatService.deleteConversation(usersChat.getId());
+        }
+        return result;
     }
 
     @PutMapping("/friendship/friend")
