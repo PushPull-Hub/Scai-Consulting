@@ -114,8 +114,9 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
                     }
                 }
                 try {
-                    Query<User> theNotFriendQuery = currentSession.createQuery("from User u where u.id NOT IN (:friendsIds)", User.class);
+                    Query<User> theNotFriendQuery = currentSession.createQuery("from User u where u.id NOT IN (:friendsIds) and u.id !=:userId ", User.class);
                     theNotFriendQuery.setParameter("friendsIds", friendsIds);
+                    theNotFriendQuery.setParameter("userId",userId);
                     theNotFriendQuery.setMaxResults(10);
                     return theNotFriendQuery.getResultList();
                 } catch (Exception e) {
@@ -123,7 +124,7 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
                     return null;
                 }
             } else {
-                Query<User> theQuery = currentSession.createQuery("from User where id != userId",User.class);
+                Query<User> theQuery = currentSession.createQuery("from User u where u.id !=:userId",User.class);
                 theQuery.setParameter("userId",userId);
                 theQuery.setMaxResults(10);
                         return theQuery.getResultList();
