@@ -1,15 +1,43 @@
-ol li::before {
-  content: "";
-}
-ol li i {
-  color: #2fa4e7;
-}
-.comment-section input {
-  border: 0px;
+// ol li::before {
+//   content: "";
+// }
+// ol li i {
+//   color: #2fa4e7;
+// }
+// .comment-section input {
+//   border: 0px;
 
-  border-radius: 0px;
+//   border-radius: 0px;
+// }
+
+// .comment-section button {
+//   border: 0px;
+// }
+
+.main {
+  border-radius: 15px;
+  width: 800px;
+  margin: 30px 0 0 10px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.comment-section button {
-  border: 0px;
+.wrapp {
+  margin-left: 9px;
+}
+
+.scrollspy-example {
+  height: 900px;
+  width: 632px;
+  overflow-y: scroll;
+}
+
+.my-h4 {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.scrolly {
+  max-width: 66%;
 }

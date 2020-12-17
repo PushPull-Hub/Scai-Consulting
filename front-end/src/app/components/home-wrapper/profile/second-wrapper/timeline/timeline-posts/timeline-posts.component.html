@@ -1,115 +1,19 @@
-<!-- <div class="row" style="margin-left: 9px;">
-  <div class="container-fluid bg-light" style="
-      border-radius: 15px;
-      width: 800px;
-      margin: 30px 0 0 10px;
-      padding: 0;
-      border: 1px solid rgba(0, 0, 0, 0.125);
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    ">
+<div class="row wrapp">
+  <div class="container-fluid bg-light main ">
     <div class="row">
-      <div class="col-8" style="max-width: 66%;">
-        <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example"
-          style="height: 900px; width: 632px; overflow-y: scroll;">
-          <h4 style="margin-top: 10px; margin-left: 10px;">
+      <div class="col-8 scrolly">
+        <div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example">
+          <h4 class="my-h4">
             <i class="fa fa-paperclip" aria-hidden="true"></i> Posts
           </h4>
           <hr class="my-4" style="margin-right: 20px; margin-left: 20px;" />
-           the 2020 posts  
-
-          <div id="2020-posts" class="container">
-POST
-            <post *ngFor="let post of posts "></post> 
-            <div class="container" id="post" *ngFor="let userPost of Userposts">
-              <div class="row">
-                <div class="container col-12" style="
-                    border: 1px solid rgba(0, 0, 0, 0.125);
-                    padding: 0;
-                    border-radius: 5px;
-                    margin-bottom: 40px;
-                  ">
-                  <div class="container-fluid post-nav" style="padding: 0;">
-                    <ol class="breadcrumb" style="margin-bottom: 0;">
-                      <li class="breadcrumb-item">
-                        <div>
-                          <img src="../../../../../assets/images/Mark.jpg" style="height: 40px; width: 40px;"
-                            class="rounded-circle" />
-                        </div>
-                      </li>
-                      <li class="breadcrumb-item">
-                        <a href="#">{{ userName }}</a>
-                      </li>
-                    </ol>
-                    <ol style="background: white; margin-bottom: 0px;">
-                      <div class="container">
-                        <p style="margin-bottom: 0px;">{{ userPost.text }}</p>
-                      </div>
-                    </ol>
-                    <ol class="breadcrumb" style="margin-bottom: 0;">
-                      <li class="breadcrumb-item">
-                        <button class="btn btn secondary" (click)="onLikeButtonClicked(userPost.postId)">
-                          <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                          {{ userPost.likes }} Likes
-                        </button>
-                      </li>
-                      <li class="breadcrumb-item">
-                        <button class="btn btn secondary" (click)="onCommentButtonClicked()">
-                          <i class="fa fa-comment" aria-hidden="true"></i>
-                          {{ userPost.comments.length - 1 }} Comments
-                        </button>
-                      </li>
-                      <li class="breadcrumb-item">
-                        <button class="btn btn secondary">
-                          <i class="fa fa-share" aria-hidden="true"></i> Share
-                        </button>
-                      </li>
-                    </ol>
-                    <ol id="comments-container" *ngIf="commentButtonClicked">
-                      <div class="container">
-                        <p>that's first comment</p>
-                        <p>that's second comment</p>
-                      </div>
-                    </ol>
-                    <div class="input-group fluid">
-                      <input type="text" class="form-control" placeholder="Add a Comment "
-                        aria-label="Recipient's username" aria-describedby="button-addon2" />
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2">
-                          Comment
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        
-          </div>
+          <app-spinner *ngIf="loading"></app-spinner>
+          <ng-container *ngIf="!loading">
+            <app-post (like)="likePost($event)" (unlike)="unlikePost($event)"
+              (addCommentButtonClicked)="addCommentOnPost($event)" *ngFor="let post of posts" [post]="post"></app-post>
+          </ng-container>
         </div>
       </div>
     </div>
   </div>
-</div> -->
-<!-- POST Finished   -->
-<!-- <hr />
-            <h4 id="list-item-2">2019</h4>
-            <hr />
-             the 2019 posts  
-            <div id="2019-posts" class="container">
-              <p>Posts of 2019</p>
-            </div>
-            <hr />
-            <h4 id="list-item-3">2018</h4>
-            <hr />
-             the 2018 Posts  
-            <div id="2018-posts" class="containe">
-              <p>Posts of 2018</p>
-            </div>
-            <hr />
-            <h4 id="list-item-4">Birthday</h4>
-            <hr />
-             the Birthday 
-            <div id="birthday" class="container">
-              <p>birthday</p>
-            </div> -->
+</div>
