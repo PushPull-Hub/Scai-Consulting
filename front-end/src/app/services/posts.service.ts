@@ -8,6 +8,7 @@ import { UserServices } from './user.service';
 
 import { Post } from '../models/Post.model';
 import { PostComment as Comment } from '../models/PostComment.model';
+import { PostLike } from '../models/PostLike.model';
 import { Subscription } from 'rxjs';
 
 @Injectable({
@@ -17,6 +18,10 @@ export class PostsService {
   // theUserFriendList: Friend[] = this.friendService.theUserFriendsList;
   UserFriendsPosts: Post[];
   hasBeenLiked: boolean = false;
+
+  myPosts: Post[] = [];
+  myFriendsPosts: Post[] = [];
+  HomePosts: Post[] = [];
 
   constructor(
     private authService: AuthService,
@@ -36,9 +41,7 @@ export class PostsService {
   }
 
   createPost(post: Post) {
-    this.http
-      .post(environment.rootUrl + '/api/posts', post)
-      .subscribe((responseDate) => console.log(responseDate));
+    return this.http.post<Post>(environment.rootUrl + '/api/posts', post);
   }
 
   updatePost(post: Post) {
@@ -61,8 +64,19 @@ export class PostsService {
   }
 
   likePost(postId) {
-    return this.http.post<{ id: number; likersId: number }[]>(
+    console.log('likePost fired ');
+
+    return this.http.post<PostLike[]>(
       environment.rootUrl + '/api/posts/like',
+      postId
+    );
+  }
+
+  unlikePost(postId) {
+    console.log('unlikePost fired');
+
+    return this.http.post<PostLike[]>(
+      environment.rootUrl + '/api/posts/unlike',
       postId
     );
   }
