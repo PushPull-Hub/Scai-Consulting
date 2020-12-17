@@ -8,6 +8,7 @@ import { PendingRequestsComponent } from './friends/pending-requests/pending-req
 import { BlockedComponent } from './friends/blocked/blocked.component';
 import { SuggestionsComponent } from './friends/suggestions/suggestions.component';
 import { RequestsComponent } from './friends/requests/requests.component';
+import { SettingsComponent } from './home-page/usernav/settings/settings.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./messenger/messenger.module').then((m) => m.MessengerModule),
   },
+  { path: 'settings', component: SettingsComponent },
 ];
 
 @NgModule({

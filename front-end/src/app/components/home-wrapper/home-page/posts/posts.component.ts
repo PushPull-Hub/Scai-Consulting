@@ -26,7 +26,7 @@ export class PostsComponent implements OnInit {
       setTimeout(() => {
         if (posts && posts.length > 0) {
           this.posts = posts.reverse();
-          this.doIhavePostsToShow = false;
+          this.doIhavePostsToShow = true;
           this.loading = false;
         } else {
           this.loading = false;

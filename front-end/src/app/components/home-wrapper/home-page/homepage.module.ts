@@ -9,6 +9,7 @@ import { PostsComponent } from './posts/posts.component';
 
 import { HomePageComponent } from './home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SettingsComponent } from './usernav/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     UsernavComponent,
     ActiveFriendsComponent,
     PostsComponent,
+    SettingsComponent,
   ],
   imports: [CommonModule, HomepageRoutingModule, SharedModule],
   exports: [],
