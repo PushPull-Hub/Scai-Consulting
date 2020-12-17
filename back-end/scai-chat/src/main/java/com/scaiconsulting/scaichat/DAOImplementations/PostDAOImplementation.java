@@ -91,17 +91,22 @@ public class PostDAOImplementation implements PostDAO {
         post.setId(postId);
         postLike.setLikersId(likerId);
         postLike.setPost(post);
-        currentSession.saveOrUpdate(post);
-        return post.getLikersIds();
+        currentSession.saveOrUpdate(postLike);
+        return this.getPost(postId).getLikersIds();
+
     }
 
     @Override
-    public int unlike(int unlikerId, int postId) {
+    public Set<PostLike> unlike(int unlikerId, int postId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query theQuery = currentSession.createQuery("delete from PostComment where likersId=:unlikerId and post.id=:postId");
+        Query theQuery = currentSession.createQuery("delete from PostLike where likersId=:unlikerId and post.id=:postId");
         theQuery.setParameter("unlikerId", unlikerId);
         theQuery.setParameter("postId", postId);
-        return theQuery.executeUpdate();
+        if (theQuery.executeUpdate() > 0) {
+            return this.getPost(postId).getLikersIds();
+        } else {
+            return null;
+        }
     }
 
 

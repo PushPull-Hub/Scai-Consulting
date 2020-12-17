@@ -27,7 +27,7 @@ public interface PostDAO {
 
     Set<PostLike> likePost(int likerId, int postId);
 
-    int unlike(int unlikerId, int postId) ;
+    Set<PostLike>  unlike(int unlikerId, int postId) ;
 
 
 }
