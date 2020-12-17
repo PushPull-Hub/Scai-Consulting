@@ -40,6 +40,10 @@ export class PostsService {
     return this.http.get<Post[]>(environment.rootUrl + '/api/posts');
   }
 
+  getFriendsPosts() {
+    return this.http.get<Post[]>(environment.rootUrl + '/api/posts/friends');
+  }
+
   createPost(post: Post) {
     return this.http.post<Post>(environment.rootUrl + '/api/posts', post);
   }
@@ -58,7 +62,7 @@ export class PostsService {
 
   commentOnPost(comment: Comment) {
     return this.http.post<Comment>(
-      environment.rootUrl + `{/api/posts/${comment.postId}/comments}`,
+      environment.rootUrl + '/api/posts/' + comment.postId + '/comments',
       comment
     );
   }
