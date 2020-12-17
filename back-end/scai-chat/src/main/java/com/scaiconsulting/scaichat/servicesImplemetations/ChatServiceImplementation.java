@@ -172,10 +172,10 @@ public class ChatServiceImplementation implements ChatService {
     @Override
     @Transactional
     public Message sendMessage(String token, MessageDTO message) {
-        Conversation conversation = this.chatDao.getConversationByItsId(message.getConversionId());
+        int userId = new IdExtractor(token).getAuthenticatedUserId();
+        Conversation conversation = this.chatDao.getConversationByUsersIds(userId,message.getReceiverId());
         Message theMessage = new Message();
         Timestamp now = new Timestamp(System.currentTimeMillis());
-        int userId = new IdExtractor(token).getAuthenticatedUserId();
         theMessage.setId(0);
         theMessage.setSenderId(userId);
         theMessage.setCreatedTime(now);

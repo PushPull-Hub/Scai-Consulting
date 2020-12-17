@@ -74,13 +74,13 @@ public class UserController {
 
     // Update
     @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
+    public User updateUser( @RequestHeader("Authentication") String token , @RequestBody User user) {
+        user.setId(new IdExtractor(token).getAuthenticatedUserId());
         return userService.updateUser(user);
     }
 
     @PutMapping("/profiles")
-    public Profile updateProfile(@RequestHeader("Authentication") String token, @RequestBody Profile profile) {
-        profile.setId(new IdExtractor(token).getAuthenticatedUserId());
+    public Profile updateProfile( @RequestBody Profile profile) {
         return userService.updateProfile(profile);
 
     }
