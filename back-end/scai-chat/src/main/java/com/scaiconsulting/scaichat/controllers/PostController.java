@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*",  exposedHeaders = "Authentication")
+@CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "Authentication")
 @RequestMapping("/api")
 public class PostController {
 
@@ -73,16 +73,16 @@ public class PostController {
 
 
     @PostMapping("/posts/like")
-    public Set<PostLike> likePost (@RequestHeader("Authentication") String token,
-                                   @RequestBody int postId ) {
-        return postService.likePost(token , postId);
+    public Set<PostLike> likePost(@RequestHeader("Authentication") String token,
+                                  @RequestBody int postId) {
+        return postService.likePost(token, postId);
 
     }
 
     @PostMapping("/posts/unlike")
-    public Set<PostLike> unlikePost (@RequestHeader("Authentication") String token,
-                                   @RequestBody int postId ) {
-        return null;
+    public Set<PostLike> unlikePost(@RequestHeader("Authentication") String token,
+                                    @RequestBody int postId) {
+        return postService.unlikePost(token, postId);
     }
 
 
