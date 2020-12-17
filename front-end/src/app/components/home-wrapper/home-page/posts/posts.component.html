@@ -4,6 +4,7 @@
       <i class="fa fa-paperclip"></i> Posts
     </h4>
     <app-spinner *ngIf="loading"></app-spinner>
+    <p *ngIf="!loading && !doIhavePostsToShow" style="color: red;"> No posts to show - try to add friends </p>
     <ng-container *ngIf="!loading">
       <app-post (like)="likePost($event)" (unlike)="unlikePost($event)"
         (addCommentButtonClicked)="addCommentOnPost($event)" *ngFor="let post of posts" [post]="post"></app-post>

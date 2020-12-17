@@ -13,6 +13,7 @@ import { PostLike } from 'src/app/models/PostLike.model';
 export class PostsComponent implements OnInit {
   posts: Post[];
   loading: boolean = true;
+  doIhavePostsToShow: boolean;
 
   constructor(
     private postService: PostsService,
@@ -21,9 +22,17 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.postService.getFriendsPosts().subscribe((posts) => {
+      this.doIhavePostsToShow = true;
       setTimeout(() => {
-        this.posts = posts.reverse();
-        this.loading = false;
+        if (posts && posts.length > 0) {
+          this.posts = posts.reverse();
+          this.doIhavePostsToShow = false;
+          this.loading = false;
+        } else {
+          this.loading = false;
+          this.posts = [];
+          this.doIhavePostsToShow = false;
+        }
       }, 600);
     });
   }
