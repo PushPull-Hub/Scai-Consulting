@@ -13,6 +13,7 @@ import { MessageBoxComponent } from './message-box/message-box.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { AlertComponent } from './alert/alert.component';
 import { CommentContainerComponent } from './post/comment-container/comment-container.component';
+import { FriendProfileComponent } from './friend-profile/friend-profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CommentContainerComponent } from './post/comment-container/comment-cont
     CreatePostComponent,
     AlertComponent,
     CommentContainerComponent,
+    FriendProfileComponent,
   ],
   imports: [
     CommonModule,
