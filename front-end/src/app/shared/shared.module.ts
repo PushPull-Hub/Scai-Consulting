@@ -14,6 +14,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { AlertComponent } from './alert/alert.component';
 import { CommentContainerComponent } from './post/comment-container/comment-container.component';
 import { FriendProfileComponent } from './friend-profile/friend-profile.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FriendProfileComponent } from './friend-profile/friend-profile.componen
     AlertComponent,
     CommentContainerComponent,
     FriendProfileComponent,
+    ErrorPageComponent,
   ],
   imports: [
     CommonModule,
