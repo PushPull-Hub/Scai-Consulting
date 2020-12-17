@@ -14,8 +14,10 @@ import { PostComment } from 'src/app/models/PostComment.model';
 })
 export class PostComponent implements OnInit {
   @Input() post: Post;
-  @Output() likeButtonClicked = new EventEmitter();
   @Output() addCommentButtonClicked = new EventEmitter<PostComment>();
+
+  @Output() like = new EventEmitter();
+  @Output() unlike = new EventEmitter();
 
   commentButtonClicked: boolean;
   textInputed: string;
@@ -51,8 +53,13 @@ export class PostComponent implements OnInit {
   }
 
   reactOnPost() {
-    this.likeButtonClicked.emit(this.post.id);
-    this.isLikedByMe = !this.isLikedByMe;
+    if (this.isLikedByMe) {
+      this.unlike.emit(this.post.id);
+      this.isLikedByMe = !this.isLikedByMe;
+    } else {
+      this.like.emit(this.post.id);
+      this.isLikedByMe = !this.isLikedByMe;
+    }
   }
 
   _checkIfItsLikedByMe(): boolean {
