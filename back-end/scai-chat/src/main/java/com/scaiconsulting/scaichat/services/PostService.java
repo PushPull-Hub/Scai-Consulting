@@ -26,6 +26,6 @@ public interface PostService {
 
     Set<PostLike> likePost(String token, int postId);
 
-//    ResponseEntity<String> unlikePost(String token, int postId);
+    Set<PostLike> unlikePost(String token, int postId);
 
 }

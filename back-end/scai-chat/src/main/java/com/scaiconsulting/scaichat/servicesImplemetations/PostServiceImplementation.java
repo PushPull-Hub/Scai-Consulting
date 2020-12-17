@@ -56,29 +56,28 @@ public class PostServiceImplementation implements PostService {
     }
 
     @Override
+    @Transactional
     public PostComment commentOnPost(PostComment comment) {
         return postDAO.commentOnPost(comment);
     }
 
     @Override
+    @Transactional
     public List<PostComment> getPostComments(int postId) {
         return postDAO.getPostComments(postId);
     }
 
     @Override
+    @Transactional
     public Set<PostLike> likePost(String token, int postId) {
         return postDAO.likePost(new IdExtractor(token).getAuthenticatedUserId(), postId);
     }
 
-  /*  @Override
-    public ResponseEntity<String> unlikePost(String token, int postId) {
-        int deleteResult = postDAO.unlike(new IdExtractor(token).getAuthenticatedUserId(), postId);
-        if (deleteResult > 0) {
-            return "not finished yet ";
-        }
-
-
-    }*/
+    @Override
+    @Transactional
+    public Set<PostLike> unlikePost(String token, int postId) {
+        return postDAO.unlike( new IdExtractor(token).getAuthenticatedUserId(), postId);
+    }
 
 
 }
