@@ -1,7 +1,7 @@
 package com.scaiconsulting.scaichat.controllers;
 
-import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.DTOs.MiniUserProfile;
+import com.scaiconsulting.scaichat.configurations.IdExtractor;
 import com.scaiconsulting.scaichat.entities.Profile;
 import com.scaiconsulting.scaichat.entities.User;
 import com.scaiconsulting.scaichat.exeptions.NotFoundException;
@@ -40,9 +40,9 @@ public class UserController {
             } else {
                 throw new NotFoundException("bad_credentials");
             }
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.getStackTrace();
-            return null ;
+            return null;
         }
     }
 
@@ -79,7 +79,8 @@ public class UserController {
     }
 
     @PutMapping("/profiles")
-    public Profile updateProfile(@RequestBody Profile profile) {
+    public Profile updateProfile(@RequestHeader("Authentication") String token, @RequestBody Profile profile) {
+        profile.setId(new IdExtractor(token).getAuthenticatedUserId());
         return userService.updateProfile(profile);
 
     }
@@ -96,7 +97,7 @@ public class UserController {
     public Profile resetPassword(@RequestBody Profile profile) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         profile.setPassword(encoder.encode(profile.getPassword()));
-         return this.userService.updateProfile(profile);
+        return this.userService.updateProfile(profile);
     }
 
 
