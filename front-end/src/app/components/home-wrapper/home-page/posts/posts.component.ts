@@ -22,7 +22,7 @@ export class PostsComponent implements OnInit {
   ngOnInit(): void {
     this.postService.getFriendsPosts().subscribe((posts) => {
       setTimeout(() => {
-        this.posts = posts;
+        this.posts = posts.reverse();
         this.loading = false;
       }, 600);
     });

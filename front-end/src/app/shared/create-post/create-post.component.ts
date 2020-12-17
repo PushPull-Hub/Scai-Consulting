@@ -45,7 +45,7 @@ export class CreatePostComponent implements OnInit {
         .toPromise()
         .then((result: Post) => {
           if (result.id) {
-            this.postService.myPosts.push(result);
+            this.postService.myPosts.unshift(result);
           }
         })
         .catch((err) => {
