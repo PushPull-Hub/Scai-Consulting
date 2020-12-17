@@ -28,4 +28,7 @@ public interface PostService {
 
     Set<PostLike> unlikePost(String token, int postId);
 
+    List<Post> getFriendsPosts(String token);
+
+
 }

@@ -19,7 +19,7 @@ public interface PostDAO {
 
     void deletePost(int postId);
 
-    List<Post> getFriendsPosts();
+    List<Post> getFriendsPosts( List<Integer> friendsIds , int myId  );
 
     PostComment commentOnPost(PostComment comment);
 

@@ -1,16 +1,18 @@
 package com.scaiconsulting.scaichat.servicesImplemetations;
 
+import com.scaiconsulting.scaichat.DAOs.FriendShipDAO;
 import com.scaiconsulting.scaichat.DAOs.PostDAO;
 import com.scaiconsulting.scaichat.configurations.IdExtractor;
+import com.scaiconsulting.scaichat.entities.FriendShip;
 import com.scaiconsulting.scaichat.entities.Post;
 import com.scaiconsulting.scaichat.entities.PostComment;
 import com.scaiconsulting.scaichat.entities.PostLike;
 import com.scaiconsulting.scaichat.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,10 +21,12 @@ import java.util.Set;
 public class PostServiceImplementation implements PostService {
 
     private final PostDAO postDAO;
+    private final FriendShipDAO friendShipDAO;
 
     @Autowired
-    public PostServiceImplementation(PostDAO postDAO) {
+    public PostServiceImplementation(PostDAO postDAO, FriendShipDAO friendShipDAO) {
         this.postDAO = postDAO;
+        this.friendShipDAO = friendShipDAO;
     }
 
     @Override
@@ -76,7 +80,25 @@ public class PostServiceImplementation implements PostService {
     @Override
     @Transactional
     public Set<PostLike> unlikePost(String token, int postId) {
-        return postDAO.unlike( new IdExtractor(token).getAuthenticatedUserId(), postId);
+        return postDAO.unlike(new IdExtractor(token).getAuthenticatedUserId(), postId);
+    }
+
+    @Override
+    @Transactional
+    public List<Post> getFriendsPosts(String token) {
+        int myId = new IdExtractor(token).getAuthenticatedUserId();
+        ArrayList<Integer> myFriendsId = new ArrayList<>();
+        List<FriendShip> myFriends = this.friendShipDAO.getFriendShipList(myId);
+        if (myFriends.size() > 0) {
+            for (FriendShip myFriend : myFriends) {
+                if (myFriend.getFirstUserId() == myId) {
+                    myFriendsId.add(myFriend.getSecondUserId());
+                } else {
+                    myFriendsId.add(myFriend.getFirstUserId());
+                }
+            }
+            return this.postDAO.getFriendsPosts(myFriendsId, myId);
+        } else return null;
     }
 
 

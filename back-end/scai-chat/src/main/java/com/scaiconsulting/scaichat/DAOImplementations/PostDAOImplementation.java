@@ -64,8 +64,18 @@ public class PostDAOImplementation implements PostDAO {
     }
 
     @Override
-    public List<Post> getFriendsPosts() {
-        return null;
+    public List<Post> getFriendsPosts(List<Integer> friendsIds, int myId) {
+        try {
+            Session currentSession = entityManager.unwrap(Session.class);
+            Query<Post> theQuery = currentSession.createQuery("from Post where userId IN (:friendsIds) and userId !=: myId ");
+            theQuery.setParameter("friendsIds", friendsIds);
+            theQuery.setParameter("myId", myId);
+            return theQuery.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
