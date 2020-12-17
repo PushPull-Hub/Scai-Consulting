@@ -40,7 +40,17 @@ export class CreatePostComponent implements OnInit {
       post.place = '';
       post.objectId = null;
       this.insertedText = '';
-      this.postService.createPost(post);
+      this.postService
+        .createPost(post)
+        .toPromise()
+        .then((result: Post) => {
+          if (result.id) {
+            this.postService.myPosts.push(result);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       console.log('text vuoto');
       // will change the button style or the button ability
