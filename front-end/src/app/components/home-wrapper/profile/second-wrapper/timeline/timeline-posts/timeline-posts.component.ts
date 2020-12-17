@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Post } from 'src/app/models/Post.model';
 import { PostsService } from 'src/app/services/posts.service';
 import { AuthService } from 'src/app/services/auth.service';
 
-import * as moment from 'moment';
+import { PostComment } from 'src/app/models/PostComment.model';
+import { PostLike } from 'src/app/models/PostLike.model';
 
 @Component({
   selector: 'app-timeline-posts',
@@ -12,28 +13,77 @@ import * as moment from 'moment';
   styleUrls: ['./timeline-posts.component.scss'],
 })
 export class TimelinePostsComponent implements OnInit {
-  // Userposts: Post[] = this.postsService.getUserPost();
-  // userName: String = this.authService.loggedUser.username;
-  commentButtonClicked: boolean = false;
-  comments: string[];
+  posts: Post[];
+  loading: boolean = true;
 
-  now = moment().hour();
+  constructor(private postService: PostsService) {}
 
-  constructor(
-    private postsService: PostsService,
-    private authService: AuthService
-  ) {}
+  ngOnInit(): void {
+    this.loadPosts();
+  }
 
-  ngOnInit(): void {}
+  loadPosts() {
+    if (this.postService.myPosts.length > 0) {
+      setTimeout(() => {
+        this.posts = this.postService.myPosts;
+        this.loading = false;
+      }, 600);
+    } else {
+      this.postService.getUserPosts().subscribe((posts) => {
+        setTimeout(() => {
+          this.posts = posts;
+          this.postService.myPosts = posts;
+          this.loading = false;
+        }, 600);
+      });
+    }
+  }
 
-  // onCommentButtonClicked() {
-  //   this.commentButtonClicked = !this.commentButtonClicked;
+  // reactOnPost(id) {
+  //   const index = this.posts.findIndex((post) => post.id == id);
+  //   if (index != -1) {
+  //     this.postService
+  //       .likePost(id)
+  //       .subscribe(
+  //         (likerIds: PostLike[]) => (this.posts[index].likerIds = likerIds)
+  //       );
+  //   } else {
+  //     console.log('check conditions  ');
+  //   }
   // }
 
-  // onLikeButtonClicked(id: string) {
-  //   this.postsService.likePost(id);
-  // }
+  likePost(id: number) {
+    const index = this.posts.findIndex((post) => post.id == id);
+    if (index != -1) {
+      this.postService
+        .likePost(id)
+        .subscribe(
+          (likerIds: PostLike[]) => (this.posts[index].likerIds = likerIds)
+        );
+    } else {
+      console.log('check conditions  ');
+    }
+  }
 
-  // sortPosts = (a: Post, b: Post) =>
-  //   new Date(a.created_time).getTime() - new Date(b.created_time).getTime();
+  unlikePost(id: number) {
+    const index = this.posts.findIndex((post) => post.id == id);
+    if (index != -1) {
+      this.postService
+        .unlikePost(id)
+        .subscribe(
+          (likerIds: PostLike[]) => (this.posts[index].likerIds = likerIds)
+        );
+    } else {
+      console.log('check conditions  ');
+    }
+  }
+
+  addCommentOnPost(comment: PostComment) {
+    const index = this.posts.findIndex((post) => post.id == comment.postId);
+    if (index != -1) {
+      this.postService.commentOnPost(comment).subscribe((responseData) => {
+        if (responseData.id) this.posts[index].comments.push(responseData);
+      });
+    }
+  }
 }

@@ -3,6 +3,7 @@ import { PostsService } from '../../../../services/posts.service';
 import { Post } from 'src/app/models/Post.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostComment } from 'src/app/models/PostComment.model';
+import { PostLike } from 'src/app/models/PostLike.model';
 
 @Component({
   selector: 'app-posts',
@@ -27,15 +28,15 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  reactOnPost(id) {
-    const index = this.posts.findIndex((post) => post.id == id);
-    if (index != -1) {
-      // this.posts[index].likerIds = this.postService.likePost(id);
-      this.postService
-        .likePost(id)
-        .subscribe((likerIds) => (this.posts[index].likerIds = likerIds));
-    }
-  }
+  // reactOnPost(id) {
+  //   const index = this.posts.findIndex((post) => post.id == id);
+  //   if (index != -1) {
+  //     // this.posts[index].likerIds = this.postService.likePost(id);
+  //     this.postService
+  //       .likePost(id)
+  //       .subscribe((likerIds) => (this.posts[index].likerIds = likerIds));
+  //   }
+  // }
 
   addCommentOnPost(comment: PostComment) {
     const index = this.posts.findIndex((post) => post.id == comment.postId);
@@ -43,6 +44,32 @@ export class PostsComponent implements OnInit {
       this.postService.commentOnPost(comment).subscribe((responseData) => {
         if (responseData.id) this.posts[index].comments.push(responseData);
       });
+    }
+  }
+
+  likePost(id: number) {
+    const index = this.posts.findIndex((post) => post.id == id);
+    if (index != -1) {
+      this.postService
+        .likePost(id)
+        .subscribe(
+          (likerIds: PostLike[]) => (this.posts[index].likerIds = likerIds)
+        );
+    } else {
+      console.log('check conditions  ');
+    }
+  }
+
+  unlikePost(id: number) {
+    const index = this.posts.findIndex((post) => post.id == id);
+    if (index != -1) {
+      this.postService
+        .unlikePost(id)
+        .subscribe(
+          (likerIds: PostLike[]) => (this.posts[index].likerIds = likerIds)
+        );
+    } else {
+      console.log('check conditions  ');
     }
   }
 }
