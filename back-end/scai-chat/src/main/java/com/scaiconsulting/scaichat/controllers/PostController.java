@@ -85,5 +85,9 @@ public class PostController {
         return postService.unlikePost(token, postId);
     }
 
+    @GetMapping("/posts/friends")
+    public List<Post> getFriendsPosts(@RequestHeader("Authentication") String token) {
+      return this.postService.getFriendsPosts(token);
+    }
 
 }
