@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from 'src/app/models/Post.model';
-import { PostComment } from 'src/app/models/PostComment.model';
-import { Profile } from 'src/app/models/Profile.model';
+
 import { AuthService } from 'src/app/services/auth.service';
-import { PostsService } from 'src/app/services/posts.service';
+import { User } from 'src/app/models/User.model';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +9,17 @@ import { PostsService } from 'src/app/services/posts.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  constructor(
-    private authService: AuthService,
-    private postService: PostsService
-  ) {}
+  loading: boolean;
+  authenticatedUser: User;
 
-  ngOnInit(): void {}
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.loading = true;
+
+    this.authService.getAuthenticatedUser().then((user: User) => {
+      this.authenticatedUser = user;
+      this.loading = false;
+    });
+  }
 }
