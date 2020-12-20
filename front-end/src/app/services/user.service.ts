@@ -15,6 +15,7 @@ import { MiniProfile } from '../models/MiniProfile.model';
 export class UserServices implements OnInit {
   usersList = new Subject<User[]>();
   passwordReseter: Profile;
+  MiniProfilesCach: MiniProfile[] = [];
 
   constructor(private http: HttpClient) {}
 
