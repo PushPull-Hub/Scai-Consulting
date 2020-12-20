@@ -1,70 +1,85 @@
-<!-- <div class="container">
+<div class="container">
   <div class="row justify-content-end">
     <div class="col-3 fixed-bottom offset-9">
       <div class="container">
-        <button
-          class="btn btn-secondary btn-lg btn-block border-bottom-0"
-          style="
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-              0 6px 20px 0 rgba(0, 0, 0, 0.19);
-          "
-          (click)="showConversation()"
-        >
-          <i
-            *ngIf="getFriendProperty(friendId, 'isActive')"
-            _ngcontent-jcl-c119=""
-            aria-hidden="true"
-            class="fa fa-circle"
-            style="color: green;"
-          ></i>
-          <i
-            *ngIf="!getFriendProperty(friendId, 'isActive')"
-            _ngcontent-jcl-c119=""
-            aria-hidden="true"
-            class="fa fa-circle"
-            style="color: grey;"
-          ></i>
-          {{ getFriendProperty(friendId, "username") }}
-          <li
-            style="list-style: none; display: inline;"
-            (click)="hideMessageBox()"
-          >
-            <i class="fa fa-times" aria-hidden="true" style="color: red;"></i>
-          </li>
-        </button>
+        <div class="btn btn-secondary btn-lg btn-block border-bottom-0 box-nav">
+
+          <ng-container (click)="showConversation()">
+            <i *ngIf="friendProfile.active" _ngcontent-jcl-c119="" aria-hidden="true" class="fa fa-circle green"></i>
+            <i *ngIf="!friendProfile.active" _ngcontent-jcl-c119="" aria-hidden="true" class="fa fa-circle grey "></i>
+            {{friendProfile.firstName}} {{friendProfile.lastName}}
+          </ng-container>
+
+          <a class="red-x" (click)="closeMessageBox()">
+            <i class="fa fa-times red-color" aria-hidden="true"></i>
+          </a>
+
+        </div>
 
         <div *ngIf="clicked">
-          <div
-            class="container-fluid"
-            style="height: 300px; background: white;"
-          >
-            <p>{{ conversation.id }}</p>
-            <p>{{ conversation.messages }}</p>
+
+
+
+          <div class="container-fluid box-body overflow-auto " #scrollMe>
+
+            <app-spinner *ngIf="loading"></app-spinner>
+            <p *ngIf="!loading && !isThereMessages"> You have no friends </p>
+
+            <ng-container *ngIf="messages">
+
+              <ng-container *ngFor="let message of messages">
+                <ng-container *ngIf="
+                message.senderId !== myId ;
+                else outgoingChat
+              ">
+                  <div class="recieved-chats">
+                    <div class="recieved-chats-img">
+                      <img class="rounded-circle" style="width: 20px; height: 20px;" [src]="male_avatar_photo_url" />
+                    </div>
+                    <div class="recieved-msg">
+                      <div class="recieved-msg-inbox">
+                        <p>
+                          {{message.text}}
+                        </p>
+                        <span class="time">11:00 PM </span>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #outgoingChat>
+                  <div class="outgoing-chats">
+                    <div class="outgoing-chats-msg">
+                      <p>
+                        {{message.text}}</p>
+                      <span class="time">11:00 PM </span>
+                    </div>
+                    <div class="outgoing-chats-img">
+                      <img class="rounded-circle" style="width: 20px; height: 20px;" [src]="male_avatar_photo_url" />
+                    </div>
+                  </div>
+                </ng-template>
+              </ng-container>
+
+            </ng-container>
+
           </div>
 
+
           <div class="input-group fluid">
-            <input
-              type="text"
-              class="form-control"
-              style="border-bottom: 0;"
-              placeholder="Send a message  "
-              aria-label="Recipient's username"
-              aria-describedby="button-addon2"
-              [(ngModel)]="text"
-            />
+            <input type="text" class="form-control my-input" placeholder="Send a message  "
+              aria-label="Recipient's username" aria-describedby="button-addon2" [(ngModel)]="text"
+              (keyup.enter)="sendMessage()" />
             <div class="input-group-append">
-              <button
-                class="btn btn-outline-primary"
-                type="button"
-                id="button-addon2"
-                (click)="sendMessage(friendId, text)"
-              >
+              <button class="btn btn-outline-primary" type="button" id="button-addon2" (click)="sendMessage()">
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
               </button>
             </div>
           </div>
+
+
+
         </div>
       </div>
     </div>
   </div>
-</div> -->
+</div>
