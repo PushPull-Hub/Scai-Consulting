@@ -13,6 +13,7 @@ export class MyFriendsComponent implements OnInit {
   loading: boolean = true;
   doIhaveFriends: boolean = true;
   messageIconClicked: boolean;
+  selectedFriend: MiniProfile;
 
   constructor() {}
 
@@ -34,7 +35,13 @@ export class MyFriendsComponent implements OnInit {
     }, 400);
   }
 
-  getConversation() {
+  getConversation(friendProfile: MiniProfile) {
     this.messageIconClicked = !this.messageIconClicked;
+    this.selectedFriend = friendProfile;
+  }
+
+  childEventClicked(event) {
+    this.messageIconClicked = false;
+    this.selectedFriend = null;
   }
 }
