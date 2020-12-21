@@ -9,7 +9,7 @@
         <h5> <a href="#">{{ owner.firstName }} {{owner.lastName}} </a> </h5>
       </div>
       <div class="c-created-time">
-        <span>{{post.created_time}}</span>
+        <span>{{postedOn}}</span>
       </div>
       <button class="icon btn btn secondary float-right">
         <i class="fa fa-share"></i>
@@ -42,12 +42,13 @@
 
     <div class="comments-and-likes float-right">
       <a>
-        {{ post.likerIds ? (post.likerIds.length > 1 ? post.likerIds.length + " Likes" : post.likerIds.length + " Like" ) : 0 + " Like" }}
+        {{ post.likerIds ? (post.likerIds.length > 1 ? post.likerIds.length + " Likes" : post.likerIds.length + " Like"
+        ) : 0 + " Like" }}
         {{ post.comments ? (
-          post.comments.length > 1
-            ? post.comments.length + " Comments"
-            : post.comments.length + " Comment") : 0 + " Comment"
-          }}
+        post.comments.length > 1
+        ? post.comments.length + " Comments"
+        : post.comments.length + " Comment") : 0 + " Comment"
+        }}
       </a>
     </div>
 

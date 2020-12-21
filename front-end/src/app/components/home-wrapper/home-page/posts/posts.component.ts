@@ -14,6 +14,7 @@ export class PostsComponent implements OnInit {
   posts: Post[];
   loading: boolean = true;
   doIhavePostsToShow: boolean;
+  sortedPosts: Post[];
 
   constructor(
     private postService: PostsService,
@@ -25,7 +26,8 @@ export class PostsComponent implements OnInit {
       this.doIhavePostsToShow = true;
       setTimeout(() => {
         if (posts && posts.length > 0) {
-          this.posts = posts.reverse();
+          this.posts = posts;
+          this.sortPostsByDate();
           this.doIhavePostsToShow = true;
           this.loading = false;
         } else {
@@ -36,16 +38,6 @@ export class PostsComponent implements OnInit {
       }, 600);
     });
   }
-
-  // reactOnPost(id) {
-  //   const index = this.posts.findIndex((post) => post.id == id);
-  //   if (index != -1) {
-  //     // this.posts[index].likerIds = this.postService.likePost(id);
-  //     this.postService
-  //       .likePost(id)
-  //       .subscribe((likerIds) => (this.posts[index].likerIds = likerIds));
-  //   }
-  // }
 
   addCommentOnPost(comment: PostComment) {
     const index = this.posts.findIndex((post) => post.id == comment.postId);
@@ -80,5 +72,11 @@ export class PostsComponent implements OnInit {
     } else {
       console.log('check conditions  ');
     }
+  }
+
+  sortPostsByDate() {
+    return (this.sortedPosts = this.posts.sort(
+      (a, b) => parseInt(b.created_time) - parseInt(a.created_time)
+    ));
   }
 }
