@@ -15,6 +15,9 @@ import { AlertComponent } from './alert/alert.component';
 import { CommentContainerComponent } from './post/comment-container/comment-container.component';
 import { FriendProfileComponent } from './friend-profile/friend-profile.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { IntroComponent } from '../components/home-wrapper/profile/second-wrapper/timeline/intro/intro.component';
+import { TimelinePostsComponent } from '../components/home-wrapper/profile/second-wrapper/timeline/timeline-posts/timeline-posts.component';
+import { UserIntroComponent } from './friend-profile/user-intro/user-intro.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     CommentContainerComponent,
     FriendProfileComponent,
     ErrorPageComponent,
+    IntroComponent,
+    TimelinePostsComponent,
+    UserIntroComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +55,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     MessageBoxComponent,
     CreatePostComponent,
     PostComponent,
+    IntroComponent,
+    TimelinePostsComponent,
   ],
 })
 export class SharedModule {}
