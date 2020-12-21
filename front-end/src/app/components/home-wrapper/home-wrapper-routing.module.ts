@@ -10,6 +10,7 @@ import { SuggestionsComponent } from './friends/suggestions/suggestions.componen
 import { RequestsComponent } from './friends/requests/requests.component';
 import { SettingsComponent } from './home-page/usernav/settings/settings.component';
 import { HomeWrapperComponent } from './home-wrapper.component';
+import { FriendProfileComponent } from 'src/app/shared/friend-profile/friend-profile.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
       },
+      { path: 'user/profile', component: FriendProfileComponent },
       { path: 'relations', redirectTo: '/relation-ships/friends' },
 
       {
