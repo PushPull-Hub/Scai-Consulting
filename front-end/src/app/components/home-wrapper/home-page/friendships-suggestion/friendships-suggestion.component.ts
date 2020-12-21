@@ -39,7 +39,6 @@ export class FriendshipsSuggestionComponent implements OnInit {
           this.errorOnLoadingProfiles = false;
           this.profiles = [];
         }
-        console.log(this.friendsSuggestion);
       })
       .catch((err) => {
         this.loading = false;
