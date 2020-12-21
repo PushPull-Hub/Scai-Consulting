@@ -7,6 +7,8 @@ import { Post } from 'src/app/models/Post.model';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { PostComment } from 'src/app/models/PostComment.model';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -23,6 +25,7 @@ export class PostComponent implements OnInit {
   textInputed: string;
 
   isLikedByMe: boolean;
+  postedOn;
   owner: MiniProfile = null;
   commenters: MiniProfile[] = null;
 
@@ -37,6 +40,8 @@ export class PostComponent implements OnInit {
     this._getPostOwnerProfile(this.post.userId).then(
       (profile) => (this.owner = profile)
     );
+    this.postedOn = this.getdate(parseInt(this.post.created_time));
+    // console.log(this.getdate(1608541559984));
   }
 
   whenCommentButtonClicked() {
@@ -84,5 +89,9 @@ export class PostComponent implements OnInit {
     }).then((profile: MiniProfile) => {
       return profile;
     });
+  }
+
+  getdate(unixTime: any) {
+    return moment(unixTime).subtract(10, 'days').calendar();
   }
 }
