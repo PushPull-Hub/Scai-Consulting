@@ -32,21 +32,24 @@
                             </div>
 
                             <ng-container *ngIf="relationShipStatus && relationShipStatus ==='b' ; else elseBlock ">
-                                <button class="btn btn-danger my-button float-right "> Decline </button>
-                                <button class="btn btn-success my-button float-right "> Accept </button>
+                                <button (click)="declineFriendRequest(profile.id)"
+                                    class="btn btn-danger my-button float-right "> Decline </button>
+                                <button (click)="acceptFriendRequest(profile.id)"
+                                    class="btn btn-success my-button float-right "> Accept </button>
                             </ng-container>
+
                             <ng-template #elseBlock>
 
-
                                 <ng-container *ngIf="relationShipStatus && relationShipStatus ==='a' ">
-
-                                    <button class="btn btn-info my-button ">Cancel Request</button>
-
+                                    <button (click)="cancelFriendRequest(profile.id)"
+                                        class="btn btn-info my-button ">Cancel Request</button>
                                 </ng-container>
 
                                 <ng-container *ngIf="relationShipStatus && relationShipStatus ==='c' ">
-
-                                    <button class="btn btn-info my-button ">Unfriend</button>
+                                    <button (click)="unFriend(profile.id)"
+                                        class="btn btn-info my-button ">Unfriend</button>
+                                    <button (click)="blockFriend(profile.id)"
+                                        class="btn btn-info my-button ">Block</button>
                                 </ng-container>
 
                                 <ng-container *ngIf="relationShipStatus && relationShipStatus ==='d' ">
@@ -55,22 +58,14 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="relationShipStatus && relationShipStatus ==='e' ">
-                                    <button class="btn btn-info my-button ">unblock </button>
-
+                                    <button (click)="unblockFriend(profile.id)"
+                                        class="btn btn-info my-button ">unblock</button>
                                 </ng-container>
+
                                 <ng-container *ngIf="relationShipStatus && relationShipStatus ==='f' ">
-                                    <button class="btn btn-info my-button ">send request </button>
+                                    <button (click)="sendFriendsRequest(profile.id)"
+                                        class="btn btn-info my-button ">send request </button>
                                 </ng-container>
-
-
-
-
-
-
-
-
-
-
 
                             </ng-template>
 
@@ -99,6 +94,7 @@
                         <div class="col-7">
 
                             <div class="c-top-right">
+
                                 <!-- <create-post></create-post> -->
                                 <!-- <app-timeline-posts></app-timeline-posts> -->
 
@@ -125,11 +121,6 @@
                                         </div>
                                     </div>
                                 </div> -->
-
-
-
-
-
 
 
                             </div>
