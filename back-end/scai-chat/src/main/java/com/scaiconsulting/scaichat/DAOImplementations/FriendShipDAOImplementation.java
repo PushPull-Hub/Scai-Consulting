@@ -24,21 +24,26 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
 
     @Override
     public FriendShip getFriendShip(int user_id_one, int user_id_two) {
-        Session currentSession = entityManager.unwrap(Session.class);
-        FriendShip friendShipResult = null;
+        try {
+            Session currentSession = entityManager.unwrap(Session.class);
+            FriendShip friendShipResult = null;
 
-        if (user_id_one < user_id_two) {
-            Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:user_id_one and secondUserId=:user_id_two ", FriendShip.class);
-            theQuery.setParameter("user_id_one", user_id_one);
-            theQuery.setParameter("user_id_two", user_id_two);
-            friendShipResult = theQuery.uniqueResult();
-        } else if (user_id_one > user_id_two) {
-            Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:user_id_two and secondUserId=:user_id_one", FriendShip.class);
-            theQuery.setParameter("user_id_one", user_id_one);
-            theQuery.setParameter("user_id_two", user_id_two);
-            friendShipResult = theQuery.uniqueResult();
+            if (user_id_one < user_id_two) {
+                Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:user_id_one and secondUserId=:user_id_two ", FriendShip.class);
+                theQuery.setParameter("user_id_one", user_id_one);
+                theQuery.setParameter("user_id_two", user_id_two);
+                friendShipResult = theQuery.uniqueResult();
+            } else if (user_id_one > user_id_two) {
+                Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:user_id_two and secondUserId=:user_id_one", FriendShip.class);
+                theQuery.setParameter("user_id_one", user_id_one);
+                theQuery.setParameter("user_id_two", user_id_two);
+                friendShipResult = theQuery.uniqueResult();
+            }
+            return friendShipResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-        return friendShipResult;
     }
 
     @Override
@@ -116,7 +121,7 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
                 try {
                     Query<User> theNotFriendQuery = currentSession.createQuery("from User u where u.id NOT IN (:friendsIds) and u.id !=:userId ", User.class);
                     theNotFriendQuery.setParameter("friendsIds", friendsIds);
-                    theNotFriendQuery.setParameter("userId",userId);
+                    theNotFriendQuery.setParameter("userId", userId);
                     theNotFriendQuery.setMaxResults(10);
                     return theNotFriendQuery.getResultList();
                 } catch (Exception e) {
@@ -124,10 +129,10 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
                     return null;
                 }
             } else {
-                Query<User> theQuery = currentSession.createQuery("from User u where u.id !=:userId",User.class);
-                theQuery.setParameter("userId",userId);
+                Query<User> theQuery = currentSession.createQuery("from User u where u.id !=:userId", User.class);
+                theQuery.setParameter("userId", userId);
                 theQuery.setMaxResults(10);
-                        return theQuery.getResultList();
+                return theQuery.getResultList();
             }
         } catch (Exception e) {
             e.printStackTrace();
