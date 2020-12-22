@@ -190,4 +190,11 @@ export class FriendsService {
       friendId
     );
   }
+
+  unFriend(friendId: number) {
+    return this.http.post<boolean>(
+      environment.rootUrl + '/api/friendship/unfriend',
+      friendId
+    );
+  }
 }
