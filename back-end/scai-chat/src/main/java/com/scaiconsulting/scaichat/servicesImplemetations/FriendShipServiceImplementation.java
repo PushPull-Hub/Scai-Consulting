@@ -173,6 +173,7 @@ public class FriendShipServiceImplementation implements FriendShipService {
     }
 
     @Override
+    @Transactional
     public boolean unblockFriend(String token, int friendId) {
         if (userDAO.getUser(friendId) != null) {
             int userId = new IdExtractor(token).getAuthenticatedUserId();

@@ -55,7 +55,6 @@ public class FriendShipController {
         return result;
     }
 
-
     @GetMapping("/friend-request/pending")
     public List<FriendShip> getPendingFriendRequests(@RequestHeader("Authentication") String token) {
         return friendShipService.getPendingFriendRequests(token);
@@ -94,6 +93,11 @@ public class FriendShipController {
     @GetMapping("/suggestions")
     public List<MiniUserProfile> getTenFriendsSuggestions(@RequestHeader("Authentication") String token) {
         return this.friendShipService.getTenSuggestions(token);
+    }
+
+    @PostMapping("/friendship/unfriend")
+    public boolean deleteFriendship(@RequestHeader("Authentication") String token, @RequestBody int friendId) {
+        return this.friendShipService.cancelFriendRequest(token, friendId);
     }
 
 }
