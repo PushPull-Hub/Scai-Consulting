@@ -1,93 +1,145 @@
 <!-- <app-first-wrapper></app-first-wrapper> -->
 <!-- <p>friend-profile works!</p> -->
-<div class="container">
-    <div class="row">
+<app-spinner *ngIf="loading"></app-spinner>
+
+<ng-container *ngIf="!loading && profile">
 
 
-        <div id="container" class="container-fluid">
+    <div class="container">
+        <div class="row">
 
-            <div class="row">
-                <div class="jumbotron jumbotron-fluid image-wrapper">
-                    <img src="../../../assets/images/photo-1417816491410-d61e1546e539.jpg " />
+
+            <div id="container" class="container-fluid">
+
+                <div class="row">
+                    <div class="jumbotron jumbotron-fluid image-wrapper">
+                        <img src="../../../assets/images/photo-1417816491410-d61e1546e539.jpg " />
+                    </div>
+                    <div id="profile-picture">
+                        <img class="rounded-circle" [src]=" male_avatar_photo_url" />
+                    </div>
                 </div>
-                <div id="profile-picture">
-                    <img class="rounded-circle" [src]=" male_avatar_photo_url" />
-                </div>
-            </div>
 
 
-            <div class="row">
-                <div class="container col-3">
-                </div>
-                <div class="container col-9">
-                    <div class="container-fluid d-flex ">
+                <div class="row">
+                    <div class="container col-3">
+                    </div>
+                    <div class="container col-9">
+                        <div class="container-fluid d-flex ">
 
-                        <div class="container d-flex align-self-center ">
-                            <h1>Hamza Dahhani </h1>
+                            <div class="container d-flex align-self-center ">
+                                <h1>{{ profile.firstName }} {{profile.lastName }} </h1>
+                            </div>
+
+                            <ng-container *ngIf="relationShipStatus && relationShipStatus ==='b' ; else elseBlock ">
+                                <button class="btn btn-danger my-button float-right "> Decline </button>
+                                <button class="btn btn-success my-button float-right "> Accept </button>
+                            </ng-container>
+                            <ng-template #elseBlock>
+
+
+                                <ng-container *ngIf="relationShipStatus && relationShipStatus ==='a' ">
+
+                                    <button class="btn btn-info my-button ">Cancel Request</button>
+
+                                </ng-container>
+
+                                <ng-container *ngIf="relationShipStatus && relationShipStatus ==='c' ">
+
+                                    <button class="btn btn-info my-button ">Unfriend</button>
+                                </ng-container>
+
+                                <ng-container *ngIf="relationShipStatus && relationShipStatus ==='d' ">
+                                    <p style="color: red ;">{{
+                                        profile.firstName }} {{profile.lastName }} blocked you</p>
+                                </ng-container>
+
+                                <ng-container *ngIf="relationShipStatus && relationShipStatus ==='e' ">
+                                    <button class="btn btn-info my-button ">unblock </button>
+
+                                </ng-container>
+                                <ng-container *ngIf="relationShipStatus && relationShipStatus ==='f' ">
+                                    <button class="btn btn-info my-button ">send request </button>
+                                </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+                            </ng-template>
+
+
+
+
+                            <!-- <button class="btn btn-info my-button ">Cancel Request</button>
+                            <button class="btn btn-info my-button "> Unblock</button> -->
+
+
                         </div>
-
-                        <button class="btn btn-danger my-button float-right "> Decline </button>
-                        <button class="btn btn-success my-button float-right "> Accept </button>
-                        <!-- <button class="btn btn-info my-button ">Cancel Request</button>
-                        <button class="btn btn-info my-button "> Unblock</button> -->
-
                     </div>
                 </div>
-            </div>
 
 
-            <div class="container">
-                <div id="second-row-container" class="row">
+                <div class="container">
+                    <div id="second-row-container" class="row">
 
-                    <div class="col-5">
+                        <div class="col-5">
 
-                        <app-user-intro></app-user-intro>
-                        <!-- <app-intro></app-intro> -->
-                        <!-- <app-photos></app-photos> -->
+                            <app-user-intro [profile]="profile"></app-user-intro>
+                            <!-- <app-intro></app-intro> -->
+                            <!-- <app-photos></app-photos> -->
 
-                    </div>
-                    <div class="col-7">
+                        </div>
+                        <div class="col-7">
 
-                        <div class="c-top-right">
-                            <!-- <create-post></create-post> -->
-                            <!-- <app-timeline-posts></app-timeline-posts> -->
+                            <div class="c-top-right">
+                                <!-- <create-post></create-post> -->
+                                <!-- <app-timeline-posts></app-timeline-posts> -->
 
 
 
-                            <div class="row wrapp">
-                                <div class="container-fluid bg-light main ">
-                                    <div class="row">
-                                        <div class="col-8 scrolly">
-                                            <div data-spy="scroll" data-target="#list-example" data-offset="0"
-                                                class="scrollspy-example">
-                                                <h4 class="my-h4">
-                                                    <i class="fa fa-paperclip" aria-hidden="true"></i> Posts
-                                                </h4>
-                                                <hr class="my-4" style="margin-right: 20px; margin-left: 20px;" />
-                                                <app-spinner *ngIf="loading"></app-spinner>
-                                                <ng-container *ngIf="!loading">
-                                                    <app-post (like)="likePost($event)" (unlike)="unlikePost($event)"
-                                                        (addCommentButtonClicked)="addCommentOnPost($event)"
-                                                        *ngFor="let post of posts" [post]="post"></app-post>
-                                                </ng-container>
+                                <!-- <div class="row wrapp">
+                                    <div class="container-fluid bg-light main ">
+                                        <div class="row">
+                                            <div class="col-8 scrolly">
+                                                <div data-spy="scroll" data-target="#list-example" data-offset="0"
+                                                    class="scrollspy-example">
+                                                    <h4 class="my-h4">
+                                                        <i class="fa fa-paperclip" aria-hidden="true"></i> Posts
+                                                    </h4>
+                                                    <hr class="my-4" style="margin-right: 20px; margin-left: 20px;" />
+                                                    <app-spinner *ngIf="loading"></app-spinner>
+                                                    <ng-container *ngIf="!loading">
+                                                        <app-post (like)="likePost($event)" (unlike)="unlikePost($event)"
+                                                            (addCommentButtonClicked)="addCommentOnPost($event)"
+                                                            *ngFor="let post of posts" [post]="post"></app-post>
+                                                    </ng-container>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+
+
+
+
+
+
+
                             </div>
-
-
-
-
-
-
-
                         </div>
                     </div>
                 </div>
+
+
             </div>
-
-
         </div>
     </div>
-</div>
+
+</ng-container>

@@ -28,7 +28,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
       },
-      { path: 'user/profile', component: FriendProfileComponent },
+      { path: 'user/profile/:id', component: FriendProfileComponent },
       { path: 'relations', redirectTo: '/relation-ships/friends' },
 
       {
