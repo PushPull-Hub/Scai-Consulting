@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { Birthday, User } from 'src/app/models/User.model';
+import { UserServices } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-intro',
@@ -7,19 +9,33 @@ import { Birthday, User } from 'src/app/models/User.model';
   styleUrls: ['./user-intro.component.scss'],
 })
 export class UserIntroComponent implements OnInit {
-  @Input() loggedUser: User;
-
+  @Input() profile: MiniProfile;
   user: User;
+
+  loading: boolean;
 
   location: string;
   hometown: string;
   work_in: string;
   birthdayObject: Birthday;
 
-  constructor() {}
+  constructor(private userService: UserServices) {}
 
   ngOnInit(): void {
-    this.loadInfos();
+    this.getUser();
+  }
+
+  private async getUser() {
+    this.loading = true;
+    await this.userService
+      .getUserById(this.profile.id)
+      .toPromise()
+      .then((user) => {
+        console.log(user);
+        this.user = user;
+        this.loadInfos();
+        this.loading = false;
+      });
   }
 
   private loadInfos() {
