@@ -50,15 +50,19 @@ export class FriendsComponent implements OnInit {
           if (response && response.hasOwnProperty) {
             if (response.pendingRequests) {
               this.pendingRequests = response.pendingRequests;
+              this.friendsService.pendingRequests = this.pendingRequests;
             }
             if (response.blockedBy) {
               this.BlockedByMeList = response.blockedBy;
+              this.friendsService.BlockedByMeList = this.BlockedByMeList;
             }
             if (response.myFriends) {
               this.myFriends = response.myFriends;
+              this.friendsService.myFriends = this.myFriends;
             }
             if (response.requests) {
               this.requests = response.requests;
+              this.friendsService.requests = this.requests;
             }
             this.isThereAnErrorToLoadProfiles = false;
             this.loading = false;

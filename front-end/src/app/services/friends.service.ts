@@ -17,8 +17,14 @@ import { Observable } from 'rxjs';
 export class FriendsService {
   UserRelationShips: RelationShips;
   allNeededProfiles: MiniProfile[];
+
   myId: number;
   Suggestions: MiniProfile[];
+
+  myFriends: FriendShip[];
+  pendingRequests: FriendShip[];
+  BlockedByMeList: FriendShip[];
+  requests: FriendShip[];
 
   constructor(
     private http: HttpClient,
@@ -175,6 +181,13 @@ export class FriendsService {
   getTenSuggestions(): Observable<MiniProfile[]> {
     return this.http.get<MiniProfile[]>(
       environment.rootUrl + '/api/suggestions'
+    );
+  }
+
+  getRelation(friendId: number) {
+    return this.http.post<FriendShip>(
+      environment.rootUrl + '/api/friendship',
+      friendId
     );
   }
 }
