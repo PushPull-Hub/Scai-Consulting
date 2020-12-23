@@ -7,9 +7,11 @@ export class WebsocketService {
   topic: string = '/topic/greetings';
   stompClient: any;
   appComponent: AppComponent;
+
   constructor(appComponent: AppComponent) {
     this.appComponent = appComponent;
   }
+
   _connect() {
     console.log('Initialize WebSocket Connection');
     let ws = new SockJS(this.webSocketEndPoint);

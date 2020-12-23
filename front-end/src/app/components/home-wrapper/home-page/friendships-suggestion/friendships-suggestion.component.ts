@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FriendsService } from 'src/app/services/friends.service';
 import { environment } from 'src/environments/environment';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friendships-suggestion',
@@ -16,7 +17,7 @@ export class FriendshipsSuggestionComponent implements OnInit {
   errorOnLoadingProfiles: boolean;
   noProfilesToLoad: boolean;
 
-  constructor(private friendsService: FriendsService) {}
+  constructor(private friendsService: FriendsService, private router: Router) {}
 
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
@@ -65,5 +66,10 @@ export class FriendshipsSuggestionComponent implements OnInit {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  redirectToProfile(profileId) {
+    let url = `/user/profile/${profileId}`;
+    this.router.navigate([url]);
   }
 }
