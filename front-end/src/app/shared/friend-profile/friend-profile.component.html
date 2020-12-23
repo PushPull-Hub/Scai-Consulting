@@ -35,7 +35,9 @@
                                 <button (click)="declineFriendRequest(profile.id)"
                                     class="btn btn-danger my-button float-right "> Decline </button>
                                 <button (click)="acceptFriendRequest(profile.id)"
-                                    class="btn btn-success my-button float-right "> Accept </button>
+                                    class="btn btn-success my-button float-right ">
+
+                                    Accept </button>
                             </ng-container>
 
                             <ng-template #elseBlock>
@@ -46,10 +48,11 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="relationShipStatus && relationShipStatus ==='c' ">
-                                    <button (click)="unFriend(profile.id)"
-                                        class="btn btn-info my-button ">Unfriend</button>
-                                    <button (click)="blockFriend(profile.id)"
-                                        class="btn btn-info my-button ">Block</button>
+                                    <button (click)="unFriend(profile.id)" class="btn btn-info my-button ">Unfriend
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </button>
+                                    <button (click)="blockFriend(profile.id)" class="btn btn-info my-button ">Block
+                                        <i class="fa fa-ban" aria-hidden="true"></i></button>
                                 </ng-container>
 
                                 <ng-container *ngIf="relationShipStatus && relationShipStatus ==='d' ">
@@ -63,22 +66,28 @@
                                 </ng-container>
 
                                 <ng-container *ngIf="relationShipStatus && relationShipStatus ==='f' ">
-                                    <button (click)="sendFriendsRequest(profile.id)"
-                                        class="btn btn-info my-button ">send request </button>
+                                    <button (click)="sendFriendsRequest(profile.id)" class="btn btn-info my-button ">
+                                        Send Request
+                                        <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                                    </button>
                                 </ng-container>
 
                             </ng-template>
-
-
-
-
-                            <!-- <button class="btn btn-info my-button ">Cancel Request</button>
-                            <button class="btn btn-info my-button "> Unblock</button> -->
-
-
                         </div>
                     </div>
                 </div>
+
+
+                <!-- <ng-container>
+                    <div class="row ">
+                        <div class="container col-4"> </div>
+                        <div class="container col-8 bg-light">
+                            <h3>Hello that's about me </h3>
+                        </div>
+                    </div>
+                </ng-container> -->
+
+
 
 
                 <div class="container">
@@ -100,9 +109,9 @@
 
 
 
-                                <!-- <div class="row wrapp">
+                                <div class="row wrapp">
                                     <div class="container-fluid bg-light main ">
-                                        <div class="row">
+                                        <div class="row shady-border">
                                             <div class="col-8 scrolly">
                                                 <div data-spy="scroll" data-target="#list-example" data-offset="0"
                                                     class="scrollspy-example">
@@ -110,17 +119,31 @@
                                                         <i class="fa fa-paperclip" aria-hidden="true"></i> Posts
                                                     </h4>
                                                     <hr class="my-4" style="margin-right: 20px; margin-left: 20px;" />
-                                                    <app-spinner *ngIf="loading"></app-spinner>
-                                                    <ng-container *ngIf="!loading">
-                                                        <app-post (like)="likePost($event)" (unlike)="unlikePost($event)"
-                                                            (addCommentButtonClicked)="addCommentOnPost($event)"
-                                                            *ngFor="let post of posts" [post]="post"></app-post>
+                                                    <ng-container *ngIf="!loadingPosts && !doProfileHasPosts">
+
+                                                        <div class="container">
+                                                            <h2 class="no-posts"> {{ profile.firstName }} has no posts
+                                                                for the moment
+                                                            </h2>
+                                                        </div>
+
                                                     </ng-container>
+                                                    <ng-container *ngIf="posts ">
+                                                        <app-spinner *ngIf="loadingPosts"></app-spinner>
+                                                        <ng-container *ngIf="!loadingPosts && doProfileHasPosts">
+                                                            <app-post (like)="likePost($event)"
+                                                                (unlike)="unlikePost($event)"
+                                                                (addCommentButtonClicked)="addCommentOnPost($event)"
+                                                                *ngFor="let post of posts" [post]="post"></app-post>
+                                                        </ng-container>
+                                                    </ng-container>
+
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
 
 
                             </div>
