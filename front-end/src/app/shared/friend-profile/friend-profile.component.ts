@@ -3,6 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FriendShip } from 'src/app/models/FriendShip.model';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { Post } from 'src/app/models/Post.model';
+import { PostComment } from 'src/app/models/PostComment.model';
+import { PostLike } from 'src/app/models/PostLike.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FriendsService } from 'src/app/services/friends.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -23,7 +25,8 @@ export class FriendProfileComponent implements OnInit {
   relationShipStatus: string;
 
   posts: Post[];
-  doIhavePostsToShow: boolean;
+  doProfileHasPosts: boolean;
+  loadingPosts: boolean;
   sortedPosts: Post[];
 
   constructor(
@@ -57,6 +60,7 @@ export class FriendProfileComponent implements OnInit {
           .then(async (profile: MiniProfile) => {
             if (profile && profile.id) {
               this.profile = profile;
+              this.loadPosts(profile.id);
               await this.loadOurRelationShip().then((result) => {
                 console.log(result);
                 this.loading = false;
@@ -67,6 +71,26 @@ export class FriendProfileComponent implements OnInit {
           });
       }
     });
+  }
+
+  loadPosts(profileId: number) {
+    console.log('load posts fired');
+
+    this.loadingPosts = true;
+    this.postService
+      .getProfilePosts(profileId)
+      .toPromise()
+      .then((result) => {
+        if (result && result.length > 0) {
+          console.log(result);
+          this.posts = result;
+          this.doProfileHasPosts = true;
+          this.loadingPosts = false;
+        } else {
+          this.loadingPosts = false;
+          this.doProfileHasPosts = false;
+        }
+      });
   }
 
   loadOurRelationShip() {
@@ -181,6 +205,41 @@ export class FriendProfileComponent implements OnInit {
           this.relationShipStatus = 'f';
         } else console.log('check conditions ');
       });
+  }
+
+  likePost(id: number) {
+    const index = this.posts.findIndex((post) => post.id == id);
+    if (index != -1) {
+      this.postService
+        .likePost(id)
+        .subscribe(
+          (likerIds: PostLike[]) => (this.posts[index].likerIds = likerIds)
+        );
+    } else {
+      console.log('check conditions  ');
+    }
+  }
+
+  unlikePost(id: number) {
+    const index = this.posts.findIndex((post) => post.id == id);
+    if (index != -1) {
+      this.postService
+        .unlikePost(id)
+        .subscribe(
+          (likerIds: PostLike[]) => (this.posts[index].likerIds = likerIds)
+        );
+    } else {
+      console.log('check conditions  ');
+    }
+  }
+
+  addCommentOnPost(comment: PostComment) {
+    const index = this.posts.findIndex((post) => post.id == comment.postId);
+    if (index != -1) {
+      this.postService.commentOnPost(comment).subscribe((responseData) => {
+        if (responseData.id) this.posts[index].comments.push(responseData);
+      });
+    }
   }
 
   // enum Status {
