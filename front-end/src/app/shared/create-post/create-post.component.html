@@ -15,6 +15,18 @@
                 </div>
             </div>
         </div>
+
+        <ng-container *ngIf="selectedImage">
+            <div class="row">
+                <div class="container c-post-image">
+                    <img class="post-image" [src]="postImageSrc" />
+                </div>
+            </div>
+
+        </ng-container>
+
+
+
         <!-- the component footer -->
         <div class="row">
             <div class="container component-footer">
@@ -22,10 +34,12 @@
                     <div class="add-more-to-post">
                         <span><i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 2.5rem;"></i>
                         </span>
-
-                        <a><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+                        <input type="file" id="file-input" (change)="showPreview($event)" style="display: none;">
                         <a><i class="fa fa-users" aria-hidden="true"></i></a>
                         <a><i class="fa fa-smile-o" aria-hidden="true"></i> </a>
+                        <label for="file-input">
+                            <a><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+                        </label>
                         <a (click)="onLocationIconClick()">
                             <i class="fa fa-location-arrow" aria-hidden="true"></i>
                         </a>

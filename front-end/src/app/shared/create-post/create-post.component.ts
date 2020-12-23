@@ -16,6 +16,8 @@ export class CreatePostComponent implements OnInit {
   locationIconClicked: boolean;
   selectedFile: File;
   male_avatar_photo_url: string;
+  postImageSrc: string;
+  selectedImage: any = null;
 
   constructor(
     private postService: PostsService,
@@ -27,6 +29,7 @@ export class CreatePostComponent implements OnInit {
     this.locationIconClicked = false;
     this.selectedFile = null;
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    this.postImageSrc = environment.male_avatar_photo_url;
   }
 
   sharePost() {
@@ -59,6 +62,18 @@ export class CreatePostComponent implements OnInit {
 
   onLocationIconClick() {
     this.locationIconClicked = !this.locationIconClicked;
+  }
+
+  showPreview(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => (this.postImageSrc = e.target.result);
+      reader.readAsDataURL(event.target.files[0]);
+      this.selectedImage = event.target.files[0];
+    } else {
+      this.postImageSrc = environment.male_avatar_photo_url;
+      this.selectedImage = null;
+    }
   }
 
   onFileSelected(event) {
