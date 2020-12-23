@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "scai-chat-images": {
+      "hosting": {
+        "social-network-app": [
+          "scai-chat-images"
+        ]
+      }
+    }
+  }
+}
