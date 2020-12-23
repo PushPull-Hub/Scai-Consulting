@@ -1,6 +1,47 @@
+.main {
+  border-radius: 15px;
+  max-height: 500px;
+  border: 1px solid #dddfe2;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.header {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  padding-left: 0;
+}
+
+.errorOnLoadingProfiles {
+  color: red;
+}
+
+.suggested-friend {
+  margin-top: 10px;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+}
+
 .friend-name {
   margin-top: 8px;
   font-size: 1rem;
   font-weight: 700;
   color: #495057;
+}
+
+.friend-name a {
+  text-decoration: none;
+  color: #495057;
+}
+
+.add-button {
+  padding: 0 16px 0 15px;
+  margin-top: 5px;
+}
+
+.my-hr {
+  border-top: 1px solid #dfe3ee;
+  margin: 5px 0 5px 0;
 }

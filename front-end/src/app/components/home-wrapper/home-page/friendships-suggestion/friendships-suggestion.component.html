@@ -1,48 +1,35 @@
-<div class="container-fluid bg-secondary" style="
-    border-radius: 15px;
-    max-height: 500px;
-    border: 1px solid #dddfe2;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  ">
-  <div class="container-fluid" style="margin-top: 20px; margin-bottom: 25px; padding-left: 0;">
+<div class="container-fluid bg-secondary main">
+
+  <div class="container-fluid header">
     <h4><i class="fa fa-search" aria-hidden="true"></i> &nbsp; suggestions</h4>
   </div>
   <app-spinner *ngIf="loading"></app-spinner>
 
   <ng-container>
-
-    <p *ngIf="!loading && errorOnLoadingProfiles" style="color: red;"> there's an error on loading profiles </p>
-
+    <p *ngIf="!loading && errorOnLoadingProfiles" class="errorOnLoadingProfiles"> there's an error on loading profiles
+    </p>
     <ng-container *ngIf="profiles">
       <ng-container *ngFor="let profile of profiles">
-        <div class="row suggested-friend" style="margin-top: 10px;">
+        <div class="row suggested-friend">
           <div class="col-2">
             <div>
-              <img class="rounded-circle" [src]=" male_avatar_photo_url" style="width: 40px; height: 40px;" />
+              <img class="rounded-circle profile-img" [src]=" male_avatar_photo_url" />
             </div>
           </div>
-
           <div class="col-7">
             <h2 class="friend-name">
-              {{ profile.firstName }} {{profile.lastName }}
+              <a [routerLink]="[ '/user/profile/'+profile.id]"> {{ profile.firstName }} {{profile.lastName }}</a>
             </h2>
           </div>
           <div>
-            <button class="btn btn-info" style="padding: 0 16px 0 15px; margin-top: 5px;"
-              (click)="sendFriendRequest(profile.id)">
+            <button class="btn btn-info add-button" (click)="sendFriendRequest(profile.id)">
               add
             </button>
           </div>
         </div>
-        <hr style="border-top: 1px solid #dfe3ee; margin: 5px 0 5px 0;" />
+        <hr class="my-hr" />
       </ng-container>
-
-
-
     </ng-container>
-
   </ng-container>
-
-
 
 </div>
