@@ -69,7 +69,6 @@ export class PostsService {
 
   likePost(postId) {
     console.log('likePost fired ');
-
     return this.http.post<PostLike[]>(
       environment.rootUrl + '/api/posts/like',
       postId
@@ -78,10 +77,16 @@ export class PostsService {
 
   unlikePost(postId) {
     console.log('unlikePost fired');
-
     return this.http.post<PostLike[]>(
       environment.rootUrl + '/api/posts/unlike',
       postId
+    );
+  }
+
+  getProfilePosts(profiled: number) {
+    return this.http.post<Post[]>(
+      environment.rootUrl + '/api/profile/posts',
+      profiled
     );
   }
 }
