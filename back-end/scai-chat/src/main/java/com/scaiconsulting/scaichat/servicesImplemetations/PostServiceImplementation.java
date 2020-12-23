@@ -101,6 +101,13 @@ public class PostServiceImplementation implements PostService {
         } else return null;
     }
 
+    @Override
+    @Transactional
+    public List<Post> getProfilePosts(int friendId) {
+        return this.postDAO.getPosts(friendId) ;
+    }
+
+
 
 }
 

@@ -87,7 +87,17 @@ public class PostController {
 
     @GetMapping("/posts/friends")
     public List<Post> getFriendsPosts(@RequestHeader("Authentication") String token) {
-      return this.postService.getFriendsPosts(token);
+        return this.postService.getFriendsPosts(token);
     }
 
+
+    @PostMapping("/profile/posts")
+    public List<Post> getProfilePosts(@RequestBody int friendId) {
+        try {
+            return this.postService.getProfilePosts(friendId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

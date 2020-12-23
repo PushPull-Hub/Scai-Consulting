@@ -31,4 +31,6 @@ public interface PostService {
     List<Post> getFriendsPosts(String token);
 
 
+    List<Post> getProfilePosts(int friendId);
+
 }
