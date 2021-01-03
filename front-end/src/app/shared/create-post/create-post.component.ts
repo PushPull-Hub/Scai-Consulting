@@ -77,11 +77,6 @@ export class CreatePostComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    // this.selectedFile = <File>event.target.files[0];
     console.log(event);
-  }
-
-  onUploadFile() {
-    // onUploadFile method
   }
 }
