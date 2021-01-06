@@ -19,7 +19,7 @@ public class Post {
     private String description;
 
     @Column(name = "object_id")
-    private String object_id;
+    private String objectId;
 
     @Column(name = "location")
     private String location;
@@ -49,10 +49,10 @@ public class Post {
     public Post() {
     }
 
-    public Post(String created_time, String description, String object_id, String location, boolean commentable, boolean shareable, boolean pubblico, int userId) {
+    public Post(String created_time, String description, String objectId, String location, boolean commentable, boolean shareable, boolean pubblico, int userId) {
         this.created_time = created_time;
         this.description = description;
-        this.object_id = object_id;
+        this.objectId = objectId;
         this.location = location;
         this.commentable = commentable;
         this.shareable = shareable;
@@ -85,12 +85,12 @@ public class Post {
         this.description = description;
     }
 
-    public String getObject_id() {
-        return object_id;
+    public String getObjectId() {
+        return objectId;
     }
 
-    public void setObject_id(String object_id) {
-        this.object_id = object_id;
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 
     public String getLocation() {
