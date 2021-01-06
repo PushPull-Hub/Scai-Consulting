@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { PostsService } from 'src/app/services/posts.service';
-import { Post } from 'src/app/models/Post.model';
-import { AuthService } from 'src/app/services/auth.service';
-import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
+
+import { PostsService } from 'src/app/services/posts.service';
+import { ImagesService } from 'src/app/services/images.service';
+
+import * as moment from 'moment';
+import { Post } from 'src/app/models/Post.model';
 
 @Component({
   selector: 'create-post',
@@ -21,43 +23,103 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private postService: PostsService,
-    private authService: AuthService
+    private imagesService: ImagesService
   ) {}
 
   ngOnInit(): void {
     this.now = moment().valueOf();
     this.locationIconClicked = false;
     this.selectedFile = null;
+    this.insertedText = null;
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
     this.postImageSrc = environment.male_avatar_photo_url;
   }
 
+  // sharePost() {
+  //   const post = new Post();
+  //   if (this.insertedText && this.insertedText.trim() !== '') {
+  //     post.created_time = this.now.toString();
+  //     post.description = this.insertedText;
+  //     post.canComment = 1;
+  //     post.canShare = 1;
+  //     post.pubblico = 1;
+  //     post.place = '';
+  //     post.objectId = null;
+  //     this.insertedText = '';
+  //     this.postService
+  //       .createPost(post)
+  //       .toPromise()
+  //       .then((result: Post) => {
+  //         if (result.id) {
+  //           this.postService.myPosts.unshift(result);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else {
+  //     console.log('text vuoto');
+  //   }
+  // }
+
   sharePost() {
-    const post = new Post();
+    console.log('fired ');
+    debugger;
     if (this.insertedText && this.insertedText.trim() !== '') {
-      post.created_time = this.now.toString();
-      post.description = this.insertedText;
-      post.canComment = 1;
-      post.canShare = 1;
-      post.pubblico = 1;
-      post.place = '';
-      post.objectId = null;
+      const post = this.instantiatePostObject();
+      if (this.selectedImage) {
+        this.imagesService
+          .uploadPostImageToFireBaseDb(this.selectedImage)
+          .then((url) => {
+            post.objectId = url;
+            console.log(post);
+            this.createPost(post);
+          });
+      } else {
+        post.objectId = null;
+        this.createPost(post);
+      }
       this.insertedText = '';
-      this.postService
-        .createPost(post)
-        .toPromise()
-        .then((result: Post) => {
-          if (result.id) {
-            this.postService.myPosts.unshift(result);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
+      this.selectedImage = null;
+    } else if (this.selectedImage) {
+      const post = this.instantiatePostObject();
+      this.imagesService
+        .uploadPostImageToFireBaseDb(this.selectedImage)
+        .then((url) => {
+          post.objectId = url;
+          console.log(post);
+          this.createPost(post);
         });
+      this.insertedText = '';
+      this.selectedImage = null;
     } else {
       console.log('text vuoto');
-      // will change the button style or the button ability
     }
+  }
+
+  private createPost(post: Post) {
+    this.postService
+      .createPost(post)
+      .toPromise()
+      .then((result: Post) => {
+        if (result.id) {
+          this.postService.myPosts.unshift(result);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  private instantiatePostObject() {
+    const post = new Post();
+    post.created_time = this.now.toString();
+    post.description = this.insertedText;
+    post.canComment = 1;
+    post.canShare = 1;
+    post.pubblico = 1;
+    post.place = '';
+    return post;
   }
 
   onLocationIconClick() {
@@ -77,6 +139,11 @@ export class CreatePostComponent implements OnInit {
   }
 
   onFileSelected(event) {
+    // this.selectedFile = <File>event.target.files[0];
     console.log(event);
+  }
+
+  onUploadFile() {
+    // onUploadFile method
   }
 }
