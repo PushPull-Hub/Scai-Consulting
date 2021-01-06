@@ -19,10 +19,15 @@
         <ng-container *ngIf="selectedImage">
             <div class="row">
                 <div class="container c-post-image">
+
+                    <!-- <div class="close-icon float-right">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    </div> -->
+
                     <img class="post-image" [src]="postImageSrc" />
+
                 </div>
             </div>
-
         </ng-container>
 
 
@@ -32,9 +37,9 @@
             <div class="container component-footer">
                 <div class="container">
                     <div class="add-more-to-post">
-                        <span><i class="fa fa-plus-circle" aria-hidden="true" style="font-size: 2.5rem;"></i>
+                        <span><i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </span>
-                        <input type="file" id="file-input" (change)="showPreview($event)" style="display: none;">
+                        <input type="file" id="file-input" (change)="showPreview($event)">
                         <a><i class="fa fa-users" aria-hidden="true"></i></a>
                         <a><i class="fa fa-smile-o" aria-hidden="true"></i> </a>
                         <label for="file-input">
@@ -46,7 +51,7 @@
                     </div>
                 </div>
                 <app-location-finder *ngIf="locationIconClicked"></app-location-finder>
-                <ng-container *ngIf="insertedText ; else disabledButton">
+                <ng-container *ngIf="insertedText || selectedImage ; else disabledButton">
                     <button class="btn btn-secondary" (click)="sharePost()">Share</button>
                 </ng-container>
                 <ng-template #disabledButton>
