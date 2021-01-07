@@ -12,4 +12,5 @@ export class Post extends Object {
   userId: number;
   comments: PostComment[];
   likerIds: { id: number; likersId: number }[];
+  imageUrl: string;
 }

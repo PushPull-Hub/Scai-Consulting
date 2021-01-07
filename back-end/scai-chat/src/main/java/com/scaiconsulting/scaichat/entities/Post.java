@@ -36,6 +36,9 @@ public class Post {
     @Column(name = "user_id")
     private int userId;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "post")
@@ -49,7 +52,17 @@ public class Post {
     public Post() {
     }
 
-    public Post(String created_time, String description, String objectId, String location, boolean commentable, boolean shareable, boolean pubblico, int userId) {
+    public Post(String created_time,
+                String description,
+                String objectId,
+                String location,
+                boolean commentable,
+                boolean shareable,
+                boolean pubblico,
+                int userId,
+                String imageUrl,
+                Set<PostComment> comments,
+                Set<PostLike> likersIds) {
         this.created_time = created_time;
         this.description = description;
         this.objectId = objectId;
@@ -58,8 +71,10 @@ public class Post {
         this.shareable = shareable;
         this.pubblico = pubblico;
         this.userId = userId;
+        this.imageUrl = imageUrl;
+        this.comments = comments;
+        this.likersIds = likersIds;
     }
-
 
     public int getId() {
         return id;
@@ -148,5 +163,13 @@ public class Post {
 
     public void setLikersIds(Set<PostLike> likersIds) {
         this.likersIds = likersIds;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
