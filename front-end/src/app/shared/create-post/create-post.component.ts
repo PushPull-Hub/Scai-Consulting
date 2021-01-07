@@ -35,48 +35,19 @@ export class CreatePostComponent implements OnInit {
     this.postImageSrc = environment.male_avatar_photo_url;
   }
 
-  // sharePost() {
-  //   const post = new Post();
-  //   if (this.insertedText && this.insertedText.trim() !== '') {
-  //     post.created_time = this.now.toString();
-  //     post.description = this.insertedText;
-  //     post.canComment = 1;
-  //     post.canShare = 1;
-  //     post.pubblico = 1;
-  //     post.place = '';
-  //     post.objectId = null;
-  //     this.insertedText = '';
-  //     this.postService
-  //       .createPost(post)
-  //       .toPromise()
-  //       .then((result: Post) => {
-  //         if (result.id) {
-  //           this.postService.myPosts.unshift(result);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   } else {
-  //     console.log('text vuoto');
-  //   }
-  // }
-
   sharePost() {
-    console.log('fired ');
-    debugger;
     if (this.insertedText && this.insertedText.trim() !== '') {
       const post = this.instantiatePostObject();
       if (this.selectedImage) {
         this.imagesService
           .uploadPostImageToFireBaseDb(this.selectedImage)
           .then((url) => {
-            post.objectId = url;
+            post.imageUrl = url;
             console.log(post);
             this.createPost(post);
           });
       } else {
-        post.objectId = null;
+        post.imageUrl = null;
         this.createPost(post);
       }
       this.insertedText = '';
@@ -86,7 +57,7 @@ export class CreatePostComponent implements OnInit {
       this.imagesService
         .uploadPostImageToFireBaseDb(this.selectedImage)
         .then((url) => {
-          post.objectId = url;
+          post.imageUrl = url;
           console.log(post);
           this.createPost(post);
         });
