@@ -13,10 +13,13 @@ public class User {
     private int id;
 
     @Column(name = "first_name")
-    private String firstName ;
+    private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "profile_picture_url")
+    private String profilePictureUrl;
 
     @Column(name = "gender")
     private String gender;
@@ -45,7 +48,7 @@ public class User {
     @Column(name = "relationship_status")
     private String relationshipStatus;
 
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false, nullable = false)
     private List<Post> posts;
 
@@ -54,9 +57,10 @@ public class User {
 
     }
 
-    public User(String firstName, String lastName, String gender, boolean active, String about, String birthday, String hometown, String address, String location, String workIn, String relationshipStatus) {
+    public User(String firstName, String lastName, String profilePictureUrl, String gender, boolean active, String about, String birthday, String hometown, String address, String location, String workIn, String relationshipStatus, List<Post> posts) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.profilePictureUrl = profilePictureUrl;
         this.gender = gender;
         this.active = active;
         this.about = about;
@@ -66,6 +70,7 @@ public class User {
         this.location = location;
         this.workIn = workIn;
         this.relationshipStatus = relationshipStatus;
+        this.posts = posts;
     }
 
     public int getId() {
@@ -90,6 +95,22 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public String getGender() {

@@ -4,6 +4,7 @@ export class User extends Object {
   id: number;
   firstName: string;
   lastName: string;
+  profilePictureUrl: string;
   gender: Gender;
   active: boolean;
   about: string;
