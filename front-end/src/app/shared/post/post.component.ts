@@ -24,6 +24,8 @@ export class PostComponent implements OnInit {
   commentButtonClicked: boolean;
   textInputed: string;
 
+  imageUrl: string;
+
   isLikedByMe: boolean;
   postedOn;
   owner: MiniProfile = null;
@@ -41,7 +43,7 @@ export class PostComponent implements OnInit {
       (profile) => (this.owner = profile)
     );
     this.postedOn = this.getdate(parseInt(this.post.created_time));
-    // console.log(this.getdate(1608541559984));
+    this.imageUrl = this.post.imageUrl;
   }
 
   whenCommentButtonClicked() {

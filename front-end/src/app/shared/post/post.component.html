@@ -6,7 +6,7 @@
         <img class="rounded-circle" src="../../../assets/images/male-user.jpg">
       </div>
       <div class="c-user-name">
-        <h5> <a href="#">{{ owner.firstName }} {{owner.lastName}} </a> </h5>
+        <h5> <a [routerLink]="[ '/user/profile/'+owner.id]"> {{ owner.firstName }} {{owner.lastName}} </a> </h5>
       </div>
       <div class="c-created-time">
         <span>{{postedOn}}</span>
@@ -21,9 +21,12 @@
     <p>{{ post.description }}</p>
   </div>
 
-  <div class="c-post-image">
-    <img src="../../../assets/images/male-user.jpg" alt="">
-  </div>
+  <ng-container *ngIf="imageUrl">
+    <div class="c-post-image">
+      <img [src]="post.imageUrl">
+    </div>
+  </ng-container>
+
 
   <div class="c-actions">
 
