@@ -1,7 +1,7 @@
 <!-- the Navbar-->
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary" style="height: 59px;">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="#">
-    <span id="logo"><img src="../../../../assets/images/scai-logo.png" alt="" /></span>
+    <span id="logo"><img src="../../../../assets/images/scai-logo.png" /></span>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
     aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,12 +12,9 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" routerLink="/profile/{{ urlParam }}">
-
           <ng-container>
-            <img [src]="profilePictureUrl" class="rounded-circle" style="height: 40px;">
+            <img [src]="profilePictureUrl" class="rounded-circle profile-picture">
           </ng-container>
-
-
           {{authenticatedUser.firstName}}
         </a>
       </li>
