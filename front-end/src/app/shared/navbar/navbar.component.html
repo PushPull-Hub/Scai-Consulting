@@ -8,11 +8,16 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarColor01" *ngIf="authenticatedUser">
+  <div class="collapse navbar-collapse" id="navbarColor01" *ngIf="authenticatedUser && profilePictureUrl">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" routerLink="/profile/{{ urlParam }}">
-          <img class="rounded-circle" src="../../../assets/images/male-user.jpg" style="height: 40px;">
+
+          <ng-container>
+            <img [src]="profilePictureUrl" class="rounded-circle" style="height: 40px;">
+          </ng-container>
+
+
           {{authenticatedUser.firstName}}
         </a>
       </li>
