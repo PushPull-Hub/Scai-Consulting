@@ -11,14 +11,15 @@
   <div class="collapse navbar-collapse" id="navbarColor01" *ngIf="authenticatedUser">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
+        <a class="nav-link" routerLink="/profile/{{ urlParam }}">
+          <img class="rounded-circle" src="../../../assets/images/male-user.jpg" style="height: 40px;">
+          {{authenticatedUser.firstName}}
+        </a>
+      </li>
+      <li class="nav-item active">
         <a class="nav-link" routerLink="/home">
           <i class="fa fa-home" aria-hidden="true"></i> Home
           <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/profile/{{ urlParam }}">
-          <i class="fa fa-user" aria-hidden="true"></i>Profile
-        </a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" routerLink="/relations">
@@ -36,10 +37,8 @@
           settings
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">General</a>
+          <a class="dropdown-item" routerLink="/settings">General</a>
           <a class="dropdown-item" href="#">Privacy</a>
-          <a class="dropdown-item" href="#">else</a>
-          <a class="dropdown-item" href="#">else</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logOut()">Log out </a>
         </div>
