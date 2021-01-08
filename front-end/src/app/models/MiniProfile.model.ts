@@ -6,4 +6,5 @@ export class MiniProfile extends Object {
   lastName: string;
   gender: Gender;
   active: boolean;
+  profilePictureUrl: string;
 }

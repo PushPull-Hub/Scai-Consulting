@@ -7,17 +7,19 @@ public class MiniUserProfile {
     private String lastName;
     private String gender;
     private boolean active;
+    private String profilePictureUrl;
 
 
     public MiniUserProfile() {
     }
 
-    public MiniUserProfile(int id, String firstName, String lastName, String gender, boolean active) {
+    public MiniUserProfile(int id, String firstName, String lastName, String gender, boolean active, String profilePictureUrl) {
         Id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.active = active;
+        this.profilePictureUrl = profilePictureUrl;
     }
 
     public int getId() {
@@ -58,5 +60,13 @@ public class MiniUserProfile {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
     }
 }

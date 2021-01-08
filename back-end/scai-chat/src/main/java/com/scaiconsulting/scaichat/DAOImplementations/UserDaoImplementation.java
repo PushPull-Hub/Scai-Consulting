@@ -91,7 +91,7 @@ public class UserDAOImplementation implements UserDAO {
         Query<User> theQuery = currentSession.createQuery("from User where id=:id ", User.class)
                 .setParameter("id", id);
         User user = theQuery.getSingleResult();
-        return new MiniUserProfile(user.getId(), user.getFirstName(), user.getLastName(), user.getGender(), user.isActive());
+        return new MiniUserProfile(user.getId(), user.getFirstName(), user.getLastName(), user.getGender(), user.isActive(),user.getProfilePictureUrl());
     }
 
     @Override
