@@ -23,8 +23,10 @@
     "@angular/router": "~10.0.2",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "@types/jwt-decode": "^2.2.1",
+    "animate.css": "^4.1.1",
     "bootstrap": "^4.4.0",
     "bootswatch": "^4.5.0",
+    "firebase": "^7.0 || ^8.0",
     "jquery": "^3.5.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.27.0",
@@ -34,8 +36,7 @@
     "stompjs": "^2.3.3",
     "tslib": "^2.0.0",
     "uuid": "^8.1.0",
-    "zone.js": "~0.10.2",
-    "firebase": "^7.0 || ^8.0"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1002.0",
