@@ -1,48 +1,50 @@
-<div class="container">
-  <div class="row">
-    <div id="container" class="container-fluid">
-      <div class="row">
-        <div class="jumbotron jumbotron-fluid image-wrapper"
-          style="width: 1140px; padding-top: 0px; padding-bottom: 0px;">
-          <img src="../../../assets/images/Miami-cover-picture.jpg" style="width: 1139px; height: 440px;" />
-        </div>
-        <div>
-          <div class="card text-center">
-            <div class="card-header" style="padding-left: 400px; padding-right: 205px;">
-              <ul class="nav nav-tabs card-header-tabs">
-                <li class="nav-item">
-                  <a class="nav-link">Timeline</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">Friends </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link">Photos</a>
-                </li>
-                <div class="dropdown">
+<ng-container *ngIf="authenticatedUserProfilePicture">
+  <div class="container">
+    <div class="row">
+      <div id="container" class="container-fluid">
+        <div class="row">
+          <div class="jumbotron jumbotron-fluid image-wrapper"
+            style="width: 1140px; padding-top: 0px; padding-bottom: 0px;">
+            <img src="../../../assets/images/Miami-cover-picture.jpg" style="width: 1139px; height: 440px;" />
+          </div>
+          <div>
+            <div class="card text-center">
+              <div class="card-header" style="padding-left: 400px; padding-right: 205px;">
+                <ul class="nav nav-tabs card-header-tabs">
                   <li class="nav-item">
-                    <a class="nav-link dropdown-toggle" id="dropdownMenuLink" role="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">More</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Action 2</a>
-                      <a class="dropdown-item" href="#">Action 3</a>
-                      <a class="dropdown-item" href="#">Action 4</a>
-                    </div>
+                    <a class="nav-link">Timeline</a>
                   </li>
-                </div>
-              </ul>
+                  <li class="nav-item">
+                    <a class="nav-link">About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link">Friends </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link">Photos</a>
+                  </li>
+                  <div class="dropdown">
+                    <li class="nav-item">
+                      <a class="nav-link dropdown-toggle" id="dropdownMenuLink" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">More</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Action 2</a>
+                        <a class="dropdown-item" href="#">Action 3</a>
+                        <a class="dropdown-item" href="#">Action 4</a>
+                      </div>
+                    </li>
+                  </div>
+                </ul>
+              </div>
             </div>
           </div>
+          <div id="profile-picture">
+            <img class="rounded-circle" [src]="authenticatedUserProfilePicture" />
+          </div>
         </div>
-        <div id="profile-picture">
-          <img class="rounded-circle" src="../../../assets/images/Mark.jpg" />
-        </div>
+        <!-- <app-timeline></app-timeline> -->
       </div>
-      <!-- <app-timeline></app-timeline> -->
     </div>
   </div>
-</div>
+</ng-container>
