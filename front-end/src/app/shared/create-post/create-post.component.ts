@@ -39,17 +39,15 @@ export class CreatePostComponent implements OnInit {
     this.insertedText = null;
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
     this.getAuthenticatedUserProfilePicture();
-    // this.postImageSrc = environment.male_avatar_photo_url;
   }
 
   getAuthenticatedUserProfilePicture() {
-    this.profilePictureUrl = null;
-    this.authService.getAuthenticatedUser().then((user) => {
-      this.authenticatedUser = user;
-      this.authenticatedUser.profilePictureUrl
-        ? (this.profilePictureUrl = this.authenticatedUser.profilePictureUrl)
-        : (this.profilePictureUrl = environment.male_avatar_photo_url);
-    });
+    this.imagesService
+      .getAuthenticatedUserProfilePicture()
+      .then((pictureUrl) => {
+        this.profilePictureUrl = pictureUrl;
+      })
+      .catch((err) => console.log(err));
   }
 
   sharePost() {
@@ -124,14 +122,5 @@ export class CreatePostComponent implements OnInit {
       this.postImageSrc = environment.male_avatar_photo_url;
       this.selectedImage = null;
     }
-  }
-
-  onFileSelected(event) {
-    // this.selectedFile = <File>event.target.files[0];
-    console.log(event);
-  }
-
-  onUploadFile() {
-    // onUploadFile method
   }
 }
