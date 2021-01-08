@@ -17,9 +17,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./friend-profile.component.scss'],
 })
 export class FriendProfileComponent implements OnInit {
-  male_avatar_photo_url: string;
   loading: boolean = true;
+
   profile: MiniProfile;
+  profilePicture: string;
   id: number;
 
   relationShipStatus: string;
@@ -42,7 +43,6 @@ export class FriendProfileComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
     });
-    this.male_avatar_photo_url = environment.male_avatar_photo_url;
     this.loadProfile();
   }
 
@@ -60,6 +60,9 @@ export class FriendProfileComponent implements OnInit {
           .then(async (profile: MiniProfile) => {
             if (profile && profile.id) {
               this.profile = profile;
+              this.profile.profilePictureUrl
+                ? (this.profilePicture = this.profile.profilePictureUrl)
+                : (this.profilePicture = environment.male_avatar_photo_url);
               this.loadPosts(profile.id);
               await this.loadOurRelationShip().then((result) => {
                 console.log(result);
