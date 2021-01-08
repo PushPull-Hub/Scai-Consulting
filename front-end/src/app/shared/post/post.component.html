@@ -17,9 +17,12 @@
     </div>
   </div>
 
-  <div class="container text-wrapper">
-    <p>{{ post.description }}</p>
-  </div>
+  <ng-container *ngIf="post.description">
+    <div class="container text-wrapper">
+      <p>{{ post.description }}</p>
+    </div>
+  </ng-container>
+
 
   <ng-container *ngIf="imageUrl">
     <div class="c-post-image">
