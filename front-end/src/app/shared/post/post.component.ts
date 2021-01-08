@@ -7,6 +7,7 @@ import { Post } from 'src/app/models/Post.model';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { PostComment } from 'src/app/models/PostComment.model';
 
+import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
 
 @Component({
@@ -29,6 +30,9 @@ export class PostComponent implements OnInit {
   isLikedByMe: boolean;
   postedOn;
   owner: MiniProfile = null;
+
+  postOwnerProfilePicture: string;
+
   commenters: MiniProfile[] = null;
 
   constructor(
@@ -39,11 +43,18 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.commentButtonClicked = false;
     this.isLikedByMe = this._checkIfItsLikedByMe();
-    this._getPostOwnerProfile(this.post.userId).then(
-      (profile) => (this.owner = profile)
-    );
+    this.getPostOwner();
     this.postedOn = this.getdate(parseInt(this.post.created_time));
     this.imageUrl = this.post.imageUrl;
+  }
+
+  private getPostOwner() {
+    this._getPostOwnerProfile(this.post.userId).then((profile) => {
+      this.owner = profile;
+      this.owner.profilePictureUrl
+        ? (this.postOwnerProfilePicture = this.owner.profilePictureUrl)
+        : (this.postOwnerProfilePicture = environment.male_avatar_photo_url);
+    });
   }
 
   whenCommentButtonClicked() {

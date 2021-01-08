@@ -3,7 +3,7 @@
   <div class="container-fluid first-row-wrapper ">
     <div class="container first-row">
       <div class="c-user-image">
-        <img class="rounded-circle" src="../../../assets/images/male-user.jpg">
+        <img class="rounded-circle" [src]="postOwnerProfilePicture">
       </div>
       <div class="c-user-name">
         <h5> <a [routerLink]="[ '/user/profile/'+owner.id]"> {{ owner.firstName }} {{owner.lastName}} </a> </h5>
