@@ -6,6 +6,8 @@ import { ImagesService } from 'src/app/services/images.service';
 
 import * as moment from 'moment';
 import { Post } from 'src/app/models/Post.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/User.model';
 
 @Component({
   selector: 'create-post',
@@ -14,14 +16,19 @@ import { Post } from 'src/app/models/Post.model';
 })
 export class CreatePostComponent implements OnInit {
   now: number;
-  insertedText: string;
-  locationIconClicked: boolean;
-  selectedFile: File;
-  male_avatar_photo_url: string;
+  authenticatedUser: User;
+
   postImageSrc: string;
+  locationIconClicked: boolean;
+
   selectedImage: any = null;
+  insertedText: string;
+
+  male_avatar_photo_url: string;
+  profilePictureUrl: string;
 
   constructor(
+    private authService: AuthService,
     private postService: PostsService,
     private imagesService: ImagesService
   ) {}
@@ -29,10 +36,20 @@ export class CreatePostComponent implements OnInit {
   ngOnInit(): void {
     this.now = moment().valueOf();
     this.locationIconClicked = false;
-    this.selectedFile = null;
     this.insertedText = null;
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
-    this.postImageSrc = environment.male_avatar_photo_url;
+    this.getAuthenticatedUserProfilePicture();
+    // this.postImageSrc = environment.male_avatar_photo_url;
+  }
+
+  getAuthenticatedUserProfilePicture() {
+    this.profilePictureUrl = null;
+    this.authService.getAuthenticatedUser().then((user) => {
+      this.authenticatedUser = user;
+      this.authenticatedUser.profilePictureUrl
+        ? (this.profilePictureUrl = this.authenticatedUser.profilePictureUrl)
+        : (this.profilePictureUrl = environment.male_avatar_photo_url);
+    });
   }
 
   sharePost() {
