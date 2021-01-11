@@ -8,7 +8,6 @@ import com.scaiconsulting.scaichat.DTOs.MessageDTO;
 import com.scaiconsulting.scaichat.DTOs.MiniUserProfile;
 import com.scaiconsulting.scaichat.entities.Conversation;
 import com.scaiconsulting.scaichat.entities.Message;
-import com.scaiconsulting.scaichat.exeptions.NotFoundException;
 import com.scaiconsulting.scaichat.services.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
