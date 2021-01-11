@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FriendShip } from 'src/app/models/FriendShip.model';
+import { Gender } from 'src/app/models/Gender.model';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { FriendsService } from 'src/app/services/friends.service';
 
@@ -12,6 +13,8 @@ import { environment } from 'src/environments/environment';
 })
 export class RequestsComponent implements OnInit {
   male_avatar_photo_url: string;
+  female_avatar_photo_url: string;
+  Female;
   loading: boolean = true;
   requesterProfiles: MiniProfile[];
   doIhaveRequests: boolean = true;
@@ -23,6 +26,8 @@ export class RequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    this.female_avatar_photo_url = environment.female_avatr_photo_url;
+    this.Female = Gender[1];
   }
 
   loadProfiles(data) {
