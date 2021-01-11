@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Gender } from 'src/app/models/Gender.model';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { environment } from 'src/environments/environment';
 
@@ -9,6 +10,8 @@ import { environment } from 'src/environments/environment';
 })
 export class MyFriendsComponent implements OnInit {
   male_avatar_photo_url: string;
+  female_avatar_photo_url: string;
+  Female;
   myFriendsProfiles: MiniProfile[];
   loading: boolean = true;
   doIhaveFriends: boolean = true;
@@ -19,6 +22,8 @@ export class MyFriendsComponent implements OnInit {
 
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    this.female_avatar_photo_url = environment.female_avatr_photo_url;
+    this.Female = Gender[1];
     this.messageIconClicked = false;
   }
 

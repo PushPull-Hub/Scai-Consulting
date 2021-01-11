@@ -5,7 +5,33 @@
         <tbody>
             <tr>
                 <th scope="row">
-                    <img [src]="male_avatar_photo_url" class="rounded-circle profile-picture" />
+                    <!-- <img [src]="male_avatar_photo_url" class="rounded-circle profile-picture" /> -->
+                    <ng-container *ngIf="friendProfile.profilePictureUrl; else emptyProfilePicture">
+
+                        <img [src]="friendProfile.profilePictureUrl" class="rounded-circle profile-picture" />
+
+                    </ng-container>
+
+                    <ng-template #emptyProfilePicture>
+                        <ng-container *ngIf="friendProfile.gender == Female ; else maleProfilePicture">
+
+                            <img [src]="female_avatar_photo_url" class="rounded-circle profile-picture" />
+
+                        </ng-container>
+
+                        <ng-template #maleProfilePicture>
+
+                            <img [src]="male_avatar_photo_url" class="rounded-circle profile-picture" />
+
+                        </ng-template>
+
+                    </ng-template>
+
+
+
+
+
+
                 </th>
                 <th>
                     {{friendProfile.firstName}} {{friendProfile.lastName}}
