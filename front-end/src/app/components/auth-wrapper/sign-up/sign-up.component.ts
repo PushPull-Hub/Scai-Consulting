@@ -16,8 +16,8 @@ import { Subscription, throwError } from 'rxjs';
 export class SignUpComponent implements OnInit, OnDestroy {
   date: NgbDateStruct;
   options = [
-    { name: 'Male', value: Gender[0] },
-    { name: 'Female', value: Gender[1] },
+    { name: 'male', value: Gender[0] },
+    { name: 'female', value: Gender[1] },
     { name: 'other', value: Gender[2] },
   ];
   selectedOption: Gender;
