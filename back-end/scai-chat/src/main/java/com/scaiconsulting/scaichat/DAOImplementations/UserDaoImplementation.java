@@ -45,6 +45,7 @@ public class UserDAOImplementation implements UserDAO {
         Query<Profile> theQuery = currentSession.createQuery("from Profile profile where profile.email = :email")
                 .setParameter("email", email);
 
+                
         try {
             Profile testedProfile = theQuery.getSingleResult();
             boolean isPasswordMatch = encoder.matches(password, testedProfile.getPassword());
@@ -91,7 +92,7 @@ public class UserDAOImplementation implements UserDAO {
         Query<User> theQuery = currentSession.createQuery("from User where id=:id ", User.class)
                 .setParameter("id", id);
         User user = theQuery.getSingleResult();
-        return new MiniUserProfile(user.getId(), user.getFirstName(), user.getLastName(), user.getGender(), user.isActive(),user.getProfilePictureUrl());
+        return new MiniUserProfile(user.getId(), user.getFirstName(), user.getLastName(), user.getGender(), user.isActive(), user.getProfilePictureUrl());
     }
 
     @Override
