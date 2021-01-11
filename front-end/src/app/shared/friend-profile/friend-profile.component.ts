@@ -7,6 +7,7 @@ import { PostComment } from 'src/app/models/PostComment.model';
 import { PostLike } from 'src/app/models/PostLike.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FriendsService } from 'src/app/services/friends.service';
+import { ImagesService } from 'src/app/services/images.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { UserServices } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
@@ -36,7 +37,8 @@ export class FriendProfileComponent implements OnInit {
     private userService: UserServices,
     private authService: AuthService,
     private router: Router,
-    private friendService: FriendsService
+    private friendService: FriendsService,
+    private imageService: ImagesService
   ) {}
 
   ngOnInit(): void {
@@ -60,9 +62,9 @@ export class FriendProfileComponent implements OnInit {
           .then(async (profile: MiniProfile) => {
             if (profile && profile.id) {
               this.profile = profile;
-              this.profile.profilePictureUrl
-                ? (this.profilePicture = this.profile.profilePictureUrl)
-                : (this.profilePicture = environment.male_avatar_photo_url);
+              this.profilePicture = this.imageService.getFriendProfilePictureUrl(
+                this.profile
+              );
               this.loadPosts(profile.id);
               await this.loadOurRelationShip().then((result) => {
                 console.log(result);
