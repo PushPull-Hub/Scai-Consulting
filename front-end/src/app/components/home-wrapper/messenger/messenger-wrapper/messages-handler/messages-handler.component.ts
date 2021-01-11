@@ -12,6 +12,7 @@ import { Message } from 'src/app/models/Message.model';
 import { ChatDTO } from 'src/app/models/ChatDTO.model';
 import { MessageDTO } from 'src/app/models/MessageDTO.model';
 import { ImagesService } from 'src/app/services/images.service';
+import { Gender } from 'src/app/models/Gender.model';
 
 @Component({
   selector: 'app-messages-handler',
@@ -22,6 +23,9 @@ export class MessagesHandlerComponent implements OnInit, OnChanges {
   @Input() chat: ChatDTO;
 
   authenticatedUserProfilePicture: string;
+  male_avatar_photo_url: string;
+  female_avatar_photo_url: string;
+
   friend_profile_picture: string;
 
   messages: Message[];
@@ -29,6 +33,7 @@ export class MessagesHandlerComponent implements OnInit, OnChanges {
   loading: boolean;
 
   text: string;
+  Male;
 
   constructor(
     private messageService: MessagesService,
@@ -37,8 +42,11 @@ export class MessagesHandlerComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.friend_profile_picture = this._getFriendProfilePicture();
-    this._getMyProfilePicture();
+    this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    this.female_avatar_photo_url = environment.female_avatr_photo_url;
     this.messages = [];
+    this.Male = Gender[0];
+    this._getMyProfilePicture();
     this.loadMessages();
   }
 

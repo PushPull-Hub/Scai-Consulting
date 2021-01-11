@@ -1,16 +1,28 @@
 <div class="row">
   <div class="container-fluid the-header">
     <ul class="header-list" *ngIf="chat">
-      <li>
-        <span class="the-header-image">
-          <img [src]="friend_profile_picture" class="rounded-circle" />
-        </span>
-      </li>
-      <li>
-        <span class="friend-name">
-          <h3> {{chat.secondUser.firstName}} {{chat.secondUser.lastName}} </h3>
-        </span>
-      </li>
+      <a [routerLink]="[ '/user/profile/'+chat.secondUser.id]">
+        <li>
+          <span class="the-header-image">
+            <ng-container *ngIf="chat.secondUser.profilePictureUrl; else emptyProfilePicture">
+              <img [src]="chat.secondUser.profilePictureUrl" class="rounded-circle" />
+            </ng-container>
+            <ng-template #emptyProfilePicture>
+              <ng-container *ngIf="chat.secondUser.gender == Male ; else femaleEmptyProfilePicture">
+                <img [src]="male_avatar_photo_url" class="rounded-circle" />
+              </ng-container>
+              <ng-template #femaleEmptyProfilePicture>
+                <img [src]="female_avatar_photo_url" class="rounded-circle" />
+              </ng-template>
+            </ng-template>
+          </span>
+        </li>
+        <li>
+          <span class="friend-name">
+            <h3> {{chat.secondUser.firstName}} {{chat.secondUser.lastName}} </h3>
+          </span>
+        </li>
+      </a>
       <li class="float-right">
         <span class="the-i-icon">
           <i class="fa fa-info" aria-hidden="true"></i>
@@ -26,14 +38,26 @@
       <app-spinner *ngIf="loading"></app-spinner>
       <ng-container *ngIf="!doIhaveMessages && !loading">
         <div class="container text-center p-5 empty-discussion">
-          <img class="rounded-circle  " [src]="friend_profile_picture">
+          <!-- <img class="rounded-circle  " [src]="friend_profile_picture"> -->
+
+          <ng-container *ngIf="chat.secondUser.profilePictureUrl; else emptyProfilePicture">
+            <img [src]="chat.secondUser.profilePictureUrl" class="rounded-circle" />
+          </ng-container>
+
+          <ng-template #emptyProfilePicture>
+
+            <ng-container *ngIf="chat.secondUser.gender == Male ; else femaleEmptyProfilePicture">
+              <img [src]="male_avatar_photo_url" class="rounded-circle" />
+            </ng-container>
+            <ng-template #femaleEmptyProfilePicture>
+              <img [src]="female_avatar_photo_url" class="rounded-circle" />
+            </ng-template>
+          </ng-template>
           <p> Start a conversation with {{chat.secondUser.firstName}}
             {{chat.secondUser.lastName}}
           </p>
         </div>
-
       </ng-container>
-
       <div class="container" *ngIf="messages && authenticatedUserProfilePicture && !loading">
         <div class="chat-page">
           <div class="msg-inbox">

@@ -31,13 +31,13 @@
             </ng-container>
 
             <ng-template #emptyProfilePicture>
-              <ng-container *ngIf="chat.secondUser.gender == Female ; else femaleProfilePicture">
+              <ng-container *ngIf="chat.secondUser.gender == Female ; else maleProfilePicture">
                 <th style="padding-bottom: 12px; padding-right: 0px;">
                   <img [src]="female_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
                 </th>
               </ng-container>
 
-              <ng-template #femaleProfilePicture>
+              <ng-template #maleProfilePicture>
                 <th style="padding-bottom: 12px; padding-right: 0px;">
                   <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
                 </th>
