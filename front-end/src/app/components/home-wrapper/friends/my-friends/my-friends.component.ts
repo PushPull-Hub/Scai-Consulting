@@ -12,11 +12,13 @@ export class MyFriendsComponent implements OnInit {
   male_avatar_photo_url: string;
   female_avatar_photo_url: string;
   Female;
+
   myFriendsProfiles: MiniProfile[];
+  selectedFriend: MiniProfile;
+
   loading: boolean = true;
   doIhaveFriends: boolean = true;
   messageIconClicked: boolean;
-  selectedFriend: MiniProfile;
 
   constructor() {}
 
