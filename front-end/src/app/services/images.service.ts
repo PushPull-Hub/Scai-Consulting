@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 
 import { User } from '../models/User.model';
 import { Gender } from '../models/Gender.model';
+import { MiniProfile } from '../models/MiniProfile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -64,5 +65,15 @@ export class ImagesService {
         })
         .catch((err) => console.log(err));
     });
+  }
+
+  getFriendProfilePictureUrl(profile: MiniProfile): string {
+    let url: string = null;
+    profile.profilePictureUrl
+      ? (url = profile.profilePictureUrl)
+      : profile.gender == Gender.Male
+      ? (url = this.male_avatar_photo_url)
+      : (url = this.female_avatar_photo_url);
+    return url;
   }
 }
