@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { Message } from 'src/app/models/Message.model';
 import { ChatDTO } from 'src/app/models/ChatDTO.model';
 import { MessageDTO } from 'src/app/models/MessageDTO.model';
+import { ImagesService } from 'src/app/services/images.service';
 
 @Component({
   selector: 'app-messages-handler',
@@ -18,23 +19,32 @@ import { MessageDTO } from 'src/app/models/MessageDTO.model';
   styleUrls: ['./messages-handler.component.scss'],
 })
 export class MessagesHandlerComponent implements OnInit, OnChanges {
-  male_avatar_photo_url: string;
+  @Input() chat: ChatDTO;
+
+  authenticatedUserProfilePicture: string;
+  friend_profile_picture: string;
+
   messages: Message[];
   doIhaveMessages: boolean;
+  loading: boolean;
 
-  @Input() chat: ChatDTO;
   text: string;
 
-  constructor(private messageService: MessagesService) {}
+  constructor(
+    private messageService: MessagesService,
+    private imageService: ImagesService
+  ) {}
 
   ngOnInit(): void {
-    this.male_avatar_photo_url = environment.male_avatar_photo_url;
-    this.doIhaveMessages = true;
+    this.friend_profile_picture = this._getFriendProfilePicture();
+    this._getMyProfilePicture();
     this.messages = [];
     this.loadMessages();
   }
 
   private loadMessages() {
+    this.loading = true;
+    this.doIhaveMessages = true;
     this.messageService
       .getMessagesByConversationId(this.chat.id)
       .toPromise()
@@ -42,8 +52,10 @@ export class MessagesHandlerComponent implements OnInit, OnChanges {
         if (result) {
           this.doIhaveMessages = true;
           this.messages = result;
+          this.loading = false;
         } else {
           this.doIhaveMessages = false;
+          this.loading = false;
         }
       });
   }
@@ -93,5 +105,17 @@ export class MessagesHandlerComponent implements OnInit, OnChanges {
       this.messages = [];
       this.doIhaveMessages = false;
     }
+  }
+
+  private _getFriendProfilePicture(): string {
+    return this.imageService.getFriendProfilePictureUrl(this.chat.secondUser);
+  }
+
+  private _getMyProfilePicture() {
+    this.imageService
+      .getAuthenticatedUserProfilePicture()
+      .then((url: string) => {
+        this.authenticatedUserProfilePicture = url;
+      });
   }
 }

@@ -2,7 +2,7 @@
   <div class="container navbar-header">
     <ul>
       <li>
-        <img [src]="male_avatar_photo_url" class="rounded-circle" />
+        <img [src]="profile_picture_url" class="rounded-circle" />
       </li>
       <li style="margin: 12px 10px 10px 10px;">
         <h2>Chat</h2>
@@ -22,9 +22,29 @@
       <ng-container *ngFor="let chat of myChats">
         <tbody>
           <tr (click)="onClick(chat)">
-            <th style="padding-bottom: 12px; padding-right: 0px;">
-              <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
-            </th>
+
+            <ng-container *ngIf="chat.secondUser.profilePictureUrl; else emptyProfilePicture">
+              <th style="padding-bottom: 12px; padding-right: 0px;">
+                <img [src]="chat.secondUser.profilePictureUrl" class="rounded-circle"
+                  style="width: 40px; height: 40px;" />
+              </th>
+            </ng-container>
+
+            <ng-template #emptyProfilePicture>
+              <ng-container *ngIf="chat.secondUser.gender == Female ; else femaleProfilePicture">
+                <th style="padding-bottom: 12px; padding-right: 0px;">
+                  <img [src]="female_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
+                </th>
+              </ng-container>
+
+              <ng-template #femaleProfilePicture>
+                <th style="padding-bottom: 12px; padding-right: 0px;">
+                  <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 40px; height: 40px;" />
+                </th>
+              </ng-template>
+
+            </ng-template>
+
             <td style="padding-left: 0; padding-right: 0;">
               <div class="container-fluid" style="padding-left: 0; padding-right: 0;">
                 <strong style="color : #2FA4E7;">{{chat.secondUser.firstName}} {{chat.secondUser.lastName}} </strong>
