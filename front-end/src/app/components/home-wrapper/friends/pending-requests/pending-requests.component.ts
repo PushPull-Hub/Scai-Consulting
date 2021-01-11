@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Gender } from 'src/app/models/Gender.model';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { FriendsService } from 'src/app/services/friends.service';
 import { environment } from 'src/environments/environment';
@@ -9,17 +10,24 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./pending-requests.component.scss'],
 })
 export class PendingRequestsComponent implements OnInit {
-  pendingRequestsProfiles: MiniProfile[];
-  doIhavePendingFriendRequests: boolean = true;
-  loading: boolean = true;
-  male_avatar_photo_url: string;
-  requested: boolean = true;
   @Output() friendShipEmitter: EventEmitter<any> = new EventEmitter();
+
+  male_avatar_photo_url: string;
+  female_avatar_photo_url: string;
+  Female;
+
+  pendingRequestsProfiles: MiniProfile[];
+
+  loading: boolean = true;
+  requested: boolean = true;
+  doIhavePendingFriendRequests: boolean = true;
 
   constructor(private friendService: FriendsService) {}
 
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
+    this.female_avatar_photo_url = environment.female_avatr_photo_url;
+    this.Female = Gender[1];
   }
 
   loadProfiles(data) {

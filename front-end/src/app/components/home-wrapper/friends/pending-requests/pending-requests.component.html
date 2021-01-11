@@ -8,7 +8,21 @@
             <tbody>
                 <tr>
                     <th scope="row">
-                        <img [src]="male_avatar_photo_url" class="rounded-circle profile-picture" />
+                        <ng-container *ngIf="pendingRequestsProfile.profilePictureUrl; else emptyProfilePicture">
+                            <img [src]="pendingRequestsProfile.profilePictureUrl"
+                                class="rounded-circle profile-picture" />
+                        </ng-container>
+
+                        <ng-template #emptyProfilePicture>
+                            <ng-container *ngIf="pendingRequestsProfile.gender == Female ; else maleProfilePicture">
+                                <img [src]="female_avatar_photo_url" class="rounded-circle profile-picture" />
+                            </ng-container>
+
+                            <ng-template #maleProfilePicture>
+                                <img [src]="male_avatar_photo_url" class="rounded-circle profile-picture" />
+                            </ng-template>
+                        </ng-template>
+
                     </th>
                     <th>
                         {{pendingRequestsProfile.firstName}} {{pendingRequestsProfile.lastName}}
