@@ -74,9 +74,9 @@
   overflow-y: auto;
 }
 
-// .recieved-chats {
-//   display: inline-block;
-// }
+.recieved-chats {
+  margin-left: 20px;
+}
 
 .recieved-chats-img {
   //   display: inline-block;
@@ -115,6 +115,11 @@
 .outgoing-chats {
   overflow: hidden;
   margin: 0;
+}
+
+.outgoing-chats-msg {
+  // margin-top: 10px;
+  margin-bottom: 3px;
 }
 
 .outgoing-chats-msg p {

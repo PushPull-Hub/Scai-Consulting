@@ -67,7 +67,8 @@
     </ng-container>
 
     <div class="input-group fluid">
-      <input type="text" placeholder="Add a Comment " class="form-control" [(ngModel)]="textInputed">
+      <input type="text" placeholder="Add a Comment " class="form-control" (keyup.enter)="addComment()"
+        [(ngModel)]="textInputed">
       <div class="input-group-append">
         <button type="button" class="btn btn-outline-primary" (click)="addComment()">
           Comment

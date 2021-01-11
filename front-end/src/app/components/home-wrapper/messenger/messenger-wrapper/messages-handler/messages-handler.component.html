@@ -63,14 +63,16 @@
           <div class="msg-inbox">
             <div class="chats">
               <div class="msg-page">
-                <ng-container *ngFor="let message of messages">
+                <ng-container *ngFor="let message of messages; let messageIndex = index">
                   <ng-container *ngIf="
                       message.senderId !== chat.myId ;
                       else outgoingChat
                     ">
                     <div class="recieved-chats">
                       <div class="recieved-chats-img">
-                        <img class="rounded-circle" style="width: 20px; height: 20px;" [src]="friend_profile_picture" />
+                        <img class="rounded-circle"
+                          [hidden]="!!messages[messageIndex+1] &&  messages[messageIndex+1].senderId !== chat.myId "
+                          style="width: 20px; height: 20px;" [src]="friend_profile_picture" />
                       </div>
                       <div class="recieved-msg">
                         <div class="recieved-msg-inbox">
@@ -88,9 +90,11 @@
                         <p>
                           {{ message.text }}
                         </p>
-                        <span class="time">11:00 PM </span>
+                        <span [hidden]="!!messages[messageIndex+1] && messages[messageIndex+1].senderId == chat.myId  "
+                          class="time">11:00 PM </span>
                       </div>
-                      <div class="outgoing-chats-img">
+                      <div class="outgoing-chats-img"
+                        [hidden]="!!messages[messageIndex+1] && messages[messageIndex+1].senderId == chat.myId  ">
                         <img class="rounded-circle" [src]="authenticatedUserProfilePicture" />
                       </div>
                     </div>
