@@ -55,7 +55,7 @@ export class ImagesService {
           if (user) {
             user.profilePictureUrl
               ? (this.authenticatedUserProfilePicture = user.profilePictureUrl)
-              : user.gender == Gender.Male
+              : user.gender.toString() == 'male'
               ? (this.authenticatedUserProfilePicture = this.male_avatar_photo_url)
               : (this.authenticatedUserProfilePicture = this.female_avatar_photo_url);
             resolve(this.authenticatedUserProfilePicture);
@@ -68,12 +68,15 @@ export class ImagesService {
   }
 
   getFriendProfilePictureUrl(profile: MiniProfile): string {
+    console.log(profile);
+
     let url: string = null;
     profile.profilePictureUrl
       ? (url = profile.profilePictureUrl)
-      : profile.gender == Gender.Male
+      : profile.gender.toString() == 'male'
       ? (url = this.male_avatar_photo_url)
       : (url = this.female_avatar_photo_url);
+    console.log(url);
     return url;
   }
 }
