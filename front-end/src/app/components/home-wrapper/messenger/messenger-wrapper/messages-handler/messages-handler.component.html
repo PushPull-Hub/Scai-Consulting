@@ -1,19 +1,19 @@
 <div class="row">
-  <div class="container-fluid header" style="height: 70px; border-bottom: 2px solid #efefef;">
+  <div class="container-fluid the-header">
     <ul class="header-list" *ngIf="chat">
       <li>
-        <span>
-          <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 50px; height: 50px;" />
+        <span class="the-header-image">
+          <img [src]="friend_profile_picture" class="rounded-circle" />
         </span>
       </li>
       <li>
-        <span style="margin: 4px 0 0 20px;">
+        <span class="friend-name">
           <h3> {{chat.secondUser.firstName}} {{chat.secondUser.lastName}} </h3>
         </span>
       </li>
-      <li style="float: right;">
-        <span>
-          <i class="fa fa-info" aria-hidden="true" style="font-size: 40px; color: #2fa4e7;"></i>
+      <li class="float-right">
+        <span class="the-i-icon">
+          <i class="fa fa-info" aria-hidden="true"></i>
         </span>
       </li>
     </ul>
@@ -21,11 +21,20 @@
 </div>
 
 <div class="row">
-  <div class="container col-8" style="height: 631px; border-right: 2px solid #efefef;">
+  <div class="container col-8 main">
     <div class="row">
-      <p *ngIf="!doIhaveMessages"> Start a conversation with {{chat.secondUser.firstName}} {{chat.secondUser.lastName}}
-      </p>
-      <div class="container" *ngIf="messages">
+      <app-spinner *ngIf="loading"></app-spinner>
+      <ng-container *ngIf="!doIhaveMessages && !loading">
+        <div class="container text-center p-5 empty-discussion">
+          <img class="rounded-circle  " [src]="friend_profile_picture">
+          <p> Start a conversation with {{chat.secondUser.firstName}}
+            {{chat.secondUser.lastName}}
+          </p>
+        </div>
+
+      </ng-container>
+
+      <div class="container" *ngIf="messages && authenticatedUserProfilePicture && !loading">
         <div class="chat-page">
           <div class="msg-inbox">
             <div class="chats">
@@ -37,7 +46,7 @@
                     ">
                     <div class="recieved-chats">
                       <div class="recieved-chats-img">
-                        <img class="rounded-circle" style="width: 20px; height: 20px;" [src]="male_avatar_photo_url" />
+                        <img class="rounded-circle" style="width: 20px; height: 20px;" [src]="friend_profile_picture" />
                       </div>
                       <div class="recieved-msg">
                         <div class="recieved-msg-inbox">
@@ -58,7 +67,7 @@
                         <span class="time">11:00 PM </span>
                       </div>
                       <div class="outgoing-chats-img">
-                        <img class="rounded-circle" style="width: 20px; height: 20px;" [src]="male_avatar_photo_url" />
+                        <img class="rounded-circle" [src]="authenticatedUserProfilePicture" />
                       </div>
                     </div>
                   </ng-template>
@@ -71,25 +80,23 @@
     </div>
 
     <div class="row">
-      <div class="input-group fluid" style="position: absolute; bottom: 15px; left: 0;">
+      <div class="input-group fluid input-wrapper">
         <!-- <div class="image-upload" style="position: absolute;">
           <label for="file-input">
             <i class="fa fa-picture-o" aria-hidden="true"></i>
           </label>
           <input id="file-input" type="file" />
         </div> -->
-        <input type="text" class="form-control" placeholder="Type a message... " aria-label="Recipient's username"
-          aria-describedby="button-addon2" style="border-radius: 20px; margin: 0 20px 0 20px;" [(ngModel)]="text"
+        <input type="text" class="form-control" placeholder="Type a message... " [(ngModel)]="text"
           (keyup.enter)="sendMessage()" />
         <div class="input-group-append">
           <ng-container *ngIf="text; else likeButton">
-            <button class="btn btn-outline-primary" type="button " id="button-addon2"
-              style="border-radius: 20px; margin-right: 10px;" (click)="sendMessage()">
+            <button class="btn btn-outline-primary send-button" type="button" (click)="sendMessage()">
               <i class="fa fa-paper-plane" aria-hidden="true"></i>
             </button>
           </ng-container>
           <ng-template #likeButton>
-            <button class="btn btn-outline-primary" type="button" style="border-radius: 20px; margin-right: 10px;">
+            <button class="btn btn-outline-primary like-button" type="button">
               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
             </button>
           </ng-template>
