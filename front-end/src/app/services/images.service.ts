@@ -6,14 +6,19 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { AuthService } from './auth.service';
 
 import { environment } from 'src/environments/environment';
+
 import { User } from '../models/User.model';
+import { Gender } from '../models/Gender.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ImagesService {
   authenticatedUserProfilePicture: string;
+  authenticatedUserGender: Gender;
+
   male_avatar_photo_url: string = environment.male_avatar_photo_url;
+  female_avatar_photo_url: string = environment.female_avatr_photo_url;
 
   constructor(
     private storage: AngularFireStorage,
@@ -49,7 +54,9 @@ export class ImagesService {
           if (user) {
             user.profilePictureUrl
               ? (this.authenticatedUserProfilePicture = user.profilePictureUrl)
-              : (this.authenticatedUserProfilePicture = this.male_avatar_photo_url);
+              : user.gender == Gender.Male
+              ? (this.authenticatedUserProfilePicture = this.male_avatar_photo_url)
+              : (this.authenticatedUserProfilePicture = this.female_avatar_photo_url);
             resolve(this.authenticatedUserProfilePicture);
           } else {
             reject();
