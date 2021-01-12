@@ -17,6 +17,8 @@ export class UserServices implements OnInit {
   passwordReseter: Profile;
   MiniProfilesCach: MiniProfile[] = [];
 
+  cache: MiniProfile[] = [];
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {}

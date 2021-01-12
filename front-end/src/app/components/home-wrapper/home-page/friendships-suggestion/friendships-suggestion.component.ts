@@ -3,6 +3,7 @@ import { FriendsService } from 'src/app/services/friends.service';
 import { environment } from 'src/environments/environment';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { Router } from '@angular/router';
+import { UserServices } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-friendships-suggestion',
@@ -17,7 +18,11 @@ export class FriendshipsSuggestionComponent implements OnInit {
   errorOnLoadingProfiles: boolean;
   noProfilesToLoad: boolean;
 
-  constructor(private friendsService: FriendsService, private router: Router) {}
+  constructor(
+    private userService: UserServices,
+    private friendsService: FriendsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
@@ -33,6 +38,7 @@ export class FriendshipsSuggestionComponent implements OnInit {
       .then((res) => {
         if (res && res.length > 0) {
           this.friendsSuggestion = res;
+          this.userService.cache = [...this.friendsSuggestion];
           this.profiles = this.friendsSuggestion.slice(0, 5);
           this.loading = false;
         } else {
