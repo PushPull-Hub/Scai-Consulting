@@ -1,4 +1,5 @@
 import { PostComment } from './PostComment.model';
+import { PostLike } from './PostLike.model';
 
 export class Post extends Object {
   id: number;
@@ -11,6 +12,6 @@ export class Post extends Object {
   pubblico: number;
   userId: number;
   comments: PostComment[];
-  likerIds: { id: number; likersId: number }[];
+  likersIds: PostLike[];
   imageUrl: string;
 }
