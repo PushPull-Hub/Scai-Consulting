@@ -81,12 +81,12 @@ export class PostComponent implements OnInit {
   }
 
   _checkIfItsLikedByMe(): boolean {
-    if (this.post.likerIds) {
+    if (this.post.likersIds) {
       let authenticatedUserId: number;
       this.authService
         .getAuthenticatedUser()
         .then((user) => (user.id = authenticatedUserId));
-      return this.post.likerIds.find((likerObject) => {
+      return this.post.likersIds.find((likerObject) => {
         likerObject.likersId == authenticatedUserId;
       })
         ? true

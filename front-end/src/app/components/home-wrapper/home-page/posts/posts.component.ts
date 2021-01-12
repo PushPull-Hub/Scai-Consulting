@@ -54,7 +54,7 @@ export class PostsComponent implements OnInit {
       this.postService
         .likePost(id)
         .subscribe(
-          (likerIds: PostLike[]) => (this.posts[index].likerIds = likerIds)
+          (likerIds: PostLike[]) => (this.posts[index].likersIds = likerIds)
         );
     } else {
       console.log('check conditions  ');
@@ -67,7 +67,7 @@ export class PostsComponent implements OnInit {
       this.postService
         .unlikePost(id)
         .subscribe(
-          (likerIds: PostLike[]) => (this.posts[index].likerIds = likerIds)
+          (likerIds: PostLike[]) => (this.posts[index].likersIds = likerIds)
         );
     } else {
       console.log('check conditions  ');

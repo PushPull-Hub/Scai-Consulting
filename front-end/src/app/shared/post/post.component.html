@@ -1,4 +1,4 @@
-<div class="container main-container" *ngIf="owner">
+<div class="container main-container" *ngIf="owner ">
 
   <div class="container-fluid first-row-wrapper ">
     <div class="container first-row">
@@ -48,7 +48,8 @@
 
     <div class="comments-and-likes float-right">
       <a>
-        {{ post.likerIds ? (post.likerIds.length > 1 ? post.likerIds.length + " Likes" : post.likerIds.length + " Like"
+        {{ post.likersIds ? (post.likersIds.length > 1 ? post.likersIds.length + " Likes" : post.likersIds.length + "
+        Like"
         ) : 0 + " Like" }}
         {{ post.comments ? (
         post.comments.length > 1
