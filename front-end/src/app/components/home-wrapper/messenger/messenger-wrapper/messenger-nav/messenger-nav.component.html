@@ -80,8 +80,22 @@
                 chat.lastMessage.senderId == chat.myId;
                     else options
                   ">
-                  <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 15px; height: 15px;" />
+
+                  <ng-container *ngIf="chat.secondUser.profilePictureUrl; else emptyProfilePicture">
+                    <img [src]="chat.secondUser.profilePictureUrl" class="rounded-circle"
+                      style="width: 15px; height: 15px;" />
+                  </ng-container>
+
+                  <ng-template #emptyProfilePicture>
+                    <ng-container *ngIf="chat.secondUser.gender == Female ; else maleProfilePicture">
+                      <img [src]="female_avatar_photo_url" class="rounded-circle" style="width: 15px; height: 15px; " />
+                    </ng-container>
+                    <ng-template #maleProfilePicture>
+                      <img [src]="male_avatar_photo_url" class="rounded-circle" style="width: 15px; height: 15px;" />
+                    </ng-template>
+                  </ng-template>
                 </ng-container>
+
                 <ng-template #options>
                   <div ngbDropdown container="body">
                     <i class="fa fa-bars" style="color: #2fa4e7;" aria-hidden="true" ngbDropdownToggle></i>
