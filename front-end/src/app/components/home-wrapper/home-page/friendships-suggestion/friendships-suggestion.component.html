@@ -1,11 +1,11 @@
-<div class="container-fluid bg-secondary main">
+<div class="container-fluid bg-secondary main" onselectstart="return false">
 
   <div class="container-fluid header">
     <h4><i class="fa fa-search" aria-hidden="true"></i> &nbsp; suggestions</h4>
   </div>
   <app-spinner *ngIf="loading"></app-spinner>
 
-  <ng-container>
+  <ng-container onselectstart="return false">
     <p *ngIf="!loading && errorOnLoadingProfiles" class="errorOnLoadingProfiles"> there's an error on loading profiles
     </p>
     <ng-container *ngIf="profiles">
