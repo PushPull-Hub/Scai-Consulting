@@ -58,7 +58,6 @@ export class CreatePostComponent implements OnInit {
           .uploadPostImageToFireBaseDb(this.selectedImage)
           .then((url) => {
             post.imageUrl = url;
-            console.log(post);
             this.createPost(post);
           });
       } else {
@@ -73,7 +72,6 @@ export class CreatePostComponent implements OnInit {
         .uploadPostImageToFireBaseDb(this.selectedImage)
         .then((url) => {
           post.imageUrl = url;
-          console.log(post);
           this.createPost(post);
         });
       this.insertedText = '';

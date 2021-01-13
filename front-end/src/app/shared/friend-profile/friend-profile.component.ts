@@ -67,7 +67,6 @@ export class FriendProfileComponent implements OnInit {
               );
               this.loadPosts(profile.id);
               await this.loadOurRelationShip().then((result) => {
-                console.log(result);
                 this.loading = false;
               });
             } else {
@@ -79,15 +78,12 @@ export class FriendProfileComponent implements OnInit {
   }
 
   loadPosts(profileId: number) {
-    console.log('load posts fired');
-
     this.loadingPosts = true;
     this.postService
       .getProfilePosts(profileId)
       .toPromise()
       .then((result) => {
         if (result && result.length > 0) {
-          console.log(result);
           this.posts = result;
           this.doProfileHasPosts = true;
           this.loadingPosts = false;

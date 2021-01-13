@@ -49,7 +49,6 @@ export class MessageBoxComponent implements OnInit {
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
     this.messages = [];
-    console.log(this.messages);
     this.clicked = true;
     this.loadConversation();
     this.scrollToBottom();
@@ -98,7 +97,6 @@ export class MessageBoxComponent implements OnInit {
   }
 
   closeMessageBox() {
-    console.log('clicked ');
     this.exit.emit('1');
   }
 

@@ -32,7 +32,6 @@ export class ResetPasswordComponent implements OnInit {
         .resetPassword(this.userService.passwordReseter)
         .toPromise()
         .then((result) => {
-          console.log(result);
           if (result.password) {
             this.route.navigate(['/app/sign-in']);
           } else {

@@ -37,7 +37,6 @@ export class ImagesService {
           finalize(() => {
             fileRef.getDownloadURL().subscribe((url) => {
               if (url) {
-                console.log(url);
                 resolve(url);
               } else reject('echec on uploading image to firebase');
             });
@@ -68,8 +67,6 @@ export class ImagesService {
   }
 
   getFriendProfilePictureUrl(profile: MiniProfile): string {
-    console.log(profile);
-
     let url: string = null;
     profile.profilePictureUrl
       ? (url = profile.profilePictureUrl)

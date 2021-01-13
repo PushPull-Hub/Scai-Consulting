@@ -73,7 +73,6 @@ export class FriendsComponent implements OnInit {
             );
           }
         } catch (error) {
-          console.log(error);
           this.loading = false;
           this.isThereAnErrorToLoadProfiles = true;
         }

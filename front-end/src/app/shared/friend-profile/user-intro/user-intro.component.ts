@@ -31,7 +31,6 @@ export class UserIntroComponent implements OnInit {
       .getUserById(this.profile.id)
       .toPromise()
       .then((user) => {
-        console.log(user);
         this.user = user;
         this.loadInfos();
         this.loading = false;

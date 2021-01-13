@@ -38,7 +38,6 @@ export class SignInComponent implements OnInit, OnDestroy {
           this.router.navigate(['/home']);
         } else {
           this.combination = true;
-          console.log(responseData);
         }
       });
   }

@@ -12,8 +12,4 @@ export class SuggestionsComponent implements OnInit {
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
   }
-
-  loadProfiles(data) {
-    console.log(data);
-  }
 }
