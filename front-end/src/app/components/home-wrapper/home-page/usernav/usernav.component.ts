@@ -6,7 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usernav.component.scss'],
 })
 export class UsernavComponent implements OnInit {
+  navIconClicked: boolean;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.navIconClicked = true;
+  }
+
+  openAndCloseTheTab() {
+    this.navIconClicked = !this.navIconClicked;
+  }
 }

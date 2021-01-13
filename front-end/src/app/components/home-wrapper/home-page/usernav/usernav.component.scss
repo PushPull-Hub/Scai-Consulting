@@ -1,3 +1,23 @@
+.main {
+  border-radius: 15px;
+  border: 1px solid #dddfe2;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.component-header {
+  margin: 15px 15px;
+  padding-left: 0;
+  cursor: pointer;
+}
+
+.component-header > h4 > i {
+  margin-right: 0.7rem;
+}
+
+tbody th i {
+  margin-right: 1rem;
+}
+
 tbody i {
   color: black;
 }

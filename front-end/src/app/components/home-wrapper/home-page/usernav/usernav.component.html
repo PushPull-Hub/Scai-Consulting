@@ -1,47 +1,59 @@
-<div class="container-fluid bg-secondary" style="
-    border-radius: 15px;
-    border: 1px solid #dddfe2;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  ">
-  <div class="container-fluid" style="margin-top: 30px; margin-bottom: 25px; padding-left: 0;">
-    <h4><i class="fa fa-bars" aria-hidden="true"></i> &nbsp; Navigator</h4>
+<div class="main container-fluid bg-secondary">
+
+  <div class="container-fluid component-header" (click)="openAndCloseTheTab()">
+    <h4>
+      <ng-container *ngIf="navIconClicked; else elseTemplate">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </ng-template>
+      Navigator
+    </h4>
   </div>
 
-  <table class="table table-hover">
-    <tbody>
-      <tr>
-        <th scope="row">
-          <i class="fa fa-newspaper-o" aria-hidden="true"></i>&nbsp; &nbsp; News
-        </th>
-      </tr>
-      <tr>
-        <th scope="row">
-          <a routerLink="/messenger">
-            <i class="fa fa-comments" aria-hidden="true"></i>&nbsp;
-            &nbsp;Messenger</a>
-        </th>
-      </tr>
-      <tr>
-        <th scope="row">
-          <a routerLink="/settings">
-            <i class="fa fa-wrench" aria-hidden="true"></i>&nbsp; &nbsp;Settings
-          </a>
-        </th>
-      </tr>
-      <tr>
-        <th scope="row">
-          <a routerLink="/">
-            <i class="fa fa-flag" aria-hidden="true"></i>&nbsp; &nbsp;Pages
-          </a>
-        </th>
-      </tr>
-      <tr>
-        <th scope="row">
-          <a routerLink="/user/profile">
-            <i class="fa fa-users" aria-hidden="true"></i> &nbsp; &nbsp; Groups
-          </a>
-        </th>
-      </tr>
-    </tbody>
-  </table>
+  <ng-container *ngIf="navIconClicked">
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <th scope="row">
+            <a routerLink="/home">
+              <i class="fa fa-newspaper-o" aria-hidden="true"></i> News
+            </a>
+          </th>
+        </tr>
+        <tr>
+          <th scope="row">
+            <a routerLink="/messenger">
+              <i class="fa fa-comments" aria-hidden="true"></i>
+              Messenger</a>
+          </th>
+        </tr>
+        <tr>
+          <th scope="row">
+            <a routerLink="/settings">
+              <i class="fa fa-wrench" aria-hidden="true"></i> Settings
+            </a>
+          </th>
+        </tr>
+        <tr>
+          <th scope="row">
+            <a routerLink="/">
+              <i class="fa fa-flag" aria-hidden="true"></i> Pages
+            </a>
+          </th>
+        </tr>
+        <tr>
+          <th scope="row">
+            <a routerLink="/user/profile">
+              <i class="fa fa-users" aria-hidden="true"></i> Groups
+            </a>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+
+
 </div>
