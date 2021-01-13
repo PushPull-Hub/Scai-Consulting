@@ -9,6 +9,7 @@ import { PostComment } from 'src/app/models/PostComment.model';
 
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
+import { User } from 'src/app/models/User.model';
 
 @Component({
   selector: 'app-post',
@@ -27,6 +28,8 @@ export class PostComponent implements OnInit {
 
   imageUrl: string;
 
+  authenticatedUser: User;
+
   isLikedByMe: boolean;
   postedOn;
   owner: MiniProfile = null;
@@ -41,11 +44,12 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.commentButtonClicked = false;
-    this.isLikedByMe = this._checkIfItsLikedByMe();
-    this.getPostOwner();
-    this.postedOn = this.getdate(parseInt(this.post.created_time));
+    this.isLikedByMe = null;
+    this._checkIfItsLikedByMe();
     this.imageUrl = this.post.imageUrl;
+    this.postedOn = this.getdate(parseInt(this.post.created_time));
+    this.commentButtonClicked = false;
+    this.getPostOwner();
   }
 
   private getPostOwner() {
@@ -80,18 +84,24 @@ export class PostComponent implements OnInit {
     }
   }
 
-  _checkIfItsLikedByMe(): boolean {
-    if (this.post.likersIds) {
-      let authenticatedUserId: number;
-      this.authService
-        .getAuthenticatedUser()
-        .then((user) => (user.id = authenticatedUserId));
-      return this.post.likersIds.find((likerObject) => {
-        likerObject.likersId == authenticatedUserId;
+  async _checkIfItsLikedByMe() {
+    const doesPostHasLikes: boolean =
+      this.post.likersIds.length > 0 ? true : false;
+    const authenticatedUserId: number = this.authenticatedUser
+      ? this.authenticatedUser.id
+      : await this.authService.getAuthenticatedUser().then((user) => {
+          this.authenticatedUser = user;
+          return user.id;
+        });
+    if (doesPostHasLikes) {
+      this.isLikedByMe = this.post.likersIds.find((liker) => {
+        return liker.likersId == authenticatedUserId;
       })
         ? true
         : false;
-    } else return false;
+    } else {
+      this.isLikedByMe = false;
+    }
   }
 
   _getPostOwnerProfile(OwnerId: number): Promise<MiniProfile> {
