@@ -1,4 +1,4 @@
-<div class="container main-container" *ngIf="owner && isLikedByMe != null  ">
+<div class="container main-container" *ngIf="owner && isLikedByMe != null">
 
   <div class="container-fluid first-row-wrapper ">
     <div class="container first-row">
@@ -6,14 +6,15 @@
         <img class="rounded-circle" [src]="postOwnerProfilePicture">
       </div>
       <div class="c-user-name">
-        <h5> <a [routerLink]="[ '/user/profile/'+owner.id]"> {{ owner.firstName }} {{owner.lastName}} </a> </h5>
+        <h5> <a id="link" [routerLink]="[ '/user/profile/'+owner.id]"> {{ owner.firstName }} {{owner.lastName}} </a>
+        </h5>
       </div>
-      <div class="c-created-time">
+      <div class="c-created-time ml-auto">
         <span>{{postedOn}}</span>
       </div>
-      <button class="icon btn btn secondary float-right">
+      <!-- <button class="icon btn btn secondary float-right">
         <i class="fa fa-share"></i>
-      </button>
+      </button> -->
     </div>
   </div>
 
@@ -44,21 +45,23 @@
           <i class="fa fa-comment"></i>
         </button>
       </li>
+
+      <li class="ml-auto">
+        <div class="comments-and-likes float-right" (click)="whenCommentButtonClicked() " role="button">
+          <a>
+            {{ post.likersIds ? (post.likersIds.length > 1 ? post.likersIds.length + " Likes" : post.likersIds.length +
+            "
+            Like"
+            ) : 0 + " Like" }}
+            {{ post.comments ? (
+            post.comments.length > 1
+            ? post.comments.length + " Comments"
+            : post.comments.length + " Comment") : 0 + " Comment"
+            }}
+          </a>
+        </div>
+      </li>
     </ol>
-
-    <div class="comments-and-likes float-right">
-      <a>
-        {{ post.likersIds ? (post.likersIds.length > 1 ? post.likersIds.length + " Likes" : post.likersIds.length + "
-        Like"
-        ) : 0 + " Like" }}
-        {{ post.comments ? (
-        post.comments.length > 1
-        ? post.comments.length + " Comments"
-        : post.comments.length + " Comment") : 0 + " Comment"
-        }}
-      </a>
-    </div>
-
   </div>
 
   <div class="c-commetns" *ngIf="commentButtonClicked">
