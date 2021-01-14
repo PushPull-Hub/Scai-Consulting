@@ -47,6 +47,14 @@ body {
   padding: 0;
 }
 
+*:focus {
+  outline: none !important;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
 .ng-valid[required],
 .ng-valid.required {
   border-left: 5px solid #42a948; /* green */
