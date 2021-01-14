@@ -10,11 +10,13 @@ import { PostComment } from 'src/app/models/PostComment.model';
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
 import { User } from 'src/app/models/User.model';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
+  providers: [NgbModalConfig, NgbModal],
 })
 export class PostComponent implements OnInit {
   @Input() post: Post;
@@ -22,6 +24,8 @@ export class PostComponent implements OnInit {
 
   @Output() like = new EventEmitter();
   @Output() unlike = new EventEmitter();
+
+  @Input() canOpenPostModel: boolean;
 
   commentButtonClicked: boolean;
   textInputed: string;
@@ -40,8 +44,13 @@ export class PostComponent implements OnInit {
 
   constructor(
     private userService: UserServices,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    config: NgbModalConfig,
+    private modalService: NgbModal
+  ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
 
   ngOnInit(): void {
     this.isLikedByMe = null;
@@ -116,5 +125,13 @@ export class PostComponent implements OnInit {
 
   getdate(unixTime: any) {
     return moment(unixTime).subtract(10, 'days').calendar();
+  }
+
+  open(content) {
+    if (this.canOpenPostModel) {
+      this.modalService.open(content);
+    } else {
+      null;
+    }
   }
 }

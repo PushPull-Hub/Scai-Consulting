@@ -1,6 +1,14 @@
 <div class="container main-container" *ngIf="owner && isLikedByMe != null" onselectstart="return false">
 
-  <div class="container-fluid first-row-wrapper ">
+  <ng-template #content let-c="close" let-d="dismiss">
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <app-post [canOpenPostModel]="false" [post]="post"></app-post>
+  </ng-template>
+
+
+  <div class="container-fluid first-row-wrapper" (click)="open(content)">
     <div class="container first-row">
       <div class="c-user-image">
         <img class="rounded-circle" [src]="postOwnerProfilePicture">
@@ -12,9 +20,6 @@
       <div class="c-created-time ml-auto">
         <span>{{postedOn}}</span>
       </div>
-      <!-- <button class="icon btn btn secondary float-right">
-        <i class="fa fa-share"></i>
-      </button> -->
     </div>
   </div>
 
