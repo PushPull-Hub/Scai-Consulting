@@ -1,4 +1,4 @@
-<div class="container main-container" *ngIf="owner && isLikedByMe != null" onselectstart="return false">
+<div *ngIf="owner && isLikedByMe != null" onselectstart="return false">
 
   <ng-template #content let-c="close" let-d="dismiss">
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -32,7 +32,9 @@
 
   <ng-container *ngIf="imageUrl">
     <div class="c-post-image">
-      <img [src]="post.imageUrl">
+      <a (click)="open(content)">
+        <img [src]="post.imageUrl">
+      </a>
     </div>
   </ng-container>
 

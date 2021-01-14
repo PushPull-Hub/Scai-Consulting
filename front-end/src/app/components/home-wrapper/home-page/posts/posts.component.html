@@ -6,8 +6,10 @@
     <app-spinner *ngIf="loading"></app-spinner>
     <p *ngIf="!loading && !doIhavePostsToShow" style="color: red;"> No posts to show - try to add friends </p>
     <ng-container *ngIf="!loading">
-      <app-post [canOpenPostModel]="true" (like)="likePost($event)" (unlike)="unlikePost($event)"
-        (addCommentButtonClicked)="addCommentOnPost($event)" *ngFor="let post of posts" [post]="post"></app-post>
+      <div class="main-container">
+        <app-post [canOpenPostModel]="true" (like)="likePost($event)" (unlike)="unlikePost($event)"
+          (addCommentButtonClicked)="addCommentOnPost($event)" *ngFor="let post of posts" [post]="post"></app-post>
+      </div>
     </ng-container>
   </div>
 </div>
