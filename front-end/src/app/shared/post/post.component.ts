@@ -48,8 +48,9 @@ export class PostComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal
   ) {
-    config.backdrop = 'static';
-    config.keyboard = false;
+    config.keyboard = true;
+    config.centered = true;
+    config.backdrop = true;
   }
 
   ngOnInit(): void {
