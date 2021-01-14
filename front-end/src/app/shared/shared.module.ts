@@ -18,6 +18,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { IntroComponent } from '../components/home-wrapper/profile/second-wrapper/timeline/intro/intro.component';
 import { TimelinePostsComponent } from '../components/home-wrapper/profile/second-wrapper/timeline/timeline-posts/timeline-posts.component';
 import { UserIntroComponent } from './friend-profile/user-intro/user-intro.component';
+import { ModelPopUpComponent } from './model-pop-up/model-pop-up.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { UserIntroComponent } from './friend-profile/user-intro/user-intro.compo
     IntroComponent,
     TimelinePostsComponent,
     UserIntroComponent,
+    ModelPopUpComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +59,7 @@ import { UserIntroComponent } from './friend-profile/user-intro/user-intro.compo
     PostComponent,
     IntroComponent,
     TimelinePostsComponent,
+    ModelPopUpComponent,
   ],
 })
 export class SharedModule {}
