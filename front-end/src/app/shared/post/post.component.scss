@@ -1,8 +1,7 @@
-// .main-container {
-//   padding: 1rem 4rem 1rem 4rem;
-//   font-weight: 300;
-//   margin-bottom: 2rem;
-// }
+.marginRemBottom {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
 
 .first-row-wrapper {
   display: inline-flex;
@@ -11,7 +10,6 @@
 }
 
 .first-row {
-  margin-top: 1rem;
   display: flex;
   border-radius: 0.25rem;
   background: #e9ecef;

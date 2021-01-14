@@ -1,10 +1,12 @@
-<div *ngIf="owner && isLikedByMe != null" onselectstart="return false">
+<div class="main-container" [ngClass]="canOpenPostModel ? 'marginRemBottom' : ''" *ngIf="owner && isLikedByMe != null"
+  onselectstart="return false">
 
   <ng-template #content let-c="close" let-d="dismiss">
     <!-- <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button> -->
-    <app-post [canOpenPostModel]="false" [post]="post"></app-post>
+    <app-post [canOpenPostModel]="false" [post]="post">
+    </app-post>
   </ng-template>
 
 
