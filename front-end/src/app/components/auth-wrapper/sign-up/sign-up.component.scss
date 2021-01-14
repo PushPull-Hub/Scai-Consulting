@@ -34,3 +34,32 @@ section.intro {
 section .form-group {
   margin-bottom: 0;
 }
+
+label {
+  color: black;
+}
+
+input[name="dp"] {
+  width: 18rem;
+}
+
+.sign-up-button {
+  margin-top: 1.2rem;
+  background: #73a839;
+  color: #fff;
+}
+
+.sign-up-button > span {
+  margin-left: 0.5remd;
+}
+
+.have-account-button {
+  background: #1976d2;
+  color: #fff;
+  margin-left: 1rem;
+  margin-top: 1.2rem;
+}
+
+.spinner-wrapper {
+  margin-top: 12rem;
+}

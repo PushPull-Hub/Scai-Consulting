@@ -14,6 +14,7 @@ import { Subscription, throwError } from 'rxjs';
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit, OnDestroy {
+  creatingAccount: boolean;
   date: NgbDateStruct;
   options = [
     { name: 'male', value: Gender[0] },
@@ -25,9 +26,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserServices, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.creatingAccount = false;
+  }
 
   signUp(f: NgForm) {
+    this.creatingAccount = true;
     const email = f.value.email;
     const firstName = f.value.firstname;
     const password = f.value.password;
@@ -52,7 +56,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
       .createAccount(profile)
       .subscribe((responseData) => {
         if (responseData.id) {
-          this.router.navigate(['/sign-in']);
+          setTimeout(() => {
+            this.creatingAccount = false;
+            this.router.navigate(['/sign-in']);
+          }, 500);
         } else throw new Error('something went wrong');
       });
   }

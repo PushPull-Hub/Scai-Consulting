@@ -1,72 +1,86 @@
-<div class="row" style="margin: 0;">
+<div class="row m-0" onselectstart=" return false ">
   <div class="sky-background"></div>
   <app-header></app-header>
+
   <section class="intro">
-    <div class="container form-container" style="   margin: auto;; width:80%;">
-      <form #f="ngForm" (ngSubmit)="signUp(f)">
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label style=" color:black "> First Name </label>
-            <input type="text" class="form-control" id="inputFirstName" name="firstname" ngModel required
-              #firstname="ngModel" />
-          </div>
-          <div class="form-group col-md-6">
-            <label style=" color:black "> Second Name </label>
-            <input type="text" class="form-control" id="inputSecondName" name="secondname" ngModel required
-              #secondname="ngModel" />
-          </div>
+
+    <ng-container *ngIf="creatingAccount ; else loading">
+
+      <div class="spinner-wrapper d-flex justify-content-center text-primary">
+        <h3 class="mr-3"> Creating Account...</h3>
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
         </div>
-        <div class="form-group" style="margin-bottom: 0;">
-          <label style=" color:black "> Email</label>
-          <input type="email" class="form-control" id="inputEmail" name="email" ngModel required #email="ngModel" />
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label style=" color:black "> Password</label>
-            <input type="password" class="form-control" id="inputPassword" name="password" ngModel required
-              #password="ngModel" />
+      </div>
+    </ng-container>
+
+    <ng-template #loading>
+
+      <div class="container m-auto w-75 form-container">
+        <form #f="ngForm" (ngSubmit)="signUp(f)">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label> First Name </label>
+              <input class="form-control" name="firstname" ngModel required #firstname="ngModel" />
+            </div>
+            <div class="form-group col-md-6">
+              <label> Second Name </label>
+              <input class="form-control" name="secondname" ngModel required #secondname="ngModel" />
+            </div>
           </div>
-          <div class="col-md-6">
-            <label style=" color:black "> Date of Birth </label>
-            <form class="form-inline">
-              <div class="form-group">
-                <div class="input-group">
-                  <input class="form-control" placeholder="year-month-day" name="dp" [(ngModel)]="date" ngbDatepicker
-                    #d="ngbDatepicker" style="width: 299px;" required />
-                  <div class="input-group-append">
-                    <button class="btn btn-success" (click)="d.toggle()" type="button">
-                      <i class="fa fa-calendar" aria-hidden="true"></i>
-                    </button>
+
+          <div class="form-group m-b-0">
+            <label> Email</label>
+            <input type="email" class="form-control" name="email" ngModel required #email="ngModel" />
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label> Password</label>
+              <input type="password" class="form-control" name="password" ngModel required #password="ngModel" />
+            </div>
+            <div class="col-md-6">
+              <label> Date of Birth </label>
+              <form class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="year-month-day" name="dp" [(ngModel)]="date" ngbDatepicker
+                      #d="ngbDatepicker" required />
+                    <div class="input-group-append">
+                      <button class="btn btn-success" (click)="d.toggle()" type="button">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
-        <div class="from-row">
-          <div class="form-group col-md-6" id="gender" style="padding: 0; margin-bottom: 8px; ">
-            <label style=" color:black "> Gender</label>
-            <select class="custom-select" [(ngModel)]="selectedOption" name="first" required>
-              <option [value]="option.value" *ngFor="let option of options">{{
-              option.name
-            }}</option>
-            </select>
+
+          <div class="from-row">
+            <div class="form-group col-md-6" id="gender" style="padding: 0; margin-bottom: 8px; ">
+              <label> Gender</label>
+              <select class="custom-select" [(ngModel)]="selectedOption" name="first" required>
+                <option [value]="option.value" *ngFor="let option of options">{{
+                  option.name
+                  }}</option>
+              </select>
+            </div>
           </div>
-        </div>
 
-        <button type="submit" class="btn btn-success" style="margin-left: 16px; margin-top: 20px;"
-          [disabled]="f.invalid">
-          <i class="fa fa-user-plus" aria-hidden="true"></i>
-          <span style="margin-left: 5px;">Sign up</span>
-        </button>
-        <button type="button" class="btn btn-info" style="margin-left: 16px; margin-top: 20px;">
-          <a routerLink="/app/sign-in" style="text-decoration: none; color: white;">Already have account</a>
-        </button>
-      </form>
+          <div class="float-right">
+            <button type="submit" class="btn  sign-up-button" [disabled]="f.invalid">
+              <i class="fa fa-user-plus" aria-hidden="true"></i>
+              Sign up
+            </button>
+            <button type="button" class="btn  have-account-button" routerLink="/app/sign-in">
+              Already have account
+            </button>
+          </div>
 
-
-    </div>
+        </form>
+      </div>
+    </ng-template>
   </section>
-
-
 </div>
