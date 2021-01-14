@@ -38,7 +38,7 @@ public class FriendShipServiceImplementation implements FriendShipService {
     @Override
     @Transactional
     public List<FriendShip> getFriendShipList(String token) {
-        return friendShipDAO.getFriendShipList(new IdExtractor(token).getAuthenticatedUserId());
+        return friendShipDAO.getRelationShipShipList(new IdExtractor(token).getAuthenticatedUserId());
     }
 
     @Override

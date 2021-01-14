@@ -88,7 +88,7 @@ public class PostServiceImplementation implements PostService {
     public List<Post> getFriendsPosts(String token) {
         int myId = new IdExtractor(token).getAuthenticatedUserId();
         ArrayList<Integer> myFriendsId = new ArrayList<>();
-        List<FriendShip> myFriends = this.friendShipDAO.getFriendShipList(myId);
+        List<FriendShip> myFriends = this.friendShipDAO.getFriendShipShipList(myId);
         if (myFriends.size() > 0) {
             for (FriendShip myFriend : myFriends) {
                 if (myFriend.getFirstUserId() == myId) {

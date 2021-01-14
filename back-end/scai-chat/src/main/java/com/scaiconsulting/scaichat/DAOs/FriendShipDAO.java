@@ -11,7 +11,9 @@ public interface FriendShipDAO {
 
     FriendShip sendFriendRequest(FriendShip friendShip);
 
-    List<FriendShip> getFriendShipList(int userId);
+    List<FriendShip> getRelationShipShipList(int userId);
+
+    List<FriendShip> getFriendShipShipList(int userId);
 
     FriendShip acceptFriendRequest(FriendShip friendShip);
 

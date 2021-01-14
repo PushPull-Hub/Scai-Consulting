@@ -47,9 +47,17 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
     }
 
     @Override
-    public List<FriendShip> getFriendShipList(int userId) {
+    public List<FriendShip> getRelationShipShipList(int userId) {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:userId or secondUserId=:userId ", FriendShip.class);
+        theQuery.setParameter("userId", userId);
+        return theQuery.getResultList();
+    }
+
+    @Override
+    public List<FriendShip> getFriendShipShipList(int userId) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<FriendShip> theQuery = currentSession.createQuery("from FriendShip where firstUserId=:userId or secondUserId=:userId and status=1", FriendShip.class);
         theQuery.setParameter("userId", userId);
         return theQuery.getResultList();
     }
@@ -109,7 +117,7 @@ public class FriendShipDAOImplementation implements FriendShipDAO {
 
         ArrayList<Integer> friendsIds = new ArrayList<>();
         try {
-            List<FriendShip> userFriendShips = this.getFriendShipList(userId);
+            List<FriendShip> userFriendShips = this.getRelationShipShipList(userId);
             if (userFriendShips.size() > 0) {
                 for (FriendShip friendShip : userFriendShips) {
                     if (friendShip.getFirstUserId() == userId) {
