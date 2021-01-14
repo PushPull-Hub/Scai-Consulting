@@ -10,17 +10,20 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit, OnDestroy {
-  combination = false;
+  combination: boolean;
+  loading: boolean;
   signingIn: Subscription;
 
   constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.combination = false;
+  }
 
   signIn(f: NgForm) {
     const email = f.value.email;
     const password = f.value.password;
-
+    this.loading = true;
     this.signingIn = this.authService
       .logIn(email, password)
       .subscribe((responseData) => {
@@ -34,10 +37,14 @@ export class SignInComponent implements OnInit, OnDestroy {
           );
           this.authService._authenticatedUser.next(responseData.body);
           this.authService.token = responseData.headers.get('Authentication');
-          this.combination = false;
-          this.router.navigate(['/home']);
+          setTimeout(() => {
+            this.combination = false;
+            // this.loading = false;
+            this.router.navigate(['/home']);
+          }, 900);
         } else {
           this.combination = true;
+          this.loading = false;
         }
       });
   }
