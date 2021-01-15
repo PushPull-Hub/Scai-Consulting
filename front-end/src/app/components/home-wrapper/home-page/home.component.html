@@ -1,27 +1,43 @@
-<app-spinner *ngIf="loading"></app-spinner>
-<ng-container *ngIf="!loading">
-  <!-- the Body -->
-  <div class="container-fluid" style="background: #dfe3ee;">
-    <div class="row" style="height: 9000px;">
-      <!-- The UserNav -->
-      <div class="col-sm-3" style="margin-top: 30px;">
-        <app-usernav></app-usernav>
-      </div>
-      <!-- the middle component -->
-      <div class="col-sm-6" style="margin-top: 30px; height:8000px ;">
-        <!-- Create Post -->
-        <div style="margin: 30px 0 30px 0; padding: 0 30px 0 30px; ">
-          <create-post></create-post>
+<ng-container *ngIf="loading; else homePage">
+  <app-spinner *ngIf="loading"></app-spinner>
+</ng-container>
+
+<ng-template #homePage>
+  <div class="container-fluid main">
+    <div class="row">
+
+      <div class="col-sm-3 left-column">
+
+        <div class="c-wrapper" (click)="openAndCloseNavTab()">
+          <app-usernav [navIconClicked]="navIconClicked"></app-usernav>
         </div>
-        <!-- container of posts -->
+
+        <div class="c-wrapper" (click)="openAndCloseSuggestionsTab()">
+          <app-friendships-suggestion [suggestionIconClicked]="suggestionIconClicked"></app-friendships-suggestion>
+        </div>
+
+      </div>
+
+      <div class="col-sm-6 middle-column">
+
+        <div class="create-post-wrapper">
+
+          <ng-container *ngIf="createPostButtonClicked">
+            <create-post></create-post>
+          </ng-container>
+
+        </div>
+
         <app-posts></app-posts>
+
       </div>
-      <!-- the Third component -->
-      <div class="col-sm-3" style="margin-top: 30px; padding-left: 0px;">
-        <app-friendships-suggestion></app-friendships-suggestion>
-      </div>
-      <!-- 4th Component-->
+
+      <!-- <div class="col-sm-3 right-column">
+         <app-friendships-suggestion></app-friendships-suggestion>
+      </div> -->
+
       <app-active-friends></app-active-friends>
+
     </div>
   </div>
-</ng-container>
+</ng-template>
