@@ -11,6 +11,7 @@ import { UserServices } from 'src/app/services/user.service';
   styleUrls: ['./friendships-suggestion.component.scss'],
 })
 export class FriendshipsSuggestionComponent implements OnInit {
+  iconClicked: boolean;
   friendsSuggestion: MiniProfile[];
   profiles: MiniProfile[];
   loading: boolean;
@@ -27,11 +28,16 @@ export class FriendshipsSuggestionComponent implements OnInit {
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
     this.errorOnLoadingProfiles = false;
-    this.loadProfiles();
+    this.iconClicked = false;
   }
 
   private loadProfiles() {
     this.loading = true;
+    const loaded = (duration) => {
+      setTimeout(() => {
+        this.loading = false;
+      }, duration);
+    };
     this.friendsService
       .getTenSuggestions()
       .toPromise()
@@ -40,7 +46,7 @@ export class FriendshipsSuggestionComponent implements OnInit {
           this.friendsSuggestion = res;
           this.userService.cache = [...this.friendsSuggestion];
           this.profiles = this.friendsSuggestion.slice(0, 5);
-          this.loading = false;
+          loaded(900);
         } else {
           this.loading = false;
           this.errorOnLoadingProfiles = false;
@@ -77,5 +83,10 @@ export class FriendshipsSuggestionComponent implements OnInit {
   redirectToProfile(profileId) {
     let url = `/user/profile/${profileId}`;
     this.router.navigate([url]);
+  }
+
+  openAndCloseTheTab() {
+    this.friendsSuggestion ? null : this.loadProfiles();
+    this.iconClicked = !this.iconClicked;
   }
 }
