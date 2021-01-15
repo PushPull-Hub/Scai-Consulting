@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-usernav',
@@ -6,14 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usernav.component.scss'],
 })
 export class UsernavComponent implements OnInit {
-  navIconClicked: boolean;
+  @Input() navIconClicked: boolean;
+  loading: boolean;
   constructor() {}
 
   ngOnInit(): void {
-    this.navIconClicked = false;
+    this.loading = false;
   }
 
-  openAndCloseTheTab() {
-    this.navIconClicked = !this.navIconClicked;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.navIconClicked.currentValue) {
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 900);
+    }
   }
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FriendsService } from 'src/app/services/friends.service';
 import { environment } from 'src/environments/environment';
 import { MiniProfile } from 'src/app/models/MiniProfile.model';
 import { Router } from '@angular/router';
 import { UserServices } from 'src/app/services/user.service';
+import { SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-friendships-suggestion',
@@ -11,7 +12,7 @@ import { UserServices } from 'src/app/services/user.service';
   styleUrls: ['./friendships-suggestion.component.scss'],
 })
 export class FriendshipsSuggestionComponent implements OnInit {
-  iconClicked: boolean;
+  @Input() suggestionIconClicked: boolean;
   friendsSuggestion: MiniProfile[];
   profiles: MiniProfile[];
   loading: boolean;
@@ -28,10 +29,19 @@ export class FriendshipsSuggestionComponent implements OnInit {
   ngOnInit(): void {
     this.male_avatar_photo_url = environment.male_avatar_photo_url;
     this.errorOnLoadingProfiles = false;
-    this.iconClicked = false;
+    this.profiles = [];
   }
 
-  private loadProfiles() {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes.suggestionIconClicked.currentValue &&
+      this.profiles.length <= 0
+    ) {
+      this.loadProfiles();
+    }
+  }
+
+  loadProfiles() {
     this.loading = true;
     const loaded = (duration) => {
       setTimeout(() => {
@@ -83,10 +93,5 @@ export class FriendshipsSuggestionComponent implements OnInit {
   redirectToProfile(profileId) {
     let url = `/user/profile/${profileId}`;
     this.router.navigate([url]);
-  }
-
-  openAndCloseTheTab() {
-    this.friendsSuggestion ? null : this.loadProfiles();
-    this.iconClicked = !this.iconClicked;
   }
 }

@@ -1,6 +1,6 @@
 <div class="main container-fluid bg-secondary" onselectstart="return false">
 
-  <div class="container-fluid component-header" (click)="openAndCloseTheTab()">
+  <div class="container-fluid component-header">
     <h4>
       <ng-container *ngIf="navIconClicked; else elseTemplate">
         <i class="fa fa-times" aria-hidden="true"></i>
@@ -13,45 +13,55 @@
   </div>
 
   <ng-container *ngIf="navIconClicked">
-    <table class="table table-hover">
-      <tbody>
-        <tr>
-          <th scope="row">
-            <a routerLink="/home">
-              <i class="fa fa-newspaper-o" aria-hidden="true"></i> News
-            </a>
-          </th>
-        </tr>
-        <tr>
-          <th scope="row">
-            <a routerLink="/messenger">
-              <i class="fa fa-comments" aria-hidden="true"></i>
-              Messenger</a>
-          </th>
-        </tr>
-        <tr>
-          <th scope="row">
-            <a routerLink="/settings">
-              <i class="fa fa-wrench" aria-hidden="true"></i> Settings
-            </a>
-          </th>
-        </tr>
-        <tr>
-          <th scope="row">
-            <a routerLink="/">
-              <i class="fa fa-flag" aria-hidden="true"></i> Pages
-            </a>
-          </th>
-        </tr>
-        <tr>
-          <th scope="row">
-            <a routerLink="/user/profile">
-              <i class="fa fa-users" aria-hidden="true"></i> Groups
-            </a>
-          </th>
-        </tr>
-      </tbody>
-    </table>
+    <ng-container *ngIf="!loading; else spinner">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th scope="row">
+              <a routerLink="/home">
+                <i class="fa fa-newspaper-o" aria-hidden="true"></i> News
+              </a>
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              <a routerLink="/messenger">
+                <i class="fa fa-comments" aria-hidden="true"></i>
+                Messenger</a>
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              <a routerLink="/settings">
+                <i class="fa fa-wrench" aria-hidden="true"></i> Settings
+              </a>
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              <a routerLink="/">
+                <i class="fa fa-flag" aria-hidden="true"></i> Pages
+              </a>
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              <a routerLink="/user/profile">
+                <i class="fa fa-users" aria-hidden="true"></i> Groups
+              </a>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-template #spinner>
+
+      <div class=" d-flex justify-content-center text-primary spinner-wrapper">
+        <div class="spinner-grow " role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </ng-template>
   </ng-container>
 
 
