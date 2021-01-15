@@ -20,15 +20,16 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class PostComponent implements OnInit {
   @Input() post: Post;
+  @Input() canOpenPostModel: boolean;
+
   @Output() addCommentButtonClicked = new EventEmitter<PostComment>();
 
   @Output() like = new EventEmitter();
   @Output() unlike = new EventEmitter();
 
-  @Input() canOpenPostModel: boolean;
-
   commentButtonClicked: boolean;
   textInputed: string;
+  now: number;
 
   imageUrl: string;
 
@@ -60,6 +61,7 @@ export class PostComponent implements OnInit {
     this.postedOn = this.getdate(parseInt(this.post.created_time));
     this.commentButtonClicked = false;
     this.getPostOwner();
+    this.now = moment().valueOf();
   }
 
   private getPostOwner() {
@@ -75,13 +77,15 @@ export class PostComponent implements OnInit {
     this.commentButtonClicked = !this.commentButtonClicked;
   }
 
-  addComment() {
-    const _comment = new PostComment();
-    _comment.createdTime = '123456789';
-    _comment.postId = this.post.id;
-    _comment.comment = this.textInputed;
-    this.addCommentButtonClicked.emit(_comment);
-    this.textInputed = '';
+  addComment(): void {
+    if (this.textInputed && this.textInputed.trim() !== '') {
+      const _comment = new PostComment();
+      _comment.createdTime = this.now;
+      _comment.postId = this.post.id;
+      _comment.comment = this.textInputed;
+      this.addCommentButtonClicked.emit(_comment);
+      this.textInputed = '';
+    } else null;
   }
 
   reactOnPost() {

@@ -1,6 +1,6 @@
 export class PostComment extends Object {
   id: number;
-  createdTime: string;
+  createdTime: number;
   comment: string;
   postId: number;
   userId: number;
