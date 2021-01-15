@@ -1,1 +1,32 @@
+.main {
+  background: #dfe3ee;
+  height: 100vh;
+}
 
+.left-column {
+  margin-top: 30px;
+}
+
+.middle-column {
+  margin-top: 30px;
+}
+
+.create-post-wrapper {
+  margin: 30px 0 30px 0;
+  padding: 0 30px 0 30px;
+}
+
+.right-column {
+  margin-top: 30px;
+  padding-left: 0px;
+}
+
+.hoverd :hover {
+  box-shadow: 0 6px 6px rgba(10, 16, 20, 0.15), 0 0 52px rgba(10, 16, 20, 0.12);
+}
+
+.component-header {
+  margin: 15px 15px;
+  padding-left: 0;
+  cursor: pointer;
+}
