@@ -10,7 +10,7 @@ export class UsernavComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.navIconClicked = true;
+    this.navIconClicked = false;
   }
 
   openAndCloseTheTab() {
