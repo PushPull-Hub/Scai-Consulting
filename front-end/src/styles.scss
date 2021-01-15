@@ -38,7 +38,14 @@ $social-network-app-theme: mat-light-theme(
 @import "~bootstrap/scss/bootstrap";
 @import "~bootswatch/dist/cerulean/bootswatch";
 
+html,
 body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
   line-height: 2.5;
 }
 
@@ -51,7 +58,9 @@ body {
   outline: none !important;
 }
 
-.btn:focus {
+.btn:focus,
+.form-control:focus,
+input:focus {
   box-shadow: none;
 }
 
@@ -64,18 +73,6 @@ body {
   border-left: 5px solid #a94442; /* red */
 }
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-}
-
 .modal-backdrop.show {
   opacity: 0.9;
 }
-// html, body { height: 100%; }
-// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
