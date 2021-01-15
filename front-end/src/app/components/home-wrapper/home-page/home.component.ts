@@ -34,9 +34,13 @@ export class HomePageComponent implements OnInit {
 
   openAndCloseNavTab() {
     this.navIconClicked = !this.navIconClicked;
+    this.suggestionIconClicked = false;
+    this.createPostButtonClicked = false;
   }
 
   openAndCloseSuggestionsTab() {
     this.suggestionIconClicked = !this.suggestionIconClicked;
+    this.createPostButtonClicked = false;
+    this.navIconClicked = false;
   }
 }
