@@ -1,5 +1,4 @@
-<div class="container-fluid bg-secondary main" onselectstart="return false">
-
+<ng-container onselectstart="return false">
   <div class="container-fluid component-header">
     <h4>
       <ng-container *ngIf="suggestionIconClicked; else elseTemplate">
@@ -8,7 +7,7 @@
       <ng-template #elseTemplate>
         <i class="fa fa-users" aria-hidden="true"></i>
       </ng-template>
-      suggestions
+      Suggestions
     </h4>
   </div>
 
@@ -48,4 +47,4 @@
     <p *ngIf="!loading && errorOnLoadingProfiles" class="errorOnLoadingProfiles"> there's an error on loading profiles
   </ng-container>
 
-</div>
+</ng-container>
