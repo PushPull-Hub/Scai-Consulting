@@ -11,22 +11,32 @@
   margin-top: 30px;
 }
 
-.create-post-wrapper {
-  margin: 30px 0 30px 0;
-  padding: 0 30px 0 30px;
-}
-
 .right-column {
   margin-top: 30px;
   padding-left: 0px;
 }
 
-.hoverd :hover {
-  box-shadow: 0 6px 6px rgba(10, 16, 20, 0.15), 0 0 52px rgba(10, 16, 20, 0.12);
+.c-wrapper {
+  border-radius: 15px;
+  border: 1px solid #dddfe2;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.6s;
 }
 
-.component-header {
+.c-wrapper:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.c-header {
   margin: 15px 15px;
   padding-left: 0;
   cursor: pointer;
+}
+
+.c-header > h4 > i {
+  margin-right: 0.7rem;
+}
+
+div.col-sm-3.left-column > div:nth-child(3) > div {
+  display: flex;
 }
